@@ -31,7 +31,7 @@ public class UserController {
               model.addAttribute("avt_name", avt.getOriginalFilename());
               
               Thread.sleep(1500);
-              return "job/apply";
+              return "job/applys";
 		}
 		catch(Exception e) {
 			model.addAttribute("message", "lỗi lưu file!");
