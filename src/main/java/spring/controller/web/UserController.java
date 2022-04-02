@@ -25,13 +25,13 @@ public class UserController {
 	@RequestMapping(value="user-avt", method = RequestMethod.POST)
 	public String Avt(ModelMap model, @RequestParam("avt") MultipartFile avt) {
 		try {
-			String photoPath = context.getRealPath("/quanlyquancafe/"+avt.getOriginalFilename());
+			String photoPath = context.getRealPath("/files/"+avt.getOriginalFilename());
 			avt.transferTo(new File(photoPath));
 			
               model.addAttribute("avt_name", avt.getOriginalFilename());
               
               Thread.sleep(1500);
-              return "web/user-avt";
+              return "job/apply";
 		}
 		catch(Exception e) {
 			model.addAttribute("message", "lỗi lưu file!");
