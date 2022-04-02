@@ -28,7 +28,7 @@
         <div class="container">
             <div class="content">
                 <div class="header-content d-flex justify-content-center">
-                    THỰC ĐƠN
+                    CHI TIẾT HÓA ĐƠN
                 </div>
                 <div class="original-info d-flex justify-content-center">
                     <div class=" mg-0-40">
@@ -41,45 +41,49 @@
                     <div class=" mg-0-40">
                         Thời gian:
                         <span id="current-time"></span>
-
                     </div>
                 </div>
-                <table class="table table-striped datatable shadow-box bg-white">
+                <div class="" style="margin: 16px;">
+                    <a style="font-size: 16px; padding: 10px;" class="btn btn-secondary" href="hoa-don.htm">
+                        QUAY LẠI
+                    </a>
+                </div>
+                <table class="table table-striped datatable shadow-box">
+
                     <thead>
                         <tr>
-                            <th scope="row">ID</th>
-                            <th scope="row">Loại Thức Uống</th>
-                            <th scope="row">Tên Thức Uống</th>
-                            <th scope="row">Giá Thành</th>
+                            <th>Mã HD</th>
+                            <th>Mã SP</th>
+                            <th>Tên SP</th>
+                            <th>Giá</th>
+                            <th>Số Lượng</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>mdo</td>
+                            <td>Huỳnh Ngọc Dương</td>
+                            <td>1234567890</td>
+                            <td>1</td>
+                            <td>02:34 AM</td>
+                            <td>25/02/2022</td>
                         </tr>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>mdo</td>
+                            <td>Huỳnh Ngọc Dương</td>
+                            <td>1234567890</td>
+                            <td>1</td>
+                            <td>02:34 AM</td>
+                            <td>25/02/2022</td>
                         </tr>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>mdo</td>
+                            <td>Huỳnh Ngọc Dương</td>
+                            <td>1234567890</td>
+                            <td>1</td>
+                            <td>02:34 AM</td>
+                            <td>25/02/2022</td>
                         </tr>
 
                     </tbody>
+
                 </table>
             </div>
 
@@ -91,7 +95,6 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<script src="<c:url value='/template/web/scipts.js'/>"></script>
 
 
 </body>

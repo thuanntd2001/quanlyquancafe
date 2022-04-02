@@ -1,3 +1,34 @@
+const select = (el, all = false) => {
+    el = el.trim()
+    if (all) {
+        return [...document.querySelectorAll(el)]
+    } else {
+        return document.querySelector(el)
+    }
+}
+
+/**
+ * Easy event listener function
+ */
+const on = (type, el, listener, all = false) => {
+    if (all) {
+        select(el, all).forEach(e => e.addEventListener(type, listener))
+    } else {
+        select(el, all).addEventListener(type, listener)
+    }
+}
+
+/**
+ * Easy on scroll event listener 
+ */
+const onscroll = (el, listener) => {
+    el.addEventListener('scroll', listener)
+}
+const datatables = select('.datatable', true)
+datatables.forEach(datatable => {
+    new simpleDatatables.DataTable(datatable);
+})
+
 //gio tu dong
 function Dong_ho() {
     var date_now = document.getElementById("date-now");
@@ -34,7 +65,7 @@ $(selector).on('click', function () {
 // edit button
 
 function EditNumber(myid) {
-    let name2 = myid.substring(4);
+    let name2 = 'inp-' + myid.substring(4);
     // alert(name2);
 
     if ($(`#` + name2).attr('disabled')) {
@@ -45,6 +76,4 @@ function EditNumber(myid) {
         $('#' + myid).text('SỬA').removeClass('btn-success');
     }
 };
-
-
 

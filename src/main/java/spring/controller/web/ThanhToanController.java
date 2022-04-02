@@ -3,11 +3,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
-public class User {
+public class ThanhToanController {
 
-	@RequestMapping(value = "user" , method = RequestMethod.GET)
+	@RequestMapping(value = "thanh-toan" , method = RequestMethod.GET)
 	public String showMenu() {
-		return "web/user";
+		return "web/pay";
 	}
 
 }
