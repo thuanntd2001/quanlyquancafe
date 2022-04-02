@@ -61,10 +61,13 @@
                                </label>
                              </div> -->
 					<input type="hidden" value="login" name="action" />
+					
+					
 				</div>
 				<div class="card-footer text-muted">
 					<button type="submit" class="btn btn-primary">Login</button>
-					<!-- <button class="btn btn-secondary">Reset</button> -->
+					<button class="btn btn-secondary">Reset</button>
+					<a href="mailer/form.htm" class="btn btn-primary">Forgotpassword</a>
 				</div>
 			</div>
 		</form>

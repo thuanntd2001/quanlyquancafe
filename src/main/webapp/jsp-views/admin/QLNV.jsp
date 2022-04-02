@@ -59,7 +59,7 @@
 							<td>
 								<div style="width: 95px;" class="row">
 									<div class="col-6">
-										<button style="font-size: 14px;">SỬA</button>
+										<button style="font-size: 14px;"><a>SỬA</a></button>
 									</div>
 									<div class="col-6">
 										<button style="font-size: 10px;" type="button"

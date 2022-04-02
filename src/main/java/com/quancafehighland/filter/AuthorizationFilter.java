@@ -38,7 +38,7 @@ public class AuthorizationFilter implements Filter {
 				response.sendRedirect(
 						request.getContextPath() + "/dang-nhap?action=login&message=not_login&alert=danger");
 			}
-		} else if (url.indexOf("/dang-nhap") != -1 || url.equals("/CNPM/")||url.indexOf("/mailer/")!=-1) {
+		} else if (url.indexOf("/dang-nhap") != -1 || url.equals("/CNPM/") || url.indexOf("/mailer")!=-1 ) {
 			filterChain.doFilter(servletRequest, servletResponse);
 		} else {
 			if (model == null) {

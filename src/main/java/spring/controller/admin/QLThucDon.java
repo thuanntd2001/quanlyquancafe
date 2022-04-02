@@ -9,6 +9,7 @@ public class QLThucDon {
 	@RequestMapping(value = "admin-qlthucdon" , method = RequestMethod.GET)
 	public String showMenu() {
 		return "admin/qlthucdon";
+	
 	}
 
 }

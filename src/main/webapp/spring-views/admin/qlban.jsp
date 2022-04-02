@@ -196,7 +196,7 @@
 									<div class="col-6">
 										<button style="font-size: 10px; width: 44px;" type="button"
 											class="btn" data-toggle="modal" data-target="#exampleModal1"
-											data-whatever="@mdo">SỬA</button>
+											data-whatever="@mdo"> <a href="" >SỬA</a></button>
 
 
 										<div class="modal fade" id="exampleModal1" tabindex="-1"

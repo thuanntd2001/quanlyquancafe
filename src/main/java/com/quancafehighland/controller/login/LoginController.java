@@ -34,7 +34,7 @@ public class LoginController extends HttpServlet{
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp-views/login.jsp");
 			rd.forward(request, response);
-		} else if (action != null && action.equals("logout")) {
+		} else if (action != null && action.equals("logout") ) {
 			SessionUtil.getInstance().removeValue(request, "USERMODEL");
 			response.sendRedirect(request.getContextPath()+"/dang-nhap?action=login");			
 		} else {
