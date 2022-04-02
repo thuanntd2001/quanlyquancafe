@@ -1,13 +1,14 @@
 package spring.controller.web;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
-public class ThanhToan {
+public class ThucDonController {
 
-	@RequestMapping(value = "thanh-toan" , method = RequestMethod.GET)
+	@RequestMapping(value = "thuc-don" , method = RequestMethod.GET)
 	public String showMenu() {
-		return "web/pay";
+		return "web/menu";
 	}
 
 }

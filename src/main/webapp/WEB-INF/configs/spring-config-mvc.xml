@@ -38,6 +38,11 @@
 		</property>
 	</bean>
 	
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- maxUploadSize=20MB -->
+		<property name="maxUploadSize" value="20971520" />
+	</bean>
 	
 	<!-- Cấu hình view -->
 	<bean id="viewResolver" 
