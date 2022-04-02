@@ -22,10 +22,10 @@ public class UserController {
 	@Autowired
 	ServletContext context;
 	
-	@RequestMapping("user-avt")
+	@RequestMapping(value="user-avt", method = RequestMethod.POST)
 	public String Avt(ModelMap model, @RequestParam("avt") MultipartFile avt) {
 		try {
-			String photoPath = context.getRealPath("/files/"+avt.getOriginalFilename());
+			String photoPath = context.getRealPath("/quanlyquancafe/"+avt.getOriginalFilename());
 			avt.transferTo(new File(photoPath));
 			
               model.addAttribute("avt_name", avt.getOriginalFilename());
@@ -34,7 +34,7 @@ public class UserController {
               return "web/user-avt";
 		}
 		catch(Exception e) {
-			model.addAttribute("message", "Lỗi lưu file!");
+			model.addAttribute("message", "lỗi lưu file!");
 		}
 		return "web/user";
 	}
