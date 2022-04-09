@@ -15,4 +15,13 @@ public class UserDAO extends AbstractDAO<UserModel> implements IUserDAO{
 	return users.isEmpty() ? null : users.get(0);
 }
 
+	@Override
+	public UserModel findByEmail(String email) {
+
+		StringBuilder sql = new StringBuilder("SELECT * FROM USERTB");
+		sql.append(" WHERE email = ?");
+		List<UserModel> users = query(sql.toString(), new UserMapper(), email);
+		return users.isEmpty() ? null : users.get(0);
+	}
+
 }
