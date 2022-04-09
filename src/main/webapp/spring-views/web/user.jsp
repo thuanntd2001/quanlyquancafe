@@ -68,6 +68,10 @@
 												Khẩu</button>
 										</li>
 
+										<li class="nav-item">
+											<button class="nav-link" data-bs-toggle="tab"
+												data-bs-target="#avata-edit">Đổi ảnh đại diện</button>
+										</li>
 									</ul>
 									<div class="tab-content pt-2">
 
@@ -126,28 +130,6 @@
 										<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
 											<!-- Profile Edit Form -->
-											<form action="job/apply.htm" method="post">
-												<div class="row mb-3">
-													<label for="profileImage"
-														class="col-md-4 col-lg-3 col-form-label">Ảnh Đại
-														Diện</label>
-													<div class="col-md-8 col-lg-9">
-														<img src="<c:url value='./common/images/avt.jpg' />"
-															alt="ảnh đại diện" class="avt-pic">
-														<div class="pt-2">
-															<div class="btn btn-primary btn-sm"
-																style="position: relative;">
-																<input type="file" accept=".jpg, .png"
-																	class="file-upload" name="avt" /> <i
-																	class="fas fa-upload"></i>
-															</div>
-															<a href="#" class="btn btn-danger btn-sm"
-																title="Remove my profile image"> <i
-																class="fas fa-trash-alt"></i></a>
-														</div>
-													</div>
-												<input type="submit">
-											</form>
 											<form action="">
 												<div class="row mb-3">
 													<label for="myid" class="col-md-4 col-lg-3 col-form-label">Mã
@@ -284,6 +266,28 @@
 
 										</div>
 
+										<div class="tab-pane fade pt-3" id="avata-edit">
+
+											<form action="user-avt.htm" method="post" enctype="multipart/form-data" class="row mb-3">
+												<label for="profileImage"
+													class="col-md-4 col-lg-3 col-form-label">Ảnh Đại
+													Diện</label>
+												<div class="col-md-8 col-lg-9">
+													<img src="<c:url value='./common/images/avt.jpg'/>" alt="Ảnh đại diện" />
+													<div class="pt-2">
+														<div class="btn btn-primary btn-sm"
+															style="position: relative;">
+															<input type="file" accept=".jpg, .png"
+																class="file-upload" name="avt" /> <i class="fas fa-upload"></i>
+														</div>
+														<a href="#" class="btn btn-danger btn-sm"
+															title="Remove my profile image"> <i
+															class="fas fa-trash-alt"></i></a> <input type="submit"
+															value="Lưu" class="btn btn-info btn-sm">
+													</div>
+												</div>
+											</form>
+										</div>
 									</div>
 									<!-- End Bordered Tabs -->
 
