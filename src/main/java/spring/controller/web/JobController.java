@@ -46,6 +46,7 @@ public class JobController {
 			}
 			catch (Exception e) {
 				model.addAttribute("message", "Lỗi lưu file!");
+				e.printStackTrace();
 			}
 		}
 		return "job/form";
