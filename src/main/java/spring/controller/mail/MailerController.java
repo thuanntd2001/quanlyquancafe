@@ -10,6 +10,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.quancafehighland.model.UserModel;
+import com.quancafehighland.service.impl.UserService;
+
 @Controller
 @RequestMapping("/mailer/")
 public class MailerController {
@@ -23,9 +26,15 @@ public class MailerController {
       @RequestMapping("send")
       public String send(ModelMap model,
                  @RequestParam("from") String from,
-                 @RequestParam("to") String to,
-                 @RequestParam("subject") String subject,
-                 @RequestParam("body") String body) {
+                 @RequestParam("to") String to
+                 /*@RequestParam("subject") String subject,
+                 @RequestParam("body") String body*/) {
+    	  UserService usv =new UserService();
+    	  UserModel user = usv.findByEmail(to);
+    	  if (user == null) {
+    		  model.addAttribute("message", "user có email này không tồn tại trong hệ thống");
+    	  }
+    	  else
            try{
                  // Táº¡o mail 
 //        	   from = "nhonamstg@gmail.com";
@@ -36,8 +45,8 @@ public class MailerController {
                 
                  helper.setTo(to);
                  helper.setReplyTo(from, from);
-                 helper.setSubject(subject);
-                 helper.setText(body, true);
+                 helper.setSubject("QUÁN CAFE HIGHLAND KÍNH GỬI");
+                 helper.setText("PASSWORD: "+user.getPasswd(), true);
                 // Gá»­i mail
                  mailer.send(mail);
                  model.addAttribute("message", "truy cập gmail để nhận mã!");

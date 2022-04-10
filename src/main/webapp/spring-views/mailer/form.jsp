@@ -15,20 +15,16 @@
 <body>
 	<h3 style="text-align: center;">${message}</h3>
 	<form class="container"  action="mailer/send.htm" method="post">
-		<!--  <p><input name="from" placeholder="From"></p> -->
-		<!--  <p><input name="to" placeholder="To"></p>
-        <p><input name="subject" placeholder="Subject"></p>
-        <p><textarea name="body" placeholder="Body" rows="3"
-cols="30"></textarea> </p> -->
+
 		<br>
 		<input value="nhonamstg@gmail.com" style ="display: none;" name="from" placeholder="From">
 		<div class="form-group">
-			<label for="exampleFormControlInput1">Email address</label> <input
+			<label for="exampleFormControlInput1">Nhập địa chỉ email của bạn</label> <input
 				name="to" type="email" class="form-control"
 				id="exampleFormControlInput1" placeholder="name@example.com">
 		</div>
 		
-		<div class="form-group">
+<!-- 		<div class="form-group">
 			<input name=subject class="form-control" type="text"
 				placeholder="subject">
 		</div>
@@ -38,7 +34,7 @@ cols="30"></textarea> </p> -->
 				rows="3"></textarea>
 		</div>
 
-
+ -->
 
 
 
