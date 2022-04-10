@@ -1,8 +1,6 @@
 package spring.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,15 +10,11 @@ import javax.persistence.Table;
 @Table(name="CHITIETDAT")
 public class ChiTietDatEntity {
 	@Id
-	@GeneratedValue
-	@Column(name="ID1")
-	private Long id1;
-	
 	@ManyToOne
 	@JoinColumn(name="ID")
 	private BanEntity bans;
 
-	
+	@Id
 	@ManyToOne
 	@JoinColumn(name="MADAT")
 	private DatBanEntity datBan;
@@ -41,13 +35,6 @@ public class ChiTietDatEntity {
 		this.datBan = datBan;
 	}
 
-	public Long getId1() {
-		return id1;
-	}
-
-	public void setId1(Long id1) {
-		this.id1 = id1;
-	}
 	
 	
 }
