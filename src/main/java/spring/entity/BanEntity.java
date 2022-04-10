@@ -19,8 +19,9 @@ public class BanEntity {
 	@GeneratedValue
 	@Column(name = "ID")
 	private Long id;
+	
 	@Column(name = "SOGHE")
-	private int soGhe;
+	private Integer soGhe;
 	
 	@ManyToOne
 	@JoinColumn(name = "LOAI")
@@ -40,11 +41,11 @@ public class BanEntity {
 		this.id = id;
 	}
 
-	public int getSoGhe() {
+	public Integer getSoGhe() {
 		return soGhe;
 	}
 
-	public void setSoGhe(int soGhe) {
+	public void setSoGhe(Integer soGhe) {
 		this.soGhe = soGhe;
 	}
 

@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,6 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name="HOADON")
 public class HoaDonEntity {
 	@Id
+	@GeneratedValue
 	@Column(name="ID")
 	private Long id;
 	
@@ -39,6 +41,9 @@ public class HoaDonEntity {
 	@JoinColumn(name="NVTHUCHIEN")
 	private NhanVienEntity hdnv;
 
+	@Column(name="TINHTRANG")
+	private Integer tinhTrang;
+	
 	public Long getId() {
 		return id;
 	}
@@ -77,6 +82,14 @@ public class HoaDonEntity {
 
 	public void setHdnv(NhanVienEntity hdnv) {
 		this.hdnv = hdnv;
+	}
+
+	public Integer getTinhTrang() {
+		return tinhTrang;
+	}
+
+	public void setTinhTrang(Integer tinhTrang) {
+		this.tinhTrang = tinhTrang;
 	}
 
 	

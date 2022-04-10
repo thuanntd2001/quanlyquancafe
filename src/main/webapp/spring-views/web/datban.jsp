@@ -47,7 +47,7 @@
 							<th scope="row">ID</th>
 							<th scope="row">Số Ghế</th>
 							<th scope="row">Loại Bàn</th>
-							<th scope="row">Giá Thành</th>
+							<th scope="row">Giá Thànhhh</th>
 							<th></th>
 						</tr>
 					</thead>

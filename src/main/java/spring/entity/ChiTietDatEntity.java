@@ -1,26 +1,40 @@
 package spring.entity;
 
-import javax.persistence.Column;
+import java.io.Serializable;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
+class ChiTietDatPK implements Serializable {
+    private BanEntity bans;
+    private DatBanEntity datBan;
+	public ChiTietDatPK(BanEntity bans, DatBanEntity datBan) {
+		super();
+		this.bans = bans;
+		this.datBan = datBan;
+	}
+	public ChiTietDatPK() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+}
+
+
 @Entity
+@IdClass(ChiTietDatPK.class)
 @Table(name="CHITIETDAT")
 public class ChiTietDatEntity {
 	@Id
-	@GeneratedValue
-	@Column(name="ID1")
-	private Long id1;
-	
 	@ManyToOne
 	@JoinColumn(name="ID")
 	private BanEntity bans;
 
-	
+	@Id
 	@ManyToOne
 	@JoinColumn(name="MADAT")
 	private DatBanEntity datBan;
@@ -41,13 +55,6 @@ public class ChiTietDatEntity {
 		this.datBan = datBan;
 	}
 
-	public Long getId1() {
-		return id1;
-	}
-
-	public void setId1(Long id1) {
-		this.id1 = id1;
-	}
 	
 	
 }
