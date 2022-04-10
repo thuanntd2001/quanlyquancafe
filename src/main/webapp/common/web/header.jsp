@@ -5,7 +5,7 @@
     <div class="container-fluid header">
         <nav class="navbar navbar-expand-md">
             <div class="container-fluid">
-                <a class="navbar-brand" href="./index.html">
+                <a class="navbar-brand" href="trang-chu.htm">
                     <img src="<c:url value='/common/images/logo_highland.png'/>" height="50" alt="">
                 </a>
                 <div class="dropdown">
@@ -15,7 +15,7 @@
                         nv1
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="<c:url value='user'/>">Thông tin tài khoản</a>
+                        <a class="dropdown-item" href="<c:url value='user.htm'/>">Thông tin tài khoản</a>
                         <a class="dropdown-item" href="dang-nhap?action=logout">Đăng xuất</a>
                     </div>
                 </div>
