@@ -121,20 +121,15 @@
                             <td>02:34 AM</td>
                             <td>25/02/2022</td>
                         </tr>
-                        <tr>
-                            <td>Huỳnh Ngọc Dương</td>
+                        <c:forEach var="d" items="${chiTietDat}">
+							<tr>
+								<td>${d.datBan.getId()}</td>
                             <td>1234567890</td>
                             <td>1</td>
                             <td>02:34 AM</td>
                             <td>25/02/2022</td>
-                        </tr>
-                        <tr>
-                            <td>Huỳnh Ngọc Dương</td>
-                            <td>1234567890</td>
-                            <td>1</td>
-                            <td>02:34 AM</td>
-                            <td>25/02/2022</td>
-                        </tr>
+							</tr>
+						</c:forEach>
 
                     </tbody>
 

@@ -21,9 +21,11 @@ import spring.entity.ChiTietDatEntity;
 
 @Transactional
 @Controller
-
+<<<<<<< HEAD:src/main/java/spring/controller/web/DatBanControllerHome.java
 public class DatBanControllerHome {
-
+=======
+public class DatBanController {
+>>>>>>> 58325cfeff82c6868fff9a384ffb1264bfa5110e:src/main/java/spring/controller/web/DatBanController.java
 	@Autowired
 	SessionFactory factory;
 	

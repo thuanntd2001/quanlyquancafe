@@ -47,12 +47,12 @@
 							<th scope="row">ID</th>
 							<th scope="row">Số Ghế</th>
 							<th scope="row">Loại Bàn</th>
-							<th scope="row">Giá Thànhhh</th>
+							<th scope="row">Giá Thành</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="b" items="${ban}">
+						<c:forEach var="b" items="${bans}">
 							<tr>
 								<th scope="row">${b.id}</th>
 								<td>${b.soGhe}</td>
@@ -61,7 +61,7 @@
 								<td>
 									<div class="">
 										<a style="font-size: 10px;" class="btn btn-primary"
-											href="datban2.htm"> XEM </a>
+											href="dat-ban/${b.id}.htm?linkView"> XEM </a>
 									</div>
 								</td>
 							</tr>
