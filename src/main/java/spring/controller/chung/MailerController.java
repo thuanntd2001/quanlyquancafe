@@ -1,4 +1,4 @@
-package spring.controller.mail;
+package spring.controller.chung;
 
 import javax.mail.internet.MimeMessage;
 

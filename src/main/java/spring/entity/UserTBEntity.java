@@ -28,6 +28,27 @@ public class UserTBEntity {
 	
 	@Column(name="STATUS")
 	private Integer status;
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	private String email;
+	
+	private String icon;
+
 
 	public String getUserName() {
 		return userName;

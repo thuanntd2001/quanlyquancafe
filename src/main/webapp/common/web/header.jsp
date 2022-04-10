@@ -6,12 +6,12 @@
         <nav class="navbar navbar-expand-md">
             <div class="container-fluid">
                 <a class="navbar-brand" href="./index.html">
-                    <img src="<c:url value='/common/images/logo_highland.png'/>" height="50" alt="">
+                    <img src="files/${sessionScope.USERMODEL.icon}" height="50" alt="">
                 </a>
                 <div class="dropdown">
                     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false" style="color: azure">
-                        <img src="<c:url value='/common/images/avt.jpg'/>" alt="" class="rounded-circle" style="max-width: 46px;">
+                        <img src="files/${sessionScope.USERMODEL.icon}" alt="" class="rounded-circle" style="max-width: 46px;">
                         nv1
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">

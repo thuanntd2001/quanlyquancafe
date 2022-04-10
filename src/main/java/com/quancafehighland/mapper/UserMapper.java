@@ -16,6 +16,8 @@ public class UserMapper implements RowMapper<UserModel>{
 			user.setRoleID(resultSet.getLong("ROLEID"));
 			user.setStatus(resultSet.getInt("STATUS"));
 			user.setUserName(resultSet.getString("username"));
+			user.setEmail(resultSet.getString("email"));
+			user.setIcon(resultSet.getString("icon"));
 			return user;
 		} catch (SQLException e) {
 			return null;

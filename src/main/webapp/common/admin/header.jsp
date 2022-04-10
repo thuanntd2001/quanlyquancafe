@@ -7,7 +7,7 @@
 		class="navbar navbar-expand-md navbar-light bg-black sticky-top">
 		<div style="background-color: brown;" class="container-fluid">
 			<a class="navbar-brand" href="#"> <img
-				src="<c:url value='/common/images/logo_highland.png'/>" height="50"
+				src="files/${sessionScope.USERMODEL.icon}" height="50"
 				alt="">
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"

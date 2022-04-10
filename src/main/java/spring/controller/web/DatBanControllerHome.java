@@ -16,12 +16,7 @@ import spring.entity.BanEntity;
 
 @Transactional
 @Controller
-public class DatBanController {
-	@RequestMapping("datban2")
-	public String DatBan2() {
-		return "web/datban2";
-	}
-	
+public class DatBanControllerHome {
 	@Autowired
 	SessionFactory factory;
 	@RequestMapping("trang-chu")
