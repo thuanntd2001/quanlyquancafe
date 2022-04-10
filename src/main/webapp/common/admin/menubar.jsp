@@ -11,7 +11,7 @@
 		</div>
 		<ul class="nav_list">
 
-			<li><a href="admin-home?action=QLNV"> <i
+			<li><a href="admin-home.htm"> <i
 					class="fas fa-table"></i> <span class="links_name">Quản lý
 						nhân viên</span>
 			</a></li>
