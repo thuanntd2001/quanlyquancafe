@@ -10,6 +10,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +31,8 @@ public class IconController {
 	ServletContext context;
 	@Autowired
 	SessionFactory factory;
+	
+
 
 	@RequestMapping(value = "user-avt", method = RequestMethod.POST)
 	public String Avt(ModelMap model, @RequestParam("avt") MultipartFile avt, HttpServletRequest request) {
@@ -43,7 +47,8 @@ public class IconController {
 			Transaction t = session.beginTransaction();
 
 			try {
-
+				
+			
 				UserTBEntity userUpdate = (UserTBEntity) session.merge((UserTBEntity)user);
 
 				t.commit();
