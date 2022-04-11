@@ -44,7 +44,7 @@
 
                     </div>
                 </div>
-                <table class="table table-striped datatable shadow-box bg-white">
+                <table class="table table-striped shadow-box bg-white">
                     <thead>
                         <tr>
                             <th scope="row">ID</th>
@@ -54,30 +54,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>mdo</td>
-                        </tr>
+                        <c:forEach var="td" items="${thucDons}">
+							<tr>
+								<th scope="row">${td.id1}</th>
+								<td>${td.loaiThucUong.tenLoai}</td>
+								<td>${td.ten}</td>
+								<td>${td.gia}</td>
+							</tr>
+						</c:forEach>
 
                     </tbody>
                 </table>
