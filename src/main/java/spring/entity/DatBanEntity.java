@@ -38,13 +38,13 @@ public class DatBanEntity {
 	
 	@Column(name="NGAYDAT")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="dd/MM/yyyy")
+	@DateTimeFormat(pattern="dd-MM-yyyy")
 	private Date ngayDat;
 	
 	@Column(name="TGDUKIEN")
-	/*@Temporal(TemporalType.TIMESTAMP)*/
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm:ss.SS")
-	private Timestamp tgDuKien;
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm:ss")
+	private Date tgDuKien;
 	
 	@OneToMany(mappedBy="datBan", fetch = FetchType.EAGER)
 	private Collection<ChiTietDatEntity> chiTietDat;
@@ -93,11 +93,11 @@ public class DatBanEntity {
 		this.ngayDat = ngayDat;
 	}
 
-	public Timestamp getTgDuKien() {
+	public Date getTgDuKien() {
 		return tgDuKien;
 	}
 
-	public void setTgDuKien(Timestamp tgDuKien) {
+	public void setTgDuKien(Date tgDuKien) {
 		this.tgDuKien = tgDuKien;
 	}
 

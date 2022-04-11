@@ -29,6 +29,8 @@ public class UserTBEntity {
 	@Column(name="STATUS")
 	private Integer status;
 	
+	private Long iD;
+	
 	public String getEmail() {
 		return email;
 	}
@@ -88,6 +90,14 @@ public class UserTBEntity {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Long getiD() {
+		return iD;
+	}
+
+	public void setiD(Long iD) {
+		this.iD = iD;
 	}
 	
 	

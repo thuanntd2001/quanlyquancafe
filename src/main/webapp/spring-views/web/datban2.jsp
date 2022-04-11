@@ -9,6 +9,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Highland Coffee</title>
+<base href="${pageContext.servletContext.contextPath}/">
+
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet"
@@ -47,7 +49,7 @@
                 </div>
                 <div class="d-flex justify-content-around">
                     <div class="">
-                        <a style="font-size: 16px; padding: 10px;" class="btn btn-secondary" href="trang-chu">
+                        <a style="font-size: 16px; padding: 10px;" class="btn btn-secondary" href="trang-chu.htm">
                             QUAY LẠI
                         </a>
                     </div>
@@ -114,20 +116,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Huỳnh Ngọc Dương</td>
-                            <td>1234567890</td>
-                            <td>1</td>
-                            <td>02:34 AM</td>
-                            <td>25/02/2022</td>
-                        </tr>
+
                         <c:forEach var="d" items="${chiTietDat}">
 							<tr>
-								<td>${d.datBan.getId()}</td>
-                            <td>1234567890</td>
-                            <td>1</td>
-                            <td>02:34 AM</td>
-                            <td>25/02/2022</td>
+								<td>${d.datBan.hoTen}</td>
+	                            <td>${d.datBan.sdt}</td>
+	                            <td><f:formatNumber value="${d.datBan.tienCoc}" type="currency" /></td>
+	                            <td>
+	                            ${d.datBan.ngayDat}
+	                            </td>
+	                            <td>${d.datBan.tgDuKien}</td>
 							</tr>
 						</c:forEach>
 
