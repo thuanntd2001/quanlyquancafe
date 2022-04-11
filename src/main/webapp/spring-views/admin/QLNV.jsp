@@ -6,7 +6,29 @@
 <head>
 <jsp:include page="/common/admin/head.jsp" />
 </head>
+
+<style>
+.table thead th {
+    vertical-align: baseline; 
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table td, .table th {
+    padding: 0.6rem;
+   
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.col-6 {
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 35%;
+}
+</style>
+
 <body>
+
 	<jsp:include page="/common/admin/header.jsp" />
 
 	<!-- CONTEND -->
@@ -14,8 +36,8 @@
 
 
 		<jsp:include page="/common/admin/menubar.jsp" />
-		<div class="col-md-10 col-lg-10">
-			<div class="container-fluid">
+		<div style="padding-left:0px;"  class="col-md-10 col-lg-10">
+			<div style="padding-left:0px;" class="container-fluid">
 				<h2 style="margin-top: 2%; margin-bottom: 1%;">QUẢN LÍ NHÂN
 					VIÊN</h2>
 				<div>
@@ -31,7 +53,7 @@
 						<tr>
 
 
-							<th scope="row">Mã Nhân Viên</th>
+							<th scope="row">Mã NV</th>
 							<th scope="row">Họ Tên</th>
 							<th scope="row">Ngày sinh</th>
 							<th scope="row">Phái</th>
@@ -44,16 +66,17 @@
 						</tr>
 					</thead>
 					<tbody>
+					<c:forEach var="nv" items="${nhanvien}">
 						<tr>
-							<td>1</td>
-							<td>2</td>
-							<td>3</td>
-							<td>4</td>
-							<td>5</td>
-							<td>6</td>
-							<td>7</td>
-							<td>8</td>
-							<td>9</td>
+							<td>${nv.maNV}</td>
+							<td>${nv.hoTen}</td>
+							<td>${nv.ngaySinh}</td>
+							<td>${nv.gioiTinh}</td>
+							<td>${nv.luong}</td>
+							<td>${nv.sdt}</td>
+							<td>${nv.cmnd}</td>
+							<td>${nv.diaChi}</td>
+							<td>${nv.ngayVaoLam}</td>
 
 
 							<td>
@@ -95,7 +118,7 @@
 							</td>
 						</tr>
 
-
+</c:forEach>
 					</tbody>
 				</table>
 

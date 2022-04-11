@@ -5,7 +5,7 @@
 	<div class="sidebar">
 		<div class="logo_content">
 			<div class="logo">
-				<div class="logo_name">HIGHTLAND COFFEE</div>
+				<div style="color: white;" class="logo_name">HIGHTLAND COFFEE</div>
 			</div>
 
 		</div>

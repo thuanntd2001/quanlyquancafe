@@ -11,7 +11,7 @@
 <body>
 	<jsp:include page="/common/admin/header.jsp" />
 	<!-- CONTENT -->
-	<div class="container-fluid main">
+	<div style="padding-left:0px;" class="container-fluid main">
 		<div class="row">
 			<jsp:include page="/common/admin/menubar.jsp" />
 			<div class="col-lg-10 bg-content">
