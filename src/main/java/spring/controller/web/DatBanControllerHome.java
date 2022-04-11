@@ -11,7 +11,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +20,6 @@ import spring.entity.ChiTietDatEntity;
 
 @Transactional
 @Controller
-
 public class DatBanControllerHome {
 
 	@Autowired
@@ -53,6 +51,5 @@ public class DatBanControllerHome {
 		List<ChiTietDatEntity> list = query.list();
 		return list;
 	}
-	
 	
 }

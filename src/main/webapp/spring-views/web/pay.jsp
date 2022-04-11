@@ -66,66 +66,12 @@
                     </div>
                     <div class="table-icon shadow-box">
 
+                        <c:forEach var="b" items="${bans}">
                         <div class="icon-coffee d-flex flex-column align-items-center">
                             <i class="fas fa-mug-hot"></i>
-                            <span style="font-size: 14px; color: black;">1</span>
+                            <span style="font-size: 14px; color: black;">${b.id }</span>
                         </div>
-                        <div class="icon-coffee d-flex flex-column align-items-center">
-                            <i class="fas fa-mug-hot"></i>
-                            <span style="font-size: 14px; color: black;">2</span>
-                        </div>
-                        <div class="icon-coffee d-flex flex-column align-items-center">
-                            <i class="fas fa-mug-hot"></i>
-                            <span style="font-size: 14px; color: black;">3</span>
-                        </div>
-                        <div class="icon-coffee d-flex flex-column align-items-center">
-                            <i class="fas fa-mug-hot"></i>
-                            <span style="font-size: 14px; color: black;">5</span>
-                        </div>
-                        <div class="icon-coffee d-flex flex-column align-items-center">
-                            <i class="fas fa-mug-hot"></i>
-                            <span style="font-size: 14px; color: black;">6</span>
-                        </div>
-                        <div class="icon-coffee d-flex flex-column align-items-center">
-                            <i class="fas fa-mug-hot"></i>
-                            <span style="font-size: 14px; color: black;">3</span>
-                        </div>
-                        <div class="icon-coffee d-flex flex-column align-items-center">
-                            <i class="fas fa-mug-hot"></i>
-                            <span style="font-size: 14px; color: black;">1</span>
-                        </div>
-                        <div class="icon-coffee d-flex flex-column align-items-center">
-                            <i class="fas fa-mug-hot"></i>
-                            <span style="font-size: 14px; color: black;">2</span>
-                        </div>
-                        <div class="icon-coffee d-flex flex-column align-items-center">
-                            <i class="fas fa-mug-hot"></i>
-                            <span style="font-size: 14px; color: black;">3</span>
-                        </div>
-                        <div class="icon-coffee d-flex flex-column align-items-center">
-                            <i class="fas fa-mug-hot"></i>
-                            <span style="font-size: 14px; color: black;">1</span>
-                        </div>
-                        <div class="icon-coffee d-flex flex-column align-items-center">
-                            <i class="fas fa-mug-hot"></i>
-                            <span style="font-size: 14px; color: black;">2</span>
-                        </div>
-                        <div class="icon-coffee d-flex flex-column align-items-center">
-                            <i class="fas fa-mug-hot"></i>
-                            <span style="font-size: 14px; color: black;">3</span>
-                        </div>
-                        <div class="icon-coffee d-flex flex-column align-items-center">
-                            <i class="fas fa-mug-hot"></i>
-                            <span style="font-size: 14px; color: black;">1</span>
-                        </div>
-                        <div class="icon-coffee d-flex flex-column align-items-center">
-                            <i class="fas fa-mug-hot"></i>
-                            <span style="font-size: 14px; color: black;">2</span>
-                        </div>
-                        <div class="icon-coffee d-flex flex-column align-items-center">
-                            <i class="fas fa-mug-hot"></i>
-                            <span style="font-size: 14px; color: black;">3</span>
-                        </div>
+                        </c:forEach>
                         
 
                     </div>
