@@ -35,5 +35,20 @@ public class DatBanControllerHome {
 		return "web/datban";
 	}
 
-
+	@RequestMapping(value = "dat-ban/{id}.htm", params = "linkView")
+	public String xemDatBan(HttpServletRequest request, ModelMap model,
+			@PathVariable("id") Long id) {
+		List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
+		model.addAttribute("chiTietDat", chiTietDat);
+		return "web/datban2";
+	}
+	
+	public List<ChiTietDatEntity> getChiTietDat (Long id) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM ChiTietDatEntity where bans.id =:id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		List<ChiTietDatEntity> list = query.list();
+		return list;
+	}
 }
