@@ -45,7 +45,7 @@ public class DatBanControllerHome {
 	
 	public List<ChiTietDatEntity> getChiTietDat (Long id) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM ChiTietDatEntity where id =:id";
+		String hql = "FROM ChiTietDatEntity where bans.id =:id";
 		Query query = session.createQuery(hql);
 		query.setParameter("id", id);
 		List<ChiTietDatEntity> list = query.list();
