@@ -27,8 +27,7 @@ public class MailerController {
       public String send(ModelMap model,
                  @RequestParam("from") String from,
                  @RequestParam("to") String to
-                 /*@RequestParam("subject") String subject,
-                 @RequestParam("body") String body*/) {
+                 ) {
     	  UserService usv =new UserService();
     	  UserModel user = usv.findByEmail(to);
     	  if (user == null) {

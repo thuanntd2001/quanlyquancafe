@@ -23,6 +23,7 @@
 
 </head>
 <body>
+
 	<jsp:include page="/common/web/header.jsp" />
 	<jsp:include page="/common/web/menubar.jsp" />
 
@@ -38,8 +39,8 @@
 							<div class="card">
 								<div
 									class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-									<img src="files/${sessionScope.USERMODEL.icon}"
-										alt="Profile" class="rounded-circle">
+									<img src="files/${sessionScope.USERMODEL.icon}" alt="Profile"
+										class="rounded-circle">
 									<h2>Huỳnh Ngọc Dương</h2>
 									<h3>nv1</h3>
 								</div>
@@ -265,20 +266,23 @@
 											<!-- End Change Password Form -->
 
 										</div>
-
+										<!-- ICON Tabs -->
 										<div class="tab-pane fade pt-3" id="avata-edit">
-
-											<form action="user-avt.htm" method="post" enctype="multipart/form-data" class="row mb-3">
+											<label> ${message} </label>
+											<form action="user-avt.htm" method="post"
+												enctype="multipart/form-data" class="row mb-3">
 												<label for="profileImage"
 													class="col-md-4 col-lg-3 col-form-label">Ảnh Đại
 													Diện</label>
 												<div class="col-md-8 col-lg-9" style="width: 100px;">
-													<img src="files/${sessionScope.USERMODEL.icon}" alt="Ảnh đại diện" />
+													<img src="files/${sessionScope.USERMODEL.icon}"
+														alt="Ảnh đại diện" />
 													<div class="pt-2">
 														<div class="btn btn-primary btn-sm"
 															style="position: relative;">
 															<input type="file" accept=".jpg, .png"
-																class="file-upload" name="avt" /> <i class="fas fa-upload"></i>
+																class="file-upload" name="avt" /> <i
+																class="fas fa-upload"></i>
 														</div>
 														<a href="#" class="btn btn-danger btn-sm"
 															title="Remove my profile image"> <i
@@ -289,7 +293,7 @@
 											</form>
 										</div>
 									</div>
-									<!-- End Bordered Tabs -->
+									<!-- End ICON Tabs -->
 
 								</div>
 							</div>

@@ -16,6 +16,8 @@ import com.quancafehighland.service.impl.UserService;
 import com.quancafehighland.utils.FormUtil;
 import com.quancafehighland.utils.SessionUtil;
 
+import spring.entity.UserTBEntity;
+
 
 @WebServlet(urlPatterns = {"/dang-nhap"})
 public class LoginController extends HttpServlet{
@@ -48,9 +50,11 @@ public class LoginController extends HttpServlet{
 		String action = request.getParameter("action");
 		if (action != null && action.equals("login")) {
 			UserModel model = FormUtil.toModel(UserModel.class, request);
+
 			model = userService.findByUserNameAndPasswordAndStatus(model.getUserName(), model.getPasswd(), 1);
 			if (model != null) {
 				SessionUtil.getInstance().putValue(request, "USERMODEL", model);
+
 				if (model.getRoleID()==1) {
 					response.sendRedirect(request.getContextPath()+"/admin-home.htm");
 				} else if (model.getRoleID()!=null) {

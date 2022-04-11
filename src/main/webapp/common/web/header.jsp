@@ -7,14 +7,14 @@
             <div class="container-fluid">
 
                 <a class="navbar-brand" href="./index.html">
-                    <img src="files/${sessionScope.USERMODEL.icon}" height="50" alt="">
+                    <img src="files/logo_highland.png" height="50" alt="">
 
                 </a>
                 <div class="dropdown">
                     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false" style="color: azure">
                         <img src="files/${sessionScope.USERMODEL.icon}" alt="" class="rounded-circle" style="max-width: 46px;">
-                        nv1
+                        Welcome ${sessionScope.USERMODEL.userName}
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="<c:url value='user.htm'/>">Thông tin tài khoản</a>

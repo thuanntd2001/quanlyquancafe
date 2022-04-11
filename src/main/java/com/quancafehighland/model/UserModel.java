@@ -1,15 +1,19 @@
 package com.quancafehighland.model;
 
-public class UserModel {
-	private Long iD;
-	private String passwd;
-	private Long roleID;
-	private int status;
-	private String userName;
+import spring.entity.UserTBEntity;
 
-	private String email;
+
+public class UserModel extends UserTBEntity{
+
 	
-	private String icon;
+	public UserModel() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	private Long iD;
+	
+	private Long roleID;
 
 	public Long getiD() {
 		return iD;
@@ -17,14 +21,6 @@ public class UserModel {
 
 	public void setiD(Long iD) {
 		this.iD = iD;
-	}
-
-	public String getPasswd() {
-		return passwd;
-	}
-
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
 	}
 
 	public Long getRoleID() {
@@ -35,38 +31,7 @@ public class UserModel {
 		this.roleID = roleID;
 	}
 
-	public int getStatus() {
-		return status;
-	}
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getIcon() {
-		return icon;
-	}
-
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
-
-
+	
 	
 }

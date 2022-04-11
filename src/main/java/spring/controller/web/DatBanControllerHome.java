@@ -11,7 +11,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,7 +35,7 @@ public class DatBanControllerHome {
 		model.addAttribute("bans", list);
 		return "web/datban";
 	}
-	
+/*	
 	@RequestMapping(value = "dat-ban/{id}.htm", params = "linkView")
 	public String xemDatBan(HttpServletRequest request, ModelMap model,
 			@PathVariable("id") Long id) {
@@ -53,6 +52,6 @@ public class DatBanControllerHome {
 		List<ChiTietDatEntity> list = query.list();
 		return list;
 	}
-	
+	*/
 	
 }

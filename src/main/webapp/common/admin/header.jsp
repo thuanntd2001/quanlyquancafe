@@ -7,7 +7,7 @@
 		class="navbar navbar-expand-md navbar-light bg-black sticky-top">
 		<div style="background-color: brown;" class="container-fluid">
 			<a class="navbar-brand" href="#"> <img
-				src="files/${sessionScope.USERMODEL.icon}" height="50"
+				src="files/logo_highland.png" height="50"
 				alt="">
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -23,7 +23,7 @@
 
 							<div class="col-lg-10 col-10">
 								<img style="border-radius: 50%; height: 50px; width: 50px;"
-									src="./imgs/avt.jpg" alt=""> Welcome admin
+									src="files/${sessionScope.USERMODEL.icon}" alt=""> Welcome ${sessionScope.USERMODEL.userName}
 
 							</div>
 							<div class="col-lg-2 col-2">
