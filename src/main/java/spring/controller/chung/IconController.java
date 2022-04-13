@@ -43,8 +43,8 @@ public class IconController {
 		entity.setEmail(model.getEmail());
 		entity.getUsernv().setMaNV(model.getID());
 		return entity;
-
 	}*/
+
 
 	public UserTBEntity getUser(Long id) {
 		Session session = factory.getCurrentSession();
@@ -61,11 +61,13 @@ public class IconController {
 			Session session = factory.openSession();
 			Transaction t = session.beginTransaction();
 			UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-			String photoPath = context.getRealPath("/files/" + user1.getUserName() + avt.getOriginalFilename());
+
+			String photoPath = context.getRealPath("/files/" + user1.getUserName().trim() + avt.getOriginalFilename().trim());
+
 			Long id = user1.getID();
 			UserTBEntity user = this.getUser(id);
 			avt.transferTo(new File(photoPath));
-			user.setIcon(user.getUserName() + avt.getOriginalFilename());
+			user.setIcon(user.getUserName().trim() + avt.getOriginalFilename().trim());
 			
 			try {
 				/*UserTBEntity userUpdate = (UserTBEntity) session.merge(getUser(user.getID()));

@@ -27,6 +27,7 @@ public class UserController {
 	public String index(ModelMap model,HttpServletRequest request) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
 		Long id = user1.getID();
+
 		UserTBEntity user = this.getUser(id);
 		model.addAttribute("user", user);
 		model.addAttribute("nv", this.getNV(id));
@@ -37,6 +38,7 @@ public class UserController {
 	public String index2(ModelMap model,HttpServletRequest request, @ModelAttribute("nv") NhanVienEntity nv) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
 		Long id = user1.getID();
+
 		UserTBEntity user = this.getUser(id);
 		model.addAttribute("user", user);
 		model.addAttribute("nv", this.getNV(id));
