@@ -1,7 +1,7 @@
 package spring.entity;
 
-import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,9 +26,9 @@ public class HoaDonEntity {
 	private Long id;
 	
 	@Column(name="NGAYTHUCHIEN")
-	/*@Temporal(TemporalType.TIMESTAMP)*/
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm:ss.SS")
-	private Timestamp ngayThucHien;
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm:ss")
+	private Date ngayThucHien;
 	
 	@ManyToOne()
 	@JoinColumn(name="BAN")
@@ -52,11 +52,11 @@ public class HoaDonEntity {
 		this.id = id;
 	}
 
-	public Timestamp getNgayThucHien() {
+	public Date getNgayThucHien() {
 		return ngayThucHien;
 	}
 
-	public void setNgayThucHien(Timestamp ngayThucHien) {
+	public void setNgayThucHien(Date ngayThucHien) {
 		this.ngayThucHien = ngayThucHien;
 	}
 

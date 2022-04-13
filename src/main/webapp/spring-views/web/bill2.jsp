@@ -60,27 +60,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Huỳnh Ngọc Dương</td>
-                            <td>1234567890</td>
-                            <td>1</td>
-                            <td>02:34 AM</td>
-                            <td>25/02/2022</td>
+                        <c:forEach var="cthd" items="${chiTietHD}">
+                        	<tr>
+                            <td>${cthd.hoaDon.id }</td>
+                            <td>${cthd.thucDon.id }</td>
+                            <td>${cthd.thucDon.ten }</td>
+                            <td>${cthd.thucDon.gia }</td>
+                            <td>${cthd.soLuong }</td>
                         </tr>
-                        <tr>
-                            <td>Huỳnh Ngọc Dương</td>
-                            <td>1234567890</td>
-                            <td>1</td>
-                            <td>02:34 AM</td>
-                            <td>25/02/2022</td>
-                        </tr>
-                        <tr>
-                            <td>Huỳnh Ngọc Dương</td>
-                            <td>1234567890</td>
-                            <td>1</td>
-                            <td>02:34 AM</td>
-                            <td>25/02/2022</td>
-                        </tr>
+                        </c:forEach>
 
                     </tbody>
 

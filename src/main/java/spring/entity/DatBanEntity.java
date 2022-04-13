@@ -43,8 +43,9 @@ public class DatBanEntity {
 	
 	@Column(name="TGDUKIEN")
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm:ss")
+	@DateTimeFormat(style = "dd/MM/yyyy HH:mm:ss")
 	private Date tgDuKien;
+	
 	
 	@OneToMany(mappedBy="datBan", fetch = FetchType.EAGER)
 	private Collection<ChiTietDatEntity> chiTietDat;

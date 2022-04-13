@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Highland Coffee</title>
-	<%-- <base href="${pageContext.servletContext.contextPath}/"> --%>
+	<base href="${pageContext.servletContext.contextPath}/">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link
@@ -55,136 +55,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                        <c:forEach var="hd" items="${hoaDon}">
+                        	<tr>
+                            <th scope="row">${hd.id }</th>
+                            <td>${hd.ngayThucHien}</td>
+                            <td>${hd.hdnv.hoTen}</td>
+                            <td>0</td>
                             <td>
                                 <div class="">
-                                    <a style="font-size: 10px;" class="btn btn-primary" href="hoa-don-2.htm">
+                                    <a style="font-size: 10px;" class="btn btn-primary" href="hoa-don/${hd.id}.htm?linkView">
                                         XEM
                                     </a>
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>
-                                <div class="">
-                                    <a style="font-size: 10px;" class="btn btn-primary" href="hoa-don-2.htm">
-                                        XEM
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>
-                                <div class="">
-                                    <a style="font-size: 10px;" class="btn btn-primary" href="hoa-don-2.htm">
-                                        XEM
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>
-                                <div class="">
-                                    <a style="font-size: 10px;" class="btn btn-primary" href="hoa-don-2.htm">
-                                        XEM
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>mdo</td>
-                            <td>
-                                <div class="">
-                                    <a style="font-size: 10px;" class="btn btn-primary" href="bill2.htm">
-                                        XEM
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>mdo</td>
-                            <td>
-                                <div class="">
-                                    <a style="font-size: 10px;" class="btn btn-primary" href="bill2.htm">
-                                        XEM
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>mdo</td>
-                            <td>
-                                <div class="">
-                                    <a style="font-size: 10px;" class="btn btn-primary" href="bill2.htm">
-                                        XEM
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>mdo</td>
-                            <td>
-                                <div class="">
-                                    <a style="font-size: 10px;" class="btn btn-primary" href="./bill2.html">
-                                        XEM
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>
-                                <div class="">
-                                    <a style="font-size: 10px;" class="btn btn-primary" href="./bill2.html">
-                                        XEM
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>
-                                <div class="">
-                                    <a style="font-size: 10px;" class="btn btn-primary" href="./bill2.html">
-                                        XEM
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>

@@ -37,13 +37,13 @@
 						<div class="col-xl-4">
 
 							<div class="card">
-								<div
+								<form:form modelAttribute="user" 
 									class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 									<img src="files/${sessionScope.USERMODEL.icon}" alt="Profile"
 										class="rounded-circle">
-									<h2>Huỳnh Ngọc Dương</h2>
-									<h3>nv1</h3>
-								</div>
+									<h2>${user.usernv.hoTen }</h2>
+									<h3>${user.userName }</h3>
+								</form:form>
 							</div>
 
 						</div>
