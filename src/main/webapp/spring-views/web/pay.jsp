@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Highland Coffee</title>
-	<%-- <base href="${pageContext.servletContext.contextPath}/"> --%>
+	<base href="${pageContext.servletContext.contextPath}/">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link
@@ -76,11 +76,13 @@
 
                     </div>
                 </div>
+                
                 <div class="col-lg-8">
                     <div class="original-info d-flex justify-content-center">
                         <div class=" mg-0-40">
                             Họ tên nhân viên: Huỳnh Ngọc Dương
                         </div>
+                        <!-- CAN TG -->
                         <div class=" mg-0-40">
                             Ngày:
                             <span id="date-now"></span>
@@ -90,6 +92,7 @@
                             <span id="current-time"></span>
 
                         </div>
+                        <!-- CAN TG -->
                     </div>
                     <div id="name-table">
                         <span>Bàn số:</span>

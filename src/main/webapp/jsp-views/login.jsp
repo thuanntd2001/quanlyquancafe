@@ -67,7 +67,7 @@
 				</div>
 				<div class="card-footer text-muted">
 					<button type="submit" class="btn btn-primary">Login</button>
-					<button class="btn btn-secondary">Reset</button>
+					<button class="btn btn-secondary" type="reset">Reset</button>
 					<a href="mailer/form.htm" class="btn btn-primary">Forgotpassword</a>
 				</div>
 			</div>
