@@ -1,6 +1,6 @@
 package spring.entity;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,9 +26,9 @@ public class ChiPhiEntity {
 	private String tenNL;
 	
 	@Column(name="NGAYNHAP")
-	/*@Temporal(TemporalType.TIMESTAMP)*/
+	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm:ss.SS")
-	private Timestamp ngayNhap;
+	private Date ngayNhap;
 	
 	@Column(name="SOLUONG")
 	private Integer soLuong;
@@ -68,11 +69,11 @@ public class ChiPhiEntity {
 		this.tenNL = tenNL;
 	}
 
-	public Timestamp getNgayNhap() {
+	public Date getNgayNhap() {
 		return ngayNhap;
 	}
 
-	public void setNgayNhap(Timestamp ngayNhap) {
+	public void setNgayNhap(Date ngayNhap) {
 		this.ngayNhap = ngayNhap;
 	}
 

@@ -29,9 +29,10 @@ public class UserTBEntity {
 	@Column(name="STATUS")
 	private Integer status;
 	
-
+	@Column(name ="EMAIL")
 	private String email;
 	
+	@Column(name="ICON")
 	private String icon;
 	
 	public String getEmail() {

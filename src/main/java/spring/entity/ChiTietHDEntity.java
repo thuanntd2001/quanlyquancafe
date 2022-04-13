@@ -45,6 +45,9 @@ public class ChiTietHDEntity {
 	@JoinColumn(name="MAHD")
 	private HoaDonEntity hoaDon;
 
+	@Column(name="TONGTIEN")
+	private Integer tongTien;
+	
 	public int getSoLuong() {
 		return soLuong;
 	}
@@ -67,6 +70,14 @@ public class ChiTietHDEntity {
 
 	public void setHoaDon(HoaDonEntity hoaDon) {
 		this.hoaDon = hoaDon;
+	}
+
+	public Integer getTongTien() {
+		return tongTien;
+	}
+
+	public void setTongTien(Integer tongTien) {
+		this.tongTien = tongTien;
 	}
 
 	

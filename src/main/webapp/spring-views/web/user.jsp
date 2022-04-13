@@ -75,79 +75,76 @@
 										</li>
 									</ul>
 									<div class="tab-content pt-2">
-
-										<form:form class="tab-pane fade show active profile-overview"
-											id="profile-overview" modelAttribute="nv,user">
-
-											<h5 class="card-title">Thông Tin Cá Nhân</h5>
-
-											<div class="row">
-												<div class="col-lg-3 col-md-4 label ">Mã Nhân Viên</div>
-												<div class="col-lg-9 col-md-8">${nv.maNV }</div>
-											</div>
-
-											<div class="row">
-												<div class="col-lg-3 col-md-4 label">Họ Tên</div>
-												<div class="col-lg-9 col-md-8">${nv.hoTen }</div>
-											</div>
-
-											<div class="row">
-												<div class="col-lg-3 col-md-4 label">Giới Tính</div>
-												<div class="col-lg-9 col-md-8">${nv.gioiTinh?'Nam':'Nữ' }</div>
-											</div>
-
-											<div class="row">
-												<div class="col-lg-3 col-md-4 label">Ngày Sinh</div>
-												<div class="col-lg-9 col-md-8">${nv.ngaySinh }</div>
-											</div>
-
-											<div class="row">
-												<div class="col-lg-3 col-md-4 label">SDT</div>
-												<div class="col-lg-9 col-md-8">${nv.sdt }</div>
-											</div>
-
-											<div class="row">
-												<div class="col-lg-3 col-md-4 label">CMND</div>
-												<div class="col-lg-9 col-md-8">${nv.cmnd }</div>
-											</div>
-
-											<div class="row">
-												<div class="col-lg-3 col-md-4 label">Email</div>
-												<div class="col-lg-9 col-md-8">
-													<%-- ${nv.cmnd } --%>
-													0
+										<div class="tab-pane fade show active profile-overview" id="profile-overview">
+											<form:form modelAttribute="nv,user">
+												<h5 class="card-title">Thông Tin Cá Nhân</h5>
+												<div class="row">
+													<div class="col-lg-3 col-md-4 label ">Mã Nhân Viên</div>
+													<div class="col-lg-9 col-md-8">${nv.maNV }</div>
 												</div>
-											</div>
 
-											<div class="row">
-												<div class="col-lg-3 col-md-4 label">Địa Chỉ</div>
-												<div class="col-lg-9 col-md-8">${nv.diaChi }</div>
-											</div>
+												<div class="row">
+													<div class="col-lg-3 col-md-4 label">Họ Tên</div>
+													<div class="col-lg-9 col-md-8">${nv.hoTen }</div>
+												</div>
 
-											<div class="row">
-												<div class="col-lg-3 col-md-4 label">Tên Tài Khoản</div>
-												<div class="col-lg-9 col-md-8">${user.userName }</div>
-											</div>
-										</form:form>
+												<div class="row">
+													<div class="col-lg-3 col-md-4 label">Giới Tính</div>
+													<div class="col-lg-9 col-md-8">${nv.gioiTinh?'Nam':'Nữ' }</div>
+												</div>
 
-										<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+												<div class="row">
+													<div class="col-lg-3 col-md-4 label">Ngày Sinh</div>
+													<div class="col-lg-9 col-md-8">${nv.ngaySinh }</div>
+												</div>
 
+												<div class="row">
+													<div class="col-lg-3 col-md-4 label">SDT</div>
+													<div class="col-lg-9 col-md-8">${nv.sdt }</div>
+												</div>
+
+												<div class="row">
+													<div class="col-lg-3 col-md-4 label">CMND</div>
+													<div class="col-lg-9 col-md-8">${nv.cmnd }</div>
+												</div>
+
+												<div class="row">
+													<div class="col-lg-3 col-md-4 label">Email</div>
+													<div class="col-lg-9 col-md-8">${user.email }</div>
+												</div>
+
+												<div class="row">
+													<div class="col-lg-3 col-md-4 label">Địa Chỉ</div>
+													<div class="col-lg-9 col-md-8">${nv.diaChi }</div>
+												</div>
+
+												<div class="row">
+													<div class="col-lg-3 col-md-4 label">Tên Tài Khoản</div>
+													<div class="col-lg-9 col-md-8">${user.userName }</div>
+												</div>
+											</form:form>
+										</div>
+
+										 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 											<!-- Profile Edit Form -->
-											<form:form modelAttribute="nv" method="post" action="user.htm">
+											<form:form modelAttribute="nv" method="post"
+												action="user.htm">
 												<div class="row mb-3">
 													<label class="col-md-4 col-lg-3 col-form-label">Mã
 														Nhân Viên</label>
 													<div class="col-md-8 col-lg-9">
-														<form:input cssClass="form-control" path="maNV" disabled />
+														<form:input path="maNV" cssClass="form-control"
+															disabled="true" />
 													</div>
 												</div>
 
 
-												<div class="row mb-3">
+												 <div class="row mb-3">
 													<label class="col-md-4 col-lg-3 col-form-label">Họ
 														Tên</label>
 													<div class="col-md-8 col-lg-9">
-														<form:input cssClass="form-control" path="hoTen" disabled />
+														<form:input cssClass="form-control" path="hoTen"
+															disabled="true" />
 													</div>
 												</div>
 
@@ -185,7 +182,7 @@
 												<div class="row mb-3">
 													<label class="col-md-4 col-lg-3 col-form-label">Email</label>
 													<div class="col-md-8 col-lg-9">
-														<form:input cssClass="form-control" path="email" />
+														<form:input cssClass="form-control" path="userTB[0].email" />
 													</div>
 												</div>
 
@@ -202,11 +199,10 @@
 														class="col-md-4 col-lg-3 col-form-label">Tên Tài
 														Khoản</label>
 													<div class="col-md-8 col-lg-9">
-														<input name="username" type="text" class="form-control"
-															id="username" value="user1" disabled />
+														<form:input cssClass="form-control"
+															path="userTB[0].userName" disabled="true" />
 													</div>
 												</div>
-
 												<div class="text-center">
 													<button type="submit" class="btn btn-primary">Lưu
 														Thay Đổi</button>
@@ -268,7 +264,7 @@
 													Diện</label>
 												<div class="col-md-8 col-lg-9" style="width: 100px;">
 													<img src="files/${sessionScope.USERMODEL.icon}"
-														alt="Ảnh đại diện" />
+														alt="Ảnh đại diện" class="avt-pic"/>
 													<div class="pt-2">
 														<div class="btn btn-primary btn-sm"
 															style="position: relative;">

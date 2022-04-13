@@ -30,7 +30,7 @@ public class HoaDonEntity {
 	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm:ss")
 	private Date ngayThucHien;
 	
-	@ManyToOne()
+	@ManyToOne
 	@JoinColumn(name="BAN")
 	private BanEntity ban;
 	
