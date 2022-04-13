@@ -5,6 +5,7 @@ import java.io.File;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -32,24 +33,42 @@ public class IconController {
 	@Autowired
 	SessionFactory factory;
 	
+/*	private UserTBEntity UserModelToUserEntity(UserModel model) {
+		UserTBEntity entity=new UserTBEntity();
+		entity.getChucVu().setId(model.getRoleID());
+		entity.setIcon(model.getIcon());
+		entity.setUserName(model.getUserName());
+		entity.setPasswd(model.getPasswd());
+		entity.setEmail(model.getEmail());
+		entity.getUsernv().setMaNV(model.getID());
+		return entity;
 
-
+	}
+*/
+	public UserTBEntity getUser(Long id) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM UserTBEntity where usernv.maNV =:id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		UserTBEntity list = (UserTBEntity) query.list().get(0);
+		return list;
+	}
 	@RequestMapping(value = "user-avt", method = RequestMethod.POST)
 	public String Avt(ModelMap model, @RequestParam("avt") MultipartFile avt, HttpServletRequest request) {
 
 		try {
+			Session session = factory.openSession();
+			Transaction t = session.beginTransaction();
 			UserModel user = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
 			String photoPath = context.getRealPath("/files/" + user.getUserName() + avt.getOriginalFilename());
 			avt.transferTo(new File(photoPath));
-			//tao ten file icon de lat ghi vo csdl
 			user.setIcon(user.getUserName() + avt.getOriginalFilename());
-			Session session = factory.openSession();
-			Transaction t = session.beginTransaction();
-
-			try {
-				
 			
-				UserTBEntity userUpdate = (UserTBEntity) session.merge((UserTBEntity)user);
+			try {
+				UserTBEntity userUpdate = (UserTBEntity) session.merge(getUser(user.getID()));
+				//tao ten file icon de lat ghi vo csdl
+				
+				userUpdate.setIcon(user.getUserName() + avt.getOriginalFilename());
 
 				t.commit();
 				model.addAttribute("message", "cập nhật thành công");

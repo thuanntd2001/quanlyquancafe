@@ -7,7 +7,7 @@
             <div class="container-fluid">
 
                 <a class="navbar-brand" href="./index.html">
-                    <img src="files/logo_highland.png" height="50" alt="">
+                    <img src="<c:url value='/common/images/logo_highland.png'/>" height="50" alt="">
 
                 </a>
                 <div class="dropdown">

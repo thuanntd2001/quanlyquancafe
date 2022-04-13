@@ -11,16 +11,16 @@ public class UserModel extends UserTBEntity{
 		// TODO Auto-generated constructor stub
 	}
 
-	private Long iD;
+	private Long ID;
 	
 	private Long roleID;
 
-	public Long getiD() {
-		return iD;
+	public Long getID() {
+		return ID;
 	}
 
-	public void setiD(Long iD) {
-		this.iD = iD;
+	public void setID(Long iD) {
+		this.ID = iD;
 	}
 
 	public Long getRoleID() {
