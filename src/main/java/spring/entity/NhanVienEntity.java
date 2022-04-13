@@ -33,7 +33,7 @@ public class NhanVienEntity {
 	private Date ngaySinh;
 	
 	@Column(name="GIOITINH")
-	private String gioiTinh;
+	private Boolean gioiTinh;
 	
 	@Column(name="LUONG")
 	private Integer luong;
@@ -91,11 +91,11 @@ public class NhanVienEntity {
 		this.ngaySinh = ngaySinh;
 	}
 
-	public String getGioiTinh() {
+	public Boolean getGioiTinh() {
 		return gioiTinh;
 	}
 
-	public void setGioiTinh(String gioiTinh) {
+	public void setGioiTinh(Boolean gioiTinh) {
 		this.gioiTinh = gioiTinh;
 	}
 
