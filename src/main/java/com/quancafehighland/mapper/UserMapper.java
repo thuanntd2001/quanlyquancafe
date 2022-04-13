@@ -11,7 +11,7 @@ public class UserMapper implements RowMapper<UserModel>{
 	public UserModel mapRow(ResultSet resultSet) {
 		try {
 			UserModel user = new UserModel();
-			user.setiD(resultSet.getLong("ID"));
+			user.setID(resultSet.getLong("ID"));
 			user.setPasswd(resultSet.getString("PASSWD"));
 			user.setRoleID(resultSet.getLong("ROLEID"));
 			user.setStatus(resultSet.getInt("STATUS"));

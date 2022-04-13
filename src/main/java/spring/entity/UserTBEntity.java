@@ -29,7 +29,10 @@ public class UserTBEntity {
 	@Column(name="STATUS")
 	private Integer status;
 	
-	private Long iD;
+
+	private String email;
+	
+	private String icon;
 	
 	public String getEmail() {
 		return email;
@@ -47,9 +50,6 @@ public class UserTBEntity {
 		this.icon = icon;
 	}
 
-	private String email;
-	
-	private String icon;
 
 
 	public String getUserName() {
@@ -92,13 +92,5 @@ public class UserTBEntity {
 		this.status = status;
 	}
 
-	public Long getiD() {
-		return iD;
-	}
-
-	public void setiD(Long iD) {
-		this.iD = iD;
-	}
-	
 	
 }
