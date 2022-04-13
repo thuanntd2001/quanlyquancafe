@@ -31,7 +31,7 @@ public class HoaDonController {
 	@RequestMapping(value = "hoa-don" , method = RequestMethod.GET)
 	public String showMenu(ModelMap model,HttpServletRequest request) {
 		UserModel user = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-		Long id = user.getiD();
+		Long id = user.getID();
 		List<HoaDonEntity> hoaDon = this.getHoaDon(id);
 		model.addAttribute("hoaDon", hoaDon);
 		return "web/bill";

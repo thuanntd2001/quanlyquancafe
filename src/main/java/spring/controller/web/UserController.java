@@ -25,7 +25,7 @@ public class UserController {
 	@RequestMapping(value = "user" , method = RequestMethod.GET)
 	public String index(ModelMap model,HttpServletRequest request) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-		Long id = user1.getiD();
+		Long id = user1.getID();
 		UserTBEntity user = this.getUser(id);
 		model.addAttribute("user", user);
 		return "web/user";

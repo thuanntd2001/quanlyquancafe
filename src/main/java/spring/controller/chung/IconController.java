@@ -26,6 +26,7 @@ import com.quancafehighland.utils.SessionUtil;
 import spring.entity.UserTBEntity;
 
 @Controller
+@javax.transaction.Transactional
 public class IconController {
 
 	@Autowired
@@ -33,7 +34,7 @@ public class IconController {
 	@Autowired
 	SessionFactory factory;
 	
-/*	private UserTBEntity UserModelToUserEntity(UserModel model) {
+	/*private UserTBEntity UserModelToUserEntity(UserModel model) {
 		UserTBEntity entity=new UserTBEntity();
 		entity.getChucVu().setId(model.getRoleID());
 		entity.setIcon(model.getIcon());
@@ -43,8 +44,8 @@ public class IconController {
 		entity.getUsernv().setMaNV(model.getID());
 		return entity;
 
-	}
-*/
+	}*/
+
 	public UserTBEntity getUser(Long id) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM UserTBEntity where usernv.maNV =:id";
@@ -59,24 +60,26 @@ public class IconController {
 		try {
 			Session session = factory.openSession();
 			Transaction t = session.beginTransaction();
-			UserModel user = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-			String photoPath = context.getRealPath("/files/" + user.getUserName() + avt.getOriginalFilename());
+			UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
+			String photoPath = context.getRealPath("/files/" + user1.getUserName() + avt.getOriginalFilename());
+			Long id = user1.getID();
+			UserTBEntity user = this.getUser(id);
 			avt.transferTo(new File(photoPath));
 			user.setIcon(user.getUserName() + avt.getOriginalFilename());
 			
 			try {
-				UserTBEntity userUpdate = (UserTBEntity) session.merge(getUser(user.getID()));
+				/*UserTBEntity userUpdate = (UserTBEntity) session.merge(getUser(user.getID()));
 				//tao ten file icon de lat ghi vo csdl
 				
-				userUpdate.setIcon(user.getUserName() + avt.getOriginalFilename());
-
+				userUpdate.setIcon(user.getUserName() + avt.getOriginalFilename());*/
+				session.update(user);
 				t.commit();
-				model.addAttribute("message", "cập nhật thành công");
+				model.addAttribute("message", "cập nhật thành công!");
 
 				Thread.sleep(5000);
 			} catch (Exception e) {
 				t.rollback();
-				model.addAttribute("message", "cập nhật thất bại");
+				model.addAttribute("message", "cập nhật thất bại!");
 				e.printStackTrace();
 			} finally {
 				session.close();
@@ -86,6 +89,7 @@ public class IconController {
 			return "web/user";
 		} catch (Exception e) {
 			model.addAttribute("message", "lỗi lưu file!");
+			e.printStackTrace();
 		}
 		return "web/user";
 	}
