@@ -45,6 +45,7 @@ public class IconController {
 		return entity;
 	}*/
 
+
 	public UserTBEntity getUser(Long id) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM UserTBEntity where usernv.maNV =:id";
@@ -60,7 +61,9 @@ public class IconController {
 			Session session = factory.openSession();
 			Transaction t = session.beginTransaction();
 			UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
+
 			String photoPath = context.getRealPath("/files/" + user1.getUserName().trim() + avt.getOriginalFilename().trim());
+
 			Long id = user1.getID();
 			UserTBEntity user = this.getUser(id);
 			avt.transferTo(new File(photoPath));
