@@ -75,7 +75,8 @@
 										</li>
 									</ul>
 									<div class="tab-content pt-2">
-										<div class="tab-pane fade show active profile-overview" id="profile-overview">
+										<div class="tab-pane fade show active profile-overview"
+											id="profile-overview">
 											<form:form modelAttribute="nv,user">
 												<h5 class="card-title">Thông Tin Cá Nhân</h5>
 												<div class="row">
@@ -99,6 +100,11 @@
 												</div>
 
 												<div class="row">
+													<div class="col-lg-3 col-md-4 label">Lương</div>
+													<div class="col-lg-9 col-md-8">${nv.luong }</div>
+												</div>
+
+												<div class="row">
 													<div class="col-lg-3 col-md-4 label">SDT</div>
 													<div class="col-lg-9 col-md-8">${nv.sdt }</div>
 												</div>
@@ -110,12 +116,17 @@
 
 												<div class="row">
 													<div class="col-lg-3 col-md-4 label">Email</div>
-													<div class="col-lg-9 col-md-8">${user.email }</div>
+													<div class="col-lg-9 col-md-8">${nv.userTB[0].email }</div>
 												</div>
 
 												<div class="row">
 													<div class="col-lg-3 col-md-4 label">Địa Chỉ</div>
 													<div class="col-lg-9 col-md-8">${nv.diaChi }</div>
+												</div>
+
+												<div class="row">
+													<div class="col-lg-3 col-md-4 label">Ngày vào làm</div>
+													<div class="col-lg-9 col-md-8">${nv.ngayVaoLam }</div>
 												</div>
 
 												<div class="row">
@@ -125,26 +136,35 @@
 											</form:form>
 										</div>
 
-										 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+										<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 											<!-- Profile Edit Form -->
 											<form:form modelAttribute="nv" method="post"
 												action="user.htm">
+												${message }
+													<div class="row mb-3">
+													<label
+														class="col-md-4 col-lg-3 col-form-label"></label>
+													<div class="col-md-8 col-lg-9">
+														<form:hidden cssClass="form-control" path="daNghi" />
+													</div>
+												</div>
+
 												<div class="row mb-3">
 													<label class="col-md-4 col-lg-3 col-form-label">Mã
 														Nhân Viên</label>
 													<div class="col-md-8 col-lg-9">
 														<form:input path="maNV" cssClass="form-control"
-															disabled="true" />
+															readonly="true" />
 													</div>
 												</div>
 
 
-												 <div class="row mb-3">
+												<div class="row mb-3">
 													<label class="col-md-4 col-lg-3 col-form-label">Họ
 														Tên</label>
 													<div class="col-md-8 col-lg-9">
 														<form:input cssClass="form-control" path="hoTen"
-															disabled="true" />
+															readonly="true" />
 													</div>
 												</div>
 
@@ -158,10 +178,10 @@
 												</div>
 
 												<div class="row mb-3">
-													<label for="birth" class="col-md-4 col-lg-3 col-form-label">Ngày
+													<label class="col-md-4 col-lg-3 col-form-label">Ngày
 														Sinh</label>
 													<div class="col-md-8 col-lg-9">
-														<input type="date" name="" id="birth" value="2001-01-01" />
+														<form:input path="ngaySinh" />
 													</div>
 												</div>
 
@@ -173,18 +193,21 @@
 												</div>
 
 												<div class="row mb-3">
+													<label for="cmnd" class="col-md-4 col-lg-3 col-form-label">Lương</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input cssClass="form-control" path="luong"
+															readonly="true" />
+													</div>
+												</div>
+
+												<div class="row mb-3">
 													<label for="cmnd" class="col-md-4 col-lg-3 col-form-label">CMND</label>
 													<div class="col-md-8 col-lg-9">
 														<form:input cssClass="form-control" path="cmnd" />
 													</div>
 												</div>
 
-												<div class="row mb-3">
-													<label class="col-md-4 col-lg-3 col-form-label">Email</label>
-													<div class="col-md-8 col-lg-9">
-														<form:input cssClass="form-control" path="userTB[0].email" />
-													</div>
-												</div>
+
 
 												<div class="row mb-3">
 													<label for="address"
@@ -195,17 +218,33 @@
 												</div>
 
 												<div class="row mb-3">
+													<label for="address"
+														class="col-md-4 col-lg-3 col-form-label">Ngày Vào
+														Làm</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input cssClass="form-control" path="ngayVaoLam"
+															readonly="true" />
+													</div>
+												</div>
+
+												<div class="row mb-3">
+													<label class="col-md-4 col-lg-3 col-form-label">Email</label>
+													<div class="col-md-8 col-lg-9" >
+														<input class="form-control" type="email" name="email" value="${user.email }" />
+													</div>
+												</div>
+												
+												<div class="row mb-3">
 													<label for="username"
 														class="col-md-4 col-lg-3 col-form-label">Tên Tài
 														Khoản</label>
 													<div class="col-md-8 col-lg-9">
-														<form:input cssClass="form-control"
-															path="userTB[0].userName" disabled="true" />
+														<input class="form-control" type="text" value="${user.userName }" readonly="readonly" />
 													</div>
 												</div>
 												<div class="text-center">
-													<button type="submit" class="btn btn-primary">Lưu
-														Thay Đổi</button>
+													<button type="submit" class="btn btn-primary"
+														name="btnupdate-info">Lưu Thay Đổi</button>
 												</div>
 											</form:form>
 											<!-- End Profile Edit Form -->
@@ -264,7 +303,7 @@
 													Diện</label>
 												<div class="col-md-8 col-lg-9" style="width: 100px;">
 													<img src="files/${sessionScope.USERMODEL.icon}"
-														alt="Ảnh đại diện" class="avt-pic"/>
+														alt="Ảnh đại diện" class="avt-pic" />
 													<div class="pt-2">
 														<div class="btn btn-primary btn-sm"
 															style="position: relative;">

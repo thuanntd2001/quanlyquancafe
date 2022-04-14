@@ -5,6 +5,7 @@ import javax.transaction.Transactional;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -43,6 +44,49 @@ public class UserController {
 		model.addAttribute("user", user);
 		model.addAttribute("nv", this.getNV(id));
 		return "web/user";
+	}
+	
+	
+	@RequestMapping(value="user", params="btnupdate-info")
+	public String editInfo(HttpServletRequest request, ModelMap model, 
+			@ModelAttribute("nv") NhanVienEntity nv, @ModelAttribute("user") UserTBEntity user) {
+		System.out.println(user.getEmail());
+		Integer temp = this.updateInfo(request,nv,user);
+		if( temp != 0) {
+			model.addAttribute("message", "Cập nhật thành công");
+		}
+		else {
+			model.addAttribute("message", "Cập nhật không thành công");
+		}
+		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
+		Long id = user1.getID();
+		UserTBEntity user2 = this.getUser(id);
+		model.addAttribute("user", user2);
+		model.addAttribute("nv", this.getNV(id));
+		return "web/user";
+	}
+	
+	public Integer updateInfo(HttpServletRequest request,NhanVienEntity nv, @ModelAttribute("user") UserTBEntity user ) {
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		System.out.println(user.getEmail());
+		try {
+			session.update(nv);
+			UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
+			Long id = user1.getID();
+			UserTBEntity user2 = this.getUser(id);
+			user2.setEmail(user.getEmail());
+			t.commit();
+		}
+		catch (Exception e) {
+			t.rollback();
+			e.printStackTrace();
+			return 0;
+		}
+		finally {
+			session.close();
+		}
+		return 1;
 	}
 	
 	public UserTBEntity getUser(Long id) {
