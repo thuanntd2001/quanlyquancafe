@@ -116,7 +116,7 @@
 
 												<div class="row">
 													<div class="col-lg-3 col-md-4 label">Email</div>
-													<div class="col-lg-9 col-md-8">${nv.userTB[0].email }</div>
+													<div class="col-lg-9 col-md-8">${user.email }</div>
 												</div>
 
 												<div class="row">
@@ -253,15 +253,15 @@
 
 										<div class="tab-pane fade pt-3" id="profile-change-password">
 											<!-- Change Password Form -->
-											<form>
-
+											<form action="user.htm">
+												${message}
 												<div class="row mb-3">
 													<label for="currentPassword"
 														class="col-md-4 col-lg-3 col-form-label">Mật Khẩu
 														Cũ</label>
 													<div class="col-md-8 col-lg-9">
 														<input name="password" type="password"
-															class="form-control" id="currentPassword" />
+															class="form-control" />
 													</div>
 												</div>
 
@@ -271,7 +271,7 @@
 														Mới</label>
 													<div class="col-md-8 col-lg-9">
 														<input name="newpassword" type="password"
-															class="form-control" id="newPassword" />
+															class="form-control" />
 													</div>
 												</div>
 
@@ -281,13 +281,14 @@
 														Mật Khẩu Mới</label>
 													<div class="col-md-8 col-lg-9">
 														<input name="renewpassword" type="password"
-															class="form-control" id="renewPassword" />
+															class="form-control"/>
 													</div>
 												</div>
 
 												<div class="text-center">
-													<button type="submit" class="btn btn-primary">Đổi
+													<button type="submit" class="btn btn-primary" name="btnChangePw">Đổi
 														Mật Khẩu</button>
+													<button type="reset" class="btn btn-danger">Hủy</button>
 												</div>
 											</form>
 											<!-- End Change Password Form -->
