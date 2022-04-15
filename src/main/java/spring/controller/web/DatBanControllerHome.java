@@ -53,7 +53,7 @@ public class DatBanControllerHome {
 		return "web/datban2";
 	}
 	
-	@RequestMapping(value = "dat-ban/{1}.htm?linkView", params = "btndatban")
+	@RequestMapping(value = "dat-ban/{id}.htm?linkView", params = "btndatban")
 	public String datBan(HttpServletRequest request, ModelMap model,
 			@PathVariable("id") Long id, @ModelAttribute("datban") DatBanEntity datban) {
 		Integer temp = this.themDatBan(datban);
@@ -63,7 +63,7 @@ public class DatBanControllerHome {
 		}else {
 			model.addAttribute("message","Thêm mới thất bại");
 		}
-		List<ChiTietDatEntity> chiTietDat = this.getChiTietDat((long) 1);
+		List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
 		model.addAttribute("chiTietDat", chiTietDat);
 		return "web/datban2";
 	};			

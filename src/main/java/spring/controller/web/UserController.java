@@ -129,7 +129,7 @@ public class UserController {
 		return 0;
 	};
 	
-	@RequestMapping(value = "user", params = "btnremoveavatar", method=RequestMethod.GET)
+	/*@RequestMapping(value = "user", params = "btnremoveavatar", method=RequestMethod.GET)
 	public String removeAvatarr(HttpServletRequest request, ModelMap model) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
 		Long id = user1.getID();
@@ -150,7 +150,7 @@ public class UserController {
 		model.addAttribute("nv", this.getNV(id));
 		return "web/user";
 	};
-	
+	*/
 	public UserTBEntity getUser(Long id) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM UserTBEntity where usernv.maNV =:id";
