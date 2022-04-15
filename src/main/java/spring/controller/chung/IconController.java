@@ -21,35 +21,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-
-
 import com.quancafehighland.model.UserModel;
 import com.quancafehighland.utils.SessionUtil;
 
 import spring.entity.UserTBEntity;
 import spring.controller.web.UserController;
 
-
 @Controller
 @javax.transaction.Transactional
 public class IconController {
-
+	String defaulf = "logo_highland.png";
 	@Autowired
 	ServletContext context;
 	@Autowired
 	SessionFactory factory;
-	
-	/*private UserTBEntity UserModelToUserEntity(UserModel model) {
-		UserTBEntity entity=new UserTBEntity();
-		entity.getChucVu().setId(model.getRoleID());
-		entity.setIcon(model.getIcon());
-		entity.setUserName(model.getUserName());
-		entity.setPasswd(model.getPasswd());
-		entity.setEmail(model.getEmail());
-		entity.getUsernv().setMaNV(model.getID());
-		return entity;
-	}*/
 
+	/*
+	 * private UserTBEntity UserModelToUserEntity(UserModel model) { UserTBEntity
+	 * entity=new UserTBEntity(); entity.getChucVu().setId(model.getRoleID());
+	 * entity.setIcon(model.getIcon()); entity.setUserName(model.getUserName());
+	 * entity.setPasswd(model.getPasswd()); entity.setEmail(model.getEmail());
+	 * entity.getUsernv().setMaNV(model.getID()); return entity; }
+	 */
 
 	public UserTBEntity getUser(Long id) {
 		Session session = factory.getCurrentSession();
@@ -59,15 +52,40 @@ public class IconController {
 		UserTBEntity list = (UserTBEntity) query.list().get(0);
 		return list;
 	}
+
+/*	@RequestMapping(value = "user-avt", params = "btnremoveavatar", method = RequestMethod.POST)
+	public String removeAvatarr(HttpServletRequest request, ModelMap model) {
+		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
+		Long id = user1.getID();
+		UserTBEntity user2 = this.getUser(id);
+		model.addAttribute("user", user2);
+		model.addAttribute("nv", this.getNV(id));
+		return "web/user";
+	};
+
+	@RequestMapping(value = "user", params = "btnremoveavatar", method = RequestMethod.POST)
+	public String removeAvatar(HttpServletRequest request, ModelMap model) {
+		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
+		Long id = user1.getID();
+		UserTBEntity user2 = this.getUser(id);
+		user2.setIcon("default-avatar.png");
+		System.out.println(user2.getIcon());
+		model.addAttribute("user", user2);
+		model.addAttribute("nv", this.getNV(id));
+		return "web/user";
+	};
+*/
 	@RequestMapping(value = "user-avt", method = RequestMethod.POST)
-	public String Avt(ModelMap model, @RequestParam("avt") MultipartFile avt, HttpServletRequest request, HttpServletResponse response) {
+	public String Avt(ModelMap model, @RequestParam("avt") MultipartFile avt, HttpServletRequest request,
+			HttpServletResponse response) {
 
 		try {
 			Session session = factory.openSession();
 			Transaction t = session.beginTransaction();
 			UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
 
-			String photoPath = context.getRealPath("/files/" + user1.getUserName().trim() + avt.getOriginalFilename().trim());
+			String photoPath = context
+					.getRealPath("/files/" + user1.getUserName().trim() + avt.getOriginalFilename().trim());
 
 			Long id = user1.getID();
 			UserTBEntity user = this.getUser(id);
@@ -76,15 +94,17 @@ public class IconController {
 			user1.setIcon(user.getUserName().trim() + avt.getOriginalFilename().trim());
 
 			try {
-				/*UserTBEntity userUpdate = (UserTBEntity) session.merge(getUser(user.getID()));
-				//tao ten file icon de lat ghi vo csdl
-				
-				userUpdate.setIcon(user.getUserName() + avt.getOriginalFilename());*/
+				/*
+				 * UserTBEntity userUpdate = (UserTBEntity)
+				 * session.merge(getUser(user.getID())); //tao ten file icon de lat ghi vo csdl
+				 * 
+				 * userUpdate.setIcon(user.getUserName() + avt.getOriginalFilename());
+				 */
 				session.update(user);
 				t.commit();
 				model.addAttribute("message", "cập nhật thành công!");
 
-				//Thread.sleep(5000);
+				// Thread.sleep(5000);
 			} catch (Exception e) {
 				t.rollback();
 				model.addAttribute("message", "cập nhật thất bại!");
@@ -92,14 +112,14 @@ public class IconController {
 			} finally {
 				session.close();
 			}
-			
+
 		} catch (Exception e) {
 			model.addAttribute("message", "lỗi lưu file!");
 			e.printStackTrace();
 		}
-		
+
 		return "redirect:user.htm";
-		
+
 	}
 
 }
