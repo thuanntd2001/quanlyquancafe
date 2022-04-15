@@ -43,7 +43,7 @@ public class DatBanEntity {
 	
 	@Column(name="TGDUKIEN")
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(style = "dd/MM/yyyy HH:mm:ss")
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private Date tgDuKien;
 	
 	

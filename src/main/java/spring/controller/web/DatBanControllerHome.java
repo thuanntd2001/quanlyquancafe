@@ -1,5 +1,8 @@
 package spring.controller.web;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +27,7 @@ import com.quancafehighland.utils.SessionUtil;
 import spring.entity.BanEntity;
 import spring.entity.ChiTietDatEntity;
 import spring.entity.DatBanEntity;
-import spring.entity.UserTBEntity;
+import spring.entity.NhanVienEntity;
 
 @Transactional
 @Controller
@@ -34,7 +37,7 @@ public class DatBanControllerHome {
 	SessionFactory factory;
 	
 	@RequestMapping(value = "trang-chu", method = RequestMethod.GET)
-	public String datban(ModelMap model) {
+	public String datban(ModelMap model){
 		Session session = factory.getCurrentSession();
 		String hql = "FROM BanEntity";
 		Query query = session.createQuery(hql);
@@ -48,40 +51,53 @@ public class DatBanControllerHome {
 			@PathVariable("id") Long id) {
 		List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
 		model.addAttribute("chiTietDat", chiTietDat);
+		model.addAttribute("id", id);
 		DatBanEntity datban = new DatBanEntity();
 		model.addAttribute("datban", datban);
 		return "web/datban2";
 	}
 	
-	@RequestMapping(value = "dat-ban/{id}.htm?linkView", params = "btndatban")
-	public String datBan(HttpServletRequest request, ModelMap model,
+	
+	@RequestMapping(value = "dat-ban/{id}.htm", params = "btndatban", method=RequestMethod.POST)
+	public String datBan1(HttpServletRequest request, ModelMap model,
 			@PathVariable("id") Long id, @ModelAttribute("datban") DatBanEntity datban) {
-		Integer temp = this.themDatBan(datban);
+		System.out.println(datban.getTgDuKien());
+		List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
+		model.addAttribute("chiTietDat", chiTietDat);
+		model.addAttribute("id", id);
+		
+		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
+		Long id1 = user1.getID();
+		datban.setDbnv(this.getNV(id1));
+		datban.setNgayDat(new Date());
+
+		Integer temp = this.themDatBan(datban,id);
 		if(temp != 0) {
 			model.addAttribute("message","Thêm mới thành công");
 			
 		}else {
 			model.addAttribute("message","Thêm mới thất bại");
 		}
-		List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
-		model.addAttribute("chiTietDat", chiTietDat);
 		return "web/datban2";
-	};			
+	};
 	
-	public Integer themDatBan(DatBanEntity datban) {
+	
+	public Integer themDatBan(DatBanEntity datban, Long id) {
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		try {
-			/*UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-			Long id = user1.getID();
-			UserTBEntity user = this.getUser(id);
-			datban.set*/
-			datban.setNgayDat(new Date());
+			/*ChiTietDatEntity chiTietDat = null;
+			chiTietDat.setBans(getBan(id));
+			chiTietDat.setDatBan(datban);*/
+			
 			session.save(datban);
-			t.commit();			
+			/*session.save(chiTietDat);*/
+			t.commit();
 		}
 		catch (Exception e) {
+			System.out.println("loi");
 			t.rollback();
+			e.printStackTrace();
 			return 0;			
 		}
 		finally {
@@ -90,13 +106,28 @@ public class DatBanControllerHome {
 		return 1;
 	}
 	
-	
+	public NhanVienEntity getNV(Long id) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM NhanVienEntity where maNV =:id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		NhanVienEntity list = (NhanVienEntity) query.list().get(0);
+		return list;
+	}
 	public List<ChiTietDatEntity> getChiTietDat (Long id) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM ChiTietDatEntity where bans.id =:id";
 		Query query = session.createQuery(hql);
 		query.setParameter("id", id);
 		List<ChiTietDatEntity> list = query.list();
+		return list;
+	}
+	public BanEntity getBan(Long id) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM NhanVienEntity where id =:id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		BanEntity list = (BanEntity) query.list().get(0);
 		return list;
 	}
 }
