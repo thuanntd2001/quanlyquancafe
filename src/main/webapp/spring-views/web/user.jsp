@@ -39,7 +39,7 @@
 							<div class="card">
 								<form:form modelAttribute="user"
 									class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-									<img src="files/${sessionScope.USERMODEL.userName}" alt="Profile"
+									<img src="files/${user.icon}" alt="Profile"
 										class="rounded-circle">
 									<h2>${user.usernv.hoTen }</h2>
 									<h3>${user.userName }</h3>
@@ -304,7 +304,7 @@
 													class="col-md-4 col-lg-3 col-form-label">Ảnh Đại
 													Diện</label>
 												<div class="col-md-8 col-lg-9" style="width: 100px;">
-													<img src="files/${sessionScope.USERMODEL.userName}" alt="Ảnh đại diện"
+													<img src="files/${user.icon}" alt="Ảnh đại diện"
 														class="avt-pic" />
 													<div class="pt-2">
 														<div class="btn btn-primary btn-sm"
