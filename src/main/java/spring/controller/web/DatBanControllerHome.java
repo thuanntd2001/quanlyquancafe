@@ -1,8 +1,6 @@
 package spring.controller.web;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
+
 import java.util.Date;
 import java.util.List;
 
@@ -14,8 +12,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,15 +37,49 @@ public class DatBanControllerHome {
 	SessionFactory factory;
 	
 	@RequestMapping(value = "trang-chu", method = RequestMethod.GET)
-	public String datban(ModelMap model){
-		Session session = factory.getCurrentSession();
-		String hql = "FROM BanEntity";
-		Query query = session.createQuery(hql);
-		List<BanEntity> list = query.list();
-		model.addAttribute("bans", list);
+	public <E> String datban(HttpServletRequest request,ModelMap model){	
+		@SuppressWarnings("unchecked")
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getBans());
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(5);
+	
+		pagedListHolder.setPageSize(5);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		//model.addAttribute("bans", list);
 		return "web/datban";
 	}
 
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="trang-chu", params = "btnsearch")
+	public <E> String searchBan(HttpServletRequest request, ModelMap model) {
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>)this.searchBan(request.getParameter("searchInput")));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(5);
+		
+		pagedListHolder.setPageSize(10);
+		
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		
+		 return "web/datban";
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="trang-chu", params = "btnsearch", method=RequestMethod.POST)
+	public <E> String searchBan1(HttpServletRequest request, ModelMap model) {
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>)this.searchBan(request.getParameter("searchInput")));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(5);
+		
+		pagedListHolder.setPageSize(10);
+		
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		
+		 return "web/datban";
+	}
+	
 	@RequestMapping(value = "dat-ban/{id}.htm", params = "linkView")
 	public String xemDatBan(HttpServletRequest request, ModelMap model,
 			@PathVariable("id") Long id) {
@@ -81,6 +115,31 @@ public class DatBanControllerHome {
 		return "web/datban2";
 	};
 	
+	public List<BanEntity> searchBan(String name) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM BanEntity where id = :id OR soGhe = :soGhe OR loaiBan.tenLoai LIKE :name OR loaiBan.giaDat = :soGhe";
+		Query query = session.createQuery(hql);
+		Long id = null;
+		Integer soGhe = null;
+		try {
+			id = Long.parseLong(name);
+		}
+		catch (Exception e) {
+		}
+		
+		try {
+			soGhe = Integer.parseInt(name);
+		}
+		catch (Exception e) {
+		}
+		
+		query.setParameter("id", id);			
+		query.setParameter("soGhe", soGhe);
+		
+		query.setParameter("name", "%" +  name + "%");
+		List<BanEntity> list = query.list();
+		return list;
+	}
 	
 	public Integer themDatBan(DatBanEntity datban, Long id) {
 		Session session = factory.openSession();
@@ -105,7 +164,6 @@ public class DatBanControllerHome {
 		}
 		return 1;
 	}
-	
 	public NhanVienEntity getNV(Long id) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM NhanVienEntity where maNV =:id";
@@ -114,6 +172,7 @@ public class DatBanControllerHome {
 		NhanVienEntity list = (NhanVienEntity) query.list().get(0);
 		return list;
 	}
+	
 	public List<ChiTietDatEntity> getChiTietDat (Long id) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM ChiTietDatEntity where bans.id =:id";
@@ -122,12 +181,11 @@ public class DatBanControllerHome {
 		List<ChiTietDatEntity> list = query.list();
 		return list;
 	}
-	public BanEntity getBan(Long id) {
+	public List<BanEntity> getBans () {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM NhanVienEntity where id =:id";
+		String hql = "FROM BanEntity";
 		Query query = session.createQuery(hql);
-		query.setParameter("id", id);
-		BanEntity list = (BanEntity) query.list().get(0);
+		List<BanEntity> list = query.list();
 		return list;
 	}
 }
