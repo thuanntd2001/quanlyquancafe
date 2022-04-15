@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -20,10 +21,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+
+
 import com.quancafehighland.model.UserModel;
 import com.quancafehighland.utils.SessionUtil;
 
 import spring.entity.UserTBEntity;
+import spring.controller.web.UserController;
+
 
 @Controller
 @javax.transaction.Transactional
@@ -55,7 +60,7 @@ public class IconController {
 		return list;
 	}
 	@RequestMapping(value = "user-avt", method = RequestMethod.POST)
-	public String Avt(ModelMap model, @RequestParam("avt") MultipartFile avt, HttpServletRequest request) {
+	public String Avt(ModelMap model, @RequestParam("avt") MultipartFile avt, HttpServletRequest request, HttpServletResponse response) {
 
 		try {
 			Session session = factory.openSession();
@@ -68,7 +73,8 @@ public class IconController {
 			UserTBEntity user = this.getUser(id);
 			avt.transferTo(new File(photoPath));
 			user.setIcon(user.getUserName().trim() + avt.getOriginalFilename().trim());
-			
+			user1.setIcon(user.getUserName().trim() + avt.getOriginalFilename().trim());
+
 			try {
 				/*UserTBEntity userUpdate = (UserTBEntity) session.merge(getUser(user.getID()));
 				//tao ten file icon de lat ghi vo csdl
@@ -78,7 +84,7 @@ public class IconController {
 				t.commit();
 				model.addAttribute("message", "cập nhật thành công!");
 
-				Thread.sleep(5000);
+				//Thread.sleep(5000);
 			} catch (Exception e) {
 				t.rollback();
 				model.addAttribute("message", "cập nhật thất bại!");
@@ -87,13 +93,13 @@ public class IconController {
 				session.close();
 			}
 			
-
-			return "web/user";
 		} catch (Exception e) {
 			model.addAttribute("message", "lỗi lưu file!");
 			e.printStackTrace();
 		}
-		return "web/user";
+		
+		return "redirect:user.htm";
+		
 	}
 
 }

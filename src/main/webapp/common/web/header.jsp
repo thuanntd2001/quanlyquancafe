@@ -6,7 +6,7 @@
         <nav class="navbar navbar-expand-md">
             <div class="container-fluid">
 
-                <a class="navbar-brand" href="./index.html">
+                <a class="navbar-brand" href="#">
                     <img src="<c:url value='/common/images/logo_highland.png'/>" height="50" alt="">
 
                 </a>
