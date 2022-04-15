@@ -39,7 +39,7 @@
 							<div class="card">
 								<form:form modelAttribute="user"
 									class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-									<img src="files/${sessionScope.USERMODEL.icon}" alt="Profile"
+									<img src="files/${user.icon}" alt="Profile"
 										class="rounded-circle">
 									<h2>${user.usernv.hoTen }</h2>
 									<h3>${user.userName }</h3>
@@ -142,8 +142,7 @@
 												action="user.htm">
 												${message }
 													<div class="row mb-3">
-													<label
-														class="col-md-4 col-lg-3 col-form-label"></label>
+													<label class="col-md-4 col-lg-3 col-form-label"></label>
 													<div class="col-md-8 col-lg-9">
 														<form:hidden cssClass="form-control" path="daNghi" />
 													</div>
@@ -229,17 +228,19 @@
 
 												<div class="row mb-3">
 													<label class="col-md-4 col-lg-3 col-form-label">Email</label>
-													<div class="col-md-8 col-lg-9" >
-														<input class="form-control" type="email" name="email" value="${user.email }" />
+													<div class="col-md-8 col-lg-9">
+														<input class="form-control" type="email" name="email"
+															value="${user.email }" />
 													</div>
 												</div>
-												
+
 												<div class="row mb-3">
 													<label for="username"
 														class="col-md-4 col-lg-3 col-form-label">Tên Tài
 														Khoản</label>
 													<div class="col-md-8 col-lg-9">
-														<input class="form-control" type="text" value="${user.userName }" readonly="readonly" />
+														<input class="form-control" type="text"
+															value="${user.userName }" readonly="readonly" />
 													</div>
 												</div>
 												<div class="text-center">
@@ -253,7 +254,7 @@
 
 										<div class="tab-pane fade pt-3" id="profile-change-password">
 											<!-- Change Password Form -->
-											<form action="user.htm">
+											<form action="user.htm" method="post">
 												${message}
 												<div class="row mb-3">
 													<label for="currentPassword"
@@ -281,13 +282,13 @@
 														Mật Khẩu Mới</label>
 													<div class="col-md-8 col-lg-9">
 														<input name="renewpassword" type="password"
-															class="form-control"/>
+															class="form-control" />
 													</div>
 												</div>
 
 												<div class="text-center">
-													<button type="submit" class="btn btn-primary" name="btnChangePw">Đổi
-														Mật Khẩu</button>
+													<button type="submit" class="btn btn-primary"
+														name="btnChangePw">Đổi Mật Khẩu</button>
 													<button type="reset" class="btn btn-danger">Hủy</button>
 												</div>
 											</form>
@@ -297,14 +298,14 @@
 										<!-- ICON Tabs -->
 										<div class="tab-pane fade pt-3" id="avata-edit">
 											<label> ${message} </label>
-											<form action="user-avt.htm" method="post"
+											<form  method="post"
 												enctype="multipart/form-data" class="row mb-3">
 												<label for="profileImage"
 													class="col-md-4 col-lg-3 col-form-label">Ảnh Đại
 													Diện</label>
 												<div class="col-md-8 col-lg-9" style="width: 100px;">
-													<img src="files/${sessionScope.USERMODEL.icon}"
-														alt="Ảnh đại diện" class="avt-pic" />
+													<img src="files/${user.icon}" alt="Ảnh đại diện"
+														class="avt-pic" />
 													<div class="pt-2">
 														<div class="btn btn-primary btn-sm"
 															style="position: relative;">
@@ -312,10 +313,32 @@
 																class="file-upload" name="avt" /> <i
 																class="fas fa-upload"></i>
 														</div>
-														<a href="#" class="btn btn-danger btn-sm"
-															title="Remove my profile image"> <i
-															class="fas fa-trash-alt"></i></a> <input type="submit"
-															value="Lưu" class="btn btn-info btn-sm">
+														<button class="btn btn-danger btn-sm" title="Gỡ avata" data-toggle="modal" data-target="#removeAvata">
+															<i class="fas fa-trash-alt"></i>
+														</button>
+														<div class="modal fade" id="removeAvata" tabindex="-1"
+															role="dialog" aria-labelledby="exampleModalLabel"
+															aria-hidden="true">
+															<div class="modal-dialog" role="document">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<h5 class="modal-title" id="exampleModalLabel">Gỡ ảnh đại diện</h5>
+																		<button type="button" class="close"
+																			data-dismiss="modal" aria-label="Close">
+																			<span aria-hidden="true">&times;</span>
+																		</button>
+																	</div>
+																	<div class="modal-body">Bạn thật sự muốn gỡ ảnh đại diện?</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-secondary"
+																			data-dismiss="modal">Hủy</button>
+																		<button type="button" class="btn btn-primary"  name="btnremoveavatar">Tiếp tục</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<input type="submit" value="Lưu"
+															class="btn btn-info btn-sm" name="btnchangeavt">
 													</div>
 												</div>
 											</form>

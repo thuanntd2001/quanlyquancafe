@@ -86,7 +86,19 @@ public class UserController {
 		return 1;
 	}
 
-	@RequestMapping(value = "user", params = "btnChangePw")
+	@RequestMapping(value = "user", params = "btnChangePw", method=RequestMethod.GET)
+	public String changePasswordd(HttpServletRequest request, ModelMap model,
+			@ModelAttribute("password") String password, @ModelAttribute("newpassword") String newpassword,
+			@ModelAttribute("renewpassword") String renewpassword) {
+		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
+		Long id = user1.getID();
+		UserTBEntity user2 = this.getUser(id);
+		model.addAttribute("user", user2);
+		model.addAttribute("nv", this.getNV(id));
+		return "web/user";
+	}
+	
+	@RequestMapping(value = "user", params = "btnChangePw", method=RequestMethod.POST)
 	public String changePassword(HttpServletRequest request, ModelMap model,
 			@ModelAttribute("password") String password, @ModelAttribute("newpassword") String newpassword,
 			@ModelAttribute("renewpassword") String renewpassword) {
@@ -116,7 +128,29 @@ public class UserController {
 		}
 		return 0;
 	};
-
+	
+	@RequestMapping(value = "user", params = "btnremoveavatar", method=RequestMethod.GET)
+	public String removeAvatarr(HttpServletRequest request, ModelMap model) {
+		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
+		Long id = user1.getID();
+		UserTBEntity user2 = this.getUser(id);
+		model.addAttribute("user", user2);
+		model.addAttribute("nv", this.getNV(id));
+		return "web/user";
+	};
+	
+	@RequestMapping(value = "user", params = "btnremoveavatar", method=RequestMethod.POST)
+	public String removeAvatar(HttpServletRequest request, ModelMap model) {
+		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
+		Long id = user1.getID();
+		UserTBEntity user2 = this.getUser(id);
+		user2.setIcon("default-avatar.png");
+		System.out.println(user2.getIcon());
+		model.addAttribute("user", user2);
+		model.addAttribute("nv", this.getNV(id));
+		return "web/user";
+	};
+	
 	public UserTBEntity getUser(Long id) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM UserTBEntity where usernv.maNV =:id";
