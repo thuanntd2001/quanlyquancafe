@@ -36,7 +36,7 @@
                 </div>
                 <div class="original-info d-flex justify-content-center">
                     <div class=" mg-0-40">
-                        Họ tên nhân viên:
+                        Họ tên nhân viên: Huỳnh Ngọc Dương
                     </div>
                     <div class=" mg-0-40">
                         Ngày:
@@ -55,7 +55,7 @@
                     </div>
                     <div class="">
                         <button style="padding: 10px; margin-bottom: 5px;" type="button" class="btn btn-primary"
-                            data-toggle="modal" data-target="#exampleModal">
+                            data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
                             <span>ĐẶT BÀN</span>
                         </button>
 
@@ -70,7 +70,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <div  style="margin-top: 40px; margin-left: 20px;">
+                                        <form action="" style="margin-top: 40px; margin-left: 20px;">
 
                                             <div class="mg-10">
                                                 <label for="name-customer">Tên khách hàng:</label>
@@ -92,7 +92,7 @@
                                                     cọc:</label>
                                                 <input type="number" id="deposit">
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"

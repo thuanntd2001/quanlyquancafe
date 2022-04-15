@@ -30,8 +30,6 @@ import spring.entity.UserTBEntity;
 import spring.controller.web.UserController;
 
 
-
-
 @Controller
 @javax.transaction.Transactional
 public class IconController {
@@ -86,7 +84,7 @@ public class IconController {
 				t.commit();
 				model.addAttribute("message", "cập nhật thành công!");
 
-				Thread.sleep(5000);
+				//Thread.sleep(5000);
 			} catch (Exception e) {
 				t.rollback();
 				model.addAttribute("message", "cập nhật thất bại!");
