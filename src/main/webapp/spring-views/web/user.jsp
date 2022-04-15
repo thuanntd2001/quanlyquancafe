@@ -305,8 +305,12 @@
 															class="col-md-4 col-lg-3 col-form-label">Ảnh Đại
 															Diện</label>
 														<div class="col-md-8 col-lg-9" style="width: 100px;">
-															<<img src="files/${user.icon}"
-																alt="Ảnh đại diện" class="avt-pic" />
+															<<<<<<< HEAD <img src="files/${user.icon}"
+																alt="Ảnh đại diện"=======<img
+																src="files/${sessionScope.USERMODEL.icon}"
+																alt="Ảnh đại diện">>>>>>>
+																1d294516ae8516c5926368be4995809be31cc98e
+																class="avt-pic" />
 																<div class="pt-2">
 																	<div class="btn btn-primary btn-sm"
 																		style="position: relative;">
