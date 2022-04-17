@@ -17,6 +17,7 @@ import spring.entity.ChiPhiEntity;
 
 @Controller
 @Transactional
+@RequestMapping(value = "/admin-home/")
 public class QLNhapHang {
 
 	

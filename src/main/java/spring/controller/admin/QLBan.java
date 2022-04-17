@@ -17,6 +17,7 @@ import spring.entity.BanEntity;
 
 @Controller
 @Transactional
+@RequestMapping(value = "/admin-home/")
 public class QLBan {
 
 	

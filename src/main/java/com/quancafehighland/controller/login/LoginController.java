@@ -56,12 +56,12 @@ public class LoginController extends HttpServlet{
 				SessionUtil.getInstance().putValue(request, "USERMODEL", model);
 
 				if (model.getRoleID()==1) {
-					response.sendRedirect(request.getContextPath()+"/admin-home.htm");
+					response.sendRedirect(request.getContextPath()+"/admin-home/index.htm");
 				} else if (model.getRoleID()!=null) {
 					response.sendRedirect(request.getContextPath()+"/trang-chu.htm");
 				}
 			} else {
-				response.sendRedirect(request.getContextPath()+"/dang-nhap?action=login&message=username_password_invalid&alert=danger");
+				response.sendRedirect(request.getContextPath()+"dang-nhap?action=login&message=username_password_invalid&alert=danger");
 			}
 		}
 	}
