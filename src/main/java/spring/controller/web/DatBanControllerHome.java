@@ -35,7 +35,7 @@ public class DatBanControllerHome {
 
 	@Autowired
 	SessionFactory factory;
-	
+	// CONTROLLER
 	@RequestMapping(value = "trang-chu", method = RequestMethod.GET)
 	public <E> String datban(HttpServletRequest request,ModelMap model){	
 		@SuppressWarnings("unchecked")
@@ -114,7 +114,7 @@ public class DatBanControllerHome {
 		}
 		return "web/datban2";
 	};
-	
+	//END CONTROLLER
 	public List<BanEntity> searchBan(String name) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM BanEntity where id = :id OR soGhe = :soGhe OR loaiBan.tenLoai LIKE :name OR loaiBan.giaDat = :soGhe";
