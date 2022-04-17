@@ -1,5 +1,7 @@
 package spring.service.web;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.hibernate.Query;
@@ -19,6 +21,13 @@ public class BanService {
 		Query query = session.createQuery(hql);
 		query.setParameter("id", id);
 		BanEntity list = (BanEntity) query.list().get(0);
+		return list;
+	}
+	public List<BanEntity> getBans () {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM BanEntity";
+		Query query = session.createQuery(hql);
+		List<BanEntity> list = query.list();
 		return list;
 	}
 }

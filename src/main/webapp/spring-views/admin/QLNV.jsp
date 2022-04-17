@@ -96,7 +96,7 @@
 								<td>
 									<div style="width: 95px;" class="row">
 										<div class="col-6">
-											<a href="/CNPM/admin-home/form/${nv.maNV}.htm?linkEdit">
+											<a href="/CNPM/admin-home/form.htm?linkEdit&id=${nv.maNV}">
 												<button type="button" class="btn btn-warning">Chỉnh
 													xửa</button>
 											</a>

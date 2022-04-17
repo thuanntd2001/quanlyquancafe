@@ -104,15 +104,16 @@ public class QLNhanVienHome {
 	} 
 	
 	/* phần chỉnh sửa */
-	@RequestMapping(value = "form/{Username}", params = "linkEdit" )
-	public String editUser (HttpServletRequest request, ModelMap model, @ModelAttribute("user") NhanVienEntity user, 
-			@PathVariable("MANV") long maNV) {
+	@RequestMapping(value = "form", params = "linkEdit" )
+	public String editUser (HttpServletRequest request, ModelMap model, @ModelAttribute("user") NhanVienEntity user) {
+		String id1 =request.getParameter("id");
+		long maNV = Long.parseLong(id1);
 		List<NhanVienEntity> users = this.getUsers();
-		model.addAttribute("nhanvien", users);
 		model.addAttribute("user", this.getUser(maNV));
 		model.addAttribute("btnupdate","true");
 		return "admin/form/updateNV";
 	}
+	/* end phần chỉnh sửa */
 	public NhanVienEntity getUser (long id) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM NhanVienEntity where maNV =:id";
