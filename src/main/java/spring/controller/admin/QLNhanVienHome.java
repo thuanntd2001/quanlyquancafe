@@ -65,7 +65,7 @@ public class QLNhanVienHome {
 		return list;
 	}
 	/*thêm nhân viên*/
-	@RequestMapping(value = "form", method = RequestMethod.POST )
+	@RequestMapping(value = "index", method = RequestMethod.POST )
 	public String addUser(HttpServletRequest request, ModelMap model,@ModelAttribute("user") NhanVienEntity user) {
 		Integer temp = this.insertUser(user);
 		if(temp != 0) {

@@ -33,7 +33,7 @@
 			<li><a href="admin-user.htm"> <i class="fas fa-user"></i> <span
 					class="links_name">TÀI KHOẢN</span>
 			</a></li>
-			<li><a href="admin-home/dang-nhap?action=logout"> <i
+			<li><a href="/dang-nhap?action=logout"> <i
 					class="fas fa-sign-out-alt"></i> <span class="links_name">ĐĂNG
 						XUẤT</span>
 			</a></li>
