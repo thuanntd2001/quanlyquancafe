@@ -1,5 +1,6 @@
 package spring.controller.web;
 
+
 import java.util.Date;
 import java.util.List;
 
@@ -11,8 +12,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +27,7 @@ import com.quancafehighland.utils.SessionUtil;
 import spring.entity.BanEntity;
 import spring.entity.ChiTietDatEntity;
 import spring.entity.DatBanEntity;
-import spring.entity.UserTBEntity;
+import spring.entity.NhanVienEntity;
 
 @Transactional
 @Controller
@@ -34,54 +37,126 @@ public class DatBanControllerHome {
 	SessionFactory factory;
 	
 	@RequestMapping(value = "trang-chu", method = RequestMethod.GET)
-	public String datban(ModelMap model) {
-		Session session = factory.getCurrentSession();
-		String hql = "FROM BanEntity";
-		Query query = session.createQuery(hql);
-		List<BanEntity> list = query.list();
-		model.addAttribute("bans", list);
+	public <E> String datban(HttpServletRequest request,ModelMap model){	
+		@SuppressWarnings("unchecked")
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getBans());
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(5);
+	
+		pagedListHolder.setPageSize(5);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		//model.addAttribute("bans", list);
 		return "web/datban";
 	}
 
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="trang-chu", params = "btnsearch")
+	public <E> String searchBan(HttpServletRequest request, ModelMap model) {
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>)this.searchBan(request.getParameter("searchInput")));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(5);
+		
+		pagedListHolder.setPageSize(10);
+		
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		
+		 return "web/datban";
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="trang-chu", params = "btnsearch", method=RequestMethod.POST)
+	public <E> String searchBan1(HttpServletRequest request, ModelMap model) {
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>)this.searchBan(request.getParameter("searchInput")));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(5);
+		
+		pagedListHolder.setPageSize(10);
+		
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		
+		 return "web/datban";
+	}
+	
 	@RequestMapping(value = "dat-ban/{id}.htm", params = "linkView")
 	public String xemDatBan(HttpServletRequest request, ModelMap model,
 			@PathVariable("id") Long id) {
 		List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
 		model.addAttribute("chiTietDat", chiTietDat);
+		model.addAttribute("id", id);
 		DatBanEntity datban = new DatBanEntity();
 		model.addAttribute("datban", datban);
 		return "web/datban2";
 	}
 	
-	@RequestMapping(value = "dat-ban/{id}.htm?linkView", params = "btndatban")
-	public String datBan(HttpServletRequest request, ModelMap model,
+	
+	@RequestMapping(value = "dat-ban/{id}.htm", params = "btndatban", method=RequestMethod.POST)
+	public String datBan1(HttpServletRequest request, ModelMap model,
 			@PathVariable("id") Long id, @ModelAttribute("datban") DatBanEntity datban) {
-		Integer temp = this.themDatBan(datban);
+		System.out.println(datban.getTgDuKien());
+		List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
+		model.addAttribute("chiTietDat", chiTietDat);
+		model.addAttribute("id", id);
+		
+		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
+		Long id1 = user1.getID();
+		datban.setDbnv(this.getNV(id1));
+		datban.setNgayDat(new Date());
+
+		Integer temp = this.themDatBan(datban,id);
 		if(temp != 0) {
 			model.addAttribute("message","Thêm mới thành công");
 			
 		}else {
 			model.addAttribute("message","Thêm mới thất bại");
 		}
-		List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
-		model.addAttribute("chiTietDat", chiTietDat);
 		return "web/datban2";
-	};			
+	};
 	
-	public Integer themDatBan(DatBanEntity datban) {
+	public List<BanEntity> searchBan(String name) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM BanEntity where id = :id OR soGhe = :soGhe OR loaiBan.tenLoai LIKE :name OR loaiBan.giaDat = :soGhe";
+		Query query = session.createQuery(hql);
+		Long id = null;
+		Integer soGhe = null;
+		try {
+			id = Long.parseLong(name);
+		}
+		catch (Exception e) {
+		}
+		
+		try {
+			soGhe = Integer.parseInt(name);
+		}
+		catch (Exception e) {
+		}
+		
+		query.setParameter("id", id);			
+		query.setParameter("soGhe", soGhe);
+		
+		query.setParameter("name", "%" +  name + "%");
+		List<BanEntity> list = query.list();
+		return list;
+	}
+	
+	public Integer themDatBan(DatBanEntity datban, Long id) {
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		try {
-			/*UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-			Long id = user1.getID();
-			UserTBEntity user = this.getUser(id);
-			datban.set*/
-			datban.setNgayDat(new Date());
+			/*ChiTietDatEntity chiTietDat = null;
+			chiTietDat.setBans(getBan(id));
+			chiTietDat.setDatBan(datban);*/
+			
 			session.save(datban);
-			t.commit();			
+			/*session.save(chiTietDat);*/
+			t.commit();
 		}
 		catch (Exception e) {
+			System.out.println("loi");
 			t.rollback();
+			e.printStackTrace();
 			return 0;			
 		}
 		finally {
@@ -89,7 +164,14 @@ public class DatBanControllerHome {
 		}
 		return 1;
 	}
-	
+	public NhanVienEntity getNV(Long id) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM NhanVienEntity where maNV =:id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		NhanVienEntity list = (NhanVienEntity) query.list().get(0);
+		return list;
+	}
 	
 	public List<ChiTietDatEntity> getChiTietDat (Long id) {
 		Session session = factory.getCurrentSession();
@@ -97,6 +179,13 @@ public class DatBanControllerHome {
 		Query query = session.createQuery(hql);
 		query.setParameter("id", id);
 		List<ChiTietDatEntity> list = query.list();
+		return list;
+	}
+	public List<BanEntity> getBans () {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM BanEntity";
+		Query query = session.createQuery(hql);
+		List<BanEntity> list = query.list();
 		return list;
 	}
 }

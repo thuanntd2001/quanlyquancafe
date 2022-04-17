@@ -180,7 +180,7 @@
 												<label class="col-md-4 col-lg-3 col-form-label">Ngày
 													Sinh</label>
 												<div class="col-md-8 col-lg-9">
-													<form:input path="ngaySinh" />
+													<form:input path="ngaySinh" type="date"/>
 												</div>
 											</div>
 
@@ -195,7 +195,7 @@
 												<label for="cmnd" class="col-md-4 col-lg-3 col-form-label">Lương</label>
 												<div class="col-md-8 col-lg-9">
 													<form:input cssClass="form-control" path="luong"
-														readonly="true" />
+														readonly="true" type="number" />
 												</div>
 											</div>
 
