@@ -1,6 +1,7 @@
 package spring.controller.web;
 
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -57,7 +58,6 @@ public class DatBanControllerHome {
 		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(5);
-		
 		pagedListHolder.setPageSize(10);
 		
 		model.addAttribute("pagedListHolder", pagedListHolder);
@@ -95,23 +95,21 @@ public class DatBanControllerHome {
 	@RequestMapping(value = "dat-ban/{id}.htm", params = "btndatban", method=RequestMethod.POST)
 	public String datBan1(HttpServletRequest request, ModelMap model,
 			@PathVariable("id") Long id, @ModelAttribute("datban") DatBanEntity datban) {
-		System.out.println(datban.getTgDuKien());
-		List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
-		model.addAttribute("chiTietDat", chiTietDat);
-		model.addAttribute("id", id);
-		
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-		Long id1 = user1.getID();
-		datban.setDbnv(this.getNV(id1));
+		Long idnv = user1.getID();
+		datban.setDbnv(this.getNV(idnv));
 		datban.setNgayDat(new Date());
-
-		Integer temp = this.themDatBan(datban,id);
+		datban.setTgDuKien(Timestamp.valueOf(request.getParameter("tg").replace("T", " ") + ":00"));
+		Integer temp = this.themDatBan(datban,id,model);
 		if(temp != 0) {
 			model.addAttribute("message","Thêm mới thành công");
 			
 		}else {
 			model.addAttribute("message","Thêm mới thất bại");
 		}
+		List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
+		model.addAttribute("chiTietDat", chiTietDat);
+		model.addAttribute("id", id);
 		return "web/datban2";
 	};
 	
@@ -141,16 +139,44 @@ public class DatBanControllerHome {
 		return list;
 	}
 	
-	public Integer themDatBan(DatBanEntity datban, Long id) {
+	public Integer themDatBan(DatBanEntity datban, Long id, ModelMap model) {
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		try {
-			/*ChiTietDatEntity chiTietDat = null;
-			chiTietDat.setBans(getBan(id));
-			chiTietDat.setDatBan(datban);*/
 			
 			session.save(datban);
-			/*session.save(chiTietDat);*/
+			t.commit();
+			Integer temp = this.themChiTietDat(datban,id);
+			if(temp != 0) {
+				model.addAttribute("message","Thêm mới thành công");
+				
+			}else {
+				System.out.println("loiiiiii");
+				model.addAttribute("message","Thêm mới thất bại");
+				t.rollback();
+				return 0;
+			}
+		}
+		catch (Exception e) {
+			t.rollback();
+			e.printStackTrace();
+			return 0;			
+		}
+		finally {
+			session.close();
+		}
+		return 1;
+	}
+	
+	public Integer themChiTietDat(DatBanEntity datban,Long id) {
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		System.out.println(datban);
+		try {
+			ChiTietDatEntity chiTietDat = new ChiTietDatEntity();
+			chiTietDat.setBans(getBan(id));
+			chiTietDat.setDatBan(datban);
+			session.save(chiTietDat);
 			t.commit();
 		}
 		catch (Exception e) {
@@ -164,6 +190,7 @@ public class DatBanControllerHome {
 		}
 		return 1;
 	}
+	
 	public NhanVienEntity getNV(Long id) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM NhanVienEntity where maNV =:id";
@@ -186,6 +213,14 @@ public class DatBanControllerHome {
 		String hql = "FROM BanEntity";
 		Query query = session.createQuery(hql);
 		List<BanEntity> list = query.list();
+		return list;
+	}
+	public BanEntity getBan(Long id) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM BanEntity where id =:id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		BanEntity list = (BanEntity) query.list().get(0);
 		return list;
 	}
 }
