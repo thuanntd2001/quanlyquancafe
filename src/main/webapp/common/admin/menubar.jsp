@@ -11,7 +11,7 @@
 		</div>
 		<ul class="nav_list">
 
-			<li><a href="admin-home.htm"> <i
+			<li><a href="index.htm"> <i
 					class="fas fa-table"></i> <span class="links_name">Quản lý
 						nhân viên</span>
 			</a></li>
@@ -33,7 +33,7 @@
 			<li><a href="admin-user.htm"> <i class="fas fa-user"></i> <span
 					class="links_name">TÀI KHOẢN</span>
 			</a></li>
-			<li><a href="dang-nhap?action=logout"> <i
+			<li><a href="admin-home/dang-nhap?action=logout"> <i
 					class="fas fa-sign-out-alt"></i> <span class="links_name">ĐĂNG
 						XUẤT</span>
 			</a></li>

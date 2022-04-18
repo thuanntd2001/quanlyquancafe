@@ -18,6 +18,7 @@ import spring.entity.BanEntity;
 
 @Controller
 @Transactional
+@RequestMapping(value = "/admin-home/")
 public class QLHoaDon {
 
 	@Autowired

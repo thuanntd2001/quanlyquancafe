@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import spring.entity.ThucDonEntity;
 @Controller
 @Transactional
+@RequestMapping(value = "/admin-home/")
 public class QLThucDon {
 
 	

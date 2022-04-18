@@ -9,21 +9,20 @@
 
 <style>
 .table thead th {
-    vertical-align: baseline; 
-    border-bottom: 2px solid #dee2e6;
+	vertical-align: baseline;
+	border-bottom: 2px solid #dee2e6;
 }
 
 .table td, .table th {
-    padding: 0.6rem;
-   
-    vertical-align: top;
-    border-top: 1px solid #dee2e6;
+	padding: 0.6rem;
+	vertical-align: top;
+	border-top: 1px solid #dee2e6;
 }
 
 .col-6 {
-    -ms-flex: 0 0 50%;
-    flex: 0 0 50%;
-    max-width: 35%;
+	-ms-flex: 0 0 50%;
+	flex: 0 0 50%;
+	max-width: 35%;
 }
 </style>
 
@@ -36,8 +35,8 @@
 
 
 		<jsp:include page="/common/admin/menubar.jsp" />
-		<div style="padding-left:0px;"  class="col-md-10 col-lg-10">
-			<div style="padding-left:0px;" class="container-fluid">
+		<div style="padding-left: 0px;" class="col-md-10 col-lg-10">
+			<div style="padding-left: 0px;" class="container-fluid">
 				<h2 style="margin-top: 2%; margin-bottom: 1%;">QUẢN LÍ NHÂN
 					VIÊN</h2>
 				<div>
@@ -46,6 +45,10 @@
 						type="button" class="btn btn-primary" data-toggle=""
 						data-target="#exampleModal" data-whatever="@mdo">Thêm
 						Nhân Viên</button>
+
+					<a href="/CNPM/admin-home/form.htm">
+						<button type="button" class="btn btn-warning">Thêm</button>
+					</a>
 
 				</div>
 				<table class="table table-striped">
@@ -66,59 +69,74 @@
 						</tr>
 					</thead>
 					<tbody>
-					<c:forEach var="nv" items="${nhanvien}">
-						<tr>
-							<td>${nv.maNV}</td>
-							<td>${nv.hoTen}</td>
-							<td>${nv.ngaySinh}</td>
-							<td>${nv.gioiTinh}</td>
-							<td>${nv.luong}</td>
-							<td>${nv.sdt}</td>
-							<td>${nv.cmnd}</td>
-							<td>${nv.diaChi}</td>
-							<td>${nv.ngayVaoLam}</td>
+						<c:forEach var="nv" items="${nhanvien}">
+							<tr>
+								<td>${nv.maNV}</td>
+								<td>${nv.hoTen}</td>
+								<td>${nv.ngaySinh}</td>
+								<%-- <td>${nv.gioiTinh}</td> --%>
 
 
-							<td>
-								<div style="width: 95px;" class="row">
-									<div class="col-6">
-										<button style="font-size: 14px;"><a>SỬA</a></button>
-									</div>
-									<div class="col-6">
-										<button style="font-size: 10px;" type="button"
-											class="btn btn-primary" data-toggle="modal"
-											data-target="#exampleModal2">XÓA</button>
+								<c:choose>
+									<c:when test="${nv.gioiTinh ==true}">
+										<td>Nam</td>
+									</c:when>
+									<c:when test="${nv.gioiTinh ==false}">
+										<td>Nữ</td>
+									</c:when>
 
-										<!-- Modal -->
-										<div class="modal fade" id="exampleModal2" tabindex="-1"
-											role="dialog" aria-labelledby="exampleModalLabel"
-											aria-hidden="true">
-											<div class="modal-dialog" role="document">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">Bạn có chắc muốn xóa</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Thoát</button>
-														<button type="button" class="btn btn-primary">Xóa</button>
+								</c:choose>
+								<td>${nv.luong}</td>
+								<td>${nv.sdt}</td>
+								<td>${nv.cmnd}</td>
+								<td>${nv.diaChi}</td>
+								<td>${nv.ngayVaoLam}</td>
+
+
+								<td>
+									<div style="width: 95px;" class="row">
+										<div class="col-6">
+											<a href="/CNPM/admin-home/form.htm?linkEdit&id=${nv.maNV}">
+												<button type="button" class="btn btn-warning">Chỉnh
+													xửa</button>
+											</a>
+
+										</div>
+										<div class="col-6">
+											<button style="font-size: 10px;" type="button"
+												class="btn btn-primary" data-toggle="modal"
+												data-target="#exampleModal2">XÓA</button>
+
+											<!-- Modal -->
+											<div class="modal fade" id="exampleModal2" tabindex="-1"
+												role="dialog" aria-labelledby="exampleModalLabel"
+												aria-hidden="true">
+												<div class="modal-dialog" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
+															<button type="button" class="close" data-dismiss="modal"
+																aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">Bạn có chắc muốn xóa</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">Thoát</button>
+															<button type="button" class="btn btn-primary">Xóa</button>
+														</div>
 													</div>
 												</div>
 											</div>
 										</div>
+
 									</div>
 
-								</div>
+								</td>
+							</tr>
 
-							</td>
-						</tr>
-
-</c:forEach>
+						</c:forEach>
 					</tbody>
 				</table>
 
