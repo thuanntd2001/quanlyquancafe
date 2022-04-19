@@ -82,7 +82,7 @@
 
 												<div class="mg-10">
 													<label for="set-date" style="margin-right: 33px;">TG
-														dự kiến:</label> <input type="datetime" id="set-date" name="tgDuKien" value="2019-02-04">
+														dự kiến:</label> <input type="datetime-local" id="set-date" name="tg">
 												</div>
 												<div class="mg-10">
 													<label for="deposit" style="margin-right: 51px;">Tiền

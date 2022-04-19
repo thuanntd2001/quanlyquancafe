@@ -42,9 +42,8 @@ public class DatBanEntity {
 	private Date ngayDat;
 	
 	@Column(name="TGDUKIEN")
-	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-	private Date tgDuKien;
+	private Timestamp tgDuKien;
 	
 	
 	@OneToMany(mappedBy="datBan", fetch = FetchType.EAGER)
@@ -94,11 +93,11 @@ public class DatBanEntity {
 		this.ngayDat = ngayDat;
 	}
 
-	public Date getTgDuKien() {
+	public Timestamp getTgDuKien() {
 		return tgDuKien;
 	}
 
-	public void setTgDuKien(Date tgDuKien) {
+	public void setTgDuKien(Timestamp tgDuKien) {
 		this.tgDuKien = tgDuKien;
 	}
 
@@ -117,6 +116,7 @@ public class DatBanEntity {
 	public void setDbnv(NhanVienEntity dbnv) {
 		this.dbnv = dbnv;
 	}
+
 
 	
 	
