@@ -1,4 +1,5 @@
 package spring.controller.admin;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,55 +45,65 @@ public class QLNhanVienHome {
 	@Autowired
 	SessionFactory factory;
 	@RequestMapping(value = "index", method = RequestMethod.GET)
-	public String index( ModelMap model, @ModelAttribute("user") NhanVienEntity user) {
-		List<NhanVienEntity> users = this.getUsers();				  
-		model.addAttribute("nhanvien", users);
+	public String index( ModelMap model) {
+		List<NhanVienEntity> nhanvien = this.getNhanVien();			  
+		model.addAttribute("nhanvien", nhanvien);
 		return "admin/QLNV";
 		
 	}
 	/*hiển thị form*/
 	@RequestMapping(value="form", method = RequestMethod.GET) 
-    public String index(ModelMap model) {
-		model.addAttribute("user",new NhanVienEntity());
-          return "admin/form/updateNV";
+    public String index_form(ModelMap model) {
+		model.addAttribute("nv",new NhanVienEntity());
+          return "admin/form/inputNV";
     }
 	
-	public List<NhanVienEntity> getUsers(){
+	public List<NhanVienEntity> getNhanVien(){
 		Session session = factory.getCurrentSession();
-		String hql = "FROM NhanVienEntity";
+		String hql = "FROM NhanVienEntity where daNghi = false";
 		Query query = session.createQuery(hql);
 		List<NhanVienEntity> list = query.list();
 		return list;
 	}
 	/*thêm nhân viên*/
-	@RequestMapping(value = "form", method = RequestMethod.POST )
-	public String addUser(HttpServletRequest request, ModelMap model,@ModelAttribute("user") NhanVienEntity user) {
-		Integer temp = this.insertUser(user);
+//<<<<<<< HEAD
+//	@RequestMapping(value = "index", method = RequestMethod.POST )
+//	public String addUser(HttpServletRequest request, ModelMap model,@ModelAttribute("user") NhanVienEntity user) {
+//		Integer temp = this.insertUser(user);
+//=======
+	@RequestMapping(value = "form",params = "Insert", method = RequestMethod.POST )
+	public String addUser(HttpServletRequest request, ModelMap model,@ModelAttribute("nv") NhanVienEntity nv) {
+		nv.setNgaySinh(new Date());
+		nv.setNgayVaoLam(new Date());
+		nv.setDaNghi(false);
+		Integer temp = this.insertUser(nv);
+		
+
 		if(temp != 0) {
-			/*model.addAttribute("message","them thanh cong");*/
-//			user.setMaNV(null);
-			user.setHoTen(null);
-			user.setNgaySinh(null);
-			user.setGioiTinh(null);
-			user.setLuong(null);
-			user.setSdt(null);
-			user.setCmnd(null);
-			user.setDiaChi(null);
-			user.setNgayVaoLam(null);
-			user.setDaNghi(false);
+		    model.addAttribute("message","them thanh cong");
+//		    nv.setMaNV(null);
+			nv.setHoTen(null);
+		
+			nv.setGioiTinh(null);
+			nv.setLuong(null);
+			nv.setSdt(null);
+			nv.setCmnd(null);
+			nv.setDiaChi(null);
+			
+			
 		}else {
-			/*model.addAttribute("message","them that bai");*/
+			model.addAttribute("message","them that bai");
 		}
-		List<NhanVienEntity> users = this.getUsers();
-		model.addAttribute("nhanvien", users);
+		List<NhanVienEntity> nhanvien = this.getNhanVien();
+		model.addAttribute("nhanvien", nhanvien);
 		return"admin/QLNV";
 	}
 	
-	public Integer insertUser(NhanVienEntity user) {
+	public Integer insertUser(NhanVienEntity nv) {
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		try {
-			session.save(user);
+			session.save(nv);
 			t.commit();
 		}catch(Exception e) {
 			t.rollback();
@@ -104,22 +115,81 @@ public class QLNhanVienHome {
 	} 
 	
 	/* phần chỉnh sửa */
+	
 	@RequestMapping(value = "form", params = "linkEdit" )
-	public String editUser (HttpServletRequest request, ModelMap model, @ModelAttribute("user") NhanVienEntity user) {
+	public String editNV (HttpServletRequest request, ModelMap model) {
 		String id1 =request.getParameter("id");
 		long maNV = Long.parseLong(id1);
-		List<NhanVienEntity> users = this.getUsers();
-		model.addAttribute("user", this.getUser(maNV));
+		List<NhanVienEntity> nhanvien = this.getNhanVien();
+		model.addAttribute("nv", this.getNV(maNV));
 		model.addAttribute("btnupdate","true");
-		return "admin/form/updateNV";
+		return "admin/form/inputNV";
+	}
+	@RequestMapping(value = "form", params = "btnupdate" , method = RequestMethod.POST )
+	public String edit_NVs(HttpServletRequest requets, ModelMap model, 
+			@ModelAttribute("nv") NhanVienEntity nv) {
+		Integer temp = this.updateUser(nv);
+		if( temp != 0) {
+			model.addAttribute("message", "Cập nhật thành công");
+			nv.setHoTen(null);
+			
+			nv.setGioiTinh(null);
+			nv.setLuong(null);
+			nv.setSdt(null);
+			nv.setCmnd(null);
+			nv.setDiaChi(null);
+		}
+		else {
+			model.addAttribute("message", "Cập nhật không thành công");
+		}
+		List<NhanVienEntity> nhanvien = this.getNhanVien();
+		model.addAttribute("nhanvien", nhanvien);
+		return "admin/QLNV";
+	}
+	
+	
+	public Integer updateUser(NhanVienEntity nv) {
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		try {
+			session.update(nv);
+			t.commit();
+		}
+		catch (Exception e) {
+			t.rollback();
+			return 0;
+		}
+		finally {
+			session.close();
+		}
+		return 1;
 	}
 	/* end phần chỉnh sửa */
-	public NhanVienEntity getUser (long id) {
+	
+//	phần xóa
+	@RequestMapping(value = "index", params = "linkDelete",method = RequestMethod.GET)
+	public String deleteNV (HttpServletRequest request, ModelMap model, @ModelAttribute("nv") NhanVienEntity nv) {
+		String id1 =request.getParameter("id");
+		long maNV = Long.parseLong(id1);
+		this.getNV(maNV).setDaNghi(true);
+		Integer temp = this.updateUser(this.getNV(maNV));
+		if(temp != 0) {
+			model.addAttribute("message","Delete thành công");
+		}
+		else {
+			model.addAttribute("message", "Delete không thành công");
+		}
+		List<NhanVienEntity> nhanvien = this.getNhanVien();
+		model.addAttribute("nhanvien", nhanvien);
+		return "redirect:admin/QLNV";
+	}
+	public NhanVienEntity getNV (long id) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM NhanVienEntity where maNV =:id";
+		String hql = "FROM NhanVienEntity where maNV =:id ";
 		Query query = session.createQuery(hql);
 		query.setParameter("id", id);
 		NhanVienEntity list = (NhanVienEntity) query.list().get(0);
 		return list;
 	}
+	
 }

@@ -10,8 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.quancafehighland.model.NhanVienModel;
 import com.quancafehighland.model.UserModel;
+import com.quancafehighland.service.INhanVienService;
 import com.quancafehighland.service.IUserService;
+import com.quancafehighland.service.impl.NhanVienService;
 import com.quancafehighland.service.impl.UserService;
 import com.quancafehighland.utils.FormUtil;
 import com.quancafehighland.utils.SessionUtil;
@@ -23,7 +26,7 @@ import spring.entity.UserTBEntity;
 public class LoginController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	ResourceBundle resourceBundle = ResourceBundle.getBundle("message");
-
+	private INhanVienService nhanVienService = new NhanVienService();
 	private IUserService userService = new UserService();
 	protected void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
@@ -50,18 +53,19 @@ public class LoginController extends HttpServlet{
 		String action = request.getParameter("action");
 		if (action != null && action.equals("login")) {
 			UserModel model = FormUtil.toModel(UserModel.class, request);
-
 			model = userService.findByUserNameAndPasswordAndStatus(model.getUserName(), model.getPasswd(), 1);
+			
 			if (model != null) {
 				SessionUtil.getInstance().putValue(request, "USERMODEL", model);
-
+				NhanVienModel nv= nhanVienService.findOne(model.getID());
+				SessionUtil.getInstance().putValue(request, "NHANVIEN", nv);
 				if (model.getRoleID()==1) {
 					response.sendRedirect(request.getContextPath()+"/admin-home/index.htm");
 				} else if (model.getRoleID()!=null) {
 					response.sendRedirect(request.getContextPath()+"/trang-chu.htm");
 				}
 			} else {
-				response.sendRedirect(request.getContextPath()+"dang-nhap?action=login&message=username_password_invalid&alert=danger");
+				response.sendRedirect(request.getContextPath()+"/dang-nhap?action=login&message=username_password_invalid&alert=danger");
 			}
 		}
 	}
