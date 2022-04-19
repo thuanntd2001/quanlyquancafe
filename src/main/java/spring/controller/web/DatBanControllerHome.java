@@ -86,8 +86,6 @@ public class DatBanControllerHome {
 		List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
 		model.addAttribute("chiTietDat", chiTietDat);
 		model.addAttribute("id", id);
-		DatBanEntity datban = new DatBanEntity();
-		model.addAttribute("datban", datban);
 		return "web/datban2";
 	}
 	
@@ -99,7 +97,12 @@ public class DatBanControllerHome {
 		Long idnv = user1.getID();
 		datban.setDbnv(this.getNV(idnv));
 		datban.setNgayDat(new Date());
-		datban.setTgDuKien(Timestamp.valueOf(request.getParameter("tg").replace("T", " ") + ":00"));
+		try {
+			datban.setTgDuKien(Timestamp.valueOf(request.getParameter("tg").replace("T", " ") + ":00"));
+		} catch (Exception e) {
+			datban.setTgDuKien(null);
+		}
+		
 		Integer temp = this.themDatBan(datban,id,model);
 		if(temp != 0) {
 			model.addAttribute("message","Thêm mới thành công");
@@ -145,17 +148,16 @@ public class DatBanControllerHome {
 		try {
 			
 			session.save(datban);
-			t.commit();
 			Integer temp = this.themChiTietDat(datban,id);
 			if(temp != 0) {
 				model.addAttribute("message","Thêm mới thành công");
 				
 			}else {
-				System.out.println("loiiiiii");
 				model.addAttribute("message","Thêm mới thất bại");
 				t.rollback();
 				return 0;
 			}
+			t.commit();
 		}
 		catch (Exception e) {
 			t.rollback();
@@ -171,16 +173,16 @@ public class DatBanControllerHome {
 	public Integer themChiTietDat(DatBanEntity datban,Long id) {
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
-		System.out.println(datban);
 		try {
 			ChiTietDatEntity chiTietDat = new ChiTietDatEntity();
+			System.out.println(chiTietDat.getId());
 			chiTietDat.setBans(getBan(id));
 			chiTietDat.setDatBan(datban);
 			session.save(chiTietDat);
+			
 			t.commit();
 		}
 		catch (Exception e) {
-			System.out.println("loi");
 			t.rollback();
 			e.printStackTrace();
 			return 0;			

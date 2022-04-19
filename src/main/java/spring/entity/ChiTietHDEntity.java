@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -32,8 +33,12 @@ class ChiTietHDPK implements Serializable {
 @Table(name="CHITIETHD")
 public class ChiTietHDEntity {
 
+	@GeneratedValue
+	@Column(name="ID")
+	private Long id;
+	
 	@Column(name="SOLUONG")
-	private int soLuong;
+	private Integer soLuong;
 	
 	@Id
 	@ManyToOne
@@ -48,11 +53,21 @@ public class ChiTietHDEntity {
 	@Column(name="TONGTIEN")
 	private Integer tongTien;
 	
-	public int getSoLuong() {
+	
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Integer getSoLuong() {
 		return soLuong;
 	}
 
-	public void setSoLuong(int soLuong) {
+	public void setSoLuong(Integer soLuong) {
 		this.soLuong = soLuong;
 	}
 
