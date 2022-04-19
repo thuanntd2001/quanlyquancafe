@@ -161,8 +161,8 @@ public class QLNhanVienHome {
 	/* end phần chỉnh sửa */
 	
 //	phần xóa
-	@RequestMapping(value = "form", params = "linkDelete",method = RequestMethod.POST)
-	public String deleteNV (HttpServletRequest request, ModelMap model, @ModelAttribute("nv") NhanVienEntity nv) {
+	@RequestMapping(value = "index", params = "linkDelete",method = RequestMethod.GET)
+	public String deleteNV (HttpServletRequest request, ModelMap model) {
 		String id1 =request.getParameter("id");
 		long maNV = Long.parseLong(id1);
 		this.getNV(maNV).setDaNghi(true);
