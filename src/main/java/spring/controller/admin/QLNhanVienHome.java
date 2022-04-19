@@ -45,7 +45,7 @@ public class QLNhanVienHome {
 	@Autowired
 	SessionFactory factory;
 	@RequestMapping(value = "index", method = RequestMethod.GET)
-	public String index( ModelMap model/*, @ModelAttribute("nv") NhanVienEntity nv*/) {
+	public String index( ModelMap model) {
 		List<NhanVienEntity> nhanvien = this.getNhanVien();			  
 		model.addAttribute("nhanvien", nhanvien);
 		return "admin/QLNV";
@@ -117,7 +117,7 @@ public class QLNhanVienHome {
 	/* phần chỉnh sửa */
 	
 	@RequestMapping(value = "form", params = "linkEdit" )
-	public String editNV (HttpServletRequest request, ModelMap model, @ModelAttribute("nv") NhanVienEntity nv) {
+	public String editNV (HttpServletRequest request, ModelMap model) {
 		String id1 =request.getParameter("id");
 		long maNV = Long.parseLong(id1);
 		List<NhanVienEntity> nhanvien = this.getNhanVien();
@@ -181,7 +181,7 @@ public class QLNhanVienHome {
 		}
 		List<NhanVienEntity> nhanvien = this.getNhanVien();
 		model.addAttribute("nhanvien", nhanvien);
-		return "admin/QLNV";
+		return "redirect:admin/QLNV";
 	}
 	public NhanVienEntity getNV (long id) {
 		Session session = factory.getCurrentSession();

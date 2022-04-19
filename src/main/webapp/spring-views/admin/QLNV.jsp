@@ -102,11 +102,20 @@
 										<div class="col-6">
 
 											<button type="button" class="btn btn-warning"
-												data-toggle="modal" data-target="#exampleModal2">
+												data-toggle="modal" data-target="#exampleModal2"}>
 												<i class="ti-trash"></i>
-											</button>
 
-											<!-- Modal -->
+
+											</button>
+											
+										</div>
+										<form
+												action="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}">
+												<div>Bạn có chắc muốn xóa</div>
+
+												<button>YES</button>
+										</form>
+										<%-- <!-- Modal -->
 											<div class="modal fade" id="exampleModal2" tabindex="-1"
 												role="dialog" aria-labelledby="exampleModalLabel"
 												aria-hidden="true">
@@ -139,8 +148,8 @@
 														</div>
 													</div>
 												</div>
-											</div>
-										</div>
+											</div> --%>
+									</div>
 
 									</div>
 
