@@ -32,6 +32,7 @@
 		<div class="container">
 			<div class="content">
 				${message }
+				${message1 }
 				<div class="header-content d-flex justify-content-center">ĐẶT
 					BÀN</div>
 				<div class="original-info d-flex justify-content-center">
