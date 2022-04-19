@@ -8,5 +8,5 @@ import com.quancafehighland.model.NhanVienModel;
 public interface INhanVienService {
 
 	List<NhanVienModel> findAll();
-
+	NhanVienModel findOne(long id);
 }

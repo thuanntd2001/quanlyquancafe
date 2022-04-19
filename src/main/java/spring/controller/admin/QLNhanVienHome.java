@@ -10,8 +10,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,34 +25,34 @@ import spring.entity.NhanVienEntity;
 @RequestMapping(value = "/admin-home/" )
 public class QLNhanVienHome {
 
+
 	/*@Autowired
 	SessionFactory factory;
-	@RequestMapping(value = "index" , method = RequestMethod.GET)
-	public String showMenu(ModelMap model) {
-		Session session = factory.getCurrentSession();
-		String hql = "FROM NhanVienEntity";
-		Query query = session.createQuery(hql);
-		List<NhanVienEntity> list = query.list();
-		model.addAttribute("nhanvien", list);
-		
-		return "admin/QLNV";
-	}
-	
-	@RequestMapping(value="form", method = RequestMethod.GET) 
-    public String index(ModelMap model) {
-		model.addAttribute("nhanvien",new NhanVienEntity());
-          return "admin/form/updateNV";
-    }*/
-
-	@Autowired
-	SessionFactory factory;
 	@RequestMapping(value = "index", method = RequestMethod.GET)
-	public String index( ModelMap model/*, @ModelAttribute("nv") NhanVienEntity nv*/) {
+	public String index( ModelMap model) {
 		List<NhanVienEntity> nhanvien = this.getNhanVien();			  
 		model.addAttribute("nhanvien", nhanvien);
 		return "admin/QLNV";
 		
+	}*/
+	
+	@Autowired
+	SessionFactory factory;
+	// CONTROLLER
+	@RequestMapping(value = "index", method = RequestMethod.GET)
+	public <E> String index(HttpServletRequest request,ModelMap model){	
+		@SuppressWarnings("unchecked")
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getNhanVien());
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(10);
+	
+		pagedListHolder.setPageSize(5);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		//model.addAttribute("bans", list);
+		return "admin/QLNV";
 	}
+	
 	/*hiển thị form*/
 	@RequestMapping(value="form", method = RequestMethod.GET) 
     public String index_form(ModelMap model) {
@@ -66,6 +68,11 @@ public class QLNhanVienHome {
 		return list;
 	}
 	/*thêm nhân viên*/
+//<<<<<<< HEAD
+//	@RequestMapping(value = "index", method = RequestMethod.POST )
+//	public String addUser(HttpServletRequest request, ModelMap model,@ModelAttribute("user") NhanVienEntity user) {
+//		Integer temp = this.insertUser(user);
+//=======
 	@RequestMapping(value = "form",params = "Insert", method = RequestMethod.POST )
 	public String addUser(HttpServletRequest request, ModelMap model,@ModelAttribute("nv") NhanVienEntity nv) {
 		nv.setNgaySinh(new Date());
@@ -73,6 +80,7 @@ public class QLNhanVienHome {
 		nv.setDaNghi(false);
 		Integer temp = this.insertUser(nv);
 		
+
 		if(temp != 0) {
 		    model.addAttribute("message","them thanh cong");
 //		    nv.setMaNV(null);
@@ -111,7 +119,7 @@ public class QLNhanVienHome {
 	/* phần chỉnh sửa */
 	
 	@RequestMapping(value = "form", params = "linkEdit" )
-	public String editNV (HttpServletRequest request, ModelMap model, @ModelAttribute("nv") NhanVienEntity nv) {
+	public String editNV (HttpServletRequest request, ModelMap model) {
 		String id1 =request.getParameter("id");
 		long maNV = Long.parseLong(id1);
 		List<NhanVienEntity> nhanvien = this.getNhanVien();
@@ -168,10 +176,10 @@ public class QLNhanVienHome {
 		this.getNV(maNV).setDaNghi(true);
 		Integer temp = this.updateUser(this.getNV(maNV));
 		if(temp != 0) {
-			model.addAttribute("message","Delete thành công");
+			model.addAttribute("message","Delete k thành công");
 		}
 		else {
-			model.addAttribute("message", "Delete không thành công");
+			model.addAttribute("message", "Delete thành công");
 		}
 		List<NhanVienEntity> nhanvien = this.getNhanVien();
 		model.addAttribute("nhanvien", nhanvien);

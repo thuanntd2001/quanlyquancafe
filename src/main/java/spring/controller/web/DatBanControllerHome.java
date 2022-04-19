@@ -181,8 +181,7 @@ public class DatBanControllerHome {
 		}
 		catch (Exception e) {
 			System.out.println("loi");
-			t.rollback();
-			e.printStackTrace();
+			t.rollback();e.printStackTrace();
 			return 0;			
 		}
 		finally {

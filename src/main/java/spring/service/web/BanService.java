@@ -2,6 +2,7 @@ package spring.service.web;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
 
 import org.hibernate.Query;
@@ -14,6 +15,8 @@ import spring.entity.BanEntity;
 public class BanService {
 	@Autowired
 	SessionFactory factory;
+	@Autowired
+	ServletContext application;
 	
 	public BanEntity getBan(Long id) {
 		Session session = factory.getCurrentSession();
@@ -29,5 +32,8 @@ public class BanService {
 		Query query = session.createQuery(hql);
 		List<BanEntity> list = query.list();
 		return list;
+	}
+	public void UpdateListBan() {
+		application.setAttribute("listBan", getBans());
 	}
 }
