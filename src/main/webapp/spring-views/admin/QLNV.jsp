@@ -39,15 +39,11 @@
 			<div style="padding-left: 0px;" class="container-fluid">
 				<h2 style="margin-top: 2%; margin-bottom: 1%;">QUẢN LÍ NHÂN
 					VIÊN</h2>
+				<h4>${message}</h4>
 				<div>
-
-					<button style="width: 144px; height: 33px; margin-bottom: 5px;"
-						type="button" class="btn btn-primary" data-toggle=""
-						data-target="#exampleModal" data-whatever="@mdo">Thêm
-						Nhân Viên</button>
-
-					<a href="/CNPM/admin-home/form.htm">
-						<button type="button" class="btn btn-warning">Thêm</button>
+					<a href="/CNPM/admin-home/form.htm"> <!-- 	<button type="button" class="btn btn-warning">Thêm</button> -->
+						<button style="width: 144px; height: 33px; margin-bottom: 5px;"
+							type="button" class="btn btn-primary">Thêm Nhân Viên</button>
 					</a>
 
 				</div>
@@ -97,15 +93,18 @@
 									<div style="width: 95px;" class="row">
 										<div class="col-6">
 											<a href="/CNPM/admin-home/form.htm?linkEdit&id=${nv.maNV}">
-												<button type="button" class="btn btn-warning">Chỉnh
-													xửa</button>
+												<button type="button" class="btn btn-warning">
+													<i class="ti-save"></i>
+												</button>
 											</a>
 
 										</div>
 										<div class="col-6">
-											<button style="font-size: 10px;" type="button"
-												class="btn btn-primary" data-toggle="modal"
-												data-target="#exampleModal2">XÓA</button>
+
+											<button type="button" class="btn btn-warning"
+												data-toggle="modal" data-target="#exampleModal2">
+												<i class="ti-trash"></i>
+											</button>
 
 											<!-- Modal -->
 											<div class="modal fade" id="exampleModal2" tabindex="-1"
@@ -124,7 +123,19 @@
 														<div class="modal-footer">
 															<button type="button" class="btn btn-secondary"
 																data-dismiss="modal">Thoát</button>
-															<button type="button" class="btn btn-primary">Xóa</button>
+																<!-- nut xoa -->
+															<a
+																href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}">
+																<button type="button" class="btn btn-warning">
+																	<i class="ti-save"></i>
+																</button>
+															</a> 
+															<a style="font-size: 16px; padding: 10px;"
+																class="btn btn-secondary"
+																href="/CNPM/admin-home/index.htm">
+																<button name="del" type="button" class="btn btn-primary">Xóa</button>
+															</a>
+
 														</div>
 													</div>
 												</div>

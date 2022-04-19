@@ -14,35 +14,35 @@
   </head>
   <body>
       <div style="margin-top: 5%;" class="container">
-        <form:form action="admin-home/index.htm" modelAttribute="user" method="post">
+        <form:form action="admin-home/form.htm" modelAttribute="nv" method="post">
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label for="inputEmail4">Họ Tên</label>
-                <form:input path="hoTen" type="text" class="form-control" placeholder="Họ tên "/>
+                <label >Họ Tên</label>
+                <form:input path="hoTen" type="text" placeholder="Họ tên "/>
               </div>
               <div class="form-group col-md-6">
-                <label for="inputPassword4">Mã Nhân Viên</label>
-                <form:input path="maNV" readonly="true" type="text" class="form-control" placeholder="Mã nhân viên"/>
+                <label >Mã Nhân Viên</label>
+               <%--  <form:input path="maNV" readonly="true" type="text"  placeholder="Mã nhân viên"/> --%>
               </div>
             </div>
             <div class="form-group">
-              <label for="inputAddress">Địa chỉ</label>
+              <label >Địa chỉ</label>
               <form:input path="diaChi" type="text" class="form-control" placeholder="1234 Main St"/>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label for="inputCity">CMND/CCCD</label>
-                <form:input path="cmnd" type="number" class="form-control" />
+                <label >CMND/CCCD</label>
+                <form:input path="cmnd" type="text"  />
               </div>
               <div class="form-group col-md-4">
                 
                 <label >Tiền lương</label>
-                <form:input path="luong" type="number" class="form-control" />
+                <form:input path="luong" type="number" />
               </div>
               <div class="form-group col-md-2">
                 <div class="form-group col-md-2">
-                    <label for="birthday">NgàySinh</label>
-                    <form:input path="ngaySinh" type="date" id="birthday" name="birthday"/>
+                    <label >NgàySinh</label>
+                    <form:input path="ngaySinh" type="date" />
                   </div>
               </div>
 
@@ -50,12 +50,12 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                   <label >Số Điện Thoại</label>
-                  <form:input path="sdt" type="number" class="form-control" />
+                  <form:input path="sdt" type="text" />
                 </div>
                
                 <div class="form-group col-md-6">
                   <div class="form-group col-md-4">
-                      <label ">Ngày vào làm</label>
+                      <label >Ngày vào làm</label>
                       <form:input path="ngayVaoLam" type="date"/>
                     </div>
                 </div>
@@ -65,15 +65,15 @@
             </div>
 
             <div class="form-group row">
-              <label for="inputPassword" class="col-sm-2 col-form-label">Giới Tính</label>
+              <label class="col-sm-2 col-form-label">Giới Tính</label>
               <div class="col-sm-10">
                 <div class="form-check form-check-inline">
                   <form:radiobutton path="gioiTinh"   value="true"/>
-                  <label class="form-check-label" for="inlineRadio1">Nam</label>
+                  <label class="form-check-label" >Nam</label>
                 </div>
                 <div class="form-check form-check-inline">
                   <form:radiobutton path="gioiTinh" value="false"/>
-                  <label class="form-check-label" for="inlineRadio2">Nữ</label>
+                  <label class="form-check-label" >Nữ</label>
                 </div>
               </div>
             </div>
@@ -93,7 +93,8 @@
             <div class="form-group">
             
             </div> -->
-            <button  type="submit" class="btn btn-primary" name="Insert">Lưu</button>
+
+            	<button class="btn btn-primary" type = "submit" name= "${btnupdate ? 'btnupdate' : 'Insert'}" >${btnupdate ? 'Update' : 'Insert'}</button>
             <a style="font-size: 16px; padding: 10px;" class="btn btn-secondary" href="admin-home/index.htm"> QUAY LẠI </a>
           </form:form>
       </div>

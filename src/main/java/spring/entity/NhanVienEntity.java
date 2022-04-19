@@ -67,6 +67,11 @@ public class NhanVienEntity {
 	@OneToMany(mappedBy="usernv", fetch = FetchType.EAGER)
 	private Collection<UserTBEntity> userTB;
 	
+	
+	public NhanVienEntity() {
+		super();
+	}
+
 	public Long getMaNV() {
 		return maNV;
 	}
