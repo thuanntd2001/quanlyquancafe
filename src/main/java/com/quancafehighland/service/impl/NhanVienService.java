@@ -14,4 +14,8 @@ public class NhanVienService implements INhanVienService{
 	public List<NhanVienModel> findAll() {
 		return nhanVienDAO.findAll();
 	}
+	public NhanVienModel findOne(long id) {
+		return nhanVienDAO.findOne(id);
+		
+	}
 }

@@ -48,6 +48,8 @@ public class ChiTietHDEntity {
 	@Column(name="TONGTIEN")
 	private Integer tongTien;
 	
+	
+
 	public int getSoLuong() {
 		return soLuong;
 	}

@@ -18,32 +18,40 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="HOADON")
+@Table(name = "HOADON")
 public class HoaDonEntity {
 	@Id
 	@GeneratedValue
-	@Column(name="ID")
+	@Column(name = "ID")
 	private Long id;
-	
-	@Column(name="NGAYTHUCHIEN")
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm:ss")
-	private Date ngayThucHien;
-	
-	@ManyToOne
-	@JoinColumn(name="BAN")
-	private BanEntity ban;
-	
-	@OneToMany(mappedBy="hoaDon", fetch=FetchType.EAGER)
-	private Collection<ChiTietHDEntity> chiTietHD;
-	
-	@ManyToOne
-	@JoinColumn(name="NVTHUCHIEN")
-	private NhanVienEntity hdnv;
 
-	@Column(name="TINHTRANG")
-	private Integer tinhTrang;
+	@Column(name = "NGAYTHUCHIEN")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	private Date ngayThucHien;
+
+	@ManyToOne
+	@JoinColumn(name = "BAN")
+	private BanEntity ban;
+
+	@OneToMany(mappedBy = "hoaDon", fetch = FetchType.EAGER)
+	private Collection<ChiTietHDEntity> chiTietHD;
+
+	@ManyToOne
+	@JoinColumn(name = "NVTHUCHIEN")
+	private NhanVienEntity hdnv;
 	
+	@Column(name = "TINHTRANG")
+	private Integer tinhTrang;
+
+	public Integer getTinhTrang() {
+		return tinhTrang;
+	}
+
+	public void setTinhTrang(Integer tinhTrang) {
+		this.tinhTrang = tinhTrang;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -84,13 +92,4 @@ public class HoaDonEntity {
 		this.hdnv = hdnv;
 	}
 
-	public Integer getTinhTrang() {
-		return tinhTrang;
-	}
-
-	public void setTinhTrang(Integer tinhTrang) {
-		this.tinhTrang = tinhTrang;
-	}
-
-	
 }

@@ -254,7 +254,7 @@
 
 									<div class="tab-pane fade pt-3" id="profile-change-password">
 										<!-- Change Password Form -->
-										<form action="user.htm">
+										<form action="user.htm" method="post">
 											${message}
 											<div class="row mb-3">
 												<label for="currentPassword"
