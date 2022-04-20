@@ -145,7 +145,7 @@
 														<button type="button" class="btn btn-secondary"
 															data-dismiss="modal">Thoát</button>
 														<!-- nut xoa -->
-														<a href="/CNPM/admin-home/index/${nv.maNV}.htm?linkDelete"
+														<a href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}"
 															<%-- href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}" --%>>
 															<button name="btnXOA" id="#exampleModal2" type="button"
 																class="btn btn-warning">Xóa</button>

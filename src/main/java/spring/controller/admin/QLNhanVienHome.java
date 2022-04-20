@@ -148,7 +148,7 @@ public class QLNhanVienHome {
 		pagedListHolder.setPageSize(5);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		//model.addAttribute("bans", list);
-		return "admin/QLNV";
+		return "redirect:admin-home/";
 	}
 	
 	
@@ -171,7 +171,7 @@ public class QLNhanVienHome {
 	/* end phần chỉnh sửa */
 	
 //	phần xóa
-	/*@RequestMapping(value = "index", params = "linkDelete",method = RequestMethod.GET)
+	@RequestMapping(value = "index", params = "linkDelete",method = RequestMethod.GET)
 	public <E> String deleteNV (HttpServletRequest request, ModelMap model) {
 		String id1 =request.getParameter("id");
 		long maNV = Long.parseLong(id1);
@@ -193,8 +193,8 @@ public class QLNhanVienHome {
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		//model.addAttribute("bans", list);
 		return "admin/QLNV";
-	}*/
-	@RequestMapping(value = "index/{id}.htm", params = "linkDelete",method = RequestMethod.GET)
+	}
+/*	@RequestMapping(value = "{id}.htm", params = "linkDelete",method = RequestMethod.GET)
 	public <E> String deleteNV (HttpServletRequest request, ModelMap model,
 			@PathVariable("id") Long id) {
 		this.getNV(id).setDaNghi(true);
@@ -215,7 +215,7 @@ public class QLNhanVienHome {
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		//model.addAttribute("bans", list);
 		return "admin/QLNV";
-	}
+	}*/
 //	kết thúc xóa
 	
 //	phần tìm kiếm
