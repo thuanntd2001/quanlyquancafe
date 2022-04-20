@@ -10,15 +10,13 @@
 <body>
 
 	<jsp:include page="/common/admin/header.jsp" />
+		<jsp:include page="/common/admin/menubar.jsp" />
 
 	<!-- CONTEND -->
 	<div class="row main">
 
-
-		<jsp:include page="/common/admin/menubar.jsp" />
-        <div class="col-md-10 col-lg-10">
             <div class="container">
-                <h2 style="margin-top: 2%; margin-bottom: 1%;">QUẢN LÍ THỰC ĐƠN</h2>
+            <div class="header-content d-flex justify-content-center">QUẢN LÍ THỰC ĐƠN</div>
                 <!-- <div class="input-group">
                 <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
                 <button type="button" class="btn btn-outline-primary">search</button>
@@ -72,7 +70,7 @@
 
                 </div>
                 <!-- ENDTHEEM -->
-                <table class="table table-striped">
+                <table class="table table-striped shadow-box bg-white">
                     <thead>
                         <tr>
                             <th scope="row">ID</th>
@@ -194,9 +192,6 @@
                 </nav>
             </div>
         </div>
-
-
-    </div>
 
 
 	<jsp:include page="/common/admin/footer.jsp" />

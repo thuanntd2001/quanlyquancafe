@@ -32,7 +32,7 @@
                 </div>
                 <div class="original-info d-flex justify-content-center">
                     <div class=" mg-0-40">
-                        Họ tên nhân viên: Huỳnh Ngọc Dương
+                        Họ tên nhân viên: ${NHANVIEN.hoTen}
                     </div>
                     <div class=" mg-0-40">
                         Ngày:
@@ -44,6 +44,13 @@
 
                     </div>
                 </div>
+                
+                <jsp:useBean id="pagedListHolder" scope="request"
+					type="org.springframework.beans.support.PagedListHolder" />
+				<c:url value="hoa-don.htm" var="pagedLink">
+					<c:param name="p" value="~" />
+				</c:url>
+                
                 <table class="table table-striped datatable shadow-box bg-white">
                     <thead>
                         <tr>
@@ -55,7 +62,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="hd" items="${hoaDon}">
+                        <c:forEach var="hd" items="${pagedListHolder.pageList}">
                         	<tr>
                             <th scope="row">${hd.id }</th>
                             <td>${hd.ngayThucHien}</td>
@@ -72,6 +79,8 @@
                         </c:forEach>
                     </tbody>
                 </table>
+                <tg:paging pagedLink="${pagedLink}"
+					pagedListHolder="${pagedListHolder}"></tg:paging>
             </div>
 
         </div>

@@ -39,5 +39,4 @@
 	href=<c:url value="/common/vendor/bootrap.min.css"/>>
 
 <!-- Custom styles for this template -->
-<link href="<c:url value='/template/admin/style.css'/>" rel="stylesheet"
-	type="text/css" media="all" />
+<link href="<c:url value='/template/web/styles.css'/>" rel="stylesheet" type="text/css"> 

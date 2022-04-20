@@ -81,10 +81,17 @@ public class DatBanControllerHome {
 	}
 	
 	@RequestMapping(value = "dat-ban/{id}.htm", params = "linkView")
-	public String xemDatBan(HttpServletRequest request, ModelMap model,
+	public <E> String xemDatBan(HttpServletRequest request, ModelMap model,
 			@PathVariable("id") Long id) {
-		List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
-		model.addAttribute("chiTietDat", chiTietDat);
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getChiTietDat(id));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(1);
+	
+		pagedListHolder.setPageSize(1);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		/*List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
+		model.addAttribute("chiTietDat", chiTietDat);*/
 		model.addAttribute("id", id);
 		return "web/datban2";
 	}
@@ -175,7 +182,7 @@ public class DatBanControllerHome {
 		Transaction t = session.beginTransaction();
 		try {
 			ChiTietDatEntity chiTietDat = new ChiTietDatEntity();
-			
+
 			chiTietDat.setBans(getBan(id));
 			chiTietDat.setDatBan(datban);
 			session.save(chiTietDat);
