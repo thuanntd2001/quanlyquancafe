@@ -25,7 +25,6 @@ import spring.entity.NhanVienEntity;
 @Controller
 @RequestMapping(value = "/admin-home/" )
 public class QLNhanVienHome {
-	
 	@Autowired
 	SessionFactory factory;
 	// CONTROLLER

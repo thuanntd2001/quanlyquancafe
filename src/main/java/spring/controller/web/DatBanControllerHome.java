@@ -175,7 +175,7 @@ public class DatBanControllerHome {
 		Transaction t = session.beginTransaction();
 		try {
 			ChiTietDatEntity chiTietDat = new ChiTietDatEntity();
-			System.out.println(chiTietDat.getId());
+			
 			chiTietDat.setBans(getBan(id));
 			chiTietDat.setDatBan(datban);
 			session.save(chiTietDat);
