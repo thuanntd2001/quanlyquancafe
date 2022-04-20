@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+
 
 class ChiTietDatPK implements Serializable {
     private BanEntity bans;
@@ -32,7 +35,7 @@ class ChiTietDatPK implements Serializable {
 @Table(name="CHITIETDAT")
 public class ChiTietDatEntity {
 
-	@GeneratedValue
+	@Generated( value = GenerationTime.INSERT)
 	@Column(name="ID")
 	private Long id;
 	
