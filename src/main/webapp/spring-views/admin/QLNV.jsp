@@ -121,7 +121,7 @@
 											</a>
 
 											<button type="button" class="btn btn-warning"
-												data-toggle="modal" data-target="#exampleModal2"}>
+												data-toggle="modal" data-target="#n-${nv.maNV}"}>
 												<i class="ti-trash"></i>
 
 
@@ -135,7 +135,7 @@
 											<button>YES</button>
 										</form> --%>
 										<!-- Modal -->
-										<div class="modal fade" id="exampleModal2" tabindex="-1"
+										<div class="modal fade" id="n-${nv.maNV}" tabindex="-1"
 											role="dialog" aria-labelledby="exampleModalLabel"
 											aria-hidden="true">
 											<div class="modal-dialog" role="document">
@@ -167,8 +167,6 @@
 												</div>
 											</div>
 										</div>
-									</div>
-
 									</div>
 
 								</td>

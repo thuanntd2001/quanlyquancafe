@@ -9,8 +9,10 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.quancafehighland.model.UserModel;
 import com.quancafehighland.utils.SessionUtil;
 
-import spring.entity.ChiTietDatEntity;
 import spring.entity.ChiTietHDEntity;
 import spring.entity.HoaDonEntity;
 
@@ -29,21 +30,42 @@ public class HoaDonController {
 	SessionFactory factory;
 	
 	@RequestMapping(value = "hoa-don" , method = RequestMethod.GET)
-	public String showMenu(ModelMap model,HttpServletRequest request) {
+	public <E> String showMenu(ModelMap model,HttpServletRequest request) {
 		UserModel user = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
 		Long id = user.getID();
+		
+		@SuppressWarnings("unchecked")
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getHoaDon(id));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(5);
+	
+		pagedListHolder.setPageSize(5);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		
 		List<HoaDonEntity> hoaDon = this.getHoaDon(id);
 		model.addAttribute("hoaDon", hoaDon);
 		return "web/bill";
 	}
 
 	@RequestMapping(value = "hoa-don/{id}.htm", params = "linkView")
-	public String xemChiTietHD(HttpServletRequest request, ModelMap model,
+	public <E> String xemChiTietHD(HttpServletRequest request, ModelMap model,
 			@PathVariable("id") Long id) {
-		List<ChiTietHDEntity> chiTietHD = this.getChiTietHD(id);
-		model.addAttribute("chiTietHD", chiTietHD);
+		
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) getChiTietHD(id));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(5);
+	
+		pagedListHolder.setPageSize(5);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		
+		/*List<ChiTietHDEntity> chiTietHD = this.getChiTietHD(id);
+		model.addAttribute("chiTietHD", chiTietHD);*/
+		model.addAttribute("idhd",id);
 		return "web/bill2";
 	}
+
 	
 	
 	public List<HoaDonEntity> getHoaDon(Long id){

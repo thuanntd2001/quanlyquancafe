@@ -35,7 +35,7 @@
 				<div class="header-content d-flex justify-content-center">ĐẶT
 					BÀN</div>
 				<div class="original-info d-flex justify-content-center">
-					<div class=" mg-0-40">Họ tên nhân viên:</div>
+					<div class=" mg-0-40">Họ tên nhân viên: ${NHANVIEN.hoTen}</div>
 					<div class=" mg-0-40">
 						Ngày: <span id="date-now"></span>
 					</div>
@@ -103,6 +103,22 @@
 						</div>
 					</div>
 				</div>
+				
+				
+				<jsp:useBean id="pagedListHolder" scope="request"
+					type="org.springframework.beans.support.PagedListHolder" />
+				<c:url value="dat-ban/${id}.htm?linkView" var="pagedLink">
+					<c:param name="p" value="~" />
+				</c:url>
+				<form class="input-group" style="margin: 20px 0" method="post">
+					<div>
+						<input id="search-input" type="search" name="searchInput"
+							class="form-control" placeholder="Tìm kiếm"/>
+					</div>
+					<button id="search-button" type="submit" class="btn btn-primary" name="btnsearch">
+						<i class="fas fa-search"></i>
+					</button>
+				</form>
 				<table class="table table-striped datatable bg-white shadow-box">
 
 					<thead>
@@ -116,7 +132,7 @@
 					</thead>
 					<tbody>
 
-						<c:forEach var="d" items="${chiTietDat}">
+						<c:forEach var="d" items="${pagedListHolder.pageList}">
 							<tr>
 								<td>${d.datBan.hoTen}</td>
 								<td>${d.datBan.sdt}</td>
@@ -130,6 +146,8 @@
 					</tbody>
 
 				</table>
+				<tg:paging pagedLink="${pagedLink}"
+					pagedListHolder="${pagedListHolder}"></tg:paging>
 			</div>
 
 		</div>

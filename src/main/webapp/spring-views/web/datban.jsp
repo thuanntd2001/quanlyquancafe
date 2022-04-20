@@ -35,7 +35,7 @@
 				<div class="header-content d-flex justify-content-center">ĐẶT
 					BÀN</div>
 				<div class="original-info d-flex justify-content-center">
-					<div class=" mg-0-40">Họ tên nhân viên: Huỳnh Ngọc Dương</div>
+					<div class=" mg-0-40">Họ tên nhân viên: ${NHANVIEN.hoTen}</div>
 					<div class=" mg-0-40">
 						Ngày: <span id="date-now"></span>
 					</div>
@@ -98,6 +98,7 @@
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script src="<c:url value='/template/web/scipts.js'/>"></script>
+	
 </body>
 
 </html>
