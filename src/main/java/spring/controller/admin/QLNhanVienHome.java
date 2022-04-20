@@ -19,22 +19,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import spring.entity.BanEntity;
 import spring.entity.NhanVienEntity;
 @Transactional
 @Controller
 @RequestMapping(value = "/admin-home/" )
 public class QLNhanVienHome {
-
-
-	/*@Autowired
-	SessionFactory factory;
-	@RequestMapping(value = "index", method = RequestMethod.GET)
-	public String index( ModelMap model) {
-		List<NhanVienEntity> nhanvien = this.getNhanVien();			  
-		model.addAttribute("nhanvien", nhanvien);
-		return "admin/QLNV";
-		
-	}*/
 	
 	@Autowired
 	SessionFactory factory;
@@ -68,13 +58,8 @@ public class QLNhanVienHome {
 		return list;
 	}
 	/*thêm nhân viên*/
-//<<<<<<< HEAD
-//	@RequestMapping(value = "index", method = RequestMethod.POST )
-//	public String addUser(HttpServletRequest request, ModelMap model,@ModelAttribute("user") NhanVienEntity user) {
-//		Integer temp = this.insertUser(user);
-//=======
 	@RequestMapping(value = "form",params = "Insert", method = RequestMethod.POST )
-	public String addUser(HttpServletRequest request, ModelMap model,@ModelAttribute("nv") NhanVienEntity nv) {
+	public <E> String addUser(HttpServletRequest request, ModelMap model,@ModelAttribute("nv") NhanVienEntity nv) {
 		nv.setNgaySinh(new Date());
 		nv.setNgayVaoLam(new Date());
 		nv.setDaNghi(false);
@@ -96,9 +81,16 @@ public class QLNhanVienHome {
 		}else {
 			model.addAttribute("message","them that bai");
 		}
-		List<NhanVienEntity> nhanvien = this.getNhanVien();
-		model.addAttribute("nhanvien", nhanvien);
-		return"admin/QLNV";
+		@SuppressWarnings("unchecked")
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getNhanVien());
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(10);
+	
+		pagedListHolder.setPageSize(5);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		//model.addAttribute("bans", list);
+		return "admin/QLNV";
 	}
 	
 	public Integer insertUser(NhanVienEntity nv) {
@@ -128,7 +120,7 @@ public class QLNhanVienHome {
 		return "admin/form/inputNV";
 	}
 	@RequestMapping(value = "form", params = "btnupdate" , method = RequestMethod.POST )
-	public String edit_NVs(HttpServletRequest requets, ModelMap model, 
+	public <E> String edit_NVs(HttpServletRequest requets, ModelMap model, 
 			@ModelAttribute("nv") NhanVienEntity nv) {
 		Integer temp = this.updateUser(nv);
 		if( temp != 0) {
@@ -144,8 +136,18 @@ public class QLNhanVienHome {
 		else {
 			model.addAttribute("message", "Cập nhật không thành công");
 		}
-		List<NhanVienEntity> nhanvien = this.getNhanVien();
+		/*List<NhanVienEntity> nhanvien = this.getNhanVien();
 		model.addAttribute("nhanvien", nhanvien);
+		return "admin/QLNV";*/
+		@SuppressWarnings("unchecked")
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getNhanVien());
+		int page = ServletRequestUtils.getIntParameter(requets, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(10);
+	
+		pagedListHolder.setPageSize(5);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		//model.addAttribute("bans", list);
 		return "admin/QLNV";
 	}
 	
@@ -169,8 +171,8 @@ public class QLNhanVienHome {
 	/* end phần chỉnh sửa */
 	
 //	phần xóa
-	@RequestMapping(value = "index", params = "linkDelete",method = RequestMethod.GET)
-	public String deleteNV (HttpServletRequest request, ModelMap model) {
+	/*@RequestMapping(value = "index", params = "linkDelete",method = RequestMethod.GET)
+	public <E> String deleteNV (HttpServletRequest request, ModelMap model) {
 		String id1 =request.getParameter("id");
 		long maNV = Long.parseLong(id1);
 		this.getNV(maNV).setDaNghi(true);
@@ -181,10 +183,75 @@ public class QLNhanVienHome {
 		else {
 			model.addAttribute("message", "Delete thành công");
 		}
-		List<NhanVienEntity> nhanvien = this.getNhanVien();
-		model.addAttribute("nhanvien", nhanvien);
+		@SuppressWarnings("unchecked")
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getNhanVien());
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(10);
+	
+		pagedListHolder.setPageSize(5);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		//model.addAttribute("bans", list);
+		return "admin/QLNV";
+	}*/
+	@RequestMapping(value = "index/{id}.htm", params = "linkDelete",method = RequestMethod.GET)
+	public <E> String deleteNV (HttpServletRequest request, ModelMap model,
+			@PathVariable("id") Long id) {
+		this.getNV(id).setDaNghi(true);
+		Integer temp = this.updateUser(this.getNV(id));
+		if(temp != 0) {
+			model.addAttribute("message","Delete k thành công");
+		}
+		else {
+			model.addAttribute("message", "Delete thành công");
+		}
+		@SuppressWarnings("unchecked")
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getNhanVien());
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(10);
+	
+		pagedListHolder.setPageSize(5);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		//model.addAttribute("bans", list);
 		return "admin/QLNV";
 	}
+//	kết thúc xóa
+	
+//	phần tìm kiếm
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="index", params = "btnsearch", method=RequestMethod.POST)
+	public <E> String searchBan1(HttpServletRequest request, ModelMap model) {
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>)this.searchNhanVien(request.getParameter("searchInput")));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(10);
+		
+		pagedListHolder.setPageSize(5);
+		
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		
+		return "admin/QLNV";
+	}
+	public List<BanEntity> searchNhanVien(String name) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM NhanVienEntity where maNV = :id OR hoTen like :name";
+		Query query = session.createQuery(hql);
+		Long id = null;
+	
+		try {
+			id = Long.parseLong(name);
+		}
+		catch (Exception e) {
+		}
+		
+		query.setParameter("id", id);			
+		query.setParameter("name", "%" +  name + "%");
+		List<BanEntity> list = query.list();
+		return list;
+	}
+//	kết thúc tìm kiếm
+	
 	public NhanVienEntity getNV (long id) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM NhanVienEntity where maNV =:id ";

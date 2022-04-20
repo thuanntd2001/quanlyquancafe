@@ -49,7 +49,7 @@
 				</div>
 				<jsp:useBean id="pagedListHolder" scope="request"
 					type="org.springframework.beans.support.PagedListHolder" />
-				<c:url value="admin-home/index.htm" var="pagedLink">
+				<c:url value="index.htm" var="pagedLink">
 					<c:param name="p" value="~" />
 				</c:url>
 				<form class="input-group" style="margin: 20px 0" method="post">
@@ -115,27 +115,20 @@
 
 										</div>
 										<div class="col-6">
-											<a href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}">
+											<%-- <a href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}">
 												<button id="#exampleModal2" type="button"
 													class="btn btn-warning">Xóa</button>
-											</a>
+											</a> --%>
 
-											<button type="button" class="btn btn-warning"
-												data-toggle="modal" data-target="#exampleModal2"}>
+											<button name="btnxoa" type="button" class="btn btn-warning"
+												data-toggle="modal" data-target="#n-${nv.maNV}">
 												<i class="ti-trash"></i>
-
-
 											</button>
 
 										</div>
-										<%-- <form
-											action="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}">
-											<div>Bạn có chắc muốn xóa</div>
-
-											<button>YES</button>
-										</form> --%>
+								
 										<!-- Modal -->
-										<div class="modal fade" id="exampleModal2" tabindex="-1"
+										<div class="modal fade" id="n-${nv.maNV}" tabindex="-1"
 											role="dialog" aria-labelledby="exampleModalLabel"
 											aria-hidden="true">
 											<div class="modal-dialog" role="document">
@@ -152,16 +145,12 @@
 														<button type="button" class="btn btn-secondary"
 															data-dismiss="modal">Thoát</button>
 														<!-- nut xoa -->
-														<a
-															href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}">
-															<button id="#exampleModal2" type="button"
+														<a href="/CNPM/admin-home/index/${nv.maNV}.htm?linkDelete"
+															<%-- href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}" --%>>
+															<button name="btnXOA" id="#exampleModal2" type="button"
 																class="btn btn-warning">Xóa</button>
 														</a>
-														<!-- <a style="font-size: 16px; padding: 10px;"
-																class="btn btn-secondary"
-																href="/CNPM/admin-home/index.htm">
-																<button name="del" type="button" class="btn btn-primary">Xóa</button>
-															</a> -->
+														
 
 													</div>
 												</div>
@@ -169,7 +158,7 @@
 										</div>
 									</div>
 
-									</div>
+						
 
 								</td>
 							</tr>

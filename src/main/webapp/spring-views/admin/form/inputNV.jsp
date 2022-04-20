@@ -42,7 +42,7 @@
               <div class="form-group col-md-2">
                 <div class="form-group col-md-2">
                     <label >NgàySinh</label>
-                    <form:input path="ngaySinh" type="date" />
+                    <input name="ngayS" type="date" />
                   </div>
               </div>
 
@@ -56,7 +56,7 @@
                 <div class="form-group col-md-6">
                   <div class="form-group col-md-4">
                       <label >Ngày vào làm</label>
-                      <form:input path="ngayVaoLam" type="date"/>
+                      <input name="ngayVL" type="date"/>
                     </div>
                 </div>
   
