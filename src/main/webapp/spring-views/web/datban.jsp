@@ -58,7 +58,7 @@
 						<i class="fas fa-search"></i>
 					</button>
 				</form>
-				<table class="table table-striped datatable shadow-box bg-white">
+				<table class="table table-striped shadow-box bg-white">
 					<thead>
 						<tr>
 							<th scope="row">ID</th>

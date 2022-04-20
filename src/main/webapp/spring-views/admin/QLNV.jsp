@@ -30,16 +30,13 @@
 		<body>
 
 			<jsp:include page="/common/admin/header.jsp" />
+				<jsp:include page="/common/admin/menubar.jsp" />
 
 			<!-- CONTEND -->
-			<div class="row main">
-
-
-				<jsp:include page="/common/admin/menubar.jsp" />
-				<div style="padding-left: 0px;" class="col-md-10 col-lg-10">
-					<div style="padding-left: 0px;" class="container-fluid">
-						<h2 style="margin-top: 2%; margin-bottom: 1%;">QUẢN LÍ NHÂN
-							VIÊN</h2>
+			<div class="container-fluid main">
+				<div style="padding-left:20px;">
+						<div class="header-content d-flex justify-content-center">QUẢN LÍ NHÂN
+							VIÊN</div>
 						<h4>${message}</h4>
 						<div>
 							<a href="/CNPM/admin-home/form.htm">
@@ -63,7 +60,7 @@
 								<i class="fas fa-search"></i>
 							</button>
 						</form>
-						<table class="table table-striped">
+						<table class="table table-striped shadow-box bg-white">
 							<thead>
 								<tr>
 
@@ -174,8 +171,7 @@
 						</table>
 						<tg:paging pagedLink="${pagedLink}" pagedListHolder="${pagedListHolder}"></tg:paging>
 					</div>
-				</div>
-			</div>
+</div>
 			<jsp:include page="/common/admin/footer.jsp" />
 
 		</body>
