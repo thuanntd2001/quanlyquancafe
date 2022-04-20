@@ -194,7 +194,7 @@ public class QLNhanVienHome {
 		//model.addAttribute("bans", list);
 		return "admin/QLNV";
 	}*/
-	@RequestMapping(value = "index/{id}.htm", params = "linkDelete",method = RequestMethod.GET)
+	@RequestMapping(value = "index", params = "linkDelete",method = RequestMethod.GET)
 	public <E> String deleteNV (HttpServletRequest request, ModelMap model,
 			@PathVariable("id") Long id) {
 		this.getNV(id).setDaNghi(true);
