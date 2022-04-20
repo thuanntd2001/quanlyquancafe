@@ -36,12 +36,15 @@ public class BanEntity {
 	@Column(name = "TINHTRANG")
 	private int tinhTrang;
 	
+
+
+
 	public int getTinhTrang() {
 		return tinhTrang;
 	}
 
-	public void setTinhTrang(int tinhtrang) {
-		this.tinhTrang = tinhtrang;
+	public void setTinhTrang(int tinhTrang) {
+		this.tinhTrang = tinhTrang;
 	}
 
 	public Long getId() {
@@ -83,6 +86,7 @@ public class BanEntity {
 	public void setChiTietDat(Collection<ChiTietDatEntity> chiTietDat) {
 		this.chiTietDat = chiTietDat;
 	}
+
 
 	
 }

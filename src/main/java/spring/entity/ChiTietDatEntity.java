@@ -2,7 +2,7 @@ package spring.entity;
 
 import java.io.Serializable;
 
-import javax.annotation.Generated;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +12,9 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 
 
@@ -34,10 +37,10 @@ class ChiTietDatPK implements Serializable {
 @IdClass(ChiTietDatPK.class)
 @Table(name="CHITIETDAT")
 public class ChiTietDatEntity {
-	/*@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
+	@Generated( value = GenerationTime.INSERT)
 	@Column(name="ID")
-	private Long id;*/
+	private Long id;
 	
 	@Id
 	@ManyToOne
@@ -51,13 +54,13 @@ public class ChiTietDatEntity {
 
 	
 	
-	/*public Long getId() {
+	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}*/
+	}
 
 	public BanEntity getBans() {
 		return bans;

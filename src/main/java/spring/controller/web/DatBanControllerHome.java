@@ -112,10 +112,10 @@ public class DatBanControllerHome {
 		
 		Integer temp = this.themDatBan(datban,id,model);
 		if(temp != 0) {
-			model.addAttribute("message","Thêm mới thành công");
+			model.addAttribute("message","Thêm mới dat ban thành công");
 			
 		}else {
-			model.addAttribute("message","Thêm mới thất bại");
+			model.addAttribute("message","Thêm mới dat ban thất bại");
 		}
 		List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
 		model.addAttribute("chiTietDat", chiTietDat);
@@ -157,10 +157,10 @@ public class DatBanControllerHome {
 			session.save(datban);
 			Integer temp = this.themChiTietDat(datban,id);
 			if(temp != 0) {
-				model.addAttribute("message","Thêm mới thành công");
+				model.addAttribute("message1","Thêm mới chi tiet thành công");
 				
 			}else {
-				model.addAttribute("message","Thêm mới thất bại");
+				model.addAttribute("message1","Thêm mới chi tiet thất bại");
 				t.rollback();
 				return 0;
 			}
