@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import spring.entity.BanEntity;
 import spring.entity.NhanVienEntity;
 @Transactional
 @Controller
@@ -111,7 +110,7 @@ public class QLNhanVienHome {
 	/* phần chỉnh sửa */
 	
 	@RequestMapping(value = "form", params = "linkEdit" )
-	public String editNV (HttpServletRequest request, ModelMap model) {
+	public String editNV_showform (HttpServletRequest request, ModelMap model) {
 		String id1 =request.getParameter("id");
 		long maNV = Long.parseLong(id1);
 		List<NhanVienEntity> nhanvien = this.getNhanVien();
@@ -120,21 +119,25 @@ public class QLNhanVienHome {
 		return "admin/form/inputNV";
 	}
 	@RequestMapping(value = "form", params = "btnupdate" , method = RequestMethod.POST )
-	public <E> String edit_NVs(HttpServletRequest requets, ModelMap model, 
+	public <E> String edit_NV(HttpServletRequest requets, ModelMap model, 
 			@ModelAttribute("nv") NhanVienEntity nv) {
+		nv.setNgaySinh(new Date());
+		nv.setNgayVaoLam(new Date());
+		nv.setDaNghi(false);
 		Integer temp = this.updateUser(nv);
 		if( temp != 0) {
 			model.addAttribute("message", "Cập nhật thành công");
 			nv.setHoTen(null);
-			
 			nv.setGioiTinh(null);
 			nv.setLuong(null);
 			nv.setSdt(null);
 			nv.setCmnd(null);
 			nv.setDiaChi(null);
+			
 		}
 		else {
 			model.addAttribute("message", "Cập nhật không thành công");
+			
 		}
 		/*List<NhanVienEntity> nhanvien = this.getNhanVien();
 		model.addAttribute("nhanvien", nhanvien);
@@ -171,7 +174,7 @@ public class QLNhanVienHome {
 	/* end phần chỉnh sửa */
 	
 //	phần xóa
-	/*@RequestMapping(value = "index", params = "linkDelete",method = RequestMethod.GET)
+	@RequestMapping(value = "index", params = "linkDelete",method = RequestMethod.GET)
 	public <E> String deleteNV (HttpServletRequest request, ModelMap model) {
 		String id1 =request.getParameter("id");
 		long maNV = Long.parseLong(id1);
@@ -193,8 +196,11 @@ public class QLNhanVienHome {
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		//model.addAttribute("bans", list);
 		return "admin/QLNV";
-	}*/
-	@RequestMapping(value = "index", params = "linkDelete",method = RequestMethod.GET)
+
+}
+	/*@RequestMapping(value = "index", params = "linkDelete",method = RequestMethod.GET)*/
+
+	@RequestMapping(value = "{id}.htm", params = "linkDelete",method = RequestMethod.GET)
 	public <E> String deleteNV (HttpServletRequest request, ModelMap model,
 			@PathVariable("id") Long id) {
 		this.getNV(id).setDaNghi(true);
@@ -233,7 +239,7 @@ public class QLNhanVienHome {
 		
 		return "admin/QLNV";
 	}
-	public List<BanEntity> searchNhanVien(String name) {
+	public List<NhanVienEntity> searchNhanVien(String name) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM NhanVienEntity where maNV = :id OR hoTen like :name";
 		Query query = session.createQuery(hql);
@@ -247,7 +253,7 @@ public class QLNhanVienHome {
 		
 		query.setParameter("id", id);			
 		query.setParameter("name", "%" +  name + "%");
-		List<BanEntity> list = query.list();
+		List<NhanVienEntity> list = query.list();
 		return list;
 	}
 //	kết thúc tìm kiếm

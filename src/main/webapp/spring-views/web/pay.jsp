@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,8 +73,7 @@
 						QUẢN LÝ BÀN</div>
 					<!--   LOGO bàn -->
 					<div class="table-icon shadow-box">
-						<%-- ${bans.get(0).getTinhTrang()}
-						${bans.get(2).getTinhTrang()} --%>
+
 						<c:forEach var="b" items="${bans}">
 							<c:choose>
 								<c:when test="${ b.tinhTrang == 0}">
@@ -82,19 +83,22 @@
 									</div>
 								</c:when>
 								<c:when test="${ b.tinhTrang == 1}">
-									<div class="icon-coffee d-flex flex-column align-items-center" style="background-color: rgb(248, 106, 106);">
+									<div class="icon-coffee d-flex flex-column align-items-center"
+										style="background-color: rgb(248, 106, 106);">
 										<i class="fas fa-mug-hot"></i> <span
 											style="font-size: 14px; color: black;">${b.id }</span>
 									</div>
 								</c:when>
 								<c:when test="${ b.tinhTrang == 2}">
-									<div class="icon-coffee d-flex flex-column align-items-center" style="border: #2519ce ridge 3px;">
+									<div class="icon-coffee d-flex flex-column align-items-center"
+										style="border: #2519ce ridge 3px;">
 										<i class="fas fa-mug-hot"></i> <span
 											style="font-size: 14px; color: black;">${b.id }</span>
 									</div>
 								</c:when>
 								<c:when test="${ b.tinhTrang == 3}">
-									<div class="icon-coffee d-flex flex-column align-items-center" style="opacity: 0.5;">
+									<div class="icon-coffee d-flex flex-column align-items-center"
+										style="opacity: 0.5;">
 										<i class="fas fa-mug-hot"></i> <span
 											style="font-size: 14px; color: black;">${b.id }</span>
 									</div>
@@ -121,270 +125,278 @@
 						</div>
 						<!-- CAN TG -->
 					</div>
-					<div id="name-table">
-						<span>Bàn số:</span>
-					</div>
-					<div class="select-menu">
-						<select id="sel1" onchange="giveSelection(this.value)"
-							class="select-menu-small">
-							<option value="Cà phê">Cà phê</option>
-							<option value="Freeze">Freeze</option>
-							<option value="Trà">Trà</option>
-							<option value="Bánh mì">Bánh mì</option>
-							<option value="Khác">Khác</option>
-						</select> <select id="sel2" class="select-menu-small">
-							<option data-option="Cà phê">Cà Phê Phin</option>
-							<option data-option="Cà phê">Phin Di</option>
-							<option data-option="Cà phê">Cà Phê Espresso</option>
+					<form:form action="thanh-toan.htm" method="post"
+						modelAttribute="banHoaDon">
+						<h5>
+							Bàn số:
+							<form:select path="idBan" items="${banids}" />
+						</h5>
 
-							<option data-option="Freeze">Freeze Cà Chê Phin</option>
-							<option data-option="Freeze">Freeze Không Cà Phê</option>
 
-							<option data-option="Trà">Trà Sen Vàng</option>
-							<option data-option="Trà">Trà Thạch Đào</option>
-							<option data-option="Trà">Trà Thanh Đào</option>
-							<option data-option="Trà">Trà Thạch Vải</option>
+						<div class="select-menu">
+							<label>Loại:</label> 
+							<form:select path="loai" items="${loaiTUs}"  itemLabel="tenLoai" onchange="giveSelection(this.itemLabel)"/>
+							
+							<label>Tên:</label> 
+							<select id="sel2" class="select-menu-small">
+								<option data-option="Cà phê">Cà Phê Phin</option>
+								<option data-option="Cà phê">Phin Di</option>
+								<option data-option="Cà phê">Cà Phê Espresso</option>
 
-							<option data-option="Bánh mì">Thịt Nướng</option>
-							<option data-option="Bánh mì">Xíu Mại</option>
-							<option data-option="Bánh mì">Chả Lụa Xá Xíu</option>
-							<option data-option="Bánh mì">Gà Xé Nướng Tương</option>
+								<option data-option="FREEZE">Freeze Cà Chê Phin</option>
+								<option data-option="FREEZE">Freeze Không Cà Phê</option>
 
-							<option data-option="Khác">Bánh Ngọt</option>
-							<option data-option="Khác">Merchandise</option>
-							<option data-option="Khác">Cà Phê Đóng Gói</option>
-						</select>
-						<div class="">
-							<label for="amount">Số lượng:</label> <input id="amount"
-								type="number" style="width: 46px;">
+								<option data-option="Trà">Trà Sen Vàng</option>
+								<option data-option="Trà">Trà Thạch Đào</option>
+								<option data-option="Trà">Trà Thanh Đào</option>
+								<option data-option="Trà">Trà Thạch Vải</option>
+
+								<option data-option="Bánh mì">Thịt Nướng</option>
+								<option data-option="Bánh mì">Xíu Mại</option>
+								<option data-option="Bánh mì">Chả Lụa Xá Xíu</option>
+								<option data-option="Bánh mì">Gà Xé Nướng Tương</option>
+
+								<option data-option="Khác">Bánh Ngọt</option>
+								<option data-option="Khác">Merchandise</option>
+								<option data-option="Khác">Cà Phê Đóng Gói</option>
+							</select> 
+							<div class="">
+								<label for="amount">Số lượng:</label> <input id="amount"
+									type="number" style="width: 46px;">
+							</div>
+
 						</div>
-						<a href="" style="font-size: 30px; margin-top: -8px;"> <i
-							class="fas fa-plus-circle"></i>
-						</a>
-					</div>
-					<table class="table table-striped shadow-box">
-						<thead>
-							<tr>
-								<th>Loại</th>
-								<th>Tên</th>
-								<th>Số Lượng</th>
-								<th>Đơn Vị</th>
-								<th>Giá</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Bánh mì</td>
-								<td>Gà Xé Nướng Tương</td>
-								<td><input id="inp-1" type="number" value="1"
-									style="width: 64px; text-align: center;" disabled></td>
-								<td>Ly</td>
-								<td>20000</td>
-								<td class="d-flex justify-content-center align-items-center">
+						<button style="font-size: 20px; margin-left: 350px; padding:10px">
+							<i class="fas fa-plus-circle"></i> Thêm
+						</button>
+					</form:form>
+				</div>
 
-									<div class="">
-										<button style="font-size: 10px;" type="button" class="btn"
-											id="btn-1" onclick="EditNumber(this.id)">SỬA</button>
-									</div>
-									<div class="">
-										<!-- Button trigger modal -->
-										<button style="font-size: 10px;" type="button"
-											class="btn btn-primary" data-toggle="modal"
-											data-target="#exampleModal2">XÓA</button>
 
-										<!-- Modal -->
-										<div class="modal fade" id="exampleModal2" tabindex="-1"
-											role="dialog" aria-labelledby="exampleModalLabel"
-											aria-hidden="true">
-											<div class="modal-dialog" role="document">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">Bạn có chắc muốn xóa!!!</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Thoát</button>
-														<button type="button" class="btn btn-primary">Xóa</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
 
-								</td>
-							</tr>
-							<tr>
-								<td>Bánh mì</td>
-								<td>Gà Xé Nướng Tương</td>
-								<td><input id="inp-2" type="number" value="1"
-									style="width: 64px; text-align: center;" disabled></td>
-								<td>Ly</td>
-								<td>20000</td>
-								<td class="d-flex justify-content-center align-items-center">
+				<table class="table table-striped shadow-box">
+					<thead>
+						<tr>
+							<th>Loại</th>
+							<th>Tên</th>
+							<th>Số Lượng</th>
+							<th>Đơn Vị</th>
+							<th>Giá</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Bánh mì</td>
+							<td>Gà Xé Nướng Tương</td>
+							<td><input id="inp-1" type="number" value="1"
+								style="width: 64px; text-align: center;" disabled></td>
+							<td>Ly</td>
+							<td>20000</td>
+							<td class="d-flex justify-content-center align-items-center">
 
-									<div class="">
-										<button style="font-size: 10px;" type="button" class="btn"
-											id="btn-2" onclick="EditNumber(this.id)">SỬA</button>
-									</div>
-									<div class="">
-										<!-- Button trigger modal -->
-										<button style="font-size: 10px;" type="button"
-											class="btn btn-primary" data-toggle="modal"
-											data-target="#exampleModal2">XÓA</button>
-
-										<!-- Modal -->
-										<div class="modal fade" id="exampleModal2" tabindex="-1"
-											role="dialog" aria-labelledby="exampleModalLabel"
-											aria-hidden="true">
-											<div class="modal-dialog" role="document">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">Bạn có chắc muốn xóa!!!</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Thoát</button>
-														<button type="button" class="btn btn-primary">Xóa</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-								</td>
-							</tr>
-							<tr>
-								<td>Bánh mì</td>
-								<td>Gà Xé Nướng Tương</td>
-								<td><input id="inp-3" type="number" value="1"
-									style="width: 64px; text-align: center;" disabled></td>
-								<td>Ly</td>
-								<td>20000</td>
-								<td class="d-flex justify-content-center align-items-center">
-
-									<div class="">
-										<button style="font-size: 10px;" type="button" class="btn"
-											id="btn-3" onclick="EditNumber(this.id)">SỬA</button>
-									</div>
-									<div class="">
-										<!-- Button trigger modal -->
-										<button style="font-size: 10px;" type="button"
-											class="btn btn-primary" data-toggle="modal"
-											data-target="#exampleModal2">XÓA</button>
-
-										<!-- Modal -->
-										<div class="modal fade" id="exampleModal2" tabindex="-1"
-											role="dialog" aria-labelledby="exampleModalLabel"
-											aria-hidden="true">
-											<div class="modal-dialog" role="document">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">Bạn có chắc muốn xóa!!!</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Thoát</button>
-														<button type="button" class="btn btn-primary">Xóa</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-								</td>
-							</tr>
-							<tr>
-								<td>Bánh mì</td>
-								<td>Gà Xé Nướng Tương</td>
-								<td><input id="inp-4" type="number" value="1"
-									style="width: 64px; text-align: center;" disabled></td>
-								<td>Ly</td>
-								<td>20000</td>
-								<td class="d-flex justify-content-center align-items-center">
-
-									<div class="">
-										<button style="font-size: 10px;" type="button" class="btn"
-											id="btn-4" onclick="EditNumber(this.id)">SỬA</button>
-									</div>
-									<div class="">
-										<!-- Button trigger modal -->
-										<button style="font-size: 10px;" type="button"
-											class="btn btn-primary" data-toggle="modal"
-											data-target="#exampleModal2">XÓA</button>
-
-										<!-- Modal -->
-										<div class="modal fade" id="exampleModal2" tabindex="-1"
-											role="dialog" aria-labelledby="exampleModalLabel"
-											aria-hidden="true">
-											<div class="modal-dialog" role="document">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">Bạn có chắc muốn xóa!!!</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Thoát</button>
-														<button type="button" class="btn btn-primary">Xóa</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="footer-pay">
-						<div class="row">
-							<div class="col-lg-6 d-flex flex-column shadow-box ">
-								<div class="d-flex justify-content-between">
-									<div>Tổng tiền:</div>
-									<label>40000</label>
+								<div class="">
+									<button style="font-size: 10px;" type="button" class="btn"
+										id="btn-1" onclick="EditNumber(this.id)">SỬA</button>
 								</div>
-								<div class="d-flex justify-content-between">
-									<label for="">Tiền nhận của khách:</label> <input type="text"
-										style="max-width: 90px; text-align: right;">
-								</div>
-								<div class="d-flex justify-content-between">
-									<div>Tiền thừa:</div>
-									<label>33333</label>
+								<div class="">
+									<!-- Button trigger modal -->
+									<button style="font-size: 10px;" type="button"
+										class="btn btn-primary" data-toggle="modal"
+										data-target="#exampleModal2">XÓA</button>
+
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModal2" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">Bạn có chắc muốn xóa!!!</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary"
+														data-dismiss="modal">Thoát</button>
+													<button type="button" class="btn btn-primary">Xóa</button>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 
+							</td>
+						</tr>
+						<tr>
+							<td>Bánh mì</td>
+							<td>Gà Xé Nướng Tương</td>
+							<td><input id="inp-2" type="number" value="1"
+								style="width: 64px; text-align: center;" disabled></td>
+							<td>Ly</td>
+							<td>20000</td>
+							<td class="d-flex justify-content-center align-items-center">
+
+								<div class="">
+									<button style="font-size: 10px;" type="button" class="btn"
+										id="btn-2" onclick="EditNumber(this.id)">SỬA</button>
+								</div>
+								<div class="">
+									<!-- Button trigger modal -->
+									<button style="font-size: 10px;" type="button"
+										class="btn btn-primary" data-toggle="modal"
+										data-target="#exampleModal2">XÓA</button>
+
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModal2" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">Bạn có chắc muốn xóa!!!</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary"
+														data-dismiss="modal">Thoát</button>
+													<button type="button" class="btn btn-primary">Xóa</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Bánh mì</td>
+							<td>Gà Xé Nướng Tương</td>
+							<td><input id="inp-3" type="number" value="1"
+								style="width: 64px; text-align: center;" disabled></td>
+							<td>Ly</td>
+							<td>20000</td>
+							<td class="d-flex justify-content-center align-items-center">
+
+								<div class="">
+									<button style="font-size: 10px;" type="button" class="btn"
+										id="btn-3" onclick="EditNumber(this.id)">SỬA</button>
+								</div>
+								<div class="">
+									<!-- Button trigger modal -->
+									<button style="font-size: 10px;" type="button"
+										class="btn btn-primary" data-toggle="modal"
+										data-target="#exampleModal2">XÓA</button>
+
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModal2" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">Bạn có chắc muốn xóa!!!</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary"
+														data-dismiss="modal">Thoát</button>
+													<button type="button" class="btn btn-primary">Xóa</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</td>
+						</tr>
+						<tr>
+							<td>Bánh mì</td>
+							<td>Gà Xé Nướng Tương</td>
+							<td><input id="inp-4" type="number" value="1"
+								style="width: 64px; text-align: center;" disabled></td>
+							<td>Ly</td>
+							<td>20000</td>
+							<td class="d-flex justify-content-center align-items-center">
+
+								<div class="">
+									<button style="font-size: 10px;" type="button" class="btn"
+										id="btn-4" onclick="EditNumber(this.id)">SỬA</button>
+								</div>
+								<div class="">
+									<!-- Button trigger modal -->
+									<button style="font-size: 10px;" type="button"
+										class="btn btn-primary" data-toggle="modal"
+										data-target="#exampleModal2">XÓA</button>
+
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModal2" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">Bạn có chắc muốn xóa!!!</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary"
+														data-dismiss="modal">Thoát</button>
+													<button type="button" class="btn btn-primary">Xóa</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="footer-pay" style="margin-left: 500px">
+					<div class="row">
+						<div class="col-lg-6 d-flex flex-column shadow-box ">
+							<div class="d-flex justify-content-between">
+								<div>Tổng tiền:</div>
+								<label>40000</label>
 							</div>
-							<div class="col-lg-6 d-flex justify-content-around">
-								<a href="" class="pay-print-icon shadow-box"> <i
-									class="fas fa-cash-register"></i>
-								</a> <a href="" class="pay-print-icon shadow-box"> <i
-									class="fas fa-print"></i>
-								</a>
+							<div class="d-flex justify-content-between">
+								<label for="">Tiền nhận của khách:</label> <input type="text"
+									style="max-width: 90px; text-align: right;">
 							</div>
+							<div class="d-flex justify-content-between">
+								<div>Tiền thừa:</div>
+								<label>33333</label>
+							</div>
+
+						</div>
+						<div class="col-lg-6 d-flex justify-content-around">
+							<a href="" class="pay-print-icon shadow-box"> <i
+								class="fas fa-cash-register"></i>
+							</a> <a href="" class="pay-print-icon shadow-box"> <i
+								class="fas fa-print"></i>
+							</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 	<jsp:include page="/common/web/footer.jsp" />
 	<script
