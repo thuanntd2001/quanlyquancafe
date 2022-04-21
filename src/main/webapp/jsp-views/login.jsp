@@ -17,6 +17,15 @@
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="<c:url value='/template/login/style.css' />"
 	rel="stylesheet" type="text/css" media="all" />
+
+<style type="text/css">
+	 .errors{
+     color:red; font-style: italic;
+}
+</style>
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -55,15 +64,18 @@
 							id="passwordHid" class="form-text text-muted">Password is
 							invalid</small> -->
 					</div>
-					<!--  <div class="form-check">
-                               <label class="form-check-label">
-                                 <input type="checkbox" class="form-check-input" name="rememberMe" id="rememberMe" value="true" >
-                                 Remember Me
-                               </label>
-                             </div> -->
+
+					<div class="form-group">
+						<div class="g-recaptcha"
+							data-sitekey="6Ld3OI0fAAAAADMtIjhMHvnOjojf7TXXdi9I-W1C"></div>
+					</div>
+					<label class="mb-1">
+						<h6 class="mb-0 text-sm errors">${reCaptra}</h6>
+					</label>
+					
 					<input type="hidden" value="login" name="action" />
-					
-					
+
+
 				</div>
 				<div class="card-footer text-muted">
 					<button type="submit" class="btn btn-primary">Login</button>

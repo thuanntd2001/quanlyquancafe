@@ -37,10 +37,6 @@ class ChiTietDatPK implements Serializable {
 @IdClass(ChiTietDatPK.class)
 @Table(name="CHITIETDAT")
 public class ChiTietDatEntity {
-
-	@Generated( value = GenerationTime.INSERT)
-	@Column(name="ID")
-	private Long id;
 	
 	@Id
 	@ManyToOne
@@ -52,15 +48,6 @@ public class ChiTietDatEntity {
 	@JoinColumn(name="MADAT")
 	private DatBanEntity datBan;
 
-	
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public BanEntity getBans() {
 		return bans;
@@ -78,7 +65,18 @@ public class ChiTietDatEntity {
 		this.datBan = datBan;
 	}
 
+	public ChiTietDatEntity() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
+	public ChiTietDatEntity(BanEntity bans, DatBanEntity datBan) {
+		super();
+		this.bans = bans;
+		this.datBan = datBan;
+	}
+
+	
 	
 	
 }

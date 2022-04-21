@@ -33,9 +33,6 @@ class ChiTietHDPK implements Serializable {
 @Table(name="CHITIETHD")
 public class ChiTietHDEntity {
 
-	@GeneratedValue
-	@Column(name="ID")
-	private Long id;
 	
 	@Column(name="SOLUONG")
 	private Integer soLuong;
@@ -54,15 +51,6 @@ public class ChiTietHDEntity {
 	private Integer tongTien;
 	
 	
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public Integer getSoLuong() {
 		return soLuong;
 	}

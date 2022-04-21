@@ -98,27 +98,28 @@ public class DatBanControllerHome {
 	
 	
 	@RequestMapping(value = "dat-ban/{id}.htm", params = "btndatban", method=RequestMethod.POST)
-	public String datBan1(HttpServletRequest request, ModelMap model,
+	public <E> String datBan1(HttpServletRequest request, ModelMap model,
 			@PathVariable("id") Long id, @ModelAttribute("datban") DatBanEntity datban) {
-		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-		Long idnv = user1.getID();
-		datban.setDbnv(this.getNV(idnv));
-		datban.setNgayDat(new Date());
-		try {
-			datban.setTgDuKien(Timestamp.valueOf(request.getParameter("tg").replace("T", " ") + ":00"));
-		} catch (Exception e) {
-			datban.setTgDuKien(null);
-		}
 		
-		Integer temp = this.themDatBan(datban,id,model);
+		
+		Integer temp = this.themDatBan(datban,id,model,request);
 		if(temp != 0) {
 			model.addAttribute("message","Thêm mới dat ban thành công");
 			
 		}else {
 			model.addAttribute("message","Thêm mới dat ban thất bại");
 		}
-		List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
-		model.addAttribute("chiTietDat", chiTietDat);
+		
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getChiTietDat(id));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(1);
+	
+		pagedListHolder.setPageSize(1);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		
+		/*List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
+		model.addAttribute("chiTietDat", chiTietDat);*/
 		model.addAttribute("id", id);
 		return "web/datban2";
 	};
@@ -149,9 +150,20 @@ public class DatBanControllerHome {
 		return list;
 	}
 	
-	public Integer themDatBan(DatBanEntity datban, Long id, ModelMap model) {
+	public Integer themDatBan(DatBanEntity datban, Long id, ModelMap model,HttpServletRequest request) {
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
+		
+		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
+		Long idnv = user1.getID();
+		datban.setDbnv(this.getNV(idnv));
+		datban.setNgayDat(new Date());
+		try {
+			datban.setTgDuKien(Timestamp.valueOf(request.getParameter("tg").replace("T", " ") + ":00"));
+		} catch (Exception e) {
+			datban.setTgDuKien(null);
+		}
+		
 		try {
 			
 			session.save(datban);
