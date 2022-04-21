@@ -1,4 +1,5 @@
 package spring.controller.admin;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -10,10 +11,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -109,31 +113,27 @@ public class QLNhanVienHome {
 	
 	/* phần chỉnh sửa */
 	
-	@RequestMapping(value = "form", params = "linkEdit" )
+	@RequestMapping(value = "form", params = "linkEdit",method = RequestMethod.GET )
 	public String editNV (HttpServletRequest request, ModelMap model) {
 		String id1 =request.getParameter("id");
 		long maNV = Long.parseLong(id1);
-		List<NhanVienEntity> nhanvien = this.getNhanVien();
+	
 		model.addAttribute("nv", this.getNV(maNV));
 		model.addAttribute("btnupdate","true");
 		return "admin/form/inputNV";
 	}
 	@RequestMapping(value = "form", params = "btnupdate" , method = RequestMethod.POST )
-	public <E> String edit_NVs(HttpServletRequest requets, ModelMap model, 
+	public <E> String editNV(HttpServletRequest requets, ModelMap model, 
 			@ModelAttribute("nv") NhanVienEntity nv) {
+		nv.setDaNghi(true);
 		Integer temp = this.updateUser(nv);
 		if( temp != 0) {
 			model.addAttribute("message", "Cập nhật thành công");
-			nv.setHoTen(null);
 			
-			nv.setGioiTinh(null);
-			nv.setLuong(null);
-			nv.setSdt(null);
-			nv.setCmnd(null);
-			nv.setDiaChi(null);
 		}
 		else {
-			model.addAttribute("message", "Cập nhật không thành công");
+			
+			model.addAttribute("message", "Cập nhật không thành công nhân vien số "+nv.getMaNV());
 		}
 		/*List<NhanVienEntity> nhanvien = this.getNhanVien();
 		model.addAttribute("nhanvien", nhanvien);
@@ -147,7 +147,7 @@ public class QLNhanVienHome {
 		pagedListHolder.setPageSize(5);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		//model.addAttribute("bans", list);
-		return "redirect:admin-home/";
+		return "admin/QLNV";
 	}
 	
 	
@@ -174,7 +174,7 @@ public class QLNhanVienHome {
 	public <E> String deleteNV (HttpServletRequest request, ModelMap model) {
 		String id1 =request.getParameter("id");
 		long maNV = Long.parseLong(id1);
-		this.getNV(maNV).setDaNghi(true);
+		/*this.getNV(maNV).setDaNghi(false);*/
 		Integer temp = this.updateUser(this.getNV(maNV));
 		if(temp != 0) {
 			model.addAttribute("message","Delete k thành công");
@@ -259,5 +259,10 @@ public class QLNhanVienHome {
 		NhanVienEntity list = (NhanVienEntity) query.list().get(0);
 		return list;
 	}
-	
+	 @InitBinder
+	    public void initBinder(WebDataBinder binder) {
+	        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	        sdf.setLenient(true);
+	        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+	    }
 }
