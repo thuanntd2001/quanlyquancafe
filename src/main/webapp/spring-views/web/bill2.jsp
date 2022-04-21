@@ -32,7 +32,7 @@
                 </div>
                 <div class="original-info d-flex justify-content-center">
                     <div class=" mg-0-40">
-                        Họ tên nhân viên: Huỳnh Ngọc Dương
+                        Họ tên nhân viên: ${NHANVIEN.hoTen}
                     </div>
                     <div class=" mg-0-40">
                         Ngày:
@@ -48,6 +48,13 @@
                         QUAY LẠI
                     </a>
                 </div>
+                
+               <jsp:useBean id="pagedListHolder" scope="request"
+					type="org.springframework.beans.support.PagedListHolder" />
+				<c:url value="hoa-don/${idhd}.htm?linkView" var="pagedLink">
+					<c:param name="p" value="~" />
+				</c:url>
+                
                 <table class="table table-striped datatable shadow-box">
 
                     <thead>
@@ -60,7 +67,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="cthd" items="${chiTietHD}">
+                        <c:forEach var="cthd" items="${pagedListHolder.pageList}">
                         	<tr>
                             <td>${cthd.hoaDon.id }</td>
                             <td>${cthd.thucDon.id }</td>
@@ -71,8 +78,9 @@
                         </c:forEach>
 
                     </tbody>
-
                 </table>
+                <tg:paging pagedLink="${pagedLink}"
+					pagedListHolder="${pagedListHolder}"></tg:paging>
             </div>
 
         </div>
@@ -83,7 +91,7 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+	<script src="<c:url value='/template/web/scipts.js'/>"></script>
 
 </body>
 </html>

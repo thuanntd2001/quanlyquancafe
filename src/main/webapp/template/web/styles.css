@@ -111,9 +111,7 @@ a {
 .shadow-box {
     box-shadow: 0px 0rem 0.5rem 0px #908a8a;
 }
-.dataTable-table > thead > tr > th {
-    text-align: center;
-}
+
 /* left-content */
 
 .content {

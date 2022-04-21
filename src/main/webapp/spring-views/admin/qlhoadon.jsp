@@ -9,69 +9,51 @@
 <body>
 
 	<jsp:include page="/common/admin/header.jsp" />
+	<jsp:include page="/common/admin/menubar.jsp" />
 
 	<!-- CONTEND -->
-	<div class="row main">
+	<div class="container-fluid main">
 
-
-		<jsp:include page="/common/admin/menubar.jsp" />
-		 <div class="col-md-10 col-lg-10">
-      <div class="container">
-        <h2 style="margin-top: 3%; margin-bottom: 3%;">QUẢN LÍ HÓA ĐƠN</h2>
-        <!-- <div class="input-group">
+		<div class="container">
+			<div class="header-content d-flex justify-content-center">QUẢN
+				LÍ HÓA ĐƠN</div>
+			<!-- <div class="input-group">
                 <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
                 <button type="button" class="btn btn-outline-primary">search</button>
               </div> -->
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-         
-              <th scope="col">Nhân Viên Thực Hiện</th>
-              <th scope="col">Bàn</th>
-              <th scope="col">Ngày Thực Hiện</th>
-            </tr>
-          </thead>
-          <tbody>
-          <c:forEach var="hd" items="${hoadon}">
-            <tr>
-              <th scope="row">${hd.id}</th>
-             <td>${hd.hdnv.hoTen}</td>
-              <td>${hd.ban.id}</td>
-               <td>${hd.ngayThucHien}</td>
-            </tr>
-            </c:forEach>
-          
-          </tbody>
-        </table>
-        <nav style="text-align: center;" aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-		
-				<nav style="text-align: center;"
-					aria-label="Page navigation example">
-					<ul class="pagination">
-						<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">Next</a></li>
-					</ul>
-				</nav>
-			</div>
+			<table class="table table-striped shadow-box bg-white">
+				<thead>
+					<tr>
+						<th scope="col">ID</th>
+
+						<th scope="col">Nhân Viên Thực Hiện</th>
+						<th scope="col">Bàn</th>
+						<th scope="col">Ngày Thực Hiện</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="hd" items="${hoadon}">
+						<tr>
+							<th scope="row">${hd.id}</th>
+							<td>${hd.hdnv.hoTen}</td>
+							<td>${hd.ban.id}</td>
+							<td>${hd.ngayThucHien}</td>
+						</tr>
+					</c:forEach>
+
+				</tbody>
+			</table>
+			<nav style="text-align: center;" aria-label="Page navigation example">
+				<ul class="pagination">
+					<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				</ul>
+			</nav>
 		</div>
-
-
 	</div>
-
 
 	<jsp:include page="/common/admin/footer.jsp" />
 
