@@ -63,7 +63,7 @@
                     <tbody>
                         <c:forEach var="td" items="${pagedListHolder.pageList}">
 							<tr>
-								<th scope="row">${td.id1}</th>
+								<th scope="row">${td.id}</th>
 								<td>${td.loaiThucUong.tenLoai}</td>
 								<td>${td.ten}</td>
 								<td>${td.gia}</td>
