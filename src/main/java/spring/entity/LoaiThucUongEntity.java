@@ -13,9 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="LOAITHUCUONG")
 public class LoaiThucUongEntity {
-	@GeneratedValue
-	@Column(name="ID1")
-	private Long id1;
+
 	@Id
 	@Column(name="ID")
 	private String id;
@@ -25,12 +23,7 @@ public class LoaiThucUongEntity {
 	private String donVi;
 	@OneToMany(mappedBy="loaiThucUong", fetch=FetchType.EAGER)
 	private Collection<ThucDonEntity> thucDon;
-	public Long getId1() {
-		return id1;
-	}
-	public void setId1(Long id1) {
-		this.id1 = id1;
-	}
+
 	public String getId() {
 		return id;
 	}

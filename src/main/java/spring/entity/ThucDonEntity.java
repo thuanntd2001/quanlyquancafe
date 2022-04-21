@@ -15,9 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="THUCDON")
 public class ThucDonEntity {
-	@GeneratedValue
-	@Column(name="ID1")
-	private Long id1;
+
 	@Id
 	@Column(name="ID")
 	private String id;
@@ -33,13 +31,7 @@ public class ThucDonEntity {
 	@Column(name="GIA")
 	private Integer gia;
 
-	public Long getId1() {
-		return id1;
-	}
 
-	public void setId1(Long id1) {
-		this.id1 = id1;
-	}
 
 	public String getId() {
 		return id;

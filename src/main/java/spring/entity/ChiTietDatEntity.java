@@ -37,7 +37,8 @@ class ChiTietDatPK implements Serializable {
 @IdClass(ChiTietDatPK.class)
 @Table(name="CHITIETDAT")
 public class ChiTietDatEntity {
-	
+
+
 	@Id
 	@ManyToOne
 	@JoinColumn(name="IDBAN")
@@ -47,6 +48,9 @@ public class ChiTietDatEntity {
 	@ManyToOne
 	@JoinColumn(name="MADAT")
 	private DatBanEntity datBan;
+
+	
+	
 
 
 	public BanEntity getBans() {
@@ -76,7 +80,6 @@ public class ChiTietDatEntity {
 		this.datBan = datBan;
 	}
 
-	
 	
 	
 }

@@ -33,7 +33,6 @@ class ChiTietHDPK implements Serializable {
 @Table(name="CHITIETHD")
 public class ChiTietHDEntity {
 
-	
 	@Column(name="SOLUONG")
 	private Integer soLuong;
 	
@@ -51,6 +50,9 @@ public class ChiTietHDEntity {
 	private Integer tongTien;
 	
 	
+	
+
+
 	public Integer getSoLuong() {
 		return soLuong;
 	}
