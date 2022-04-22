@@ -1,4 +1,4 @@
-package com.quancafehighland.controller.login;
+package spring.controller.chung;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.quancafehighland.model.NhanVienModel;
 import com.quancafehighland.model.UserModel;
@@ -24,15 +26,14 @@ import com.quancafehighland.utils.SessionUtil;
 
 import spring.Recaptcha.RecaptchaVerification;
 
-@WebServlet(urlPatterns = { "/dang-nhap" })
-public class LoginController extends HttpServlet {
+@Controller
+public class LoginController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	ResourceBundle resourceBundle = ResourceBundle.getBundle("message");
 	private INhanVienService nhanVienService = new NhanVienService();
 	private IUserService userService = new UserService();
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	@RequestMapping(value = "dang-nhap", method = RequestMethod.GET)
+	protected void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		if (action != null && action.equals("login")) {
 			String alert = request.getParameter("alert");
@@ -51,8 +52,8 @@ public class LoginController extends HttpServlet {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	@RequestMapping(value = "dang-nhap", method = RequestMethod.POST)
+	protected void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
 		boolean verify = RecaptchaVerification.verify(gRecaptchaResponse);
@@ -60,7 +61,7 @@ public class LoginController extends HttpServlet {
 			if (!verify) {
 				request.setAttribute("reCaptra", "Vui lòng nhập reCaptra");
 				response.sendRedirect(request.getContextPath()
-						+ "/dang-nhap?action=login&message=username_password_invalid&alert=danger");
+						+ "/dang-nhap.htm?action=login&message=username_password_invalid&alert=danger");
 			} else {
 				UserModel model = FormUtil.toModel(UserModel.class, request);
 				model = userService.findByUserNameAndPasswordAndStatus(model.getUserName(), model.getPasswd(), 1);
@@ -76,7 +77,7 @@ public class LoginController extends HttpServlet {
 					}
 				} else {
 					response.sendRedirect(request.getContextPath()
-							+ "/dang-nhap?action=login&message=username_password_invalid&alert=danger");
+							+ "/dang-nhap.htm?action=login&message=username_password_invalid&alert=danger");
 				}
 			}
 		}
