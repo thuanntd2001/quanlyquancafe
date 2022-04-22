@@ -1,4 +1,4 @@
-package com.quancafehighland.controller.login;
+package spring.controller.chung;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -9,6 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.quancafehighland.model.NhanVienModel;
 import com.quancafehighland.model.UserModel;
@@ -22,12 +26,13 @@ import com.quancafehighland.utils.SessionUtil;
 import spring.entity.UserTBEntity;
 
 
-@WebServlet(urlPatterns = {"/dang-nhap"})
+@Controller
 public class LoginController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	ResourceBundle resourceBundle = ResourceBundle.getBundle("message");
 	private INhanVienService nhanVienService = new NhanVienService();
 	private IUserService userService = new UserService();
+	@RequestMapping(value = "dang-nhap", method = RequestMethod.GET)
 	protected void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		if (action != null && action.equals("login")) {
@@ -48,11 +53,12 @@ public class LoginController extends HttpServlet{
 	}
 		
 
-	
+	@RequestMapping(value = "dang-nhap", method = RequestMethod.POST)
 	protected void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		if (action != null && action.equals("login")) {
 			UserModel model = FormUtil.toModel(UserModel.class, request);
+			
 			model = userService.findByUserNameAndPasswordAndStatus(model.getUserName(), model.getPasswd(), 1);
 			
 			if (model != null) {
