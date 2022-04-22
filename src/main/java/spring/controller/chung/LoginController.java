@@ -61,7 +61,7 @@ public class LoginController extends HttpServlet{
 			if (!verify) {
 				request.setAttribute("reCaptra", "Vui lòng nhập reCaptra");
 				response.sendRedirect(request.getContextPath()
-						+ "/dang-nhap.htm?action=login&message=username_password_invalid&alert=danger");
+						+ "/dang-nhap.htm?action=login&message=fail-captcha&alert=danger");
 			} else {
 				UserModel model = FormUtil.toModel(UserModel.class, request);
 				model = userService.findByUserNameAndPasswordAndStatus(model.getUserName(), model.getPasswd(), 1);
