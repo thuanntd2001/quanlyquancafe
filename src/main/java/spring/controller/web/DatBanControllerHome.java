@@ -100,9 +100,16 @@ public class DatBanControllerHome {
 	@RequestMapping(value = "dat-ban/{id}.htm", params = "btndatban", method=RequestMethod.POST)
 	public <E> String datBan1(HttpServletRequest request, ModelMap model,
 			@PathVariable("id") Long id, @ModelAttribute("datban") DatBanEntity datban) {
-		
-		
-		Integer temp = this.themDatBan(datban,id,model,request);
+		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
+		Long idnv = user1.getID();
+		datban.setDbnv(this.getNV(idnv));
+		datban.setNgayDat(new Date());
+		try {
+			datban.setTgDuKien(Timestamp.valueOf(request.getParameter("tg").replace("T", " ") + ":00"));
+		} catch (Exception e) {
+			datban.setTgDuKien(null);
+		}
+		Integer temp = this.themDatBan(datban,id,model);
 		if(temp != 0) {
 			model.addAttribute("message","Thêm mới dat ban thành công");
 			
@@ -150,24 +157,19 @@ public class DatBanControllerHome {
 		return list;
 	}
 	
-	public Integer themDatBan(DatBanEntity datban, Long id, ModelMap model,HttpServletRequest request) {
+	public Integer themDatBan(DatBanEntity datban, Long id, ModelMap model) {
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
-		
-		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-		Long idnv = user1.getID();
-		datban.setDbnv(this.getNV(idnv));
-		datban.setNgayDat(new Date());
-		try {
-			datban.setTgDuKien(Timestamp.valueOf(request.getParameter("tg").replace("T", " ") + ":00"));
-		} catch (Exception e) {
-			datban.setTgDuKien(null);
-		}
 		
 		try {
 			
 			session.save(datban);
-			Integer temp = this.themChiTietDat(datban,id);
+			ChiTietDatEntity chiTietDat = new ChiTietDatEntity();
+			chiTietDat.setBans(getBan(id));
+			chiTietDat.setDatBan(datban);
+			System.out.println(chiTietDat.getBans());
+			System.out.println(chiTietDat.getDatBan());
+			Integer temp = this.themChiTietDat(chiTietDat);
 			if(temp != 0) {
 				model.addAttribute("message1","Thêm mới chi tiet thành công");
 				
@@ -189,17 +191,20 @@ public class DatBanControllerHome {
 		return 1;
 	}
 	
-	public Integer themChiTietDat(DatBanEntity datban,Long id) {
+	public Integer themChiTietDat(ChiTietDatEntity chiTietDat) {
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
+		System.out.println("1");
 		try {
-			ChiTietDatEntity chiTietDat = new ChiTietDatEntity();
-
-			chiTietDat.setBans(getBan(id));
-			chiTietDat.setDatBan(datban);
-			session.save(chiTietDat);
+			System.out.println("2");
 			
+			System.out.println("3");
+			
+			System.out.println("4");
+			session.save(chiTietDat);
+			System.out.println("5");
 			t.commit();
+			System.out.println("6");
 		}
 		catch (Exception e) {
 			t.rollback();

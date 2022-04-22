@@ -66,8 +66,7 @@
 					</div>
 
 					<div class="form-group">
-						<div class="g-recaptcha"
-							data-sitekey="6Ld3OI0fAAAAADMtIjhMHvnOjojf7TXXdi9I-W1C"></div>
+						<div class="g-recaptcha" data-sitekey="6Ld1TpAfAAAAAOR_gKzy4BMOirgICntMGSp-XR5B"></div>
 					</div>
 					<label class="mb-1">
 						<h6 class="mb-0 text-sm errors">${reCaptra}</h6>

@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+
 import com.quancafehighland.model.NhanVienModel;
 import com.quancafehighland.model.UserModel;
 import com.quancafehighland.service.INhanVienService;
@@ -19,53 +22,62 @@ import com.quancafehighland.service.impl.UserService;
 import com.quancafehighland.utils.FormUtil;
 import com.quancafehighland.utils.SessionUtil;
 
-import spring.entity.UserTBEntity;
+import spring.Recaptcha.RecaptchaVerification;
 
-
-@WebServlet(urlPatterns = {"/dang-nhap"})
-public class LoginController extends HttpServlet{
+@WebServlet(urlPatterns = { "/dang-nhap" })
+public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ResourceBundle resourceBundle = ResourceBundle.getBundle("message");
 	private INhanVienService nhanVienService = new NhanVienService();
 	private IUserService userService = new UserService();
-	protected void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String action = request.getParameter("action");
 		if (action != null && action.equals("login")) {
 			String alert = request.getParameter("alert");
 			String message = request.getParameter("message");
 			if (message != null && alert != null) {
 				request.setAttribute("message", resourceBundle.getString(message));
-				request.setAttribute("alert", alert);				
+				request.setAttribute("alert", alert);
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp-views/login.jsp");
 			rd.forward(request, response);
-		} else if (action != null && action.equals("logout") ) {
+		} else if (action != null && action.equals("logout")) {
 			SessionUtil.getInstance().removeValue(request, "USERMODEL");
-			response.sendRedirect(request.getContextPath()+"/dang-nhap?action=login");			
+			response.sendRedirect(request.getContextPath() + "/dang-nhap?action=login");
 		} else {
-			response.sendRedirect(request.getContextPath()+"/dang-nhap?action=login");	
+			response.sendRedirect(request.getContextPath() + "/dang-nhap?action=login");
 		}
 	}
-		
 
-	
-	protected void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String action = request.getParameter("action");
+		String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+		boolean verify = RecaptchaVerification.verify(gRecaptchaResponse);
 		if (action != null && action.equals("login")) {
-			UserModel model = FormUtil.toModel(UserModel.class, request);
-			model = userService.findByUserNameAndPasswordAndStatus(model.getUserName(), model.getPasswd(), 1);
-			
-			if (model != null) {
-				SessionUtil.getInstance().putValue(request, "USERMODEL", model);
-				NhanVienModel nv= nhanVienService.findOne(model.getID());
-				SessionUtil.getInstance().putValue(request, "NHANVIEN", nv);
-				if (model.getRoleID()==1) {
-					response.sendRedirect(request.getContextPath()+"/admin-home/index.htm");
-				} else if (model.getRoleID()!=null) {
-					response.sendRedirect(request.getContextPath()+"/trang-chu.htm");
-				}
+			if (!verify) {
+				request.setAttribute("reCaptra", "Vui lòng nhập reCaptra");
+				response.sendRedirect(request.getContextPath()
+						+ "/dang-nhap?action=login&message=username_password_invalid&alert=danger");
 			} else {
-				response.sendRedirect(request.getContextPath()+"/dang-nhap?action=login&message=username_password_invalid&alert=danger");
+				UserModel model = FormUtil.toModel(UserModel.class, request);
+				model = userService.findByUserNameAndPasswordAndStatus(model.getUserName(), model.getPasswd(), 1);
+
+				if (model != null) {
+					SessionUtil.getInstance().putValue(request, "USERMODEL", model);
+					NhanVienModel nv = nhanVienService.findOne(model.getID());
+					SessionUtil.getInstance().putValue(request, "NHANVIEN", nv);
+					if (model.getRoleID() == 1) {
+						response.sendRedirect(request.getContextPath() + "/admin-home/index.htm");
+					} else if (model.getRoleID() != null) {
+						response.sendRedirect(request.getContextPath() + "/trang-chu.htm");
+					}
+				} else {
+					response.sendRedirect(request.getContextPath()
+							+ "/dang-nhap?action=login&message=username_password_invalid&alert=danger");
+				}
 			}
 		}
 	}
