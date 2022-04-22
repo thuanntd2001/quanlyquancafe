@@ -46,9 +46,9 @@ public class LoginController extends HttpServlet{
 			rd.forward(request, response);
 		} else if (action != null && action.equals("logout")) {
 			SessionUtil.getInstance().removeValue(request, "USERMODEL");
-			response.sendRedirect(request.getContextPath() + "/dang-nhap?action=login");
+			response.sendRedirect(request.getContextPath() + "/dang-nhap.htm?action=login");
 		} else {
-			response.sendRedirect(request.getContextPath() + "/dang-nhap?action=login");
+			response.sendRedirect(request.getContextPath() + "/dang-nhap.htm?action=login");
 		}
 	}
 
@@ -58,8 +58,8 @@ public class LoginController extends HttpServlet{
 		String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
 		boolean verify = RecaptchaVerification.verify(gRecaptchaResponse);
 		if (action != null && action.equals("login")) {
-			if (!verify) {
-				request.setAttribute("reCaptra", "Vui lòng nhập reCaptra");
+			if (/*!verify*/ 1==2) {
+				/*request.setAttribute("reCaptra", "Vui lòng nhập reCaptra");*/
 				response.sendRedirect(request.getContextPath()
 						+ "/dang-nhap.htm?action=login&message=fail-captcha&alert=danger");
 			} else {

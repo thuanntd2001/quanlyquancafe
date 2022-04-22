@@ -28,7 +28,7 @@
 				class="links_name">TÀI KHOẢN</span>
 		</a></li>
 		
-		<li><a href="dang-nhap?action=logout"> <i class="fas fa-sign-out-alt"></i> <span
+		<li><a href="dang-nhap.htm?action=logout"> <i class="fas fa-sign-out-alt"></i> <span
 					class="links_name">ĐĂNG XUẤT</span>
 		</a></li>
 	</ul>

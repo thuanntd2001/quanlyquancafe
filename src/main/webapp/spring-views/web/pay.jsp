@@ -134,11 +134,15 @@
 
 
 						<div class="select-menu">
-							<label>Loại:</label> 
-							<form:select path="loai" items="${loaiTUs}"  itemLabel="tenLoai" onchange="giveSelection(this.itemLabel)"/>
-							
-							<label>Tên:</label> 
-							<select id="sel2" class="select-menu-small">
+							<select id="sel1" onchange="giveSelection(this.value)"
+								class="select-menu-small">
+								<option value="Cà phê">Cà phê</option>
+								<option value="Freeze">Freeze</option>
+								<option value="Trà">Trà</option>
+								<option value="Bánh mì">Bánh mì</option>
+								<option value="Khác">Khác</option>
+							</select> <label>Tên:</label> <select id="sel2" class="select-menu-small"
+								name="thucDon">
 								<option data-option="Cà phê">Cà Phê Phin</option>
 								<option data-option="Cà phê">Phin Di</option>
 								<option data-option="Cà phê">Cà Phê Espresso</option>
@@ -159,14 +163,14 @@
 								<option data-option="Khác">Bánh Ngọt</option>
 								<option data-option="Khác">Merchandise</option>
 								<option data-option="Khác">Cà Phê Đóng Gói</option>
-							</select> 
+							</select>
 							<div class="">
 								<label for="amount">Số lượng:</label> <input id="amount"
 									type="number" style="width: 46px;">
 							</div>
 
 						</div>
-						<button style="font-size: 20px; margin-left: 350px; padding:10px">
+						<button style="font-size: 20px; margin-left: 350px; padding: 10px">
 							<i class="fas fa-plus-circle"></i> Thêm
 						</button>
 					</form:form>

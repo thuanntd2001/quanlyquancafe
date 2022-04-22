@@ -32,7 +32,7 @@ public class ThanhToanController {
 	ServletContext application;
 
 	@RequestMapping(value = "thanh-toan", method = RequestMethod.GET)
-	public String showMenu(ModelMap model, @ModelAttribute("banHoaDon") BanHoaDonModel bhd) {
+	public String createList(ModelMap model, @ModelAttribute("banHoaDon") BanHoaDonModel bhd) {
 		if (application.getAttribute("listBan") == null)
 		{Session session = factory.getCurrentSession();
 		String hql = "FROM BanEntity";
@@ -44,15 +44,16 @@ public class ThanhToanController {
 		
 		if (application.getAttribute("banHoaDons") == null) {
 			List<BanHoaDonModel> listBHD = new ArrayList();
-			List<Long> listIds = new ArrayList();
+			List<Long> listIdsBan = new ArrayList();
+
 			List<BanEntity> list=(List<BanEntity>) application.getAttribute("listBan");
 			int n= list.size();
 			for (int i =0 ; i<n ;i++) {
 				listBHD.add(new BanHoaDonModel());
-				listIds.add(new Long(list.get(i).getId()));
+				listIdsBan.add(new Long(list.get(i).getId()));
 			}
 			application.setAttribute("banHoaDons", listBHD);
-			application.setAttribute("banids", listIds);
+			application.setAttribute("banids", listIdsBan);
 		}
 		
 
@@ -76,7 +77,7 @@ public class ThanhToanController {
 	
 	public List<ThucDonEntity> getThucDons() {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM LoaiThucUongEntity";
+		String hql = "FROM ThucDonEntity";
 		Query query = session.createQuery(hql);
 		List<ThucDonEntity> list = query.list();
 		return list;
