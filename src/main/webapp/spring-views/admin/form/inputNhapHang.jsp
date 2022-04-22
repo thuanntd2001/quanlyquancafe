@@ -14,7 +14,7 @@
 <div style="margin-top: 5%;" class="container">
         <form:form action="admin-home/formNhapHang.htm" modelAttribute="nh" method="post">
             <div class="form-row">
-              <div class="form-group col-md-6">
+              <div c	lass="form-group col-md-6">
                 <label >Tên Nguyên Liệu</label>
                 <form:input path="tenNL" type="text" placeholder="Bột cacao, Sữa đặc, Sữa chua,...."/>
               </div>
