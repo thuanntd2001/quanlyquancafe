@@ -133,6 +133,11 @@ public class ChiPhiEntity {
 	public void setCpnv(NhanVienEntity cpnv) {
 		this.cpnv = cpnv;
 	}
+
+	public ChiPhiEntity() {
+		super();
+	}
+	
 	
 	
 }

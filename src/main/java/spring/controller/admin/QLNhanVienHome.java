@@ -114,17 +114,19 @@ public class QLNhanVienHome {
 		String id1 =request.getParameter("id");
 		long maNV = Long.parseLong(id1);
 		List<NhanVienEntity> nhanvien = this.getNhanVien();
+		model.addAttribute("pagedListHolder", nhanvien);
 		model.addAttribute("nv", this.getNV(maNV));
 		model.addAttribute("btnupdate","true");
 		return "admin/form/inputNV";
 	}
+
 	@RequestMapping(value = "form", params = "btnupdate" , method = RequestMethod.POST )
 	public <E> String edit_NV(HttpServletRequest requets, ModelMap model, 
 			@ModelAttribute("nv") NhanVienEntity nv) {
 		nv.setNgaySinh(new Date());
 		nv.setNgayVaoLam(new Date());
 		nv.setDaNghi(false);
-		Integer temp = this.updateUser(nv);
+		Integer temp = this.updateNV(nv);
 		if( temp != 0) {
 			model.addAttribute("message", "Cập nhật thành công");
 			nv.setHoTen(null);
@@ -155,7 +157,7 @@ public class QLNhanVienHome {
 	}
 	
 	
-	public Integer updateUser(NhanVienEntity nv) {
+	public Integer updateNV(NhanVienEntity nv) {
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		try {
@@ -179,7 +181,7 @@ public class QLNhanVienHome {
 		String id1 =request.getParameter("id");
 		long maNV = Long.parseLong(id1);
 		this.getNV(maNV).setDaNghi(true);
-		Integer temp = this.updateUser(this.getNV(maNV));
+		Integer temp = this.updateNV(this.getNV(maNV));
 		if(temp != 0) {
 			model.addAttribute("message","Delete k thành công");
 		}
@@ -200,11 +202,11 @@ public class QLNhanVienHome {
 }
 	/*@RequestMapping(value = "index", params = "linkDelete",method = RequestMethod.GET)*/
 
-	@RequestMapping(value = "{id}.htm", params = "linkDelete",method = RequestMethod.GET)
+	/*@RequestMapping(value = "{id}.htm", params = "linkDelete",method = RequestMethod.GET)
 	public <E> String deleteNV (HttpServletRequest request, ModelMap model,
 			@PathVariable("id") Long id) {
 		this.getNV(id).setDaNghi(true);
-		Integer temp = this.updateUser(this.getNV(id));
+		Integer temp = this.updateNV(this.getNV(id));
 		if(temp != 0) {
 			model.addAttribute("message","Delete k thành công");
 		}
@@ -221,7 +223,7 @@ public class QLNhanVienHome {
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		//model.addAttribute("bans", list);
 		return "admin/QLNV";
-	}
+	}*/
 //	kết thúc xóa
 	
 //	phần tìm kiếm

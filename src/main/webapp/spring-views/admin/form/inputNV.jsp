@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
      <base href="${pageContext.servletContext.contextPath}/"> 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>Document</title>
+    <title>Thêm Nhân Viên</title>
   </head>
   <body>
       <div style="margin-top: 5%;" class="container">

@@ -10,149 +10,86 @@
 
 <body>
 	<jsp:include page="/common/admin/header.jsp" />
-		<jsp:include page="/common/admin/menubar.jsp" />
+	<jsp:include page="/common/admin/menubar.jsp" />
 
 	<!-- CONTEND -->
 	<div class="container-fluid main">
-			<div class="container">
-			<div class="header-content d-flex justify-content-center">QUẢN LÍ NHẬP
-					HÀNG</div>
-				<!-- <div class="input-group">
-                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                <button type="button" class="btn btn-outline-primary">search</button>
-              </div> -->
-				<!-- THEEM -->
+		<div class="container">
+			<div class="header-content d-flex justify-content-center">QUẢN
+				LÍ NHẬP HÀNG</div>
+
+			<h4>${message}</h4>
+			<div>
+				<a href="/CNPM/admin-home/formNhapHang.htm"> <!-- 	<button type="button" class="btn btn-warning">Thêm</button> -->
+					<button style="width: 184px; height: 33px; margin-bottom: 5px;"
+						type="button" class="btn btn-primary">Thêm Đơn Nhập Hàng</button>
+				</a>
+
+			</div>
+			<jsp:useBean id="pagedListHolder" scope="request"
+				type="org.springframework.beans.support.PagedListHolder" />
+			<c:url value="admin-nhaphang.htm" var="pagedLink">
+				<c:param name="p" value="~" />
+			</c:url>
+			<form class="input-group" style="margin: 20px 0" method="post">
 				<div>
-
-					<button style="width: 144px; height: 33px; margin-bottom: 5px;"
-						type="button" class="btn btn-primary" data-toggle="modal"
-						data-target="#exampleModal" data-whatever="@mdo">Thêm Đơn
-						Hàng</button>
-
-
-					<div class="modal fade" id="exampleModal" tabindex="-1"
-						role="dialog" aria-labelledby="exampleModalLabel"
-						aria-hidden="true">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">THÊM ĐƠN
-										HÀNG</h5>
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">
-
-									<form action="" method=""
-										style="margin-top: 40px; margin-left: 20px;">
-										<div class="row">
-
-											<div class="col-5">
-												<label for="username"> Mã Đơn:</label><br> <label
-													for="time">Thời Gian</label> <label for="ncc">Nhà
-													cung cấp</label> <label for="mdh">Mã đặt hàng</label><br> <label
-													for="gt">Giá thành</label> <label for="sl">Số lượng</label>
-											</div>
-											<div class="col-7">
-												<input type="text" name="Username" id="username"><br>
-												<input type="date" name="" id="time"><br> <input
-													type="text" name="money" id="ncc"><br> <input
-													type="text" name="money" id="mhd"><br> <input
-													type="text" name="money" id="gt"><br> <input
-													type="number" name="" id="gt"><br>
-											</div>
-										</div>
-									</form>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary"
-										data-dismiss="modal">Thoát</button>
-									<button type="button" class="btn btn-primary">Thêm</button>
-								</div>
-							</div>
-						</div>
-					</div>
-
+					<input id="search-input" type="search" name="searchInput"
+						class="form-control" placeholder="Tìm kiếm" />
 				</div>
-				<!-- ENDTHEEM -->
-				<table style="width: 100%;" class="table table-striped shadow-box bg-white">
-					<thead>
-						<tr>
-							<th scope="row">ID</th>
-							<th scope="row">Mã Đơn</th>
-							<th scope="row">Thời Gian</th>
-							<th scope="row">Nhà cung cấp</th>
-							<th scope="row">Mã đặt hàng</th>
-							<th scope="row">Giá thành</th>
-							<th scope="row">Số lượng</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-<c:forEach  var="nh" items="${nhaphang}">
+				<button id="search-button" type="submit" class="btn btn-primary"
+					name="btnsearch">
+					<i class="fas fa-search"></i>
+				</button>
+			</form>
+			<!-- ENDTHEEM -->
+			<table style="width: 100%;"
+				class="table table-striped shadow-box bg-white">
+				<thead>
+					<tr>
+
+						<th scope="row">Mã Đơn</th>
+						<th scope="row">Tên NL</th>
+						<th scope="row">Ngày Nhập</th>
+						<th scope="row">Số Lượng</th>
+						<th scope="row">Giá DV</th>
+						<th scope="row">Loại Hàng</th>
+						<th scope="row">Nhà Cung Cấp</th>
+						<th scope="row">Dịch Vụ</th>
+
+						<th scope="row">NV Tạo</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="nh" items="${pagedListHolder.pageList}">
 						<tr>
 							<th scope="row">${nh.id}</th>
-							<td>${nh.id}</td>
+
 							<td>${nh.tenNL}</td>
 							<td>${nh.ngayNhap}</td>
 							<td>${nh.soLuong}</td>
 							<td>${nh.giaMoiDV}</td>
 
-							<td>${nh.id}</td>
+							<td>${nh.loai}</td>
+							<td>${nh.nhaCungCap}</td>
+							<td>${nh.dv}</td>
+
+							<td>${nh.cpnv.hoTen}</td>
 							<td>
 								<div style="width: 95px;" class="row">
 									<div class="col-6">
-										<button style="font-size: 10px; width: 44px;" type="button"
+										<!-- <button style="font-size: 10px; width: 44px;" type="button"
 											class="btn" data-toggle="modal" data-target="#exampleModal1"
 											data-whatever="@mdo">SỬA</button>
+ -->
 
-
-										<div class="modal fade" id="exampleModal1" tabindex="-1"
-											role="dialog" aria-labelledby="exampleModalLabel"
-											aria-hidden="true">
-											<div class="modal-dialog" role="document">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">New
-															message</h5>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<form action="" method=""
-															style="margin-top: 40px; margin-left: 20px;">
-															<div class="row">
-
-																<div class="col-5">
-																	<label for="username"> Mã Đơn:</label><br> <label
-																		for="time">Thời Gian</label> <label for="ncc">Nhà
-																		cung cấp</label> <label for="mdh">Mã đặt hàng</label><br>
-																	<label for="gt">Giá thành</label> <label for="sl">Số
-																		lượng</label>
-																</div>
-																<div class="col-7">
-																	<input type="text" name="Username" id="username"><br>
-																	<input type="date" name="" id="time"><br>
-																	<input type="text" name="money" id="ncc"><br>
-																	<input type="text" name="money" id="mhd"><br>
-																	<input type="text" name="money" id="gt"><br>
-																	<input type="number" name="" id="gt"><br>
-																</div>
-															</div>
-														</form>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">THOÁT</button>
-														<button type="button" class="btn btn-primary">LƯU</button>
-													</div>
-												</div>
-											</div>
-										</div>
+										<a
+											href="/CNPM/admin-home/formNhapHang.htm?linkEdit&id=${nh.id}">
+											<button type="button" class="btn">
+												<i class="ti-save"></i>
+											</button>
+										</a>
 
 
 										<!-- Button trigger modal -->
@@ -162,10 +99,10 @@
 										<!-- Button trigger modal -->
 										<button style="font-size: 10px;" type="button"
 											class="btn btn-primary" data-toggle="modal"
-											data-target="#exampleModal2">XÓA</button>
+											data-target="#n-${nh.id}">XÓA</button>
 
 										<!-- Modal -->
-										<div class="modal fade" id="exampleModal2" tabindex="-1"
+										<div class="modal fade" id="n-${nh.id}" tabindex="-1"
 											role="dialog" aria-labelledby="exampleModalLabel"
 											aria-hidden="true">
 											<div class="modal-dialog" role="document">
@@ -181,7 +118,14 @@
 													<div class="modal-footer">
 														<button type="button" class="btn btn-secondary"
 															data-dismiss="modal">Thoát</button>
-														<button type="button" class="btn btn-primary">Xóa</button>
+														<a
+															href="/CNPM/admin-home/admin-nhaphang.htm?linkDelete&id=${nh.id}"<%--
+																		href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}"
+																		--%>>
+															<button name="btnXOA" id="#exampleModal2" type="button"
+																class="btn btn-warning">Xóa</button>
+														</a>
+
 													</div>
 												</div>
 											</div>
@@ -193,21 +137,13 @@
 							</td>
 
 						</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-				<nav style="text-align: center;"
-					aria-label="Page navigation example">
-					<ul class="pagination">
-						<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">Next</a></li>
-					</ul>
-				</nav>
-			</div>
+					</c:forEach>
+				</tbody>
+			</table>
+			<tg:paging pagedLink="${pagedLink}"
+				pagedListHolder="${pagedListHolder}"></tg:paging>
 		</div>
+	</div>
 
 
 	<jsp:include page="/common/admin/footer.jsp" />
