@@ -98,7 +98,7 @@ public class DatBanControllerHome {
 	
 	
 	@RequestMapping(value = "dat-ban/{id}.htm", params = "btndatban", method=RequestMethod.POST)
-	public String datBan1(HttpServletRequest request, ModelMap model,
+	public <E> String datBan1(HttpServletRequest request, ModelMap model,
 			@PathVariable("id") Long id, @ModelAttribute("datban") DatBanEntity datban) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
 		Long idnv = user1.getID();
@@ -109,7 +109,6 @@ public class DatBanControllerHome {
 		} catch (Exception e) {
 			datban.setTgDuKien(null);
 		}
-		
 		Integer temp = this.themDatBan(datban,id,model);
 		if(temp != 0) {
 			model.addAttribute("message","Thêm mới dat ban thành công");
@@ -117,8 +116,17 @@ public class DatBanControllerHome {
 		}else {
 			model.addAttribute("message","Thêm mới dat ban thất bại");
 		}
-		List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
-		model.addAttribute("chiTietDat", chiTietDat);
+		
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getChiTietDat(id));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(1);
+	
+		pagedListHolder.setPageSize(1);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		
+		/*List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
+		model.addAttribute("chiTietDat", chiTietDat);*/
 		model.addAttribute("id", id);
 		return "web/datban2";
 	};
@@ -152,10 +160,16 @@ public class DatBanControllerHome {
 	public Integer themDatBan(DatBanEntity datban, Long id, ModelMap model) {
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
+		
 		try {
 			
 			session.save(datban);
-			Integer temp = this.themChiTietDat(datban,id);
+			ChiTietDatEntity chiTietDat = new ChiTietDatEntity();
+			chiTietDat.setBans(getBan(id));
+			chiTietDat.setDatBan(datban);
+			System.out.println(chiTietDat.getBans());
+			System.out.println(chiTietDat.getDatBan());
+			Integer temp = this.themChiTietDat(chiTietDat);
 			if(temp != 0) {
 				model.addAttribute("message1","Thêm mới chi tiet thành công");
 				
@@ -177,17 +191,20 @@ public class DatBanControllerHome {
 		return 1;
 	}
 	
-	public Integer themChiTietDat(DatBanEntity datban,Long id) {
+	public Integer themChiTietDat(ChiTietDatEntity chiTietDat) {
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
+		System.out.println("1");
 		try {
-			ChiTietDatEntity chiTietDat = new ChiTietDatEntity();
-
-			chiTietDat.setBans(getBan(id));
-			chiTietDat.setDatBan(datban);
-			session.save(chiTietDat);
+			System.out.println("2");
 			
+			System.out.println("3");
+			
+			System.out.println("4");
+			session.save(chiTietDat);
+			System.out.println("5");
 			t.commit();
+			System.out.println("6");
 		}
 		catch (Exception e) {
 			t.rollback();

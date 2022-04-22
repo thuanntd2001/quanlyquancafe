@@ -2,20 +2,12 @@ package spring.entity;
 
 import java.io.Serializable;
 
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
-
 
 
 class ChiTietDatPK implements Serializable {
@@ -37,8 +29,6 @@ class ChiTietDatPK implements Serializable {
 @IdClass(ChiTietDatPK.class)
 @Table(name="CHITIETDAT")
 public class ChiTietDatEntity {
-
-
 	@Id
 	@ManyToOne
 	@JoinColumn(name="IDBAN")
@@ -48,10 +38,6 @@ public class ChiTietDatEntity {
 	@ManyToOne
 	@JoinColumn(name="MADAT")
 	private DatBanEntity datBan;
-
-	
-	
-
 
 	public BanEntity getBans() {
 		return bans;
@@ -69,6 +55,6 @@ public class ChiTietDatEntity {
 		this.datBan = datBan;
 	}
 
-
+	
 	
 }
