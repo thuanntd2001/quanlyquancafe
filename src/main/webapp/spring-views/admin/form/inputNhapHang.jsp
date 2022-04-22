@@ -37,7 +37,7 @@
               <div class="form-group col-md-2">
                 <div class="form-group col-md-2">
                     <label >Dịch Vụ</label>
-                    <input name="dv" type="text" />
+                    <form:input path="dv" type="text" />
                   </div>
               </div>
 
@@ -51,22 +51,23 @@
                 <div class="form-group col-md-6">
                   <div class="form-group col-md-4">
                       <label >Ghi Chú</label>
-                      <input name="ghiChu" type="text"/>
-                    </div>
-                </div>
-                 <div class="form-group col-md-6">
-                  <div class="form-group col-md-4">
-                      <label >Ghi Chú</label>
-                      <input name="ghiChu" type="text"/>
-                    </div>
-                </div>
-                 <div class="form-group col-md-6">
-                  <div class="form-group col-md-4">
-                      <label >Ngày Nhập</label>
-                      <input name="ngayNhap" type="datetime"/>
+                      <form:input path="ghiChu" type="text"/>
                     </div>
                 </div>
                 
+	                 <div class="form-group col-md-6">
+	                  <div class="form-group col-md-4">
+	                      <label >Ngày Nhập</label>
+	                      <input name="ngaynhaphang" type="datetime-local" id="set-date"  value =" ${nh.ngayNhap}" />
+	                    </div>
+	                </div>
+	                
+	                
+               <%--  <div class="form-group col-md-6">
+					<label>Nhân Viên Tạo</label>
+					<form:input path="cpnv" readonly="true" type="text"
+						placeholder="Nhân Viên Tạo" value="${NHANVIEN.maNV}" />
+				</div> --%>
   
             </div>
       

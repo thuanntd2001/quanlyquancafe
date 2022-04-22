@@ -1,4 +1,5 @@
 package spring.controller.admin;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -10,10 +11,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +28,6 @@ import spring.entity.NhanVienEntity;
 @Controller
 @RequestMapping(value = "/admin-home/" )
 public class QLNhanVienHome {
-	
 	@Autowired
 	SessionFactory factory;
 	// CONTROLLER
@@ -38,7 +41,6 @@ public class QLNhanVienHome {
 	
 		pagedListHolder.setPageSize(5);
 		model.addAttribute("pagedListHolder", pagedListHolder);
-		//model.addAttribute("bans", list);
 		return "admin/QLNV";
 	}
 	
@@ -59,24 +61,17 @@ public class QLNhanVienHome {
 	/*thêm nhân viên*/
 	@RequestMapping(value = "form",params = "Insert", method = RequestMethod.POST )
 	public <E> String addUser(HttpServletRequest request, ModelMap model,@ModelAttribute("nv") NhanVienEntity nv) {
-		nv.setNgaySinh(new Date());
-		nv.setNgayVaoLam(new Date());
 		nv.setDaNghi(false);
 		Integer temp = this.insertUser(nv);
-		
-
 		if(temp != 0) {
 		    model.addAttribute("message","them thanh cong");
-//		    nv.setMaNV(null);
 			nv.setHoTen(null);
-		
 			nv.setGioiTinh(null);
 			nv.setLuong(null);
 			nv.setSdt(null);
 			nv.setCmnd(null);
 			nv.setDiaChi(null);
-			
-			
+		
 		}else {
 			model.addAttribute("message","them that bai");
 		}
@@ -85,10 +80,8 @@ public class QLNhanVienHome {
 		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(10);
-	
 		pagedListHolder.setPageSize(5);
 		model.addAttribute("pagedListHolder", pagedListHolder);
-		//model.addAttribute("bans", list);
 		return "admin/QLNV";
 	}
 	
@@ -115,35 +108,24 @@ public class QLNhanVienHome {
 		long maNV = Long.parseLong(id1);
 		List<NhanVienEntity> nhanvien = this.getNhanVien();
 		model.addAttribute("pagedListHolder", nhanvien);
+
 		model.addAttribute("nv", this.getNV(maNV));
 		model.addAttribute("btnupdate","true");
 		return "admin/form/inputNV";
 	}
 
 	@RequestMapping(value = "form", params = "btnupdate" , method = RequestMethod.POST )
-	public <E> String edit_NV(HttpServletRequest requets, ModelMap model, 
+	public <E> String editNV(HttpServletRequest requets, ModelMap model, 
 			@ModelAttribute("nv") NhanVienEntity nv) {
-		nv.setNgaySinh(new Date());
-		nv.setNgayVaoLam(new Date());
-		nv.setDaNghi(false);
+		
 		Integer temp = this.updateNV(nv);
 		if( temp != 0) {
-			model.addAttribute("message", "Cập nhật thành công");
-			nv.setHoTen(null);
-			nv.setGioiTinh(null);
-			nv.setLuong(null);
-			nv.setSdt(null);
-			nv.setCmnd(null);
-			nv.setDiaChi(null);
-			
+			model.addAttribute("message", "Cập nhật thành công");	
 		}
 		else {
-			model.addAttribute("message", "Cập nhật không thành công");
-			
+			model.addAttribute("message", "Cập nhật không thành công nhân vien số "+nv.getMaNV());
+
 		}
-		/*List<NhanVienEntity> nhanvien = this.getNhanVien();
-		model.addAttribute("nhanvien", nhanvien);
-		return "admin/QLNV";*/
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getNhanVien());
 		int page = ServletRequestUtils.getIntParameter(requets, "p", 0);
@@ -152,7 +134,6 @@ public class QLNhanVienHome {
 	
 		pagedListHolder.setPageSize(5);
 		model.addAttribute("pagedListHolder", pagedListHolder);
-		//model.addAttribute("bans", list);
 		return "admin/QLNV";
 	}
 	
@@ -180,6 +161,7 @@ public class QLNhanVienHome {
 	public <E> String deleteNV (HttpServletRequest request, ModelMap model) {
 		String id1 =request.getParameter("id");
 		long maNV = Long.parseLong(id1);
+
 		this.getNV(maNV).setDaNghi(true);
 		Integer temp = this.updateNV(this.getNV(maNV));
 		if(temp != 0) {
@@ -196,7 +178,6 @@ public class QLNhanVienHome {
 	
 		pagedListHolder.setPageSize(5);
 		model.addAttribute("pagedListHolder", pagedListHolder);
-		//model.addAttribute("bans", list);
 		return "admin/QLNV";
 
 }
@@ -268,5 +249,10 @@ public class QLNhanVienHome {
 		NhanVienEntity list = (NhanVienEntity) query.list().get(0);
 		return list;
 	}
-	
+	 @InitBinder
+	    public void initBinder(WebDataBinder binder) {
+	        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	        sdf.setLenient(true);
+	        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+	    }
 }

@@ -29,7 +29,7 @@ public class NhanVienEntity {
 	
 	@Column(name="NGAYSINH")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="dd/MM/yyyy")
+	@DateTimeFormat(pattern="dd-MMM-yyyy")
 	private Date ngaySinh;
 	
 	@Column(name="GIOITINH")
@@ -49,7 +49,7 @@ public class NhanVienEntity {
 	
 	@Column(name="NGAYVAOLAM")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="dd/MM/yyyy")
+	@DateTimeFormat(pattern="dd-MMM-yyyy")
 	private Date ngayVaoLam;
 	
 	@Column(name="DANGHI")

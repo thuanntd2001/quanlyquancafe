@@ -75,7 +75,7 @@
 							<td>${nh.nhaCungCap}</td>
 							<td>${nh.dv}</td>
 
-							<td>${nh.cpnv.hoTen}</td>
+							<td>${nh.cpnv.maNV}</td>
 							<td>
 								<div style="width: 95px;" class="row">
 									<div class="col-6">

@@ -1,6 +1,7 @@
 package spring.controller.admin;
 
-import java.util.Date;
+import java.sql.Timestamp;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,29 +17,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.quancafehighland.model.UserModel;
+import com.quancafehighland.utils.SessionUtil;
+
 
 import spring.entity.ChiPhiEntity;
+import spring.entity.NhanVienEntity;
 @Controller
 @Transactional
 @RequestMapping(value = "/admin-home/")
 public class QLNhapHang {
 
-	
-	/*@Autowired
-	SessionFactory factory;
-	@RequestMapping(value = "admin-nhaphang" , method = RequestMethod.GET)
-	public String showMenu(ModelMap model) {
-		Session session = factory.getCurrentSession();
-		String hql = "FROM ChiPhiEntity";
-		Query query = session.createQuery(hql);
-		List<ChiPhiEntity> list = query.list();
-		model.addAttribute("nhaphang", list);
-		
-		return "admin/qlnhaphang";
-	}*/
 	//show trang quan li nhap hang
 	@Autowired
 	SessionFactory factory;
@@ -50,7 +43,7 @@ public class QLNhapHang {
 		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(10);
 	
-		pagedListHolder.setPageSize(5);
+		pagedListHolder.setPageSize(4);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		//model.addAttribute("bans", list);
 		return "admin/qlnhaphang";
@@ -67,21 +60,29 @@ public class QLNhapHang {
 	@RequestMapping(value = "formNhapHang",params = "Insert", method = RequestMethod.POST )
 	public <E> String add_DonNhapHang(HttpServletRequest request, ModelMap model,@ModelAttribute("nh") ChiPhiEntity nh) {
 		
+	/*	NhanVienEntity nv= (NhanVienEntity) SessionUtil.getInstance().getValue(request, "NHANVIEN"); 
+		nh.setCpnv(nv);*/
+		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
+		Long idnv = user1.getID();
+		nh.setCpnv(this.getNV(idnv));
+		try {
+			nh.setNgayNhap(Timestamp.valueOf(request.getParameter("ngaynhaphang").replace("T", " ") + ":00"));
+		} catch (Exception e) {
+			nh.setNgayNhap(null);
+		}
 		Integer temp = this.insert_NhapHang(nh);
 		
 
 		if(temp != 0) {
 		    model.addAttribute("message","them thanh cong");
-//		    nv.setMaNV(null);
+		    
 		    nh.setDv(null);
 		    nh.setGhiChu(null);
 		    nh.setGiaMoiDV(null);
 		    nh.setLoai(null);
 		    nh.setNhaCungCap(null);
 		    nh.setSoLuong(null);
-		    nh.setTenNL(null);
-		  
-			
+		    nh.setTenNL(null);			
 			
 		}else {
 			model.addAttribute("message","them that bai");
@@ -92,7 +93,7 @@ public class QLNhapHang {
 		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(10);
 	
-		pagedListHolder.setPageSize(5);
+		pagedListHolder.setPageSize(3);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		//model.addAttribute("bans", list);
 		return "admin/qlnhaphang";
@@ -129,7 +130,8 @@ public class QLNhapHang {
 	@RequestMapping(value = "formNhapHang", params = "btnupdate" , method = RequestMethod.POST )
 	public <E> String edit_NhapHang(HttpServletRequest requets, ModelMap model, 
 			@ModelAttribute("nh") ChiPhiEntity nh) {
-		
+		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(requets, "USERMODEL");
+		nh.setCpnv(user1.getUsernv());
 		Integer temp = this.updateNH(nh);
 		if( temp != 0) {
 			model.addAttribute("message", "Cập nhật thành công");
@@ -173,6 +175,76 @@ public class QLNhapHang {
 	}
 	/* end phần chỉnh sửa */
 	
+//	phần tìm kiếm
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="admin-nhaphang", params = "btnsearch", method=RequestMethod.POST)
+	public <E> String searchBan1(HttpServletRequest request, ModelMap model) {
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>)this.searchDonNhapHang(request.getParameter("searchInput")));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(10);
+		
+		pagedListHolder.setPageSize(5);
+		
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		
+		return "admin/qlnhaphang";
+	}
+	public List<ChiPhiEntity> searchDonNhapHang(String name) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM ChiPhiEntity where tenNL like :ngay OR ngayNhap like :ngay";
+		Query query = session.createQuery(hql);	
+		query.setParameter("ngay", "%" +  name + "%");
+		List<ChiPhiEntity> list = query.list();
+		return list;
+	}
+//	kết thúc tìm kiếm
+	
+	
+//	XÓA
+	@RequestMapping(value = "admin-nhaphang", params = "linkDelete")
+	public <E> String deleteDonNhapHang (HttpServletRequest request, ModelMap model, @ModelAttribute("nh") ChiPhiEntity nh) {
+		String id1 =request.getParameter("id");
+		long id = Long.parseLong(id1);
+		Integer temp = this.deleteDonNhapHang(this.getDonNhapHang(id));
+		
+		
+		if(temp != 0) {
+			model.addAttribute("message","Delete thành công");
+		}
+		else {
+			model.addAttribute("message", "Delete không thành công");
+		}
+		@SuppressWarnings("unchecked")
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getDonNhapHangs());
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(10);
+	
+		pagedListHolder.setPageSize(4);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		//model.addAttribute("bans", list);
+		return "admin/qlnhaphang";
+	}
+	public Integer deleteDonNhapHang (ChiPhiEntity user) {
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		
+		try {
+			session.delete(user);
+			t.commit();
+		}
+		catch (Exception e){
+			t.rollback();
+			return 0;
+		}
+		finally{
+			session.close();
+		}
+		return 1;
+	}
+	
+	//END XÓA
 	public List<ChiPhiEntity> getDonNhapHangs(){
 		Session session = factory.getCurrentSession();
 		String hql = "FROM ChiPhiEntity";
@@ -188,5 +260,15 @@ public class QLNhapHang {
 		ChiPhiEntity list = (ChiPhiEntity) query.list().get(0);
 		return list;
 	}
+	
+	public NhanVienEntity getNV (long id) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM NhanVienEntity where maNV =:id ";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		NhanVienEntity list = (NhanVienEntity) query.list().get(0);
+		return list;
+	}
+	
 
 }
