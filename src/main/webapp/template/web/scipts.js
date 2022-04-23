@@ -1,4 +1,21 @@
 
+function checkTotalDay() {
+
+    var year = $('input[name=year]').val();
+    var month = $('select[name=month]').val();
+    var totalDate = 31;
+    if (year !== '' && month !== '') {
+        totalDate = new Date(year, month, 0).getDate();
+    }
+
+    $('select[name=day]').empty();
+    for (var i = 1; i <= totalDate; i++) {
+        $('select[name=day]').append("<option value='" + i + "'>" + i + "</option>");
+    }
+}
+
+
+
 //gio tu dong
 function Dong_ho() {
     var date_now = document.getElementById("date-now");
