@@ -131,9 +131,7 @@
 							<select name="Ban">
 							<c:forEach items="${banids}" var="B">
 
-								<option value="${B}">
-									${B}
-								</option>
+								<option value="${B}" <c:if test="${B == idBanHT }"> selected</c:if>>${B}</option>
 							</c:forEach>
 							</select>
 						</h5>

@@ -197,7 +197,7 @@
 							<div class="col-lg-6 d-flex flex-column shadow-box ">
 								<div class="d-flex justify-content-between">
 									<div>Tổng tiền:</div>
-									<label> ${tongtien} </label>
+									<label>${tongtien} </label>
 								</div>
 								<div class="d-flex justify-content-between">
 									<label for="">Tiền nhận của khách:</label> <input type="text"
@@ -216,7 +216,7 @@
 									<select name="Ban">
 										<c:forEach items="${banids}" var="B">
 
-											<option value="${B}">${B}</option>
+											<option value="${B}" <c:if test="${B == idBanHT }"> selected</c:if>>${B}</option>
 										</c:forEach>
 									</select>
 									<button name="xem"> Xem </button>

@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,11 +19,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.quancafehighland.model.NhanVienModel;
+import com.quancafehighland.utils.SessionUtil;
+
 import spring.bean.BanHoaDonModel;
 import spring.entity.BanEntity;
+import spring.entity.ChiTietDatEntity;
 import spring.entity.ChiTietHDEntity;
+import spring.entity.DatBanEntity;
 import spring.entity.HoaDonEntity;
 import spring.entity.LoaiThucUongEntity;
+import spring.entity.NhanVienEntity;
 import spring.entity.ThucDonEntity;
 import spring.service.web.BanService;
 
@@ -33,6 +40,8 @@ public class ThanhToanController {
 	SessionFactory factory;
 	@Autowired
 	ServletContext application;
+	@Autowired
+	ServletContext session;
 
 	@RequestMapping(value = "thanh-toan", method = RequestMethod.GET)
 	public String createList(ModelMap model) {
@@ -53,7 +62,7 @@ public class ThanhToanController {
 			List<BanEntity> list = (List<BanEntity>) application.getAttribute("listBan");
 			int n = list.size();
 			for (int i = 0; i < n; i++) {
-				listBHD.add(new BanHoaDonModel(i));
+				listBHD.add(new BanHoaDonModel(i+1));
 				listIdsBan.add(new Long(list.get(i).getId()));
 			}
 			application.setAttribute("banHoaDons", listBHD);
@@ -62,10 +71,17 @@ public class ThanhToanController {
 		}
 
 		List<BanEntity> listBan = (List<BanEntity>) application.getAttribute("listBan");
-
+		List<BanHoaDonModel> listBHD = (List<BanHoaDonModel>) application.getAttribute("banHoaDons");
 		model.addAttribute("bans", listBan);
 		model.addAttribute("loaiTUs", getLoaiTUs());
 		model.addAttribute("thucDons", getThucDons());
+		Long ban=(Long) session.getAttribute("idBanHT");
+		if (ban!=null)
+		{
+			BanHoaDonModel BHD=listBHD.get((int) findBanHD(ban,listBHD));
+			model.addAttribute("banHD", BHD);
+			model.addAttribute("tongtien", tinhTong(BHD.getCthds()));
+		}
 
 		return "web/thanhtoan";
 	}
@@ -75,11 +91,12 @@ public class ThanhToanController {
 		List<BanEntity> listBan = (List<BanEntity>) application.getAttribute("listBan");
 		List<BanHoaDonModel> listBHD = (List<BanHoaDonModel>) application.getAttribute("banHoaDons");
 		List<ThucDonEntity> listTD = (List<ThucDonEntity>) application.getAttribute("thucDons");
+		
 
 		// lay data tu form
 		long ban = Long.parseLong(request.getParameter("Ban"));
 
-
+		session.setAttribute("idBanHT", ban);
 		// set view
 		model.addAttribute("bans", listBan);
 
@@ -111,14 +128,28 @@ public class ThanhToanController {
 		// set view
 		model.addAttribute("bans", listBan);
 
-		// set ban co nguoi dung
-		if (Long.valueOf(ban) != null) {
-			model.addAttribute("banHD", listBHD.get((int) findBanHD(ban,listBHD)));
+		// tim ban có id hien tai trong ds banhd hien tai
+		BanHoaDonModel banHD= listBHD.get((int) findBanHD(ban,listBHD));
+		HoaDonEntity HD=banHD.getHoaDon();
+		if(HD!=null)
+		{
+			HD.setChiTietHD(banHD.getCthds());
+			HD.setBan( listBan.get((int) findBan(ban,listBan)));
+			HD.setTinhTrang(1);
+			HD.setNgayThucHien(new java.util.Date());
+			NhanVienModel nv= (NhanVienModel) SessionUtil.getInstance().getValue(request, "NHANVIEN");;
+			HD.setHdnv(getNV(nv.getMaNV()));
+			int temp= themHD(HD);
+			System.out.print(temp);
+			if (temp==1) {
+				 banHD.setHoaDon(null);
+				 listBan.get((int) findBan(ban,listBan)).setTinhTrang(0);
+			}
+			
 		}
-
-		// 
 		
-		System.out.println(listBHD.get((int) findBanHD(ban,listBHD)).getCthds().get(0).getThucDon().getLoaiThucUong());
+
+		
 
 		listBHD.get((int) findBanHD(ban, listBHD)).xuat();
 		return "web/thanhtoan";
@@ -168,5 +199,35 @@ public class ThanhToanController {
 			
 		return tong;
 	}
-
+	public Integer themHD(HoaDonEntity hoadon) {
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		
+		try {
+			
+			session.save(hoadon);
+	
+		
+			System.out.println(hoadon.getBan());
+			
+			t.commit();
+		}
+		catch (Exception e) {
+			t.rollback();
+			e.printStackTrace();
+			return 0;			
+		}
+		finally {
+			session.close();
+		}
+		return 1;
+	}
+	public NhanVienEntity getNV(Long id) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM NhanVienEntity where maNV =:id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		NhanVienEntity list = (NhanVienEntity) query.list().get(0);
+		return list;
+	}
 }
