@@ -11,14 +11,15 @@
 <body>
 
 	<jsp:include page="/common/admin/header.jsp" />
-		<jsp:include page="/common/admin/menubar.jsp" />
+	<jsp:include page="/common/admin/menubar.jsp" />
 
 	<!-- CONTEND -->
 	<div class="container-fluid main">
 
-			<div class="container">
-			<div class="header-content d-flex justify-content-center">QUẢN LÍ BÀN</div>
-				<h4>${message}</h4>
+		<div class="container">
+			<div class="header-content d-flex justify-content-center">QUẢN
+				LÍ BÀN</div>
+			<h4>${message}</h4>
 			<div>
 				<a href="/CNPM/admin-home/formBan.htm"> <!-- 	<button type="button" class="btn btn-warning">Thêm</button> -->
 					<button style="width: 184px; height: 33px; margin-bottom: 5px;"
@@ -41,19 +42,19 @@
 					<i class="fas fa-search"></i>
 				</button>
 			</form>
-				<!-- ENDTHEEM -->
-				<table class="table table-striped shadow-box bg-white">
-					<thead>
-						<tr>
-							<th scope="row">ID</th>
-							<th scope="row">Số Ghế</th>
-							<th scope="row">Loại Bàn</th>
-							<th scope="row">Giá Thành</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-			<c:forEach var="b" items="${pagedListHolder.pageList}">
+			<!-- ENDTHEEM -->
+			<table class="table table-striped shadow-box bg-white">
+				<thead>
+					<tr>
+						<th scope="row">ID</th>
+						<th scope="row">Số Ghế</th>
+						<th scope="row">Loại Bàn</th>
+						<th scope="row">Giá Thành</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="b" items="${pagedListHolder.pageList}">
 						<tr>
 							<th scope="row">${b.id}</th>
 							<td>${b.soGhe}</td>
@@ -62,12 +63,16 @@
 							<td>
 								<div style="width: 95px;" class="row">
 									<div class="col-6">
-										<button style="font-size: 10px; width: 44px;" type="button"
-											class="btn" data-toggle="modal" data-target="#exampleModal1"
-											data-whatever="@mdo">SỬA</button>
+										<a href="/CNPM/admin-home/formBan.htm?linkEdit&id=${b.id}">
+											<button style="font-size: 10px; width: 44px;" type="button"
+												class="btn" data-toggle="modal" 
+												data-whatever="@mdo">SỬA</button>
+										</a>
 
 
-										
+
+
+
 
 										<!-- Button trigger modal -->
 									</div>
@@ -76,10 +81,10 @@
 										<!-- Button trigger modal -->
 										<button style="font-size: 10px;" type="button"
 											class="btn btn-primary" data-toggle="modal"
-											data-target="#exampleModal2">XÓA</button>
+											data-target="#-n${b.id}">XÓA</button>
 
 										<!-- Modal -->
-										<div class="modal fade" id="exampleModal2" tabindex="-1"
+										<div class="modal fade" id="-n${b.id}" tabindex="-1"
 											role="dialog" aria-labelledby="exampleModalLabel"
 											aria-hidden="true">
 											<div class="modal-dialog" role="document">
@@ -93,9 +98,15 @@
 													</div>
 													<div class="modal-body">Bạn có chắc muốn xóa!!!</div>
 													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Thoát</button>
-														<button type="button" class="btn btn-primary">Xóa</button>
+													
+													<a
+														href="/CNPM/admin-home/admin-qlban.htm?linkDelete&id=${b.id}"<%--
+																		href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}"
+																		--%>>
+														<button name="btnXOA" type="button"
+															class="btn btn-warning">Xóa</button>
+													</a>
+														
 													</div>
 												</div>
 											</div>
@@ -107,13 +118,13 @@
 							</td>
 
 						</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-				<tg:paging pagedLink="${pagedLink}"
+					</c:forEach>
+				</tbody>
+			</table>
+			<tg:paging pagedLink="${pagedLink}"
 				pagedListHolder="${pagedListHolder}"></tg:paging>
-			</div>
 		</div>
+	</div>
 
 
 

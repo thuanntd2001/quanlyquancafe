@@ -24,17 +24,18 @@
 			</div>
 			<div class="form-group">
 				<label>Loại Bàn</label>
-				<form:select path="loaiBan">
-					<form:options items="${loaiban.getLoaiBans}" />
-				</form:select>
+				<form:select path="loaiBan.tenLoai" items="${tenLoaiaban}" itemValue="tenLoai" itemLabel="tenLoai"
+				 />
+				<form:select path="loaiBan.giaDat" items="${tenLoaiaban}" itemValue="giaDat" itemLabel="giaDat" />
+				
 				
 			</div>
-			<div class="form-row">
+			<%-- <div class="form-row">
 				<div class="form-group col-md-6">
 					<label>Giá Thành</label>
-					<form:select path="loaiBan.giaDat" items="${loaiban.giaDat}" />
+					<form:input path="loaiBan.giaDat" type="number" placeholder="2,4,10...." />
 				</div>
-			</div>
+			</div> --%>
 
 
 			<button class="btn btn-primary" type="submit"
