@@ -2,6 +2,7 @@ package spring.controller.chung;
 
 import javax.mail.internet.MimeMessage;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.quancafehighland.model.UserModel;
 import com.quancafehighland.service.impl.UserService;
+
+import spring.Recaptcha.RecaptchaVerification;
 
 @Controller
 @RequestMapping("/mailer/")
@@ -28,6 +31,7 @@ public class MailerController {
                  @RequestParam("from") String from,
                  @RequestParam("to") String to
                  ) {
+    	  
     	  UserService usv =new UserService();
     	  UserModel user = usv.findByEmail(to);
     	  if (user == null) {

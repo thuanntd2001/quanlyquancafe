@@ -32,18 +32,18 @@ public class AuthorizationFilter implements Filter {
 					filterChain.doFilter(servletRequest, servletResponse);
 				} else if (model.getRoleID() != 1) {
 					response.sendRedirect(
-							request.getContextPath() + "/dang-nhap?action=login&message=not_permission&alert=danger");
+							request.getContextPath() + "/dang-nhap.htm?action=login&message=not_permission&alert=danger");
 				}
 			} else {
 				response.sendRedirect(
-						request.getContextPath() + "/dang-nhap?action=login&message=not_login&alert=danger");
+						request.getContextPath() + "/dang-nhap.htm?action=login&message=not_login&alert=danger");
 			}
 		} else if (url.indexOf("/dang-nhap") != -1 || url.equals("/CNPM/") || url.indexOf("/mailer")!=-1 ) {
 			filterChain.doFilter(servletRequest, servletResponse);
 		} else {
 			if (model == null) {
 				response.sendRedirect(
-						request.getContextPath() + "/dang-nhap?action=login&message=not_login&alert=danger");
+						request.getContextPath() + "/dang-nhap.htm?action=login&message=not_login&alert=danger");
 			}
 			else filterChain.doFilter(servletRequest, servletResponse);
 		}

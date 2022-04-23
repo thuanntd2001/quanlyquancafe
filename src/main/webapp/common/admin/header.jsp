@@ -18,7 +18,7 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="<c:url value='user.htm'/>">Thông tin tài khoản</a>
-                        <a class="dropdown-item" href="/CNPM/dang-nhap?action=logout">Đăng xuất</a>
+                        <a class="dropdown-item" href="/CNPM/dang-nhap.htm?action=logout">Đăng xuất</a>
                     </div>
                 </div>
             </div>
