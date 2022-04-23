@@ -32,7 +32,7 @@
 	<div class="container-fluid main">
 		<div class="content">
 			<div class="header-content d-flex justify-content-center">
-				THANH TOÁN</div>
+				ORDER</div>
 			<div class="row">
 				<div class="col-lg-4">
 					<div class="icon-header d-flex ">

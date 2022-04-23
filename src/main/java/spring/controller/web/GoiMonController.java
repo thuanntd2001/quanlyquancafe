@@ -53,7 +53,7 @@ public class GoiMonController {
 			List<BanEntity> list=(List<BanEntity>) application.getAttribute("listBan");
 			int n= list.size();
 			for (int i =0 ; i<n ;i++) {
-				listBHD.add(new BanHoaDonModel(i));
+				listBHD.add(new BanHoaDonModel(i+1));
 				listIdsBan.add(new Long(list.get(i).getId()));
 			}
 			application.setAttribute("banHoaDons", listBHD);
@@ -108,20 +108,35 @@ public class GoiMonController {
 			//cap vao hd co san
 			else {
 				BanHoaDonModel BHD=listBHD.get((int)findBanHD(ban,listBHD));
-				ChiTietHDEntity chiTiet=new ChiTietHDEntity();
-				chiTiet.setHoaDon(BHD.getHoaDon());
-				chiTiet.setSoLuong(sl);
-				chiTiet.setThucDon(listTD.get((int) findTD(thucDon,listTD)));
-				chiTiet.setTongTien(chiTiet.getThucDon().getGia()*sl);
-				BHD.getCthds().add(chiTiet);
+				//neu khong ton tai mon do trong chi tiet tao chi tiet moi
+				long index=findCTHD_ThucDon(thucDon,BHD.getCthds());
+				if(index==-1) {
+					ChiTietHDEntity chiTiet=new ChiTietHDEntity();
+					chiTiet.setHoaDon(BHD.getHoaDon());
+					chiTiet.setSoLuong(sl);
+					chiTiet.setThucDon(listTD.get((int) findTD(thucDon,listTD)));
+					chiTiet.setTongTien(chiTiet.getThucDon().getGia()*sl);
+					BHD.getCthds().add(chiTiet);
+				
+					System.out.println(chiTiet.getThucDon().getTen());
+				}
+				//nếu co thi cong sl vao
+				else {
+					int oldSL = BHD.getCthds().get((int)index).getSoLuong();
+					BHD.getCthds().get((int)index).setSoLuong(oldSL+sl);
+					System.out.println(oldSL);
+					System.out.println(oldSL+sl);
+				}
+				
+				
 			}
 			
 		}
-		System.out.println(ban);
+		/*System.out.println(ban);
 		System.out.println(loai);
 		System.out.println(sl);
-		System.out.println(thucDon);
-		listBHD.get((int)findBanHD(ban,listBHD)).xuat();
+		System.out.println(thucDon);*/
+		/*listBHD.get((int)findBanHD(ban,listBHD)).xuat();*/
 		return "web/pay";
 		
 	}
@@ -157,6 +172,14 @@ public class GoiMonController {
 	public long findTD(String id, List<ThucDonEntity> list) {
 		for (int i=0;i< list.size();i++)
 			if (list.get(i).getId().equals(id)) return i; 
+		return -1;
+	}
+	public long findCTHD_ThucDon(String id, List<ChiTietHDEntity> list) {
+		for (int i=0;i< list.size();i++) {
+			System.out.println(list.get(i).getThucDon().getId());
+			if (list.get(i).getThucDon().getId().equals(id)) return i; 
+		}
+			
 		return -1;
 	}
 

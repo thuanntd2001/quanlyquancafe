@@ -18,7 +18,8 @@ public class BanHoaDonModel {
 		this.idBan = idBan;
 	}
 	private long idBan=0;
-	List<ChiTietHDEntity> cthds= new ArrayList<ChiTietHDEntity>();
+	private List<ChiTietHDEntity> cthds= new ArrayList<ChiTietHDEntity>();
+
 
 	public List<ChiTietHDEntity> getCthds() {
 		return cthds;
@@ -44,5 +45,6 @@ public class BanHoaDonModel {
 		for (ChiTietHDEntity i:cthds)
 			System.out.println(i.getThucDon());
 	}
+
 
 }

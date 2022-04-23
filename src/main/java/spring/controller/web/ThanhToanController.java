@@ -69,9 +69,9 @@ public class ThanhToanController {
 
 		return "web/thanhtoan";
 	}
-/*
-	@RequestMapping(value = "thanh-toan", method = RequestMethod.POST)
-	public String order(ModelMap model, HttpServletRequest request) {
+
+	@RequestMapping(value = "thanh-toan", method = RequestMethod.POST, params="xem")
+	public String view(ModelMap model, HttpServletRequest request) {
 		List<BanEntity> listBan = (List<BanEntity>) application.getAttribute("listBan");
 		List<BanHoaDonModel> listBHD = (List<BanHoaDonModel>) application.getAttribute("banHoaDons");
 		List<ThucDonEntity> listTD = (List<ThucDonEntity>) application.getAttribute("thucDons");
@@ -79,48 +79,51 @@ public class ThanhToanController {
 		// lay data tu form
 		long ban = Long.parseLong(request.getParameter("Ban"));
 
-		String loai = (String) request.getParameter("loaiTU");
-		String thucDon = (String) request.getParameter("thucDon");
-		int sl = Integer.parseInt(request.getParameter("sl"));
+
 		// set view
 		model.addAttribute("bans", listBan);
-		model.addAttribute("loaiTUs", getLoaiTUs());
-		model.addAttribute("thucDons", getThucDons());
+
+	
+		if (Long.valueOf(ban) != null) {
+			BanHoaDonModel BHD=listBHD.get((int) findBanHD(ban,listBHD));
+			model.addAttribute("banHD", BHD);
+			model.addAttribute("tongtien", tinhTong(BHD.getCthds()));
+		}
+
+		// 
+		
+		
+
+		listBHD.get((int) findBanHD(ban, listBHD)).xuat();
+		return "web/thanhtoan";
+
+	}
+	@RequestMapping(value = "thanh-toan", method = RequestMethod.POST, params="thanhtoan")
+	public String pay(ModelMap model, HttpServletRequest request) {
+		List<BanEntity> listBan = (List<BanEntity>) application.getAttribute("listBan");
+		List<BanHoaDonModel> listBHD = (List<BanHoaDonModel>) application.getAttribute("banHoaDons");
+		List<ThucDonEntity> listTD = (List<ThucDonEntity>) application.getAttribute("thucDons");
+
+		// lay data tu form
+		long ban = Long.parseLong(request.getParameter("Ban"));
+
+
+		// set view
+		model.addAttribute("bans", listBan);
+
 		// set ban co nguoi dung
 		if (Long.valueOf(ban) != null) {
-			listBan.get((int) findBan(ban, listBan)).setTinhTrang(1);
+			model.addAttribute("banHD", listBHD.get((int) findBanHD(ban,listBHD)));
 		}
-		// set ban co nguoi dang chon chua goi
-		if (loai.equals("DC")) {
-			listBan.get((int) ban - 1).setTinhTrang(1);
-		}
-		// neu da goi set hoa don
-		else {
-			// nay goi lan dau thi tao hd, goi them thi chi cap vao hd co san
-			if (listBHD.get((int) findBanHD(ban, listBHD)) == null) {
-				HoaDonEntity hoaDon = new HoaDonEntity();
-				listBHD.get((int) findBanHD(ban, listBHD)).setHoaDon(hoaDon);
-			}
-			// cap vao hd co san
-			else {
-				BanHoaDonModel BHD = listBHD.get((int) findBanHD(ban, listBHD));
-				ChiTietHDEntity chiTiet = new ChiTietHDEntity();
-				chiTiet.setHoaDon(BHD.getHoaDon());
-				chiTiet.setSoLuong(sl);
-				chiTiet.setThucDon(listTD.get((int) findTD(thucDon, listTD)));
-				chiTiet.setTongTien(chiTiet.getThucDon().getGia() * sl);
-				BHD.getCthds().add(chiTiet);
-			}
 
-		}
-		System.out.println(ban);
-		System.out.println(loai);
-		System.out.println(sl);
-		System.out.println(thucDon);
+		// 
+		
+		System.out.println(listBHD.get((int) findBanHD(ban,listBHD)).getCthds().get(0).getThucDon().getLoaiThucUong());
+
 		listBHD.get((int) findBanHD(ban, listBHD)).xuat();
-		return "web/pay";
+		return "web/thanhtoan";
 
-	}*/
+	}
 
 	public List<LoaiThucUongEntity> getLoaiTUs() {
 		Session session = factory.getCurrentSession();
@@ -157,6 +160,13 @@ public class ThanhToanController {
 			if (list.get(i).getId().equals(id))
 				return i;
 		return -1;
+	}
+	public int tinhTong( List<ChiTietHDEntity> list) {
+		int tong=0;
+		for (int i = 0; i < list.size(); i++)
+			tong += list.get(i).getTongTien();
+			
+		return tong;
 	}
 
 }
