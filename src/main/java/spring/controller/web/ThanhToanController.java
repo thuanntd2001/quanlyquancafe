@@ -142,8 +142,15 @@ public class ThanhToanController {
 			int temp= themHD(HD);
 			System.out.print(temp);
 			if (temp==1) {
-				 banHD.setHoaDon(null);
-				 listBan.get((int) findBan(ban,listBan)).setTinhTrang(0);
+				boolean flag=false;
+				for (ChiTietHDEntity cthd : banHD.getCthds()) {
+					if (themCTHD(cthd)==0) flag=true;
+				}
+				if (!flag) {
+					 banHD.setHoaDon(null);
+					 listBan.get((int) findBan(ban,listBan)).setTinhTrang(0);
+				}
+				
 			}
 			
 		}
@@ -209,6 +216,29 @@ public class ThanhToanController {
 	
 		
 			System.out.println(hoadon.getBan());
+			
+			t.commit();
+		}
+		catch (Exception e) {
+			t.rollback();
+			e.printStackTrace();
+			return 0;			
+		}
+		finally {
+			session.close();
+		}
+		return 1;
+	}
+	public Integer themCTHD(ChiTietHDEntity cthd) {
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		
+		try {
+			
+			session.save(cthd);
+	
+		
+	
 			
 			t.commit();
 		}
