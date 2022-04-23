@@ -210,10 +210,9 @@ public class QLNhanVienHome {
 //	phần tìm kiếm
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="index", params = "btnsearch", method=RequestMethod.POST)
-	public <E> String searchBan1(HttpServletRequest request, ModelMap model) {
+	public <E> String searchNhanVien(HttpServletRequest request, ModelMap model) {
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>)this.searchNhanVien(request.getParameter("searchInput")));
 		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
-		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(10);
 		
 		pagedListHolder.setPageSize(5);

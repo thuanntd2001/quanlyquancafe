@@ -1,6 +1,5 @@
 package spring.controller.admin;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,33 +22,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.quancafehighland.model.UserModel;
-import com.quancafehighland.utils.SessionUtil;
-
-import spring.bean.BanHoaDonModel;
 import spring.entity.BanEntity;
-import spring.entity.ChiPhiEntity;
+
 import spring.entity.LoaiBanEntity;
-import spring.entity.NhanVienEntity;
+
 
 @Controller
 @Transactional
 @RequestMapping(value = "/admin-home/")
 public class QLBan {
 
-/*	
-	@Autowired
-	SessionFactory factory;
-	@RequestMapping(value = "admin-qlban" , method = RequestMethod.GET)
-	public String showMenu(ModelMap model) {
-		Session session = factory.getCurrentSession();
-		String hql = "FROM BanEntity";
-		Query query = session.createQuery(hql);
-		List<BanEntity> list = query.list();
-		model.addAttribute("ban", list);
-		return "admin/qlban";
-	}*/
-	
 	//show trang quan li ban
 	@Autowired
 	ServletContext application;

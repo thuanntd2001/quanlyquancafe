@@ -17,10 +17,21 @@
 		<div class="container">
 			<div class="header-content d-flex justify-content-center">QUẢN
 				LÍ HÓA ĐƠN</div>
-			<!-- <div class="input-group">
-                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                <button type="button" class="btn btn-outline-primary">search</button>
-              </div> -->
+			<jsp:useBean id="pagedListHolder" scope="request"
+				type="org.springframework.beans.support.PagedListHolder" />
+			<c:url value="admin-hoadon.htm" var="pagedLink">
+				<c:param name="p" value="~" />
+			</c:url>
+			<form class="input-group" style="margin: 20px 0" method="post">
+				<div>
+					<input id="search-input" type="search" name="searchInput"
+						class="form-control" placeholder="Tìm kiếm" />
+				</div>
+				<button id="search-button" type="submit" class="btn btn-primary"
+					name="btnsearch">
+					<i class="fas fa-search"></i>
+				</button>
+			</form>
 			<table class="table table-striped shadow-box bg-white">
 				<thead>
 					<tr>
@@ -32,7 +43,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="hd" items="${hoadon}">
+					<c:forEach var="hd" items="${pagedListHolder.pageList}">
 						<tr>
 							<th scope="row">${hd.id}</th>
 							<td>${hd.hdnv.hoTen}</td>
@@ -43,15 +54,9 @@
 
 				</tbody>
 			</table>
-			<nav style="text-align: center;" aria-label="Page navigation example">
-				<ul class="pagination">
-					<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">Next</a></li>
-				</ul>
-			</nav>
+			<tg:paging pagedLink="${pagedLink}"
+				pagedListHolder="${pagedListHolder}"></tg:paging>
+			
 		</div>
 	</div>
 
