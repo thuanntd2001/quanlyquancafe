@@ -24,7 +24,6 @@ import com.quancafehighland.utils.SessionUtil;
 
 import spring.bean.BanHoaDonModel;
 import spring.entity.BanEntity;
-import spring.entity.ChiTietDatEntity;
 import spring.entity.ChiTietHDEntity;
 import spring.entity.DatBanEntity;
 import spring.entity.HoaDonEntity;

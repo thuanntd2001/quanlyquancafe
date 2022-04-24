@@ -30,9 +30,17 @@ public class BanEntity {
 	@OneToMany(mappedBy="ban", fetch = FetchType.EAGER)
 	private Collection<HoaDonEntity> hoaDon;
 	
-	@OneToMany(mappedBy="bans", fetch = FetchType.EAGER)
-	private Collection<ChiTietDatEntity> chiTietDat;
+	@OneToMany(mappedBy="ban", fetch = FetchType.EAGER)
+	private Collection<DatBanEntity> datBan;
 	
+	public Collection<DatBanEntity> getDatBan() {
+		return datBan;
+	}
+
+	public void setDatBan(Collection<DatBanEntity> datBan) {
+		this.datBan = datBan;
+	}
+
 	@Column(name = "TINHTRANG")
 	private int tinhTrang;
 	
@@ -79,13 +87,6 @@ public class BanEntity {
 		this.hoaDon = hoaDon;
 	}
 
-	public Collection<ChiTietDatEntity> getChiTietDat() {
-		return chiTietDat;
-	}
-
-	public void setChiTietDat(Collection<ChiTietDatEntity> chiTietDat) {
-		this.chiTietDat = chiTietDat;
-	}
 
 
 	

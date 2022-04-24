@@ -41,17 +41,37 @@ public class DatBanEntity {
 	@DateTimeFormat(pattern="dd-MM-yyyy")
 	private Date ngayDat;
 	
+	public BanEntity getBan() {
+		return ban;
+	}
+
+	public void setBan(BanEntity ban) {
+		this.ban = ban;
+	}
+
+	public int getTrangThai() {
+		return trangThai;
+	}
+
+	public void setTrangThai(int trangThai) {
+		this.trangThai = trangThai;
+	}
+
 	@Column(name="TGDUKIEN")
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private Timestamp tgDuKien;
 	
-	
-	@OneToMany(mappedBy="datBan", fetch = FetchType.EAGER)
-	private Collection<ChiTietDatEntity> chiTietDat;
+	@ManyToOne
+	@JoinColumn(name="BAN")
+	private BanEntity ban;
+
 	
 	@ManyToOne
 	@JoinColumn(name="NVTHUCHIEN")
 	private NhanVienEntity dbnv;
+	
+	@Column(name="TRANGTHAI")
+	private int trangThai;
 
 	public Long getId() {
 		return id;
@@ -101,13 +121,7 @@ public class DatBanEntity {
 		this.tgDuKien = tgDuKien;
 	}
 
-	public Collection<ChiTietDatEntity> getChiTietDat() {
-		return chiTietDat;
-	}
 
-	public void setChiTietDat(Collection<ChiTietDatEntity> chiTietDat) {
-		this.chiTietDat = chiTietDat;
-	}
 
 	public NhanVienEntity getDbnv() {
 		return dbnv;
