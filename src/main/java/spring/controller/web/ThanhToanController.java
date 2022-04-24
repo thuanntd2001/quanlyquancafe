@@ -142,14 +142,17 @@ public class ThanhToanController {
 			int temp= themHD(HD);
 			System.out.print(temp);
 			if (temp==1) {
-				boolean flag=false;
-				for (ChiTietHDEntity cthd : banHD.getCthds()) {
+				int flag;
+				/*for (ChiTietHDEntity cthd : banHD.getCthds()) {
 					if (themCTHD(cthd)==0) flag=true;
-				}
-				if (!flag) {
+				}*/
+				flag= themCTHDs(banHD.getCthds());
+				if (flag==1) {
 					 banHD.setHoaDon(null);
 					 listBan.get((int) findBan(ban,listBan)).setTinhTrang(0);
+					 model.addAttribute("message", "Thanh toán thành công");
 				}
+				else model.addAttribute("message", "Thanh toán thất bại");
 				
 			}
 			
@@ -235,6 +238,29 @@ public class ThanhToanController {
 		
 		try {
 			
+			session.save(cthd);
+	
+		
+	
+			
+			t.commit();
+		}
+		catch (Exception e) {
+			t.rollback();
+			e.printStackTrace();
+			return 0;			
+		}
+		finally {
+			session.close();
+		}
+		return 1;
+	}
+	public Integer themCTHDs(List<ChiTietHDEntity> cthds) {
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		
+		try {
+			for (ChiTietHDEntity cthd : cthds)
 			session.save(cthd);
 	
 		

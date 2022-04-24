@@ -211,7 +211,7 @@
 							</div>
 							<form action="thanh-toan.htm" method="post">
 								<h5>
-								 ${message }
+								 ${message }<br>
 									<label>Bàn số: </label>
 									<select name="Ban">
 										<c:forEach items="${banids}" var="B">

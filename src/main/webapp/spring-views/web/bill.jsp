@@ -57,7 +57,7 @@
                             <th scope="row">ID</th>
                             <th scope="row">Ngày Thực Hiện</th>
                             <th scope="row">Nhân Viên Thực Hiện</th>
-                            <th scope="row">Tổng tiền</th>
+
                             <th></th>
                         </tr>
                     </thead>
@@ -67,7 +67,7 @@
                             <th scope="row">${hd.id }</th>
                             <td>${hd.ngayThucHien}</td>
                             <td>${hd.hdnv.hoTen}</td>
-                            <td>0</td>
+
                             <td>
                                 <div class="">
                                     <a style="font-size: 10px;" class="btn btn-primary" href="hoa-don/${hd.id}.htm?linkView">
