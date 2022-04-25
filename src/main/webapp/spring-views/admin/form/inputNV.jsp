@@ -59,14 +59,14 @@
 				<div class="form-group col-md-2">
 					<div class="form-group col-md-2">
 						<label>Ngày Sinh</label>
-						<form:input path="ngaySinh" value="${nv.ngaySinh}" />
+						<input type="date" name="ngaysinh" value="${ngaysinh}" />
 					</div>
 				</div>
 
 				<div class="form-group col-md-6">
 					<div class="form-group col-md-4">
 						<label>Ngày vào làm</label>
-						<form:input path="ngayVaoLam" value="${nv.getNgayVaoLam()}" />
+						<input type="date" name="ngayvaolam" value="${ngayvaolam}" />
 					</div>
 				</div>
 

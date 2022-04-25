@@ -1,4 +1,4 @@
-package spring.controller.web;
+/*package spring.controller.web;
 
 
 import java.sql.Timestamp;
@@ -90,8 +90,8 @@ public class DatBanControllerHome {
 	
 		pagedListHolder.setPageSize(1);
 		model.addAttribute("pagedListHolder", pagedListHolder);
-		/*List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
-		model.addAttribute("chiTietDat", chiTietDat);*/
+		List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
+		model.addAttribute("chiTietDat", chiTietDat);
 		model.addAttribute("id", id);
 		return "web/datban2";
 	}
@@ -125,8 +125,8 @@ public class DatBanControllerHome {
 		pagedListHolder.setPageSize(1);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		
-		/*List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
-		model.addAttribute("chiTietDat", chiTietDat);*/
+		List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
+		model.addAttribute("chiTietDat", chiTietDat);
 		model.addAttribute("id", id);
 		return "web/datban2";
 	};
@@ -249,4 +249,4 @@ public class DatBanControllerHome {
 		BanEntity list = (BanEntity) query.list().get(0);
 		return list;
 	}
-}
+}*/

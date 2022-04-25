@@ -29,6 +29,9 @@
 		<li><a href="admin-user.htm"> <i class="fas fa-user"></i> <span
 				class="links_name">TÀI KHOẢN</span>
 		</a></li>
+		<li><a href="admin-taikhoan.htm"> <i class="fas fa-table"></i> <span
+				class="links_name">QUẢN LÝ NGƯỜI DÙNG</span>
+		</a></li>
 		<li><a href="/CNPM/dang-nhap.htm?action=logout"> <i
 				class="fas fa-sign-out-alt"></i> <span class="links_name">ĐĂNG
 					XUẤT</span>

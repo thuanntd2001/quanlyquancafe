@@ -46,8 +46,6 @@ public class DatBanEntity {
 	private Timestamp tgDuKien;
 	
 	
-	@OneToMany(mappedBy="datBan", fetch = FetchType.EAGER)
-	private Collection<ChiTietDatEntity> chiTietDat;
 	
 	@ManyToOne
 	@JoinColumn(name="NVTHUCHIEN")
@@ -101,13 +99,6 @@ public class DatBanEntity {
 		this.tgDuKien = tgDuKien;
 	}
 
-	public Collection<ChiTietDatEntity> getChiTietDat() {
-		return chiTietDat;
-	}
-
-	public void setChiTietDat(Collection<ChiTietDatEntity> chiTietDat) {
-		this.chiTietDat = chiTietDat;
-	}
 
 	public NhanVienEntity getDbnv() {
 		return dbnv;
