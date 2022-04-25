@@ -1,5 +1,9 @@
 package spring.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import spring.entity.ChiTietHDEntity;
 import spring.entity.HoaDonEntity;
 import spring.entity.LoaiThucUongEntity;
 import spring.entity.ThucDonEntity;
@@ -9,9 +13,20 @@ public class BanHoaDonModel {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	public BanHoaDonModel(long idBan) {
+		super();
+		this.idBan = idBan;
+	}
 	private long idBan=0;
-	private LoaiThucUongEntity loai;
-	private ThucDonEntity thucDon;
+	private List<ChiTietHDEntity> cthds= new ArrayList<ChiTietHDEntity>();
+
+
+	public List<ChiTietHDEntity> getCthds() {
+		return cthds;
+	}
+	public void setCthds(List<ChiTietHDEntity> cthds) {
+		this.cthds = cthds;
+	}
 	private HoaDonEntity hoaDon;
 	public long getIdBan() {
 		return idBan;
@@ -25,17 +40,11 @@ public class BanHoaDonModel {
 	public void setHoaDon(HoaDonEntity hoaDon) {
 		this.hoaDon = hoaDon;
 	}
-	public LoaiThucUongEntity getLoai() {
-		return loai;
+
+	public void xuat() {
+		for (ChiTietHDEntity i:cthds)
+			System.out.println(i.getThucDon());
 	}
-	public void setLoai(LoaiThucUongEntity loai) {
-		this.loai = loai;
-	}
-	public ThucDonEntity getThucDon() {
-		return thucDon;
-	}
-	public void setThucDon(ThucDonEntity thucDon) {
-		this.thucDon = thucDon;
-	}
+
 
 }

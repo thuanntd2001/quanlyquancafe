@@ -29,8 +29,13 @@
 		<li><a href="admin-user.htm"> <i class="fas fa-user"></i> <span
 				class="links_name">TÀI KHOẢN</span>
 		</a></li>
+<<<<<<< HEAD
 		<li><a href="admin-taikhoan.htm"> <i class="fas fa-table"></i> <span
 				class="links_name">QUẢN LÝ NGƯỜI DÙNG</span>
+=======
+		<li><a href="thong-ke.htm"> <i class="fas fa-hand-holding-usd"></i><span
+				class="links_name">THỐNG KÊ</span>
+>>>>>>> 66a3dd3e40dd46ac4d2a3a051ea7dd7e58a95de5
 		</a></li>
 		<li><a href="/CNPM/dang-nhap.htm?action=logout"> <i
 				class="fas fa-sign-out-alt"></i> <span class="links_name">ĐĂNG

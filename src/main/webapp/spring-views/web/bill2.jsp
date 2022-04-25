@@ -64,6 +64,7 @@
                             <th>Tên SP</th>
                             <th>Giá</th>
                             <th>Số Lượng</th>
+                            <th>Thành Tiền</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,11 +75,13 @@
                             <td>${cthd.thucDon.ten }</td>
                             <td>${cthd.thucDon.gia }</td>
                             <td>${cthd.soLuong }</td>
+                            <td>${cthd.soLuong * cthd.thucDon.gia}</td>
                         </tr>
                         </c:forEach>
 
                     </tbody>
                 </table>
+                <h3>Tổng Tiền:  ${tongTien} </h3>
                 <tg:paging pagedLink="${pagedLink}"
 					pagedListHolder="${pagedListHolder}"></tg:paging>
             </div>

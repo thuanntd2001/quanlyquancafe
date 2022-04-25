@@ -32,7 +32,6 @@
 		<div class="container">
 			<div class="content">
 				${message }
-				${message1 }
 				<div class="header-content d-flex justify-content-center">ĐẶT
 					BÀN</div>
 				<div class="original-info d-flex justify-content-center">
@@ -129,18 +128,22 @@
 							<th>Tiền cọc</th>
 							<th>Ngày đặt</th>
 							<th>Thời gian dự kiến</th>
+							<th>Bàn</th>
+							<th>Trạng Thái</th>
 						</tr>
 					</thead>
 					<tbody>
 
 						<c:forEach var="d" items="${pagedListHolder.pageList}">
 							<tr>
-								<td>${d.datBan.hoTen}</td>
-								<td>${d.datBan.sdt}</td>
-								<td><f:formatNumber value="${d.datBan.tienCoc}"
+								<td>${d.hoTen}</td>
+								<td>${d.sdt}</td>
+								<td><f:formatNumber value="${d.tienCoc}"
 										type="currency" /></td>
-								<td>${d.datBan.ngayDat}</td>
-								<td>${d.datBan.tgDuKien}</td>
+								<td>${d.ngayDat}</td>
+								<td>${d.tgDuKien}</td>
+								<td>${d.ban.id}</td>
+								<td>${d.trangThai}</td>
 							</tr>
 						</c:forEach>
 

@@ -41,6 +41,7 @@ public class HoaDonEntity {
 	@JoinColumn(name = "NVTHUCHIEN")
 	private NhanVienEntity hdnv;
 	
+
 	@Column(name = "TINHTRANG")
 	private Integer tinhTrang;
 
@@ -91,5 +92,6 @@ public class HoaDonEntity {
 	public void setHdnv(NhanVienEntity hdnv) {
 		this.hdnv = hdnv;
 	}
+
 
 }

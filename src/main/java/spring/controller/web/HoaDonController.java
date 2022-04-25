@@ -45,14 +45,15 @@ public class HoaDonController {
 		
 		List<HoaDonEntity> hoaDon = this.getHoaDon(id);
 		model.addAttribute("hoaDon", hoaDon);
+	
 		return "web/bill";
 	}
 
 	@RequestMapping(value = "hoa-don/{id}.htm", params = "linkView")
 	public <E> String xemChiTietHD(HttpServletRequest request, ModelMap model,
 			@PathVariable("id") Long id) {
-		
-		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) getChiTietHD(id));
+		List<ChiTietHDEntity>  cthds= getChiTietHD(id);
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) cthds);
 		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(5);
@@ -62,6 +63,11 @@ public class HoaDonController {
 		
 		/*List<ChiTietHDEntity> chiTietHD = this.getChiTietHD(id);
 		model.addAttribute("chiTietHD", chiTietHD);*/
+		int tong=0;
+		for (ChiTietHDEntity cthd:cthds) {
+			tong+=cthd.getTongTien();
+		}
+		model.addAttribute("tongTien",tong);
 		model.addAttribute("idhd",id);
 		return "web/bill2";
 	}

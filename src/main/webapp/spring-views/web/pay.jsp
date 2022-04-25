@@ -32,7 +32,7 @@
 	<div class="container-fluid main">
 		<div class="content">
 			<div class="header-content d-flex justify-content-center">
-				THANH TOÁN</div>
+				ORDER</div>
 			<div class="row">
 				<div class="col-lg-4">
 					<div class="icon-header d-flex ">
@@ -125,60 +125,52 @@
 						</div>
 						<!-- CAN TG -->
 					</div>
-					<form:form action="thanh-toan.htm" method="post"
-						modelAttribute="banHoaDon">
+					<form action="goi-mon.htm" method="post">
 						<h5>
 							Bàn số:
-							<form:select path="idBan" items="${banids}" />
+							<select name="Ban">
+							<c:forEach items="${banids}" var="B">
+
+								<option value="${B}" <c:if test="${B == idBanHT }"> selected</c:if>>${B}</option>
+							</c:forEach>
+							</select>
 						</h5>
 
 
 						<div class="select-menu">
 							<select id="sel1" onchange="giveSelection(this.value)"
-								class="select-menu-small">
-								<option value="Cà phê">Cà phê</option>
-								<option value="Freeze">Freeze</option>
-								<option value="Trà">Trà</option>
-								<option value="Bánh mì">Bánh mì</option>
-								<option value="Khác">Khác</option>
+								class="select-menu-small" name="loaiTU">
+								<c:forEach items="${loaiTUs}" var="loai">
+									
+									<option value="${loai.id}">${loai.tenLoai}</option>
+								</c:forEach>
+
 							</select> <label>Tên:</label> <select id="sel2" class="select-menu-small"
 								name="thucDon">
-								<option data-option="Cà phê">Cà Phê Phin</option>
-								<option data-option="Cà phê">Phin Di</option>
-								<option data-option="Cà phê">Cà Phê Espresso</option>
+								<c:forEach items="${ thucDons}" var="TD">
 
-								<option data-option="FREEZE">Freeze Cà Chê Phin</option>
-								<option data-option="FREEZE">Freeze Không Cà Phê</option>
+									<option data-option="${TD.loaiThucUong.id}" name="thucDon"
+										value="${TD.id}">${TD.ten}</option>
+								</c:forEach>
 
-								<option data-option="Trà">Trà Sen Vàng</option>
-								<option data-option="Trà">Trà Thạch Đào</option>
-								<option data-option="Trà">Trà Thanh Đào</option>
-								<option data-option="Trà">Trà Thạch Vải</option>
-
-								<option data-option="Bánh mì">Thịt Nướng</option>
-								<option data-option="Bánh mì">Xíu Mại</option>
-								<option data-option="Bánh mì">Chả Lụa Xá Xíu</option>
-								<option data-option="Bánh mì">Gà Xé Nướng Tương</option>
-
-								<option data-option="Khác">Bánh Ngọt</option>
-								<option data-option="Khác">Merchandise</option>
-								<option data-option="Khác">Cà Phê Đóng Gói</option>
 							</select>
 							<div class="">
 								<label for="amount">Số lượng:</label> <input id="amount"
-									type="number" style="width: 46px;">
+									type="number" style="width: 46px;" name="sl" value="1">
 							</div>
 
 						</div>
+
+
 						<button style="font-size: 20px; margin-left: 350px; padding: 10px">
 							<i class="fas fa-plus-circle"></i> Thêm
 						</button>
-					</form:form>
+					</form>
 				</div>
 
 
 
-				<table class="table table-striped shadow-box">
+				<!-- <table class="table table-striped shadow-box">
 					<thead>
 						<tr>
 							<th>Loại</th>
@@ -204,12 +196,12 @@
 										id="btn-1" onclick="EditNumber(this.id)">SỬA</button>
 								</div>
 								<div class="">
-									<!-- Button trigger modal -->
+									Button trigger modal
 									<button style="font-size: 10px;" type="button"
 										class="btn btn-primary" data-toggle="modal"
 										data-target="#exampleModal2">XÓA</button>
 
-									<!-- Modal -->
+									Modal
 									<div class="modal fade" id="exampleModal2" tabindex="-1"
 										role="dialog" aria-labelledby="exampleModalLabel"
 										aria-hidden="true">
@@ -249,12 +241,12 @@
 										id="btn-2" onclick="EditNumber(this.id)">SỬA</button>
 								</div>
 								<div class="">
-									<!-- Button trigger modal -->
+									Button trigger modal
 									<button style="font-size: 10px;" type="button"
 										class="btn btn-primary" data-toggle="modal"
 										data-target="#exampleModal2">XÓA</button>
 
-									<!-- Modal -->
+									Modal
 									<div class="modal fade" id="exampleModal2" tabindex="-1"
 										role="dialog" aria-labelledby="exampleModalLabel"
 										aria-hidden="true">
@@ -294,12 +286,12 @@
 										id="btn-3" onclick="EditNumber(this.id)">SỬA</button>
 								</div>
 								<div class="">
-									<!-- Button trigger modal -->
+									Button trigger modal
 									<button style="font-size: 10px;" type="button"
 										class="btn btn-primary" data-toggle="modal"
 										data-target="#exampleModal2">XÓA</button>
 
-									<!-- Modal -->
+									Modal
 									<div class="modal fade" id="exampleModal2" tabindex="-1"
 										role="dialog" aria-labelledby="exampleModalLabel"
 										aria-hidden="true">
@@ -339,12 +331,12 @@
 										id="btn-4" onclick="EditNumber(this.id)">SỬA</button>
 								</div>
 								<div class="">
-									<!-- Button trigger modal -->
+									Button trigger modal
 									<button style="font-size: 10px;" type="button"
 										class="btn btn-primary" data-toggle="modal"
 										data-target="#exampleModal2">XÓA</button>
 
-									<!-- Modal -->
+									Modal
 									<div class="modal fade" id="exampleModal2" tabindex="-1"
 										role="dialog" aria-labelledby="exampleModalLabel"
 										aria-hidden="true">
@@ -397,11 +389,11 @@
 							</a>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
-	</div>
+	
 	<jsp:include page="/common/web/footer.jsp" />
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
