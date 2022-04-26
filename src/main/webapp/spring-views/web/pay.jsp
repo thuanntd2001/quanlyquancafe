@@ -149,7 +149,7 @@
 								name="thucDon">
 								<c:forEach items="${ thucDons}" var="TD">
 
-									<option data-option="${TD.loaiThucUong.id}" name="thucDon"
+									<option data-option="${TD.loaiThucUong.id}" 
 										value="${TD.id}">${TD.ten}</option>
 								</c:forEach>
 

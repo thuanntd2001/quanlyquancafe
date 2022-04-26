@@ -132,68 +132,47 @@
 								<th>Loại</th>
 								<th>Tên</th>
 								<th>Số Lượng</th>
-						
+
 								<th>Giá</th>
 								<th></th>
 							</tr>
 						</thead>
-						<tbody><!-- MENU MON AN -->
-							<c:forEach items="${banHD.cthds }" var="cthd">
+						<tbody>
+							<!-- MENU MON AN -->
+							<c:forEach items="${banHD.cthds }" var="cthd" varStatus="theCount">
 								<tr>
-								<td>${cthd.thucDon.loaiThucUong.tenLoai }</td>
-								<td>${cthd.thucDon.ten }</td>
-								<td><input id="inp-4" type="number" value="${cthd.soLuong }"
-									style="width: 64px; text-align: center;" disabled></td>
-					
-								<td>${cthd.thucDon.gia }</td>
-								<td class="d-flex justify-content-center align-items-center">
+									<td>${cthd.thucDon.loaiThucUong.tenLoai }</td>
+									<td>${cthd.thucDon.ten }</td>
+									<td><input id="inp-4" type="number"
+										value="${cthd.soLuong }"
+										style="width: 64px; text-align: center;" disabled></td>
 
-									<div class="">
-										<button style="font-size: 10px;" type="button" class="btn"
-											id="btn-4" onclick="EditNumber(this.id)">SỬA</button>
-									</div>
-									<div class="">
-										<!-- Button trigger modal -->
-										<button style="font-size: 10px;" type="button"
-											class="btn btn-primary" data-toggle="modal"
-											data-target="#exampleModal2">XÓA</button>
+									<td>${cthd.thucDon.gia }</td>
+									<td class="d-flex justify-content-center align-items-center">
 
-										<!-- Modal -->
-										<div class="modal fade" id="exampleModal2" tabindex="-1"
-											role="dialog" aria-labelledby="exampleModalLabel"
-											aria-hidden="true">
-											<div class="modal-dialog" role="document">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">Bạn có chắc muốn xóa!!!</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Thoát</button>
-														<button type="button" class="btn btn-primary">Xóa</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
 
-								</td>
-							</tr>
-							<!-- end MENU MON AN -->
-							</c:forEach>
+										<div class="">
+											<!-- Button trigger modal -->
+											<form action="thanh-toan.htm?id=${theCount.index}" method="post">
+												<button style="font-size: 10px;"
+													class="btn btn-primary" data-toggle="modal"
+													data-target="#exampleModal2" name="xoa">XÓA</button>
+											</form>
 							
+										</div>
+
+									</td>
+								</tr>
+								<!-- end MENU MON AN -->
+							</c:forEach>
+
 						</tbody>
 					</table>
-					<div class="footer-pay" >
+					<div class="footer-pay">
 						<div class="row">
-							
 
-							
+
+
 							<div class="col-lg-6 d-flex flex-column shadow-box ">
 								<div class="d-flex justify-content-between">
 									<div>Tổng tiền:</div>
@@ -211,26 +190,26 @@
 							</div>
 							<form action="thanh-toan.htm" method="post">
 								<h5>
-								 ${message }<br>
-									<label>Bàn số: </label>
-									<select name="Ban">
+									${message }<br> <label>Bàn số: </label> <select name="Ban">
 										<c:forEach items="${banids}" var="B">
 
-											<option value="${B}" <c:if test="${B == idBanHT }"> selected</c:if>>${B}</option>
+											<option value="${B}"
+												<c:if test="${B == idBanHT }"> selected</c:if>>${B}</option>
 										</c:forEach>
 									</select>
-									<button name="xem"> Xem </button>
+									<button name="xem">Xem</button>
 								</h5>
-							<div class="col-lg-6 d-flex justify-content-around" style="margin-left: 50px">
-								
-								
-								<button class="pay-print-icon shadow-box" name="thanhtoan"> <i
-									class="fas fa-cash-register" ></i>
-								</button>
-								 <button class="pay-print-icon shadow-box" name="print"> <i
-									class="fas fa-print" ></i>
-								</button>
-							</div>
+								<div class="col-lg-6 d-flex justify-content-around"
+									style="margin-left: 50px">
+
+
+									<button class="pay-print-icon shadow-box" name="thanhtoan">
+										<i class="fas fa-cash-register"></i>
+									</button>
+									<button class="pay-print-icon shadow-box" name="print">
+										<i class="fas fa-print"></i>
+									</button>
+								</div>
 							</form>
 						</div>
 					</div>
