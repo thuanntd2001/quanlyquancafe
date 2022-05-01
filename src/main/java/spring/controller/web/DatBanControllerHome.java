@@ -134,8 +134,8 @@ public class DatBanControllerHome {
 		pagedListHolder.setPageSize(1);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		
-		List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
-		model.addAttribute("chiTietDat", chiTietDat);
+		/*List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);
+		model.addAttribute("chiTietDat", chiTietDat);*/
 		model.addAttribute("id", id);
 		return "web/datban2";
 	};

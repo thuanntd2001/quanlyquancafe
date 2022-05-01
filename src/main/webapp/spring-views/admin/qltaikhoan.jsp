@@ -47,7 +47,7 @@
 			</div>
 			<jsp:useBean id="pagedListHolder" scope="request"
 				type="org.springframework.beans.support.PagedListHolder" />
-			<c:url value="index.htm" var="pagedLink">
+			<c:url value="admin-taikhoan.htm" var="pagedLink">
 				<c:param name="p" value="~" />
 			</c:url>
 			<form class="input-group" style="margin: 20px 0" method="post">

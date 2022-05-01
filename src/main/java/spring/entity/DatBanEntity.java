@@ -61,14 +61,12 @@ public class DatBanEntity {
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private Timestamp tgDuKien;
 	
-<<<<<<< HEAD
-	
-=======
+
 	@ManyToOne
 	@JoinColumn(name="BAN")
 	private BanEntity ban;
 
->>>>>>> 66a3dd3e40dd46ac4d2a3a051ea7dd7e58a95de5
+
 	
 	@ManyToOne
 	@JoinColumn(name="NVTHUCHIEN")
@@ -125,10 +123,7 @@ public class DatBanEntity {
 		this.tgDuKien = tgDuKien;
 	}
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 66a3dd3e40dd46ac4d2a3a051ea7dd7e58a95de5
 
 	public NhanVienEntity getDbnv() {
 		return dbnv;

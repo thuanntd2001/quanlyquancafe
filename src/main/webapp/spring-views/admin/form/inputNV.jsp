@@ -28,7 +28,7 @@
 				<div class="form-group col-md-6">
 					<label>Mã Nhân Viên</label>
 					<form:input path="maNV" readonly="true" type="text"
-						placeholder="Mã nhân viên" value="${id }" />
+						placeholder="Mã nhân viên" value="${id}" />
 				</div>
 			</div>
 			<div class="form-group">

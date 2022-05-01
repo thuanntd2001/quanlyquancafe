@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Thêm Thực Đơn</title>
+<base href="${pageContext.servletContext.contextPath}/">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 </head>
@@ -20,19 +21,35 @@
               </div>
              
             </div>
-            <div class="form-group">
+           <%--  <div class="form-group">
               <label >Loại Thức Uống</label>
               <form:input path="loaiThucUong" type="text" class="form-control" placeholder="1234"/>
-            </div>
+            </div> --%>
+            <label >Tên Loại Thức Uống</label>
+            <div class="form-group">
+				<div class="select-menu">
+					<select 
+						class="select-menu-small" name="loaithucuong">
+						<c:forEach items="${loaithucuongs}" var="loai">
+
+							<option value="${loai.id}">${loai.tenLoai}</option>
+						</c:forEach>
+
+					</select> 
+
+
+				</div>
+			</div>
+			
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label >Tên Thức Uống</label>
-                <form:input path="ten" type="text"  />
+                <input name="ten" type="text"  />
               </div>
               <div class="form-group col-md-4">
                 
                 <label >Giá Thành</label>
-                <form:input path="gia" type="number" />
+                <input name="gia" type="number" />
               </div>
               </div>
       

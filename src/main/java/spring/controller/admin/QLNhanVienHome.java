@@ -134,8 +134,8 @@ public class QLNhanVienHome {
 	public String editNV_showform (HttpServletRequest request, ModelMap model) {
 		String id1 =request.getParameter("id");
 		long maNV = Long.parseLong(id1);
-		List<NhanVienEntity> nhanvien = this.getNhanVien();
-		model.addAttribute("pagedListHolder", nhanvien);
+		/*List<NhanVienEntity> nhanvien = this.getNhanVien();
+		model.addAttribute("pagedListHolder", nhanvien);*/
 		
 		NhanVienEntity NV =  this.getNV(maNV);
 		
@@ -176,6 +176,7 @@ public class QLNhanVienHome {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		Integer temp = this.updateNV(nv);
 		if( temp != 0) {
 			model.addAttribute("message", "Cập nhật thành công");	

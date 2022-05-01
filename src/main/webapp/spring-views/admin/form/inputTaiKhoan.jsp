@@ -14,7 +14,7 @@
 <base href="${pageContext.servletContext.contextPath}/">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<title>Document</title>
+<title>Thêm tài khoản</title>
 </head>
 <body>
 	<div style="margin-top: 5%;" class="container">
@@ -23,15 +23,12 @@
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label>UserName</label>
-					<form:input path="userName" type="text"  />
+					<form:input path="userName" type="text" />
 				</div>
-
-
 			</div>
 			<div class="form-group">
-				<label>Mã Nhân Viên</label>
-				<input name="manv" type="text" class="form-control"
-					 />
+				<label>Mã Nhân Viên</label> <input name="manv" type="number"
+					class="form-control" />
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-6">
@@ -45,26 +42,33 @@
 						type="number" />
 				</div>
 
+				<div class="form-group col-md-4">
+
+
+					<label>Email</label> <form:input path="email"
+						type="email" />
+				</div>
 
 			</div>
 			<div class="form-row">
-				<div class="form-group col-md-6">
-					<label>Chức Vụ</label>
-					
-					<form:select path="tenChucVu" items="${chucvus}" />
-				</div>
+				<div class="form-group">
+					<div class="select-menu">
+						<select class="select-menu-small" name="chucvu">
+							<c:forEach items="${chucvus}" var="cv">
 
-				<div class="form-group col-md-2">
-					<div class="form-group col-md-2">
+								<option value="${cv.id}">${cv.tenChucVu}</option>
+							</c:forEach>
 
-						<form:hidden path="status" type="number" value="1" />
+						</select>
+
+
 					</div>
 				</div>
 			</div>
 			<button class="btn btn-primary" type="submit"
 				name="${btnupdate ? 'btnupdate' : 'Insert'}">${btnupdate ? 'Update' : 'Insert'}</button>
 			<a style="font-size: 16px; padding: 10px;" class="btn btn-secondary"
-				href="admin-home/index.htm"> QUAY LẠI </a>
+				href="admin-home/admin-taikhoan.htm"> QUAY LẠI </a>
 		</form:form>
 	</div>
 </body>

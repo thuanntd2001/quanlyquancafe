@@ -40,17 +40,6 @@ public class QLBan {
 	@RequestMapping(value = "admin-qlban", method = RequestMethod.GET)
 	public <E> String showQLB(HttpServletRequest request,ModelMap model){	
 		
-		
-		/*application.setAttribute("tenLoaiaban", getLoaiBans());
-		List<String> listLoaiBan = new ArrayList();
-		List<LoaiBanEntity> list=(List<LoaiBanEntity>) application.getAttribute("tenLoaiaban");
-		int n= list.size();
-		for (int i =0 ; i<n ;i++) {
-			listLoaiBan.add(new String(list.get(i).getTenLoai()));
-			
-		}
-		application.setAttribute("tenloaibans", listLoaiBan);*/
-	
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getBans());
 		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
@@ -171,68 +160,23 @@ public class QLBan {
 	
  //hiển thị form
 	@RequestMapping(value="formBan", method = RequestMethod.GET) 
-    public String formBan(ModelMap model, HttpServletRequest request,@ModelAttribute("lb") LoaiBanEntity lb) {
-		
-		/*List<String> loaibans =  new ArrayList<String>();
-		List<LoaiBanEntity> list=this.getLoaiBans();
-		int n= list.size();
-		for (int i =0 ; i<n ;i++) {
-			
-			loaibans.add(list.get(i).getTenLoai());
-		}	*/	
-		model.addAttribute("gialoaibans",loadGiaBans() );
-		model.addAttribute("tenloaibans",loadTenLoaiBans());
-		
-		
-		
+    public String formBan(ModelMap model, HttpServletRequest request,@ModelAttribute("b") BanEntity b) {
+		model.addAttribute("loaibans",getLoaiBans());	
           return "admin/form/inputBan1";
     }
 	
-	public List<String> loadTenLoaiBans(){
-		List<String> loaibans =  new ArrayList<String>();
-		List<LoaiBanEntity> list=this.getLoaiBans();
-		int n= list.size();
-		for (int i =0 ; i<n ;i++) {
-			
-			loaibans.add(list.get(i).getTenLoai());
-		}	
-		return loaibans;
-	}
-	public List<Integer> loadGiaBans(){
-		List<Integer> giabans =  new ArrayList<Integer>();
-		List<LoaiBanEntity> list=this.getLoaiBans();
-		int n= list.size();
-		for (int i =0 ; i<n ;i++) {
-			
-			giabans.add(list.get(i).getGiaDat());
-		}	
-		return giabans;
-	}
-	
-	public LoaiBanEntity timIDloaiban(String tenloaiban, Integer giadat){
-		List<LoaiBanEntity> list=this.getLoaiBans();
-		int n= list.size();
-		for (int i =0 ; i<n ;i++) {
-			if(list.get(i).getTenLoai().equalsIgnoreCase(tenloaiban) && 
-					list.get(i).getGiaDat() == giadat) {
-				return list.get(i);
-			}
-		}
-		return null;
-	}
 	//thêm bàn xổ combobox
 	@RequestMapping(value = "formBan",params = "Insert", method = RequestMethod.POST )
-	public <E> String add_BAN(HttpServletRequest request, ModelMap model ,@ModelAttribute("lb") LoaiBanEntity lb ) {
+	public <E> String add_BAN(HttpServletRequest request, ModelMap model /*,@ModelAttribute("lb") LoaiBanEntity lb*/ ) {
 			
-		
-		LoaiBanEntity loaiban = timIDloaiban(lb.getTenLoai(), lb.getGiaDat());
+		String id = request.getParameter("loaiBan"); 
+		int id1 = Integer.parseInt(id);
 		String a = request.getParameter("soGhe");
 		int soghe = Integer.parseInt(a);
 		BanEntity ban = new BanEntity();
 		ban.setSoGhe(soghe);
 		ban.setTinhTrang(0);
-		
-		ban.setLoaiBan(loaiban);
+		ban.setLoaiBan(getLoaiBan(id1));
 		Integer temp1 = this.InsertBan(ban);
 		if(temp1 != 0) {
 		    model.addAttribute("message","them thanh cong");
@@ -252,27 +196,35 @@ public class QLBan {
 		//model.addAttribute("bans", list);
 		return "admin/qlban";
 	}
-
-	
-	
+		
 //	END THÊM
 /* phần chỉnh sửa */
 	
 	@RequestMapping(value = "formBan", params = "linkEdit" )
-	public String editBan_showform (HttpServletRequest request, ModelMap model) {
-		String id1 =request.getParameter("id");
-		long id = Long.parseLong(id1);
-		List<BanEntity> bans = this.getBans();
-		model.addAttribute("pagedListHolder", bans);
-		model.addAttribute("b", this.getBan(id));
+	public String editBan_showform (@ModelAttribute("b") BanEntity b,HttpServletRequest request, ModelMap model) {
+		
+		long id = b.getId();
+		model.addAttribute("loaiBan",getLoaiBans());	
+		model.addAttribute("soGhe",b.getSoGhe());	
+		
+		
+//		System.out.println(getLoaiBans()+"|"+getBan(id).getSoGhe());
 		model.addAttribute("btnupdate","true");
-		return "admin/form/inputBan";
+		return "admin/form/inputBan1";
 	}
 
 	@RequestMapping(value = "formBan", params = "btnupdate" , method = RequestMethod.POST )
-	public <E> String edit_NhapHang(HttpServletRequest requets, ModelMap model, 
+	public <E> String edit_QLBan(HttpServletRequest requets, ModelMap model, 
 			@ModelAttribute("b") BanEntity b) {
 		
+		String id = requets.getParameter("loaiBan"); 
+		int idLB = Integer.parseInt(id);
+		String a = requets.getParameter("soGhe");
+		int soghe = Integer.parseInt(a);
+		
+		b.setSoGhe(soghe);
+		b.setTinhTrang(0);
+		b.setLoaiBan(getLoaiBan(idLB));
 		Integer temp = this.updateBan(b);
 		if( temp != 0) {
 			model.addAttribute("message", "Cập nhật thành công");
@@ -282,16 +234,13 @@ public class QLBan {
 			model.addAttribute("message", "Cập nhật không thành công");
 			
 		}
-		/*List<NhanVienEntity> nhanvien = this.getNhanVien();
-		model.addAttribute("nhanvien", nhanvien);
-		return "admin/QLNV";*/
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getBans());
 		int page = ServletRequestUtils.getIntParameter(requets, "p", 0);
 		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(10);
 	
-		pagedListHolder.setPageSize(5);
+		pagedListHolder.setPageSize(4);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		//model.addAttribute("bans", list);
 		return "admin/qlban";
@@ -324,6 +273,14 @@ public class QLBan {
 			Query query = session.createQuery(hql);
 			List<LoaiBanEntity> list = query.list();
 			
+			return list;
+		}
+	 public LoaiBanEntity getLoaiBan (long id) {
+			Session session = factory.getCurrentSession();
+			String hql = "FROM LoaiBanEntity where id =:id ";
+			Query query = session.createQuery(hql);
+			query.setParameter("id", id);
+			LoaiBanEntity list = (LoaiBanEntity) query.list().get(0);
 			return list;
 		}
 
@@ -390,10 +347,9 @@ public class QLBan {
 //	XÓA
 	@RequestMapping(value = "admin-qlban", params = "linkDelete")
 	public <E> String deleteDonNhapHang (HttpServletRequest request, ModelMap model, @ModelAttribute("b") BanEntity b) {
-		String id1 =request.getParameter("id");
-		long id = Long.parseLong(id1);
-		Integer temp = this.deleteBan(this.getBan(id));
 		
+		Integer temp = this.deleteBan(b);
+		//System.out.println(getBan(id).ge);
 		
 		if(temp != 0) {
 			model.addAttribute("message","Delete thành công");

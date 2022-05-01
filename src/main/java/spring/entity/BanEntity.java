@@ -30,11 +30,10 @@ public class BanEntity {
 	@OneToMany(mappedBy="ban", fetch = FetchType.EAGER)
 	private Collection<HoaDonEntity> hoaDon;
 	
-<<<<<<< HEAD
-=======
+
 	@OneToMany(mappedBy="ban", fetch = FetchType.EAGER)
 	private Collection<DatBanEntity> datBan;
->>>>>>> 66a3dd3e40dd46ac4d2a3a051ea7dd7e58a95de5
+
 	
 	public Collection<DatBanEntity> getDatBan() {
 		return datBan;
@@ -90,10 +89,7 @@ public class BanEntity {
 		this.hoaDon = hoaDon;
 	}
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 66a3dd3e40dd46ac4d2a3a051ea7dd7e58a95de5
 
 
 	

@@ -21,7 +21,7 @@
 			<div>
 				<a href="/CNPM/admin-home/formThucDon.htm"> <!-- 	<button type="button" class="btn btn-warning">Thêm</button> -->
 					<button style="width: 184px; height: 33px; margin-bottom: 5px;"
-						type="button" class="btn btn-primary">Thêm Sản Phẩm</button>
+						type="button" class="btn btn-primary">Thêm Thực Đơn</button>
 				</a>
 
 			</div>
@@ -60,22 +60,24 @@
                             <td>${th.gia}</td>
                             <td>
                                 <div style="width: 95px;" class="row">
-                                    <div class="col-6">
-                                        <button style="font-size: 10px; width: 44px;" type="button" class="btn"
-                                            data-toggle="modal" data-target="#exampleModal1"
-                                            data-whatever="@mdo">SỬA</button>
-                                        <!-- Button trigger modal -->
-                                    </div>
+                                   <div class="col-6">
+										<a href="/CNPM/admin-home/formThucDon.htm?linkEdit&id=${th.id}">
+											<button style="font-size: 10px; width: 44px;" type="button"
+												class="btn" data-toggle="modal" 
+												data-whatever="@mdo">SỬA</button>
+										</a>
+
+									</div>
                                     <div class="col-6">
                                         <!-- <a href="">XÓA</a> -->
                                         <!-- Button trigger modal -->
                                         <button style="font-size: 10px;" type="button" class="btn btn-primary"
-                                            data-toggle="modal" data-target="#exampleModal2">
+                                            data-toggle="modal" data-target="#-n${th.id}">
                                             XÓA
                                         </button>
 
                                         <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
+                                        <div class="modal fade" id="-n${th.id}" tabindex="-1" role="dialog"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -92,7 +94,13 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-dismiss="modal">Thoát</button>
-                                                        <button type="button" class="btn btn-primary">Xóa</button>
+                                                        	<a
+														href="/CNPM/admin-home/admin-qlthucdon.htm?linkDelete&id=${th.id}"<%--
+																		href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}"
+																		--%>>
+														<button name="btnXOA1" type="button"
+															class="btn btn-warning">Xóa</button>
+													</a>
                                                     </div>
                                                 </div>
                                             </div>

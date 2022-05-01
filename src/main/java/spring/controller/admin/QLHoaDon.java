@@ -49,7 +49,7 @@ public class QLHoaDon {
 		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(10);
 	
-		pagedListHolder.setPageSize(1);
+		pagedListHolder.setPageSize(5);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		return "admin/qlhoadon";
 	}
@@ -71,8 +71,7 @@ public class QLHoaDon {
 	}
 	public List<HoaDonEntity> searchHoaDon(String name) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM HoaDonEntity where id = :id OR hdnv.hoTen like :name ";
-			
+		String hql = "FROM HoaDonEntity where id = :id OR hdnv.hoTen like :name OR ngayThucHien like :name ";	
 		Query query = session.createQuery(hql);
 		Long id = null;
 	
