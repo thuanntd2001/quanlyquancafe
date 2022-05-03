@@ -10,7 +10,7 @@
 </head>
 <body>
 	<jsp:include page="/common/admin/header.jsp" />
-			<jsp:include page="/common/admin/menubar.jsp" />
+	<jsp:include page="/common/admin/menubar.jsp" />
 
 	<div class="container-fluid main">
 		<div class="container">
@@ -24,7 +24,7 @@
 							<div class="card">
 								<form:form modelAttribute="user"
 									class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-									<img src="files/${sessionScope.USERMODEL.icon}" alt="Profile"
+									<img src="/CNPM/files/${sessionScope.USERMODEL.icon}" alt="Profile"
 										class="rounded-circle">
 									<h2>${user.usernv.hoTen }</h2>
 									<h3>${user.userName }</h3>
@@ -119,203 +119,206 @@
 													<div class="col-lg-9 col-md-8">${user.userName }</div>
 												</div>
 											</form:form>
-									</div>
+										</div>
 
-									<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-										<!-- Profile Edit Form -->
-										<form:form modelAttribute="nv" method="post" action="user.htm">
+										<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+											<!-- Profile Edit Form -->
+											<form:form modelAttribute="nv" method="post"
+												action="admin-home/admin-user.htm">
 													${message }
 													<div class="row mb-3">
-												<label class="col-md-4 col-lg-3 col-form-label"></label>
-												<div class="col-md-8 col-lg-9">
-													<form:hidden cssClass="form-control" path="daNghi" />
-												</div>
-											</div>
-
-											<div class="row mb-3">
-												<label class="col-md-4 col-lg-3 col-form-label">Mã
-													Nhân Viên</label>
-												<div class="col-md-8 col-lg-9">
-													<form:input path="maNV" cssClass="form-control"
-														readonly="true" />
-												</div>
-											</div>
-
-
-											<div class="row mb-3">
-												<label class="col-md-4 col-lg-3 col-form-label">Họ
-													Tên</label>
-												<div class="col-md-8 col-lg-9">
-													<form:input cssClass="form-control" path="hoTen"
-														readonly="true" />
-												</div>
-											</div>
-
-											<div class="row mb-3">
-												<label class="col-md-4 col-lg-3 col-form-label">Giới
-													Tính</label>
-												<div class="col-md-8 col-lg-9">
-													<form:radiobutton path="gioiTinh" value="True" label="Nam" />
-													<form:radiobutton path="gioiTinh" value="false" label="Nữ" />
-												</div>
-											</div>
-
-											<div class="row mb-3">
-												<label class="col-md-4 col-lg-3 col-form-label">Ngày
-													Sinh</label>
-												<div class="col-md-8 col-lg-9">
-													<form:input path="ngaySinh" type="date"/>
-												</div>
-											</div>
-
-											<div class="row mb-3">
-												<label class="col-md-4 col-lg-3 col-form-label">SDT</label>
-												<div class="col-md-8 col-lg-9">
-													<form:input cssClass="form-control" path="sdt" />
-												</div>
-											</div>
-
-											<div class="row mb-3">
-												<label for="cmnd" class="col-md-4 col-lg-3 col-form-label">Lương</label>
-												<div class="col-md-8 col-lg-9">
-													<form:input cssClass="form-control" path="luong"
-														readonly="true" type="number" />
-												</div>
-											</div>
-
-											<div class="row mb-3">
-												<label for="cmnd" class="col-md-4 col-lg-3 col-form-label">CMND</label>
-												<div class="col-md-8 col-lg-9">
-													<form:input cssClass="form-control" path="cmnd" />
-												</div>
-											</div>
-
-
-
-											<div class="row mb-3">
-												<label for="address"
-													class="col-md-4 col-lg-3 col-form-label">Địa Chỉ</label>
-												<div class="col-md-8 col-lg-9">
-													<form:input cssClass="form-control" path="diaChi" />
-												</div>
-											</div>
-
-											<div class="row mb-3">
-												<label for="address"
-													class="col-md-4 col-lg-3 col-form-label">Ngày Vào
-													Làm</label>
-												<div class="col-md-8 col-lg-9">
-													<form:input cssClass="form-control" path="ngayVaoLam"
-														readonly="true" />
-												</div>
-											</div>
-
-											<div class="row mb-3">
-												<label class="col-md-4 col-lg-3 col-form-label">Email</label>
-												<div class="col-md-8 col-lg-9">
-													<input class="form-control" type="email" name="email"
-														value="${user.email }" />
-												</div>
-											</div>
-
-											<div class="row mb-3">
-												<label for="username"
-													class="col-md-4 col-lg-3 col-form-label">Tên Tài
-													Khoản</label>
-												<div class="col-md-8 col-lg-9">
-													<input class="form-control" type="text"
-														value="${user.userName }" readonly="readonly" />
-												</div>
-											</div>
-											<div class="text-center">
-												<button type="submit" class="btn btn-primary"
-													name="btnupdate-info">Lưu Thay Đổi</button>
-											</div>
-										</form:form>
-										<!-- End Profile Edit Form -->
-
-									</div>
-
-									<div class="tab-pane fade pt-3" id="profile-change-password">
-										<!-- Change Password Form -->
-										<form action="user.htm" method="post">
-											${message}
-											<div class="row mb-3">
-												<label for="currentPassword"
-													class="col-md-4 col-lg-3 col-form-label">Mật Khẩu
-													Cũ</label>
-												<div class="col-md-8 col-lg-9">
-													<input name="password" type="password" class="form-control" />
-												</div>
-											</div>
-
-											<div class="row mb-3">
-												<label for="newPassword"
-													class="col-md-4 col-lg-3 col-form-label">Mật Khẩu
-													Mới</label>
-												<div class="col-md-8 col-lg-9">
-													<input name="newpassword" type="password"
-														class="form-control" />
-												</div>
-											</div>
-
-											<div class="row mb-3">
-												<label for="renewPassword"
-													class="col-md-4 col-lg-3 col-form-label">Nhập Lại
-													Mật Khẩu Mới</label>
-												<div class="col-md-8 col-lg-9">
-													<input name="renewpassword" type="password"
-														class="form-control" />
-												</div>
-											</div>
-
-											<div class="text-center">
-												<button type="submit" class="btn btn-primary"
-													name="btnChangePw">Đổi Mật Khẩu</button>
-												<button type="reset" class="btn btn-danger">Hủy</button>
-											</div>
-										</form>
-										<!-- End Change Password Form -->
-
-									</div>
-									<!-- ICON Tabs -->
-									<div class="tab-pane fade pt-3" id="avata-edit">
-										<label> ${message} </label>
-										<form action="user-avt.htm" method="post"
-											enctype="multipart/form-data" class="row mb-3">
-											<label for="profileImage"
-												class="col-md-4 col-lg-3 col-form-label">Ảnh Đại
-												Diện</label>
-											<div class="col-md-8 col-lg-9" style="width: 100px;">
-												<img src="files/${sessionScope.USERMODEL.icon}"
-													alt="Ảnh đại diện" class="avt-pic" />
-												<div class="pt-2">
-													<div class="btn btn-primary btn-sm"
-														style="position: relative;">
-														<input type="file" accept=".jpg, .png" class="file-upload"
-															name="avt" /> <i class="fas fa-upload"></i>
+													<label class="col-md-4 col-lg-3 col-form-label"></label>
+													<div class="col-md-8 col-lg-9">
+														<form:hidden cssClass="form-control" path="daNghi" />
 													</div>
-													<a href="#" class="btn btn-danger btn-sm"
-														title="Remove my profile image"> <i
-														class="fas fa-trash-alt"></i></a> <input type="submit"
-														value="Lưu" class="btn btn-info btn-sm">
 												</div>
-											</div>
-										</form>
+
+												<div class="row mb-3">
+													<label class="col-md-4 col-lg-3 col-form-label">Mã
+														Nhân Viên</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input path="maNV" cssClass="form-control"
+															readonly="true" />
+													</div>
+												</div>
+
+
+												<div class="row mb-3">
+													<label class="col-md-4 col-lg-3 col-form-label">Họ
+														Tên</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input cssClass="form-control" path="hoTen"
+															readonly="true" />
+													</div>
+												</div>
+
+												<div class="row mb-3">
+													<label class="col-md-4 col-lg-3 col-form-label">Giới
+														Tính</label>
+													<div class="col-md-8 col-lg-9">
+														<form:radiobutton path="gioiTinh" value="True" label="Nam" />
+														<form:radiobutton path="gioiTinh" value="false" label="Nữ" />
+													</div>
+												</div>
+
+												<div class="row mb-3">
+													<label class="col-md-4 col-lg-3 col-form-label">Ngày
+														Sinh</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input path="ngaySinh" type="date" />
+													</div>
+												</div>
+
+												<div class="row mb-3">
+													<label class="col-md-4 col-lg-3 col-form-label">SDT</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input cssClass="form-control" path="sdt" />
+													</div>
+												</div>
+
+												<div class="row mb-3">
+													<label for="cmnd" class="col-md-4 col-lg-3 col-form-label">Lương</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input cssClass="form-control" path="luong"
+															readonly="true" type="number" />
+													</div>
+												</div>
+
+												<div class="row mb-3">
+													<label for="cmnd" class="col-md-4 col-lg-3 col-form-label">CMND</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input cssClass="form-control" path="cmnd" />
+													</div>
+												</div>
+
+
+
+												<div class="row mb-3">
+													<label for="address"
+														class="col-md-4 col-lg-3 col-form-label">Địa Chỉ</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input cssClass="form-control" path="diaChi" />
+													</div>
+												</div>
+
+												<div class="row mb-3">
+													<label for="address"
+														class="col-md-4 col-lg-3 col-form-label">Ngày Vào
+														Làm</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input cssClass="form-control" path="ngayVaoLam"
+															readonly="true" />
+													</div>
+												</div>
+
+												<div class="row mb-3">
+													<label class="col-md-4 col-lg-3 col-form-label">Email</label>
+													<div class="col-md-8 col-lg-9">
+														<input class="form-control" type="email" name="email"
+															value="${user.email }" />
+													</div>
+												</div>
+
+												<div class="row mb-3">
+													<label for="username"
+														class="col-md-4 col-lg-3 col-form-label">Tên Tài
+														Khoản</label>
+													<div class="col-md-8 col-lg-9">
+														<input class="form-control" type="text"
+															value="${user.userName }" readonly="readonly" />
+													</div>
+												</div>
+												<div class="text-center">
+													<button type="submit" class="btn btn-primary"
+														name="btnupdate-info">Lưu Thay Đổi</button>
+												</div>
+											</form:form>
+											<!-- End Profile Edit Form -->
+
+										</div>
+
+										<div class="tab-pane fade pt-3" id="profile-change-password">
+											<!-- Change Password Form -->
+											<form action="/CNPM/admin-home/admin-user.htm" method="post">
+												${message}
+												<div class="row mb-3">
+													<label for="currentPassword"
+														class="col-md-4 col-lg-3 col-form-label">Mật Khẩu
+														Cũ</label>
+													<div class="col-md-8 col-lg-9">
+														<input name="password" type="password"
+															class="form-control" />
+													</div>
+												</div>
+
+												<div class="row mb-3">
+													<label for="newPassword"
+														class="col-md-4 col-lg-3 col-form-label">Mật Khẩu
+														Mới</label>
+													<div class="col-md-8 col-lg-9">
+														<input name="newpassword" type="password"
+															class="form-control" />
+													</div>
+												</div>
+
+												<div class="row mb-3">
+													<label for="renewPassword"
+														class="col-md-4 col-lg-3 col-form-label">Nhập Lại
+														Mật Khẩu Mới</label>
+													<div class="col-md-8 col-lg-9">
+														<input name="renewpassword" type="password"
+															class="form-control" />
+													</div>
+												</div>
+
+												<div class="text-center">
+													<button type="submit" class="btn btn-primary"
+														name="btnChangePw">Đổi Mật Khẩu</button>
+													<button type="reset" class="btn btn-danger">Hủy</button>
+												</div>
+											</form>
+											<!-- End Change Password Form -->
+
+										</div>
+										<!-- ICON Tabs -->
+										<div class="tab-pane fade pt-3" id="avata-edit">
+											<label> ${message} </label>
+											<form action="/CNPM/admin-home/admin-user-avt.htm" method="post"
+												enctype="multipart/form-data" class="row mb-3">
+												<label for="profileImage"
+													class="col-md-4 col-lg-3 col-form-label">Ảnh Đại
+													Diện</label>
+												<div class="col-md-8 col-lg-9" style="width: 100px;">
+													<img src="/CNPM/files/${sessionScope.USERMODEL.icon}"
+														alt="Ảnh đại diện" class="avt-pic" />
+													<div class="pt-2">
+														<div class="btn btn-primary btn-sm"
+															style="position: relative;">
+															<input type="file" accept=".jpg, .png"
+																class="file-upload" name="avt" /> <i
+																class="fas fa-upload"></i>
+														</div>
+														<a href="#" class="btn btn-danger btn-sm"
+															title="Remove my profile image"> <i
+															class="fas fa-trash-alt"></i></a> <input type="submit"
+															value="Lưu" class="btn btn-info btn-sm">
+													</div>
+												</div>
+											</form>
+										</div>
 									</div>
+									<!-- End ICON Tabs -->
+
 								</div>
-								<!-- End ICON Tabs -->
-
 							</div>
-						</div>
 
+						</div>
 					</div>
+				</section>
+
 			</div>
-			</section>
 
 		</div>
-
-	</div>
 	</div>
 	<jsp:include page="/common/admin/footer.jsp" />
 	<script

@@ -164,6 +164,19 @@ public class ThanhToanController {
 		return "web/thanhtoan";
 
 	}
+	@RequestMapping(value = "thanh-toan", method = RequestMethod.POST, params="xoa")
+	public String xoa(ModelMap model, HttpServletRequest request) {
+		long idMon= Long.parseLong(request.getParameter("id"));
+		List<BanHoaDonModel> listBHD = (List<BanHoaDonModel>) application.getAttribute("banHoaDons");
+		long idBHD=  (long) session.getAttribute("idBanHT");
+		long index= findBanHD(idBHD, listBHD );
+
+		BanHoaDonModel BHD=listBHD.get((int) findBanHD(idBHD, listBHD ));
+		System.out.println("Xoa"+BHD.getCthds().get((int) idMon).getThucDon().getTen());
+		BHD.getCthds().remove((int)idMon);
+		return "redirect:thanh-toan.htm";
+		
+	}
 
 	public List<LoaiThucUongEntity> getLoaiTUs() {
 		Session session = factory.getCurrentSession();

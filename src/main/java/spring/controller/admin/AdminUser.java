@@ -86,7 +86,7 @@ public class AdminUser {
 		return 1;
 	}
 
-	@RequestMapping(value = "user", params = "btnChangePw", method=RequestMethod.GET)
+	@RequestMapping(value = "admin-user", params = "btnChangePw", method=RequestMethod.GET)
 	public String changePasswordd(HttpServletRequest request, ModelMap model,
 			@ModelAttribute("password") String password, @ModelAttribute("newpassword") String newpassword,
 			@ModelAttribute("renewpassword") String renewpassword) {
@@ -98,7 +98,7 @@ public class AdminUser {
 		return "admin/user";
 	}
 	
-	@RequestMapping(value = "user", params = "btnChangePw", method=RequestMethod.POST)
+	@RequestMapping(value = "admin-user", params = "btnChangePw", method=RequestMethod.POST)
 	public String changePassword(HttpServletRequest request, ModelMap model,
 			@ModelAttribute("password") String password, @ModelAttribute("newpassword") String newpassword,
 			@ModelAttribute("renewpassword") String renewpassword) {

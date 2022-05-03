@@ -17,59 +17,29 @@
 
             <div class="container">
             <div class="header-content d-flex justify-content-center">QUẢN LÍ THỰC ĐƠN</div>
-                <!-- <div class="input-group">
-                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                <button type="button" class="btn btn-outline-primary">search</button>
-              </div> -->
-                <!-- THEEM -->
-                <div class="col-md-6">
+               <h4>${message}</h4>
+			<div>
+				<a href="/CNPM/admin-home/formThucDon.htm"> <!-- 	<button type="button" class="btn btn-warning">Thêm</button> -->
+					<button style="width: 184px; height: 33px; margin-bottom: 5px;"
+						type="button" class="btn btn-primary">Thêm Thực Đơn</button>
+				</a>
 
-                    <button style="width: 144px; height: 33px; margin-bottom: 5px;" type="button"
-                        class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
-                        data-whatever="@mdo">Thêm Sản Phẩm</button>
-
-
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">THÊM SẢN PHẨM</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-
-                                    <form action="" method="" style="margin-top: 40px; margin-left: 20px;">
-                                        <div>
-                                            <label for="username">Tên thức uống:</label>
-                                            <input style="margin-left: 50px;" type="text" name="Username"
-                                                id="username"><br>
-                                        </div>
-
-                                        <div>
-                                            <label for="sdt">Loại thức uống</label>
-                                            <input style="margin-left: 26px;" type="text" name="" id="sdt"><br>
-                                        </div>
-
-                                        <div>
-                                            <label for="money">Giá thành</label>
-                                            <input style="margin-left: 22px;" type="text" name="money" id="money"><br>
-                                        </div>
-
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
-                                    <button type="button" class="btn btn-primary">Thêm</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- ENDTHEEM -->
+			</div>
+			<jsp:useBean id="pagedListHolder" scope="request"
+				type="org.springframework.beans.support.PagedListHolder" />
+			<c:url value="admin-qlthucdon.htm" var="pagedLink">
+				<c:param name="p" value="~" />
+			</c:url>
+			<form class="input-group" style="margin: 20px 0" method="post">
+				<div>
+					<input id="search-input" type="search" name="searchInput"
+						class="form-control" placeholder="Tìm kiếm" />
+				</div>
+				<button id="search-button" type="submit" class="btn btn-primary"
+					name="btnsearch">
+					<i class="fas fa-search"></i>
+				</button>
+			</form>
                 <table class="table table-striped shadow-box bg-white">
                     <thead>
                         <tr>
@@ -81,74 +51,33 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <c:forEach  var="th" items="${thucdon}">
+                    <c:forEach  var="th" items="${pagedListHolder.pageList}">
                        
                      <tr>
-                            <th scope="row">${th.id1}</th>
+                            <th scope="row">${th.id}</th>
                             <td>${th.loaiThucUong.tenLoai}</td>
                             <td>${th.ten}</td>
                             <td>${th.gia}</td>
                             <td>
                                 <div style="width: 95px;" class="row">
-                                    <div class="col-6">
-                                        <button style="font-size: 10px; width: 44px;" type="button" class="btn"
-                                            data-toggle="modal" data-target="#exampleModal1"
-                                            data-whatever="@mdo">SỬA</button>
+                                   <div class="col-6">
+										<a href="/CNPM/admin-home/formThucDon.htm?linkEdit&id=${th.id}">
+											<button style="font-size: 10px; width: 44px;" type="button"
+												class="btn" data-toggle="modal" 
+												data-whatever="@mdo">SỬA</button>
+										</a>
 
-
-                                        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form action="" method="" style="margin-top: 40px; margin-left: 20px;">
-                                                            <div>
-                                                                <label for="username">Tên thức uống:</label>
-                                                                <input style="margin-left: 50px;" type="text" name="Username"
-                                                                    id="username"><br>
-                                                            </div>
-                    
-                                                            <div>
-                                                                <label for="sdt">Loại thức uống</label>
-                                                                <input style="margin-left: 26px;" type="text" name="" id="sdt"><br>
-                                                            </div>
-                    
-                                                            <div>
-                                                                <label for="money">Giá thành</label>
-                                                                <input style="margin-left: 22px;" type="text" name="money" id="money"><br>
-                                                            </div>
-
-                                                        </form>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">THOÁT</button>
-                                                        <button type="button" class="btn btn-primary">LƯU</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <!-- Button trigger modal -->
-                                    </div>
+									</div>
                                     <div class="col-6">
                                         <!-- <a href="">XÓA</a> -->
                                         <!-- Button trigger modal -->
                                         <button style="font-size: 10px;" type="button" class="btn btn-primary"
-                                            data-toggle="modal" data-target="#exampleModal2">
+                                            data-toggle="modal" data-target="#-n${th.id}">
                                             XÓA
                                         </button>
 
                                         <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
+                                        <div class="modal fade" id="-n${th.id}" tabindex="-1" role="dialog"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -165,7 +94,13 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-dismiss="modal">Thoát</button>
-                                                        <button type="button" class="btn btn-primary">Xóa</button>
+                                                        	<a
+														href="/CNPM/admin-home/admin-qlthucdon.htm?linkDelete&id=${th.id}"<%--
+																		href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}"
+																		--%>>
+														<button name="btnXOA1" type="button"
+															class="btn btn-warning">Xóa</button>
+													</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -181,19 +116,10 @@
                         
                     </tbody>
                 </table>
-                <nav style="text-align: center;" aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                    </ul>
-                </nav>
+               <tg:paging pagedLink="${pagedLink}"
+				pagedListHolder="${pagedListHolder}"></tg:paging>              
             </div>
         </div>
-
-
 	<jsp:include page="/common/admin/footer.jsp" />
 
 

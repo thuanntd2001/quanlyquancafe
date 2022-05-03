@@ -1,7 +1,7 @@
 package spring.controller.admin;
 
 import java.sql.Timestamp;
-
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -122,7 +122,12 @@ public class QLNhapHang {
 		long id = Long.parseLong(id1);
 		List<ChiPhiEntity> nhanvien = this.getDonNhapHangs();
 		model.addAttribute("pagedListHolder", nhanvien);
-		model.addAttribute("nh", this.getDonNhapHang(id));
+		ChiPhiEntity chiphi = this.getDonNhapHang(id);
+		Timestamp ngaynhap = (Timestamp) chiphi.getNgayNhap();
+		String ngaynhap1 = ngaynhap.toLocalDateTime().toString();
+		model.addAttribute("ngaynhaphang",ngaynhap1);
+		model.addAttribute("nh", chiphi);
+		
 		model.addAttribute("btnupdate","true");
 		return "admin/form/inputNhapHang";
 	}
@@ -130,8 +135,18 @@ public class QLNhapHang {
 	@RequestMapping(value = "formNhapHang", params = "btnupdate" , method = RequestMethod.POST )
 	public <E> String edit_NhapHang(HttpServletRequest requets, ModelMap model, 
 			@ModelAttribute("nh") ChiPhiEntity nh) {
+	/*	UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(requets, "USERMODEL");
+		nh.setCpnv(user1.getUsernv());*/
+		
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(requets, "USERMODEL");
-		nh.setCpnv(user1.getUsernv());
+		Long idnv = user1.getID();
+		nh.setCpnv(this.getNV(idnv));
+		try {
+			nh.setNgayNhap(Timestamp.valueOf(requets.getParameter("ngaynhaphang").replace("T", " ") + ":00"));
+			System.out.println(requets.getParameter("ngaynhaphang"));
+		} catch (Exception e) {
+			nh.setNgayNhap(null);
+		}
 		Integer temp = this.updateNH(nh);
 		if( temp != 0) {
 			model.addAttribute("message", "Cập nhật thành công");
@@ -165,6 +180,7 @@ public class QLNhapHang {
 			t.commit();
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			t.rollback();
 			return 0;
 		}

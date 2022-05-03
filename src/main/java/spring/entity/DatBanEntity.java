@@ -61,9 +61,11 @@ public class DatBanEntity {
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private Timestamp tgDuKien;
 	
+
 	@ManyToOne
 	@JoinColumn(name="BAN")
 	private BanEntity ban;
+
 
 	
 	@ManyToOne

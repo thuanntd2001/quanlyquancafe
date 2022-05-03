@@ -1,4 +1,5 @@
 package spring.controller.admin;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
@@ -7,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -62,6 +64,32 @@ public class QLNhanVienHome {
 	/*thêm nhân viên*/
 	@RequestMapping(value = "form",params = "Insert", method = RequestMethod.POST )
 	public <E> String addUser(HttpServletRequest request, ModelMap model,@ModelAttribute("nv") NhanVienEntity nv) {
+		
+		String dateInString = request.getParameter("ngaysinh");
+		Date ngaysinh;
+		try {
+			ngaysinh = DateUtils.parseDate(dateInString, 
+			  new String[] { "yyyy-MM-dd", "dd/MM-yyyy" });
+			nv.setNgaySinh(ngaysinh);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String dateInString1 = request.getParameter("ngayvaolam");
+		Date ngayvaolam;
+		try {
+			ngayvaolam = DateUtils.parseDate(dateInString1, 
+			  new String[] { "yyyy-MM-dd", "dd/MM-yyyy" });
+			nv.setNgayVaoLam(ngayvaolam);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
 		nv.setDaNghi(false);
 		Integer temp = this.insertUser(nv);
 		if(temp != 0) {
@@ -107,10 +135,20 @@ public class QLNhanVienHome {
 	public String editNV_showform (HttpServletRequest request, ModelMap model) {
 		String id1 =request.getParameter("id");
 		long maNV = Long.parseLong(id1);
-		List<NhanVienEntity> nhanvien = this.getNhanVien();
-		model.addAttribute("pagedListHolder", nhanvien);
-
-		model.addAttribute("nv", this.getNV(maNV));
+		/*List<NhanVienEntity> nhanvien = this.getNhanVien();
+		model.addAttribute("pagedListHolder", nhanvien);*/
+		
+		NhanVienEntity NV =  this.getNV(maNV);
+		
+		Date ngaysinh = NV.getNgaySinh();
+		Date ngayvaolam = NV.getNgayVaoLam();
+		/*String ngaysinh1 = ngaysinh.toString();
+		String ngayvaolam1 = ngayvaolam.toString();*/
+		
+		model.addAttribute("ngaysinh",ngaysinh);
+		model.addAttribute("ngayvaolam",ngayvaolam);
+		
+		model.addAttribute("nv",NV);
 		model.addAttribute("btnupdate","true");
 		return "admin/form/inputNV";
 	}
@@ -118,6 +156,27 @@ public class QLNhanVienHome {
 	@RequestMapping(value = "form", params = "btnupdate" , method = RequestMethod.POST )
 	public <E> String editNV(HttpServletRequest requets, ModelMap model, 
 			@ModelAttribute("nv") NhanVienEntity nv) {
+		String dateInString = requets.getParameter("ngaysinh");
+		Date ngaysinh;
+		try {
+			ngaysinh = DateUtils.parseDate(dateInString, 
+			  new String[] { "yyyy-MM-dd", "dd/MM-yyyy" });
+			nv.setNgaySinh(ngaysinh);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String dateInString1 = requets.getParameter("ngayvaolam");
+		Date ngayvaolam;
+		try {
+			ngayvaolam = DateUtils.parseDate(dateInString1, 
+			  new String[] { "yyyy-MM-dd", "dd/MM-yyyy" });
+			nv.setNgayVaoLam(ngayvaolam);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		Integer temp = this.updateNV(nv);
 		if( temp != 0) {
@@ -211,10 +270,9 @@ public class QLNhanVienHome {
 //	phần tìm kiếm
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="index", params = "btnsearch", method=RequestMethod.POST)
-	public <E> String searchBan1(HttpServletRequest request, ModelMap model) {
+	public <E> String searchNhanVien(HttpServletRequest request, ModelMap model) {
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>)this.searchNhanVien(request.getParameter("searchInput")));
 		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
-		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(10);
 		
 		pagedListHolder.setPageSize(5);

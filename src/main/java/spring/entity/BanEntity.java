@@ -30,8 +30,10 @@ public class BanEntity {
 	@OneToMany(mappedBy="ban", fetch = FetchType.EAGER)
 	private Collection<HoaDonEntity> hoaDon;
 	
+
 	@OneToMany(mappedBy="ban", fetch = FetchType.EAGER)
 	private Collection<DatBanEntity> datBan;
+
 	
 	public Collection<DatBanEntity> getDatBan() {
 		return datBan;
@@ -86,6 +88,7 @@ public class BanEntity {
 	public void setHoaDon(Collection<HoaDonEntity> hoaDon) {
 		this.hoaDon = hoaDon;
 	}
+
 
 
 

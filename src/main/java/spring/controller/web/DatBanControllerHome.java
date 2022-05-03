@@ -90,8 +90,7 @@ public class DatBanControllerHome {
 	
 		pagedListHolder.setPageSize(10);
 		model.addAttribute("pagedListHolder", pagedListHolder);
-		//endpage
-		
+
 		model.addAttribute("id", id);
 		return "web/datban2";
 	}
