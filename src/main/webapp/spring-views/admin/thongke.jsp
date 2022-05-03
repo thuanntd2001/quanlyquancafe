@@ -23,34 +23,87 @@
 
                     <!-- Left side columns -->
                     <div class="row">
-
-                        <!-- Sales Card -->
-                        <div class="col-md-4">
+                    
+                    	<div class="col-12">
+                            <form class="d-flex justify-content-center align-items-center" method="post">
+                                <span class="form-check-inline">Tìm Kiếm:</span>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="totime"
+                                        id="today" checked="checked" onclick="disabledTime(this.id)">
+                                    <label class="form-check-label" for="today">
+                                        Theo Ngày
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="totime"
+                                        id="tomonth" onclick="disabledTime(this.id)">
+                                    <label class="form-check-label" for="tomonth">
+                                        Theo Tháng
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline    ">
+                                    <input class="form-check-input" type="radio" name="totime"
+                                        id="toyear" onclick="disabledTime(this.id)">
+                                    <label class="form-check-label" for="toyear">
+                                        Theo Năm
+                                    </label>
+                                </div>
+                                <span>
+                                    <select name="day" class="mg-0-40" id="sel-today">
+                                    	<c:forEach begin="01" end="31" step="1" var="b">
+											<option value="${b}" <c:if test="${b == day }">selected</c:if>  >${b}</option>                                    	
+                                    	</c:forEach>                                       
+                                    </select>
+                                </span>
+                                <span>
+                                    <select name="month" onchange="checkTotalDay()" class="mg-0-40" id="sel-tomonth">
+                                    	<c:forEach begin="01" end="12" step="1" var="a">
+											<option value="${a}" <c:if test="${a == month}">selected</c:if> >Tháng ${a}</option>                                    	
+                                    	</c:forEach>                                     
+                                    </select>
+                                </span>
+                                
+                                <span>
+                                	<select name="year" onchange="checkTotalDay()" class="mg-0-40" id="sel-toyear">
+                                		<c:forEach begin="2019" end="2040" step="1" var="c">
+											<option value="${c}" <c:if test="${c == year}">selected</c:if> >${c}</option>                                    	
+                                    	</c:forEach>   
+                                	</select>
+                                </span>
+                                <button type="submit" class="btn btn-primary btn-sm" name="btn-search">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                    
+						<div class="col-md-6 col-lg-3">
                             <div class="card info-card sales-card">
+                                <div class="card-body">
+                                    <div class="card-title text-center">Số Đơn</div>
 
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <li class="dropdown-header text-start">
-                                            <h6>Lọc</h6>
-                                        </li>
-
-                                        <li><a class="dropdown-item" href="#">Hôm nay</a></li>
-                                        <li><a class="dropdown-item" href="#">Tháng này</a></li>
-                                        <li><a class="dropdown-item" href="#">Năm nay</a></li>
-                                    </ul>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-receipt"></i>
+                                        </div>
+                                        <h6>${soHoaDon}</h6>
+                                    </div>
                                 </div>
 
+                            </div>
+                        </div>
+                        <!-- Sales Card -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card info-card sales-card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Lợi Nhuận <span>| Hôm nay</span></h5>
+                                    <div class="card-title text-center">Lợi Nhuận</div>
 
-                                    <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center justify-content-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                             <i class="bi bi-currency-dollar"></i>
                                         </div>
-                                        <h6>2.244.000 đồng</h6>
+                                        <h6>${loiNhuan} đồng</h6>
                                     </div>
                                 </div>
 
@@ -58,32 +111,17 @@
                         </div><!-- End Sales Card -->
 
                         <!-- Revenue Card -->
-                        <div class="col-md-4">
+                        <div class="col-md-6 col-lg-3">
                             <div class="card info-card revenue-card">
-
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow ">
-                                        <li class="dropdown-header text-start">
-                                            <h6>Lọc</h6>
-                                        </li>
-
-                                        <li><a class="dropdown-item" href="#">Hôm nay</a></li>
-                                        <li><a class="dropdown-item" href="#">Tháng này</a></li>
-                                        <li><a class="dropdown-item" href="#">Năm nay</a></li>
-                                    </ul>
-                                </div>
-
                                 <div class="card-body">
-                                    <h5 class="card-title">Doanh thu <span>| Tháng này</span></h5>
+                                    <div class="card-title text-center">Doanh thu</div>
 
-                                    <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center justify-content-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                             <i class="bi bi-currency-dollar"></i>
                                         </div>
-                                        <h6>3.264.444 đồng</h6>
+                                        <h6>${tongTien} đồng</h6>
                                     </div>
                                 </div>
 
@@ -91,33 +129,19 @@
                         </div><!-- End Revenue Card -->
 
                         <!-- Customers Card -->
-                        <div class="col-md-4">
+                        <div class="col-md-6 col-lg-3">
 
                             <div class="card info-card customers-card">
 
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <li class="dropdown-header text-start">
-                                            <h6>Lọc</h6>
-                                        </li>
-
-                                        <li><a class="dropdown-item" href="#">Hôm nay</a></li>
-                                        <li><a class="dropdown-item" href="#">Tháng này</a></li>
-                                        <li><a class="dropdown-item" href="#">Năm nay</a></li>
-                                    </ul>
-                                </div>
-
                                 <div class="card-body">
-                                    <h5 class="card-title">Chi Phí <span>| Tháng này</span></h5>
+                                    <div class="card-title text-center">Chi Phí</div>
 
-                                    <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center justify-content-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                             <i class="bi bi-currency-dollar"></i>
                                         </div>
-                                        <h6>1.244.000 đồng</h6>
+                                        <h6>${chiPhi} đồng</h6>
                                     </div>
 
                                 </div>
@@ -208,93 +232,7 @@
                             </div>
                         </div><!-- End Reports -->
 
-                        <div class="col-12">
-                            <div class="d-flex justify-content-center align-items-center">
-                                <span class="form-check-inline">Tìm Kiếm:</span>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Theo Ngày
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault2">
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Theo Tháng
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline    ">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault3">
-                                    <label class="form-check-label" for="flexRadioDefault3">
-                                        Theo Năm
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="d-flex justify-content-center align-items-center">
-                                <span>
-                                    <select name="month" onchange="checkTotalDay()" class="mg-0-40">
-                                        <option value="01">Tháng 1</option>
-                                        <option value="02">Tháng 2</option>
-                                        <option value="03">Tháng 3</option>
-                                        <option value="04">Tháng 4</option>
-                                        <option value="05">Tháng 5</option>
-                                        <option value="06">Tháng 6</option>
-                                        <option value="07">Tháng 7</option>
-                                        <option value="08">Tháng 8</option>
-                                        <option value="09">Tháng 9</option>
-                                        <option value="10">Tháng 10</option>
-                                        <option value="11">Tháng 11</option>
-                                        <option value="12">Tháng 12</option>
-                                    </select>
-                                </span>
-                                <span>
-                                    <select name="day" class="mg-0-40">
-                                        <option value="01">1</option>
-                                        <option value="02">2</option>
-                                        <option value="03">3</option>
-                                        <option value="04">4</option>
-                                        <option value="05">5</option>
-                                        <option value="06">6</option>
-                                        <option value="07">7</option>
-                                        <option value="08">8</option>
-                                        <option value="09">9</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                        <option value="13">13</option>
-                                        <option value="14">14</option>
-                                        <option value="15">15</option>
-                                        <option value="16">16</option>
-                                        <option value="17">17</option>
-                                        <option value="18">18</option>
-                                        <option value="19">19</option>
-                                        <option value="20">20</option>
-                                        <option value="21">21</option>
-                                        <option value="22">22</option>
-                                        <option value="23">23</option>
-                                        <option value="24">24</option>
-                                        <option value="25">25</option>
-                                        <option value="26">26</option>
-                                        <option value="27">27</option>
-                                        <option value="28">28</option>
-                                        <option value="29">29</option>
-                                        <option value="30">30</option>
-                                        <option value="31">31</option>
-                                    </select>
-                                </span>
-                                <input type="number" value="2022" name="year" onchange="checkTotalDay()"
-                                    class="mg-0-40">
-                                <button type="button" class="btn btn-primary">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
+                        
 
                         <!-- Recent Sales -->
                         <div class="col-12">
