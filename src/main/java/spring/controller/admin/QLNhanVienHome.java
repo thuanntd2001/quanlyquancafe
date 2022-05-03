@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.entity.NhanVienEntity;
+import spring.entity.UserTBEntity;
+import spring.controller.admin.QLTaiKhoan;
 @Transactional
 @Controller
 @RequestMapping(value = "/admin-home/" )
@@ -215,14 +217,69 @@ public class QLNhanVienHome {
 	}
 	/* end phần chỉnh sửa */
 	
+	public List<UserTBEntity> getTaiKhoans() {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM UserTBEntity where status =:status";
+		Query query = session.createQuery(hql);
+		query.setParameter("status", 1);
+		List<UserTBEntity> list = query.list();
+		return list;
+	}
+	
+	public UserTBEntity getTaiKhoan (long Manv) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM UserTBEntity where usernv.maNV =:Manv and status=:status";
+		
+		Query query = session.createQuery(hql);
+		query.setParameter("Manv", Manv);
+		query.setParameter("status", 1);
+		UserTBEntity list = (UserTBEntity) query.list().get(0);
+		return list;
+	}
+	
+	public Integer updateTK(UserTBEntity tk) {
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		try {
+			session.update(tk);
+			t.commit();
+		}
+		catch (Exception e) {
+			t.rollback();
+			return 0;
+		}
+		finally {
+			session.close();
+		}
+		return 1;
+	}
+
+	
+	public void deleteTaiKhoan(long MaNV) {
+		List<UserTBEntity> list = (List<UserTBEntity>)getTaiKhoans();
+		int n = list.size();
+		System.out.println(n);
+		for(int i=0;i<n;i++)
+		{
+			if(list.get(i).getUsernv().getMaNV() == MaNV) {
+				UserTBEntity tmp = this.getTaiKhoan(MaNV);
+				tmp.setStatus(0);
+				updateTK(tmp);
+				System.out.println("daxoaoooooooooo");
+			}
+		}
+	}
+	
 //	phần xóa
 	@RequestMapping(value = "index", params = "linkDelete",method = RequestMethod.GET)
 	public <E> String deleteNV (HttpServletRequest request, ModelMap model) {
 		String id1 =request.getParameter("id");
 		long maNV = Long.parseLong(id1);
-
-		this.getNV(maNV).setDaNghi(true);
-		Integer temp = this.updateNV(this.getNV(maNV));
+		NhanVienEntity tmp = this.getNV(maNV);
+		tmp.setDaNghi(true);
+		/*this.deleteTaiKhoan(maNV);*/
+		
+		Integer temp = this.updateNV(tmp);
 		if(temp != 0) {
 			model.addAttribute("message","Delete k thành công");
 		}
@@ -282,7 +339,7 @@ public class QLNhanVienHome {
 	}
 	public List<NhanVienEntity> searchNhanVien(String name) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM NhanVienEntity where maNV = :id OR hoTen like :name";
+		String hql = "FROM NhanVienEntity where maNV = :id OR hoTen like :name and daNghi = false";
 		Query query = session.createQuery(hql);
 		Long id = null;
 	
@@ -301,7 +358,7 @@ public class QLNhanVienHome {
 	
 	public NhanVienEntity getNV (long id) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM NhanVienEntity where maNV =:id ";
+		String hql = "FROM NhanVienEntity where maNV =:id and daNghi = false ";
 		Query query = session.createQuery(hql);
 		query.setParameter("id", id);
 		NhanVienEntity list = (NhanVienEntity) query.list().get(0);

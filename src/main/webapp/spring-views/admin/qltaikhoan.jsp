@@ -84,7 +84,7 @@
 							<td>
 								<div style="width: 95px;" class="row">
 									<div class="col-6">
-										<a href="/CNPM/admin-home/form.htm?linkEdit&id=${nv.maNV}">
+										<a href="/CNPM/admin-home/formTaiKhoan.htm?linkEdit&userName=${tk.userName}">
 											<button type="button" class="btn btn-warning">
 												<i class="ti-save"></i>
 											</button>
@@ -99,14 +99,14 @@
 															</a> --%>
 
 										<button name="btnxoa" type="button" class="btn btn-warning"
-											data-toggle="modal" data-target="#n-${nv.maNV}">
+											data-toggle="modal" data-target="#n-${tk.userName}">
 											<i class="ti-trash"></i>
 										</button>
 
 									</div>
 
 									<!-- Modal -->
-									<div class="modal fade" id="n-${nv.maNV}" tabindex="-1"
+									<div class="modal fade" id="n-${tk.userName}" tabindex="-1"
 										role="dialog" aria-labelledby="exampleModalLabel"
 										aria-hidden="true">
 										<div class="modal-dialog" role="document">
@@ -124,7 +124,7 @@
 														data-dismiss="modal">Thoát</button>
 													<!-- nut xoa -->
 													<a
-														href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}"<%--
+														href="/CNPM/admin-home/admin-taikhoan.htm?linkDelete&userName=${tk.userName}"<%--
 																		href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}"
 																		--%>>
 														<button name="btnXOA" id="#exampleModal2" type="button"
