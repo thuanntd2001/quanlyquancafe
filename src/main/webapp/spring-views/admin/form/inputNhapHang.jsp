@@ -11,80 +11,87 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
+<style>
+label {
+	font-weight: bold;
+}
+
+body {
+	background-color: #d7d7d7;
+}
+</style>
 <body>
-	<div style="margin-top: 5%;" class="container">
+	<div style="margin-top: 3%;" class="container card">
+		<div class="card-header">
+			<h4>Nhập Thông Tin Chi Phí</h4>
+		</div>
 		<form:form action="admin-home/formNhapHang.htm" modelAttribute="nh"
 			method="post">
 			<div class="form-group">
-				<label>ID</label>
+				<label>ID</label> <br>
 				<form:input readonly="true" path="id" type="number" />
 			</div>
 			<div class="form-row">
-				<div class="form-group col-md-6">
-					<label>Tên Nguyên Liệu</label>
-					<form:input path="tenNL" type="text"
-						placeholder="Bột cacao, Sữa đặc, Sữa chua,...." />
+				<div class="col-12">
+					<label>Tên Nguyên Liệu</label> <br>
+					<form:input path="tenNL" type="text" class="form-control"
+						placeholder="Sữa đặc, Sữa chua,...." />
 				</div>
 
 			</div>
 			<div class="form-group">
-				<label>Số Lượng</label>
-				<form:input path="soLuong" type="number" class="form-control"
-					placeholder="1234" />
+				<label>Số Lượng</label> <br>
+				<form:input path="soLuong" type="number" placeholder="1234" />
 			</div>
 
 			<div class="form-row">
-				<div class="form-group col-md-6">
-					<label>Giá Mỗi Dịch Vụ</label>
+				<div class="form-group col-md-4">
+					<label>Giá Mỗi Dịch Vụ</label> <br>
 					<form:input path="giaMoiDV" type="number" />
 				</div>
 				<div class="form-group col-md-4">
 
-					<label>Loại Dịch Vụ</label>
+					<label>Loại Dịch Vụ</label> <br>
 					<form:input path="loai" type="text" />
 				</div>
-				<div class="form-group col-md-2">
-					<div class="form-group col-md-2">
-						<label>Dịch Vụ</label>
+				<div class="form-group col-md-4">
+					<div class="form-group col-md-6">
+						<label>Dịch Vụ</label> <br>
 						<form:input path="dv" type="text" />
 					</div>
 				</div>
 
 			</div>
 			<div class="form-row">
-				<div class="form-group col-md-6">
-					<label>Nhà Cung Cấp</label>
+				<div class="form-group col-md-4">
+					<label>Nhà Cung Cấp</label> <br>
 					<form:input path="nhaCungCap" type="text" />
 				</div>
 
-				<div class="form-group col-md-6">
+				<div class="form-group col-md-4">
 					<div class="form-group col-md-4">
-						<label>Ghi Chú</label>
+						<label>Ghi Chú</label> <br>
 						<form:input path="ghiChu" type="text" />
 					</div>
 				</div>
 
-				<div class="form-group col-md-6">
-					<div class="form-group col-md-4">
-						<label>Ngày Nhập</label> <input name="ngaynhaphang"
+
+			</div>
+			
+			<div class="form-row">
+					<div class="form-group col-md-6">
+						<label>Ngày Nhập</label> <br> <input name="ngaynhaphang"
 							type="datetime-local" id="set-date" value="${ngaynhaphang}" />
 					</div>
 				</div>
 
-
-				<%--  <div class="form-group col-md-6">
-					<label>Nhân Viên Tạo</label>
-					<form:input path="cpnv" readonly="true" type="text"
-						placeholder="Nhân Viên Tạo" value="${NHANVIEN.maNV}" />
-				</div> --%>
-
+			<div class="card-footer">
+				<button class="btn btn-primary" type="submit"
+					name="${btnupdate ? 'btnupdate' : 'Insert'}">${btnupdate ? 'Update' : 'Insert'}</button>
+				<a style="font-size: 16px; padding: 10px;" class="btn btn-secondary"
+					href="admin-home/admin-nhaphang.htm"> QUAY LẠI </a>
 			</div>
-
-
-			<button class="btn btn-primary" type="submit"
-				name="${btnupdate ? 'btnupdate' : 'Insert'}">${btnupdate ? 'Update' : 'Insert'}</button>
-			<a style="font-size: 16px; padding: 10px;" class="btn btn-secondary"
-				href="admin-home/admin-nhaphang.htm"> QUAY LẠI </a>
 		</form:form>
 	</div>
 
