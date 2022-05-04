@@ -81,10 +81,10 @@
 
 								<div class="d-flex align-items-center justify-content-center">
 									<div
-										class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-										<i class="bi bi-receipt"></i>
+										class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="color: #e2b816; background-color: #f9f6cd;">
+										<i class="bi bi-receipt" ></i>
 									</div>
-									<h6>${soHoaDon}</h6>
+									<h6>${soHoaDon} đơn</h6>
 								</div>
 							</div>
 
@@ -101,7 +101,7 @@
 										class="card-icon rounded-circle d-flex align-items-center justify-content-center">
 										<i class="bi bi-currency-dollar"></i>
 									</div>
-									<h6>${loiNhuan}đồng</h6>
+									<h6>${loiNhuan} đồng</h6>
 								</div>
 							</div>
 
@@ -120,7 +120,7 @@
 										class="card-icon rounded-circle d-flex align-items-center justify-content-center">
 										<i class="bi bi-currency-dollar"></i>
 									</div>
-									<h6>${doanhThu}đồng</h6>
+									<h6>${doanhThu} đồng</h6>
 								</div>
 							</div>
 
@@ -141,7 +141,7 @@
 										class="card-icon rounded-circle d-flex align-items-center justify-content-center">
 										<i class="bi bi-currency-dollar"></i>
 									</div>
-									<h6>${chiPhi}đồng</h6>
+									<h6>${chiPhi} đồng</h6>
 								</div>
 
 							</div>
@@ -151,43 +151,32 @@
 					<!-- End Customers Card -->
 
 					<!-- Reports -->
-					<div class="col-12">
+					<div class="col-12" <c:if test="${timeradio =='day'}">hidden</c:if>>
 						<div class="card">
-
-							<div class="filter">
-								<a class="icon" href="#" data-bs-toggle="dropdown"><i
-									class="bi bi-three-dots"></i></a>
-								<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-									<li class="dropdown-header text-start">
-										<h6>Lọc</h6>
-									</li>
-
-									<li><a class="dropdown-item" href="#">Hôm nay</a></li>
-									<li><a class="dropdown-item" href="#">Tháng này</a></li>
-									<li><a class="dropdown-item" href="#">Năm nay</a></li>
-								</ul>
-							</div>
-
 							<div class="card-body">
 								<h5 class="card-title">
-									Thống kê <span>/Hôm nay</span>
+									Thống kê
 								</h5>
 
 								<!-- Line Chart -->
-								<div id="reportsChart"></div>
+								<div id="reportsChart"></div> > </div>
 
 								<script>
                                         document.addEventListener("DOMContentLoaded", () => {
                                             new ApexCharts(document.querySelector("#reportsChart"), {
-                                                series: [{
+                                                series: [
+                                               	{
+                                                       name: 'Số Hóa Đơn',
+                                                       data: ${soDonBD},   
+                                                }, {
                                                     name: 'Lợi Nhuận',
-                                                    data: [31, 40, 28, 51, 42, 82, 56],
+                                                    data: ${loiNhuanBD},
                                                 }, {
                                                     name: 'Doanh Thu',
-                                                    data: [11, 32, 45, 32, 34, 52, 41]
+                                                    data: ${doanhThuBD},
                                                 }, {
                                                     name: 'Chi Phí',
-                                                    data: [15, 11, 32, 18, 9, 24, 11]
+                                                    data: ${chiPhiBD},
                                                 }],
                                                 chart: {
                                                     height: 350,
@@ -199,7 +188,7 @@
                                                 markers: {
                                                     size: 4
                                                 },
-                                                colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                                                colors: ['#e2b816','#4154f1', '#2eca6a', '#ff771d'],
                                                 fill: {
                                                     type: "gradient",
                                                     gradient: {
@@ -217,14 +206,14 @@
                                                     width: 2
                                                 },
                                                 xaxis: {
-                                                    type: 'datetime',
-                                                    categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                                                },
-                                                tooltip: {
+                                                    type: 'category',
+													categories: ${cotX}
+ 												}
+                                                /* tooltip: {
                                                     x: {
-                                                        format: 'dd/MM/yy HH:mm'
+                                                        format: 'dd/MM/yy'
                                                     },
-                                                }
+                                                } */
                                             }).render();
                                         });
                                     </script>

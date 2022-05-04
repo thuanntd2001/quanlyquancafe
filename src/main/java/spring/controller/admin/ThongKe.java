@@ -1,5 +1,6 @@
 package spring.controller.admin;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -38,7 +39,7 @@ public class ThongKe {
 		for(HoaDonEntity hd:b){
 			s.add(this.getTongTienHD(hd.getId()));
 		}
-		
+		model.addAttribute("timeradio", "day");
 		model.addAttribute("day", ngay);
 		model.addAttribute("month", thang);
 		model.addAttribute("year", nam);
@@ -85,6 +86,37 @@ public class ThongKe {
 		model.addAttribute("hoaDon", this.getHoaDon(ngay, thang, nam));
 		model.addAttribute("bangChiPhi", this.getChiPhi(ngay, thang, nam));
 		model.addAttribute("tongHD", s);
+		//bieu do
+		List<Integer> cotX = new ArrayList<>();
+		List<Long> soDonBD = new ArrayList<>();
+		List<Long> doanhThuBD = new ArrayList<>();
+		List<Long> chiPhiBD = new ArrayList<>();
+		List<Long> loiNhuanBD = new ArrayList<>();
+		if (thang != null) {
+			int maxNgayTrongThang = new Date(nam,thang,0).getDate();
+			
+			for (int i=0; i<maxNgayTrongThang; i++) {
+				cotX.add(i+1);
+				soDonBD.add(this.soHoaDon(i+1, thang, nam));
+				doanhThuBD.add(this.doanhThu(i+1, thang, nam));
+				chiPhiBD.add(this.chiPhi(i+1, thang, nam));
+				loiNhuanBD.add(this.doanhThu(i+1, thang, nam)-this.chiPhi(i+1, thang, nam));
+			} 
+		}
+		else {
+			for (int i=0; i<12; i++) {
+				cotX.add(i+1);
+				soDonBD.add(this.soHoaDon(null,i+1, nam));
+				doanhThuBD.add(this.doanhThu(null,i+1, nam));
+				chiPhiBD.add(this.chiPhi(null,i+1, nam));
+				loiNhuanBD.add(this.doanhThu(null,i+1, nam)-this.chiPhi(null,i+1, nam));
+			} 
+		}
+		model.addAttribute("cotX", cotX);
+		model.addAttribute("soDonBD", soDonBD);
+		model.addAttribute("doanhThuBD", doanhThuBD);
+		model.addAttribute("chiPhiBD", chiPhiBD);
+		model.addAttribute("loiNhuanBD", loiNhuanBD);
 		return "admin/thongke";
 	}
 	public Long soHoaDon(Integer ngay, Integer thang, Integer nam) {
