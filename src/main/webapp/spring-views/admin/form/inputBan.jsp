@@ -12,7 +12,10 @@
 <title>Thêm Bàn</title>
 </head>
 <body>
-	<div style="margin-top: 5%;" class="container">
+	<div style="margin-top: 5%;" class="container card">
+	<div class="card-header">
+	<h4>Nhập Thông Tin Bàn</h4>
+	</div>
 		<form:form action="admin-home/formBan.htm" modelAttribute="lb"
 			method="post">
 			<div class="form-row">
@@ -31,12 +34,7 @@
 				
 				
 			</div>
-			<%-- <div class="form-row">
-				<div class="form-group col-md-6">
-					<label>Giá Thành</label>
-					<form:input path="loaiBan.giaDat" type="number" placeholder="2,4,10...." />
-				</div>
-			</div> --%>
+
 
 
 			<button class="btn btn-primary" type="submit"

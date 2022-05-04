@@ -11,39 +11,52 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+<style>
+label {
+	font-weight: bold;
+}
+
+body {
+	background-color:#d7d7d7;
+}
+</style>
 <body>
-	<div style="margin-top: 5%;" class="container">
-		<form:form action="admin-home/formBan.htm" modelAttribute="b"
+	<div style="margin-top: 10%; width:500px; hight:1000px" class="container card">
+		<div class="card-header">
+			<h4>Nhập Thông Tin Bàn</h4>
+		</div>
+		<form:form class ="card-body" action="admin-home/formBan.htm" modelAttribute="b"
 			method="post">
-			<div class="form-row">
-				<div class="form-group col-md-6">
+			<div class="form-group">
+				
 					<label>Số Ghế</label> <input value="${soGhe1}" name="soGhe"
 						type="number" placeholder="2,4,10...." />
-				</div>
-				<form:input readonly="true" path="id" />
+				
+			</div>
 
+			<div class="form-group">
+				<label>ID Bàn</label>
+				<form:input readonly="true" path="id" />
 			</div>
 			<div class="form-group">
 
-				<!-- 	test -->
+				<label>Loại Bàn</label> <select name="loaiBan">
+					<c:forEach items="${loaibans}" var="loai">
 
+						<option value="${loai.id}"
+							<c:if test="${loai.id == idLoai}" >selected</c:if>>
+							${loai.tenLoai}</option>
+					</c:forEach>
+				</select>
 
-				<h5>
-					LOAI BAN <select name="loaiBan">
-						<c:forEach items="${loaibans}" var="loai">
-
-							<option value="${loai.id}"
-								<c:if test="${loai.id == idLoai}" >selected</c:if>>
-								${loai.tenLoai}</option>
-						</c:forEach>
-					</select>
-				</h5>
 			</div>
+			<div class="card-footer">
+				<button class="btn btn-primary" type="submit"
+					name="${btnupdate ? 'btnupdate' : 'Insert'}">${btnupdate ? 'Update' : 'Insert'}</button>
+				<a style="font-size: 16px; padding: 10px;" class="btn btn-secondary"
+					href="admin-home/admin-qlban.htm"> QUAY LẠI </a>
 
-			<button class="btn btn-primary" type="submit"
-				name="${btnupdate ? 'btnupdate' : 'Insert'}">${btnupdate ? 'Update' : 'Insert'}</button>
-			<a style="font-size: 16px; padding: 10px;" class="btn btn-secondary"
-				href="admin-home/admin-qlban.htm"> QUAY LẠI </a>
+			</div>
 		</form:form>
 	</div>
 	<script src="<c:url value='/template/web/scipts.js'/>"></script>
