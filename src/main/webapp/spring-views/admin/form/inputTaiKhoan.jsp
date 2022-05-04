@@ -23,11 +23,11 @@
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label>UserName</label>
-					<form:input path="userName" type="text" />
+					<form:input  path="userName" type="text"  />
 				</div>
 			</div>
 			<div class="form-group">
-				<label>Mã Nhân Viên</label> <input name="manv" type="number"
+				<label>Mã Nhân Viên</label> <input value="${maNV}" name="manv" type="number"
 					class="form-control" />
 			</div>
 			<div class="form-row">
@@ -53,13 +53,17 @@
 			<div class="form-row">
 				<div class="form-group">
 					<div class="select-menu">
-						<select class="select-menu-small" name="chucvu">
+						
+						<h5>
+						<select name="chucvu">
 							<c:forEach items="${chucvus}" var="cv">
 
-								<option value="${cv.id}">${cv.tenChucVu}</option>
+								<option value="${cv.id}"
+									<c:if test="${cv.id == idCV}" >selected</c:if>>
+									${cv.tenChucVu}</option>
 							</c:forEach>
-
 						</select>
+					</h5>
 
 
 					</div>

@@ -124,7 +124,7 @@
 										<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 											<!-- Profile Edit Form -->
 											<form:form modelAttribute="nv" method="post"
-												action="admin-home/admin-user.htm">
+												action="admin-user.htm">
 													${message }
 													<div class="row mb-3">
 													<label class="col-md-4 col-lg-3 col-form-label"></label>
