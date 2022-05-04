@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,15 +51,36 @@ public class UserController {
 
 	@RequestMapping(value = "user", params = "btnupdate-info")
 	public String editInfo(HttpServletRequest request, ModelMap model, @ModelAttribute("nv") NhanVienEntity nv,
-			@ModelAttribute("user") UserTBEntity user) {
-		Integer temp = this.updateInfo(request, nv, user);
-		if (temp != 0) {
-			model.addAttribute("message", "Cập nhật thành công");
-		} else {
-			model.addAttribute("message", "Cập nhật không thành công");
-		}
+			/*@ModelAttribute("user") UserTBEntity user,*/ BindingResult er) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
 		Long id = user1.getID();
+		UserTBEntity user=this.getUser(id);
+		if(!request.getParameter("email").equals("")) user.setEmail(request.getParameter("email"));
+		/*if(nv.getDiaChi().equals("")) {
+			er.rejectValue("diaChi", "nv","Vui lòng nhập địa chỉ");
+		}
+		if(nv.getSdt().trim().length()<10||nv.getSdt().trim().length()>12||nv.getSdt().trim().chars().allMatch( Character::isDigit )) {
+			er.rejectValue("sdt", "nv","Vui lòng nhập sdt đúng định dạng");
+		}
+		
+		if(nv.getCmnd().trim().length()<10||nv.getCmnd().trim().length()>15||nv.getCmnd().trim().chars().allMatch( Character::isDigit)) {
+			er.rejectValue("cmnd", "nv","Vui lòng nhập CMND đúng");
+		}*/
+
+		if (er.hasErrors()) {
+			model.addAttribute("message","sửa thất bại, kiểm tra lai các trường");
+		}
+		
+		else {
+			Integer temp = this.updateInfo(request, nv, user);
+			if (temp != 0) {
+				model.addAttribute("message", "Cập nhật thành công");
+			} else {
+				model.addAttribute("message", "Cập nhật không thành công");
+			}
+		}
+		
+
 		UserTBEntity user2 = this.getUser(id);
 		model.addAttribute("user", user2);
 		model.addAttribute("nv", this.getNV(id));

@@ -10,6 +10,9 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
+<link rel="shortcut icon" type="image/png"
+	href="https://www.logo.wine/a/logo/Costa_Coffee/Costa_Coffee-Logo.wine.svg" />
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -19,8 +22,9 @@
 	rel="stylesheet" type="text/css" media="all" />
 
 <style type="text/css">
-	 .errors{
-     color:red; font-style: italic;
+.errors {
+	color: red;
+	font-style: italic;
 }
 </style>
 
@@ -66,13 +70,12 @@
 					</div>
 
 					<div class="form-group">
-						<div class="g-recaptcha" data-sitekey="6Ld1TpAfAAAAAOR_gKzy4BMOirgICntMGSp-XR5B"></div>
+						<div class="g-recaptcha"
+							data-sitekey="6Ld1TpAfAAAAAOR_gKzy4BMOirgICntMGSp-XR5B"></div>
 					</div>
 					<label class="mb-1">
 						<h6 class="mb-0 text-sm errors">${reCaptra}</h6>
-					</label>
-					
-					<input type="hidden" value="login" name="action" />
+					</label> <input type="hidden" value="login" name="action" />
 
 
 				</div>

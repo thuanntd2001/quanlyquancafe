@@ -59,8 +59,7 @@
 							role="dialog" aria-labelledby="exampleModalLabel"
 							aria-hidden="true">
 							<div class="modal-dialog" role="document">
-								<form action="dat-ban/${id}.htm?btndatban"
-									 method="post" >
+								<form action="dat-ban/${id}.htm?btndatban" method="post">
 									<div class="modal-content">
 										<div class="modal-header">
 											<h5 class="modal-title" id="exampleModalLabel">ĐẶT BÀN</h5>
@@ -69,27 +68,36 @@
 												<span aria-hidden="true">&times;</span>
 											</button>
 										</div>
-										<div class="modal-body">
+										<!-- 	-------------------------------------form dat ----------------------------------------------->
+										<form:form modelAttribute="datban" class="modal-body">
 											<div style="margin-top: 40px; margin-left: 20px;">
 												<div class="mg-10">
 													<label for="name-customer">Tên khách hàng:</label> <input
 														type="text" id="name-customer" name="hoTen">
 												</div>
+												<form:errors path="hoTen" />
 												<div class="mg-10">
 													<label for="number" style="margin-right: 18px;">Số
 														điện thoại:</label> <input type="text" id="number" name="sdt">
 												</div>
+												<form:errors path="sdt" />
 
 												<div class="mg-10">
 													<label for="set-date" style="margin-right: 33px;">TG
-														dự kiến:</label> <input type="datetime-local" id="set-date" name="tg">
+														dự kiến:</label> <input type="datetime-local" id="set-date"
+														name="tg">
 												</div>
+												<form:errors path="ngayDat" />
 												<div class="mg-10">
 													<label for="deposit" style="margin-right: 51px;">Tiền
 														cọc:</label> <input type="number" id="deposit" name="tienCoc">
 												</div>
+												<form:errors path="tienCoc" />
+
 											</div>
-										</div>
+										</form:form>
+										<!-- 	------------------------------------- end form dat ----------------------------------------------->
+
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
 												data-dismiss="modal">Thoát</button>
@@ -103,8 +111,8 @@
 						</div>
 					</div>
 				</div>
-				
-				
+
+
 				<jsp:useBean id="pagedListHolder" scope="request"
 					type="org.springframework.beans.support.PagedListHolder" />
 				<c:url value="dat-ban/${id}.htm?linkView" var="pagedLink">
@@ -113,9 +121,10 @@
 				<form class="input-group" style="margin: 20px 0" method="post">
 					<div>
 						<input id="search-input" type="search" name="searchInput"
-							class="form-control" placeholder="Tìm kiếm"/>
+							class="form-control" placeholder="Tìm kiếm" />
 					</div>
-					<button id="search-button" type="submit" class="btn btn-primary" name="btnsearch">
+					<button id="search-button" type="submit" class="btn btn-primary"
+						name="btnsearch">
 						<i class="fas fa-search"></i>
 					</button>
 				</form>
@@ -138,8 +147,7 @@
 							<tr>
 								<td>${d.hoTen}</td>
 								<td>${d.sdt}</td>
-								<td><f:formatNumber value="${d.tienCoc}"
-										type="currency" /></td>
+								<td><f:formatNumber value="${d.tienCoc}" type="currency" /></td>
 								<td>${d.ngayDat}</td>
 								<td>${d.tgDuKien}</td>
 								<td>${d.ban.id}</td>

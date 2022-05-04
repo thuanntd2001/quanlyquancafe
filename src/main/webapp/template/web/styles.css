@@ -23,7 +23,9 @@ a {
     text-decoration: none;
     color: inherit;
 }
-
+[id$=".errors"]{
+     color:red; font-style: italic;
+}
 .header {
     position: fixed;
     background-color: brown;

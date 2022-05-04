@@ -5,6 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Highland Coffee</title>
+<link rel="shortcut icon" type="image/png" href="https://www.logo.wine/a/logo/Costa_Coffee/Costa_Coffee-Logo.wine.svg"/>
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
