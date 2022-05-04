@@ -27,7 +27,7 @@ public class HoaDonEntity {
 
 	@Column(name = "NGAYTHUCHIEN")
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date ngayThucHien;
 
 	@ManyToOne
