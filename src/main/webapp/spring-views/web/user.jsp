@@ -261,36 +261,40 @@
 
 										<div class="tab-pane fade pt-3" id="profile-change-password">
 											<!-- Change Password Form -->
-											<form action="user.htm" method="post">
+											<form:form modelAttribute="changePW" action="user.htm" method="post">
 												${message}
 												<div class="row mb-3">
 													<label for="currentPassword"
 														class="col-md-4 col-lg-3 col-form-label">Mật Khẩu
 														Cũ</label>
 													<div class="col-md-8 col-lg-9">
-														<input name="password" type="password"
+														<form:input path="password" type="password"
 															class="form-control" />
 													</div>
+													<form:errors  path="password"/>
 												</div>
-
+													
 												<div class="row mb-3">
 													<label for="newPassword"
 														class="col-md-4 col-lg-3 col-form-label">Mật Khẩu
 														Mới</label>
 													<div class="col-md-8 col-lg-9">
-														<input name="newpassword" type="password"
+														<form:input path="newpassword" type="password"
 															class="form-control" />
 													</div>
+													<form:errors  path="newpassword"/>
 												</div>
+													
 
 												<div class="row mb-3">
 													<label for="renewPassword"
 														class="col-md-4 col-lg-3 col-form-label">Nhập Lại
 														Mật Khẩu Mới</label>
 													<div class="col-md-8 col-lg-9">
-														<input name="renewpassword" type="password"
+														<form:input path="renewpassword" type="password"
 															class="form-control" />
 													</div>
+													<form:errors  path="renewpassword"/>
 												</div>
 
 												<div class="text-center">
@@ -298,7 +302,7 @@
 														name="btnChangePw">Đổi Mật Khẩu</button>
 													<button type="reset" class="btn btn-danger">Hủy</button>
 												</div>
-											</form>
+											</form:form>
 											<!-- End Change Password Form -->
 
 										</div>

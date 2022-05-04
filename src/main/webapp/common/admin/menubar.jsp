@@ -16,7 +16,7 @@
 		</a></li>
 		<li><a href="admin-nhaphang.htm"> <i
 				class="fas fa-cash-register"></i> <span class="links_name">QUẢN
-					LÝ NHẬP HÀNG</span>
+					LÝ CHI PHÍ</span>
 		</a></li>
 		<li><a href="admin-qlban.htm"> <i
 				class="fas fa-cash-register"></i> <span class="links_name">QUẢN

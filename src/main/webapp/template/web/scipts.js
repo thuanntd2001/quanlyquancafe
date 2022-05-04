@@ -1,16 +1,47 @@
+function disabledTime(id) {
+
+    if (id === 'today') {
+        if ($(`#sel-` + 'today').attr('disabled')) {
+            $(`#sel-` + 'today').removeAttr('disabled');
+        }
+        if ($(`#sel-` + 'tomonth').attr('disabled')) {
+            $(`#sel-` + 'tomonth').removeAttr('disabled');
+        }
+    } else if (id === 'tomonth') {
+        if (!$(`#sel-` + 'today').attr('disabled')) {
+            $(`#sel-` + 'today').attr('disabled', 2);
+        }
+        if ($(`#sel-` + 'tomonth').attr('disabled')) {
+            $(`#sel-` + 'tomonth').removeAttr('disabled');
+        }
+    } else {
+        if (!$(`#sel-` + 'today').attr('disabled')) {
+            $(`#sel-` + 'today').attr('disabled', 2);
+        }
+        if (!$(`#sel-` + 'tomonth').attr('disabled')) {
+            $(`#sel-` + 'tomonth').attr('disabled', 2);
+        }
+    }
+}
 
 function checkTotalDay() {
 
-    var year = $('input[name=year]').val();
+    var year = $('select[name=year]').val();
     var month = $('select[name=month]').val();
+    var day = document.querySelector('#sel-today');
+    var count_Day = day.querySelectorAll('option');
     var totalDate = 31;
     if (year !== '' && month !== '') {
         totalDate = new Date(year, month, 0).getDate();
     }
-
-    $('select[name=day]').empty();
-    for (var i = 1; i <= totalDate; i++) {
-        $('select[name=day]').append("<option value='" + i + "'>" + i + "</option>");
+    if (count_Day.length > totalDate) {
+        for (var i = totalDate; i < count_Day.length; i++) {
+            day.removeChild(count_Day[i]);
+        }
+    } else {
+        for (var i = count_Day.length + 1; i <= totalDate; i++) {
+            $('select[name=day]').append("<option value='" + i + "'>" + i + "</option>");
+        }
     }
 }
 
@@ -37,8 +68,6 @@ function giveSelection(selValue) {
 	
     sel2.innerHTML = '';
     for (var i = 0; i < options2.length; i++) {
-    	/*alert(options2[i].dataset.option);
-    	alert(selValue);*/
         if (options2[i].dataset.option === selValue) {
             sel2.appendChild(options2[i]);
             

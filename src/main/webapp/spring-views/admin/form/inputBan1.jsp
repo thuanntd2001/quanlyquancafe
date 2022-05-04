@@ -17,25 +17,27 @@
 			method="post">
 			<div class="form-row">
 				<div class="form-group col-md-6">
-					<label>Số Ghế</label> <input name="soGhe" type="number"
-						placeholder="2,4,10...." />
+					<label>Số Ghế</label> <input value="${soGhe1}" name="soGhe"
+						type="number" placeholder="2,4,10...." />
 				</div>
 				<form:input readonly="true" path="id" />
 
 			</div>
 			<div class="form-group">
-				<div class="select-menu">
-					<select 
-						class="select-menu-small" name="loaiBan">
+
+				<!-- 	test -->
+
+
+				<h5>
+					LOAI BAN <select name="loaiBan">
 						<c:forEach items="${loaibans}" var="loai">
 
-							<option value="${loai.id}">${loai.tenLoai}</option>
+							<option value="${loai.id}"
+								<c:if test="${loai.id == idLoai}" >selected</c:if>>
+								${loai.tenLoai}</option>
 						</c:forEach>
-
-					</select> 
-
-
-				</div>
+					</select>
+				</h5>
 			</div>
 
 			<button class="btn btn-primary" type="submit"

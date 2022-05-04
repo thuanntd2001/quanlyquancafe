@@ -191,7 +191,7 @@ public class QLBan {
 		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(10);
 	
-		pagedListHolder.setPageSize(3);
+		pagedListHolder.setPageSize(4);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		//model.addAttribute("bans", list);
 		return "admin/qlban";
@@ -201,32 +201,37 @@ public class QLBan {
 /* phần chỉnh sửa */
 	
 	@RequestMapping(value = "formBan", params = "linkEdit" )
-	public String editBan_showform (@ModelAttribute("b") BanEntity b,HttpServletRequest request, ModelMap model) {
+	public String editBan_showform (@ModelAttribute("b") BanEntity b, ModelMap model) {
 		
 		long id = b.getId();
-		model.addAttribute("loaiBan",getLoaiBans());	
-		model.addAttribute("soGhe",b.getSoGhe());	
+		model.addAttribute("idLoai",this.getBan(id).getLoaiBan().getId());
+		model.addAttribute("loaibans",getLoaiBans());	
+		model.addAttribute("soGhe1",this.getBan(id).getSoGhe());	
 		
-		
-//		System.out.println(getLoaiBans()+"|"+getBan(id).getSoGhe());
 		model.addAttribute("btnupdate","true");
 		return "admin/form/inputBan1";
 	}
 
 	@RequestMapping(value = "formBan", params = "btnupdate" , method = RequestMethod.POST )
-	public <E> String edit_QLBan(HttpServletRequest requets, ModelMap model, 
-			@ModelAttribute("b") BanEntity b) {
+	public <E> String edit_QLBan(HttpServletRequest requets, ModelMap model 
+			) {
+
+		String id1 =requets.getParameter("id");
+		long idB = Long.parseLong(id1);
 		
 		String id = requets.getParameter("loaiBan"); 
 		int idLB = Integer.parseInt(id);
 		String a = requets.getParameter("soGhe");
 		int soghe = Integer.parseInt(a);
 		
-		b.setSoGhe(soghe);
-		b.setTinhTrang(0);
-		b.setLoaiBan(getLoaiBan(idLB));
-		Integer temp = this.updateBan(b);
-		if( temp != 0) {
+		BanEntity tmp = getBan(idB);
+		
+		
+		tmp.setSoGhe(soghe);
+		tmp.setTinhTrang(0);
+		tmp.setLoaiBan(getLoaiBan(idLB));
+		Integer temp = this.updateBan(tmp);
+		if( temp == 0) {
 			model.addAttribute("message", "Cập nhật thành công");
 			
 		}

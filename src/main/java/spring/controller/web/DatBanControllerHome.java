@@ -45,7 +45,7 @@ public class DatBanControllerHome {
 		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(5);
 	
-		pagedListHolder.setPageSize(5);
+		pagedListHolder.setPageSize(10);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		//model.addAttribute("bans", list);
 		return "web/datban";
@@ -89,7 +89,9 @@ public class DatBanControllerHome {
 		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(5);
 	
-		pagedListHolder.setPageSize(5);
+
+		pagedListHolder.setPageSize(10);
+
 		model.addAttribute("pagedListHolder", pagedListHolder);
 
 		model.addAttribute("id", id);
@@ -149,9 +151,9 @@ public class DatBanControllerHome {
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) listDatBan);
 		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 		pagedListHolder.setPage(page);
-		pagedListHolder.setMaxLinkedPages(1);
+		pagedListHolder.setMaxLinkedPages(5);
 	
-		pagedListHolder.setPageSize(1);
+		pagedListHolder.setPageSize(10);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		
 		/*List<ChiTietDatEntity> chiTietDat = this.getChiTietDat(id);

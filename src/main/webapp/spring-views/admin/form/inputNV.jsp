@@ -3,6 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <%@include file="/common/taglib.jsp"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +15,8 @@
 <base href="${pageContext.servletContext.contextPath}/">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href=<c:url value="/common/vendor/themify-icons/themify-icons.css"/>>
 <title>Document</title>
 </head>
 <body>
@@ -23,7 +26,22 @@
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label>Họ Tên</label>
-					<form:input path="hoTen" type="text" placeholder="Họ tên " />
+				<%-- 	<form:input path="hoTen" type="text" placeholder="Nguyễn Văn A " /> --%>
+					
+					
+					 <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <i class="ti-user" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <form:input type="text" class="form-control" placeholder="Nguyễn Văn A" path="hoTen"
+                                aria-label="Username" aria-describedby="basic-addon1" />
+                           
+                        </div>
+					
+					
+					
 				</div>
 				<div class="form-group col-md-6">
 					<label>Mã Nhân Viên</label>
@@ -39,13 +57,26 @@
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label>CMND/CCCD</label>
-					<form:input path="cmnd" type="text" />
+					<form:input  title="phải nhập đúng định dạng là số" pattern="{1,9}" path="cmnd" type="number" />
 				</div>
 				<div class="form-group col-md-4">
 
 
 					<label>Tiền lương</label>
-					<form:input path="luong" type="number" />
+					<%-- <form:input path="luong" type="number" /> --%>
+					
+					<div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">
+                                 
+                                </span>
+                            </div>
+                            <form:input type="text" class="form-control" path="luong" 
+                                aria-label="luong" aria-describedby="basic-addon1" />
+                            <div class="input-group-append">
+                                <span class="input-group-text">vnđ</span>
+                            </div>
+                        </div>
 				</div>
 
 

@@ -232,12 +232,12 @@ public class QLThucDon {
 		
 		String idTD = td.getId();
 		model.addAttribute("loaithucuongs",this.getLoaiThucUongs());
+		model.addAttribute("idloaiTU", this.getTD(idTD).getLoaiThucUong().getId());
+		
 		String ten = this.getTD(idTD).getTen();
 		model.addAttribute("ten",ten);
 		model.addAttribute("gia",this.getTD(idTD).getGia());
-		System.out.println(this.getTD(idTD).getTen()+"----"+td.getGia());
-		
-		
+
 		/*model.addAttribute("td",td);*/
 		model.addAttribute("btnupdate","true");
 		return "admin/form/inputThucDon";

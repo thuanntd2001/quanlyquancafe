@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.quancafehighland.model.UserModel;
 import com.quancafehighland.utils.SessionUtil;
 
+import spring.bean.Password;
 import spring.entity.NhanVienEntity;
 import spring.entity.UserTBEntity;
 
@@ -35,10 +36,11 @@ public class UserController {
 		UserTBEntity user = this.getUser(id);
 		model.addAttribute("user", user);
 		model.addAttribute("nv", this.getNV(id));
+		model.addAttribute("changePW", new Password());
 		return "web/user";
 	}
 
-	@RequestMapping(value = "user", method = RequestMethod.POST)
+/*	@RequestMapping(value = "user", method = RequestMethod.POST)
 	public String index2(ModelMap model, HttpServletRequest request, @ModelAttribute("nv") NhanVienEntity nv) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
 		Long id = user1.getID();
@@ -46,41 +48,22 @@ public class UserController {
 		UserTBEntity user = this.getUser(id);
 		model.addAttribute("user", user);
 		model.addAttribute("nv", this.getNV(id));
+		model.addAttribute("changePW", new Password());
+
 		return "web/user";
-	}
+	}*/
 
 	@RequestMapping(value = "user", params = "btnupdate-info")
 	public String editInfo(HttpServletRequest request, ModelMap model, @ModelAttribute("nv") NhanVienEntity nv,
-			/*@ModelAttribute("user") UserTBEntity user,*/ BindingResult er) {
+			@ModelAttribute("user") UserTBEntity user) {
+		Integer temp = this.updateInfo(request, nv, user);
+		if (temp != 0) {
+			model.addAttribute("message", "Cập nhật thành công");
+		} else {
+			model.addAttribute("message", "Cập nhật không thành công");
+		}
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
 		Long id = user1.getID();
-		UserTBEntity user=this.getUser(id);
-		if(!request.getParameter("email").equals("")) user.setEmail(request.getParameter("email"));
-		/*if(nv.getDiaChi().equals("")) {
-			er.rejectValue("diaChi", "nv","Vui lòng nhập địa chỉ");
-		}
-		if(nv.getSdt().trim().length()<10||nv.getSdt().trim().length()>12||nv.getSdt().trim().chars().allMatch( Character::isDigit )) {
-			er.rejectValue("sdt", "nv","Vui lòng nhập sdt đúng định dạng");
-		}
-		
-		if(nv.getCmnd().trim().length()<10||nv.getCmnd().trim().length()>15||nv.getCmnd().trim().chars().allMatch( Character::isDigit)) {
-			er.rejectValue("cmnd", "nv","Vui lòng nhập CMND đúng");
-		}*/
-
-		if (er.hasErrors()) {
-			model.addAttribute("message","sửa thất bại, kiểm tra lai các trường");
-		}
-		
-		else {
-			Integer temp = this.updateInfo(request, nv, user);
-			if (temp != 0) {
-				model.addAttribute("message", "Cập nhật thành công");
-			} else {
-				model.addAttribute("message", "Cập nhật không thành công");
-			}
-		}
-		
-
 		UserTBEntity user2 = this.getUser(id);
 		model.addAttribute("user", user2);
 		model.addAttribute("nv", this.getNV(id));
@@ -108,7 +91,7 @@ public class UserController {
 		return 1;
 	}
 
-	@RequestMapping(value = "user", params = "btnChangePw", method=RequestMethod.GET)
+	@RequestMapping(value = "user", params = "btnChangePw", method = RequestMethod.GET)
 	public String changePasswordd(HttpServletRequest request, ModelMap model,
 			@ModelAttribute("password") String password, @ModelAttribute("newpassword") String newpassword,
 			@ModelAttribute("renewpassword") String renewpassword) {
@@ -117,24 +100,51 @@ public class UserController {
 		UserTBEntity user2 = this.getUser(id);
 		model.addAttribute("user", user2);
 		model.addAttribute("nv", this.getNV(id));
+		model.addAttribute("changePW", new Password());
 		return "web/user";
 	}
-	
-	@RequestMapping(value = "user", params = "btnChangePw", method=RequestMethod.POST)
+
+	@RequestMapping(value = "user", params = "btnChangePw", method = RequestMethod.POST)
 	public String changePassword(HttpServletRequest request, ModelMap model,
-			@ModelAttribute("password") String password, @ModelAttribute("newpassword") String newpassword,
-			@ModelAttribute("renewpassword") String renewpassword) {
-		Integer temp = changePW(request, password, newpassword, renewpassword);
-		if (temp != 0) {
-			model.addAttribute("message", "Cập nhật thành công");		
-		}else {
-			model.addAttribute("message", "Cập nhật không thành công");			
-		}
+			@ModelAttribute("password") Password password, BindingResult er) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
 		Long id = user1.getID();
+		// validation
+		if (password.getPassword().equals("")) {
+			er.rejectValue("password", "changePW", "Vui lòng nhập password");
+		}
+		if (!password.getPassword().equals(user1.getPasswd())) {
+			er.rejectValue("password", "changePW", "Vui lòng nhập lại password");
+		}
+		if (password.getNewpassword().equals("")) {
+			er.rejectValue("newpassword", "changePW", "Vui lòng nhập password mới");
+		}
+		if (password.getRenewpassword().equals("")) {
+			er.rejectValue("renewpassword", "changePW", "Vui lòng nhập lại password mới");
+		}
+		if (!password.getNewpassword().equals(password.getRenewpassword())) {
+			er.rejectValue("renewpassword", "changePW", "Vui lòng nhập password đúng");
+		}
+
+		// end validation
+		if (er.hasErrors()) {
+			model.addAttribute("message", "Cập nhật không thành công, kiểm tra lại các trường");
+			
+		} else {
+			Integer temp = changePW(request, password.getPassword(), password.getNewpassword(),
+					password.getRenewpassword());
+			if (temp != 0) {
+				model.addAttribute("message", "Cập nhật thành công");
+			} else {
+				model.addAttribute("message", "Cập nhật không thành công");
+			}
+		}
+
 		UserTBEntity user2 = this.getUser(id);
 		model.addAttribute("user", user2);
 		model.addAttribute("nv", this.getNV(id));
+		model.addAttribute("changePW", password);
+
 		return "web/user";
 	}
 
@@ -150,7 +160,6 @@ public class UserController {
 		}
 		return 0;
 	};
-	
 
 	public UserTBEntity getUser(Long id) {
 		Session session = factory.getCurrentSession();
