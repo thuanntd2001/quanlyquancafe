@@ -1,5 +1,9 @@
 package spring.controller.web;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
@@ -48,9 +52,18 @@ public class UserController {
 		return "web/user";
 	}
 
-	@RequestMapping(value = "user", params = "btnupdate-info")
+	@RequestMapping(value = "user", params = "btnupdate-info", method=RequestMethod.POST)
 	public String editInfo(HttpServletRequest request, ModelMap model, @ModelAttribute("nv") NhanVienEntity nv,
 			@ModelAttribute("user") UserTBEntity user) {
+		Date ngaySinh = null;
+		try {
+			ngaySinh = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("ngaySinhh"));
+			System.out.println(ngaySinh);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		nv.setNgaySinh(ngaySinh);
 		Integer temp = this.updateInfo(request, nv, user);
 		if (temp != 0) {
 			model.addAttribute("message", "Cập nhật thành công");

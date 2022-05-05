@@ -114,7 +114,7 @@ body {
 			<div class="form-row row">
 				<div class="form-group col-md-6">
 					<label>Số Điện Thoại</label> <br>
-					<form:input path="sdt" pattern="[1-9]" min="10"
+					<form:input path="sdt" pattern="[0-9]{1-15}" 
 						title="Username should only contain lowercase letters. e.g. john" />
 				</div>
 			</div>
