@@ -23,53 +23,72 @@ label {
 }
 
 body {
-	background-color:#d7d7d7;
+	background-color: #d7d7d7;
+}
+
+.form-message {
+	color: red;
 }
 </style>
 <body>
 	<div style="margin-top: 5%;" class="container card">
-	<div class="card-header">
+		<div class="card-header">
 			<h4>Nhập Thông Tài Khoản</h4>
 		</div>
-		<form:form  class ="card-body"	 action="admin-home/formTaiKhoan.htm" modelAttribute="tk"
-			method="post">
+		<form:form id="form-1" class="card-body" action="admin-home/formTaiKhoan.htm"
+			modelAttribute="tk" method="post">
 			<div class="form-row">
 				<div class="form-group col-md-6">
-					<label>UserName</label>
-					<br>
-					<form:input  path="userName" type="text"  />
+					<label>UserName</label> <br>
+					<form:input id="username" path="userName" type="text" />
+					<span class="form-message"></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label>Mã Nhân Viên</label><br> <input value="${maNV}" name="manv" type="number"
-					class="form-control" />
+				<label>Mã Nhân Viên</label><br> <input id="manv"
+					value="${maNV}" name="manv" type="number" class="form-control" />
+				<span class="form-message"></span>
 			</div>
 			<div class="form-row">
-				<div class="form-group col-md-6">
+
+				<div class="form-group col-md-4">
+					<label for="password" class="form-label">Mật khẩu</label>
+					<form:input id="password" path="passwd" type="password"
+						placeholder="Nhập mật khẩu" class="form-control" />
+					<span class="form-message"></span>
+				</div>
+
+				<div class="form-group col-md-4">
+					<label for="password_confirmation" class="form-label">Nhập
+						lại mật khẩu</label> <input id="password_confirmation"
+						name="password_confirmation" placeholder="Nhập lại mật khẩu"
+						type="password" class="form-control"> <span
+						class="form-message"></span>
+				</div>
+
+
+				<%-- <div class="form-group col-md-6">
 					<label>Mật Khẩu</label><br>
-					<form:input path="passwd" type="text" />
+					<form:input id="pw" path="passwd" type="text" />
+					<span class="form-message"></span>
 				</div>
 				<div class="form-group col-md-4">
 
 
-					<label>Nhập Lại Mật Khẩu</label> <br><input name="comfirm"
-						type="number" />
-				</div>
+					<label>Nhập Lại Mật Khẩu</label> <br>
+					<input id="repw" name="comfirm" type="number" /> <span
+						class="form-message"></span>
+				</div> --%>
 
-				<div class="form-group col-md-4">
 
-
-					<label>Email</label> <br><form:input path="email"
-						type="email" />
-				</div>
 
 			</div>
 			<div class="form-row">
-				<div class="form-group">
+				<div class="form-group col-md-4">
 					<div class="select-menu">
-						
-						<h5>
-						<select name="chucvu">
+
+		<h5>
+		<select name="chucvu">
 							<c:forEach items="${chucvus}" var="cv">
 
 								<option value="${cv.id}"
@@ -77,19 +96,53 @@ body {
 									${cv.tenChucVu}</option>
 							</c:forEach>
 						</select>
-					</h5>
+		</h5>
+						
+
 
 
 					</div>
 				</div>
+				<div class="form-group col-md-4">
+					<label>Email</label> <br>
+					<form:input  id="email" path="email" type="email" />
+					<span class="form-message"></span>
+				</div>
 			</div>
 			<div class="card-footer">
-			<button class="btn btn-primary" type="submit"
-				name="${btnupdate ? 'btnupdate' : 'Insert'}">${btnupdate ? 'Update' : 'Insert'}</button>
-			<a style="font-size: 16px; padding: 10px;" class="btn btn-secondary"
-				href="admin-home/admin-taikhoan.htm"> QUAY LẠI </a>
-				</div>
+				<button class="btn btn-primary" type="submit"
+					name="${btnupdate ? 'btnupdate' : 'Insert'}">${btnupdate ? 'Update' : 'Insert'}</button>
+				<a style="font-size: 16px; padding: 10px;" class="btn btn-secondary"
+					href="admin-home/admin-taikhoan.htm"> QUAY LẠI </a>
+			</div>
 		</form:form>
 	</div>
+	<script src="<c:url value='/template/admin/validation.js'/>"></script>
+	<script>
+  
+        document.addEventListener('DOMContentLoaded', function () {
+          // Mong muốn của chúng ta
+          Validator({
+            form: '#form-1',
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+              Validator.isRequired('#username', 'Vui lòng nhập tên đầy đủ của bạn'),
+              Validator.isRequired('#manv', 'Vui lòng địa chỉ của bạn'),
+              Validator.isRequired('#email', 'Vui lòng địa chỉ email của bạn'),
+              Validator.minLength('#cmnd', 9),
+              Validator.minLength('#sdt', 10),
+              Validator.minLength('#password', 6),
+              Validator.isRequired('#password_confirmation'),
+              Validator.isConfirmed('#password_confirmation',  function () {
+                return document.querySelector('#form-1 #password').value;
+              }, 'Mật khẩu nhập lại không chính xác') 
+            ],
+           
+          });
+  
+        }); 
+  
+      </script>
 </body>
 </html>

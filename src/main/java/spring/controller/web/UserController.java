@@ -4,7 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 import javax.servlet.ServletContext;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
@@ -86,6 +88,7 @@ public class UserController {
 		}
 		if (er.hasErrors()) {
 			model.addAttribute("message", "sửa thất bại, kiểm tra lai các trường");
+
 
 		} else {
 			Integer temp = this.updateInfo(request, nv, user);

@@ -21,19 +21,23 @@ label {
 body {
 	background-color:#d7d7d7;
 }
+.form-message{
+	color:red;
+}
 </style>
 <body>
 	<div style="margin-top: 7%;" class="container container card">
 		<div class="card-header">
 			<h4>Nhập Thông Thực Đơn</h4>
 		</div>
-		<form:form class ="card-body" action="admin-home/formThucDon.htm" modelAttribute="td"
+		<form:form id="form-1" class ="card-body" action="admin-home/formThucDon.htm" modelAttribute="td"
 			method="post">
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label>ID</label>
 					<br>
-					<form:input path="id" type="text" placeholder="" />
+					<form:input id="id" path="id" type="text" placeholder="" />
+						<span class="form-message"></span>
 				</div>
 
 			</div>
@@ -61,16 +65,18 @@ body {
 				<div class="form-group col-md-6">
 					<label>Tên Thức Uống</label>
 					<br>
-					 <input value="${ten}" name="ten"
+					 <input id="tenTU" value="${ten}" name="ten"
 						type="text" />
+							<span class="form-message"></span>
 				</div>
 				<div class="col-md-6">
 					
 					<label>Giá Thành</label>
 					
 					<br>
-					 <input value="${gia}" name="gia"
+					 <input id="giathanh" value="${gia}" name="gia"
 						type="number" />
+						<span class="form-message"></span>
 				</div>
 			</div>
 
@@ -82,6 +88,35 @@ body {
 			</div>
 		</form:form>
 	</div>
+	
+	<script src="<c:url value='/template/admin/validation.js'/>"></script>
+	 <script>
+  
+        document.addEventListener('DOMContentLoaded', function () {
+          // Mong muốn của chúng ta
+          Validator({
+            form: '#form-1',
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+              Validator.isRequired('#id', 'Vui lòng nhập mã của thực đơn'),
+              Validator.isRequired('#giathanh', 'Vui lòng nhập vào giá thành'),
+              Validator.isRequired('#tenTU', 'Vui lòng nhập vào tên thức uống'),
+            
+              
+           /*  Validator.isEmail('#email'),
+              Validator.minLength('#password', 6),
+              Validator.isRequired('#password_confirmation'),
+              Validator.isConfirmed('#password_confirmation',  function () {
+                return document.querySelector('#form-1 #password').value;
+              }, 'Mật khẩu nhập lại không chính xác') */
+            ],
+           
+          });
+  
+        }); 
+  
+      </script>
 
 </body>
 </html>
