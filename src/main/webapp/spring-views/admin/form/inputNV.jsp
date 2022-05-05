@@ -27,13 +27,17 @@ label {
 body {
 	background-color:#d7d7d7;
 }
+
+.form-message{
+	color:red;
+}
 </style>
 <body >
 	<div style="margin-top: 2%; border-style: groove;" class="container card">
 	<div class="card-header">
 	<h4>Nhập Thông Tin Nhân Viên</h4>
 	</div>
-		<form:form class ="card-body" action="admin-home/form.htm" modelAttribute="nv"
+		<form:form class ="card-body" id="form-1" action="admin-home/form.htm" modelAttribute="nv"
 			method="post">
 			<div class="form-row">
 				<div class="form-group col-md-6">
@@ -45,9 +49,10 @@ body {
 								class="ti-user" aria-hidden="true"></i>
 							</span>
 						</div>
-						<form:input type="text" class="form-control"
+						<form:input  id="fullname" type="text" class="form-control"
 							placeholder="Nguyễn Văn A" path="hoTen" aria-label="Username"
 							aria-describedby="basic-addon1" />
+							<span class="form-message"></span>
 
 					</div>
 
@@ -62,14 +67,16 @@ body {
 			</div>
 			<div class="form-group">
 				<label>Địa chỉ</label>
-				<form:input path="diaChi" type="text" class="form-control"
+				<form:input id="diachi" path="diaChi" type="text" class="form-control"
 					placeholder="1234 Main St" />
+					<span class="form-message"></span>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label>CMND/CCCD</label> <br>
-					<form:input title="phải nhập đúng định dạng là số" pattern="{1,9}"
+					<form:input id="cmnd"
 						path="cmnd" type="number" />
+						<span class="form-message"></span>
 				</div>
 				<div class="form-group col-md-4">
 
@@ -114,8 +121,9 @@ body {
 			<div class="form-row row">
 				<div class="form-group col-md-6">
 					<label>Số Điện Thoại</label> <br>
-					<form:input path="sdt" pattern="[1-9]" min="10"
-						title="Username should only contain lowercase letters. e.g. john" />
+					<form:input id="sdt" path="sdt"
+						type="number" />
+						<span class="form-message"></span>
 				</div>
 			</div>
 
@@ -159,5 +167,32 @@ body {
 		</form:form>
 		
 	</div>
+	<script src="<c:url value='/template/admin/validation.js'/>"></script>
+	 <script>
+  
+        document.addEventListener('DOMContentLoaded', function () {
+          // Mong muốn của chúng ta
+          Validator({
+            form: '#form-1',
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+              Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ của bạn'),
+              Validator.isRequired('#diachi', 'Vui lòng địa chỉ của bạn'),
+              Validator.minLength('#cmnd', 9),
+              Validator.minLength('#sdt', 10),
+           /*  Validator.isEmail('#email'),
+              Validator.minLength('#password', 6),
+              Validator.isRequired('#password_confirmation'),
+              Validator.isConfirmed('#password_confirmation',  function () {
+                return document.querySelector('#form-1 #password').value;
+              }, 'Mật khẩu nhập lại không chính xác') */
+            ],
+           
+          });
+  
+        }); 
+  
+      </script>
 </body>
 </html>
