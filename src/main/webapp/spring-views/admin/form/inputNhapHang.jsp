@@ -29,8 +29,8 @@ body {
 		<form:form action="admin-home/formNhapHang.htm" modelAttribute="nh"
 			method="post">
 			<div class="form-group">
-				<label>ID</label> <br>
-				<form:input readonly="true" path="id" type="number" />
+
+				<form:input type="hidden" readonly="true" path="id" />
 			</div>
 			<div class="form-row">
 				<div class="col-12">
@@ -53,12 +53,21 @@ body {
 				<div class="form-group col-md-4">
 
 					<label>Loại Dịch Vụ</label> <br>
-					<form:input path="loai" type="text" />
+					<form:select path="loai">
+						<form:option value="NL"> Nguyên Liệu</form:option>
+						<form:option value="VT"> Vật tư</form:option>
+						<form:option value="K"> Khác </form:option>
+					</form:select>
 				</div>
 				<div class="form-group col-md-4">
 					<div class="form-group col-md-6">
-						<label>Dịch Vụ</label> <br>
-						<form:input path="dv" type="text" />
+						<label>Đơn vị</label> <br>
+						<form:select path="dv">
+							<form:option value="CÁI"> CÁI</form:option>
+							<form:option value="NGƯỜI"> NGƯỜI</form:option>
+							<form:option value="KG"> KG</form:option>
+							<form:option value="KHÁC"> Khác </form:option>
+						</form:select>
 					</div>
 				</div>
 
@@ -78,13 +87,13 @@ body {
 
 
 			</div>
-			
+
 			<div class="form-row">
-					<div class="form-group col-md-6">
-						<label>Ngày Nhập</label> <br> <input name="ngaynhaphang"
-							type="datetime-local" id="set-date" value="${ngaynhaphang}" />
-					</div>
+				<div class="form-group col-md-6">
+					<label>Ngày Nhập</label> <br> <input name="ngaynhaphang"
+						type="datetime-local" id="set-date" value="${ngaynhaphang}" />
 				</div>
+			</div>
 
 			<div class="card-footer">
 				<button class="btn btn-primary" type="submit"
