@@ -78,7 +78,7 @@
 									<div class="tab-content pt-2">
 										<div class="tab-pane fade show active profile-overview"
 											id="profile-overview">
-											<form:form modelAttribute="nv,user">
+											<form:form modelAttribute="nv,user" method="post">
 												<h5 class="card-title">Thông Tin Cá Nhân</h5>
 												<div class="row">
 													<div class="col-lg-3 col-md-4 label ">Mã Nhân Viên</div>
@@ -180,7 +180,7 @@
 												<label class="col-md-4 col-lg-3 col-form-label">Ngày
 													Sinh</label>
 												<div class="col-md-8 col-lg-9">
-													<form:input path="ngaySinh" type="date"/>
+													<input name="ngaySinhh" type="date" value="${nv.ngaySinh }"/>
 												</div>
 											</div>
 
