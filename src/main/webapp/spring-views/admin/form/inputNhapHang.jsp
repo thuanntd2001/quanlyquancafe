@@ -16,7 +16,6 @@
 label {
 	font-weight: bold;
 }
-
 body {
 	background-color: #d7d7d7;
 }
@@ -99,19 +98,15 @@ body {
 			</div>
 
 			<div class="form-row">
-<<<<<<< HEAD
-				<div class="form-group col-md-6">
-					<label>Ngày Nhập</label> <br> <input name="ngaynhaphang"
-						type="datetime-local" id="set-date" value="${ngaynhaphang}" />
-=======
+
 					<div class="form-group col-md-6">
 						<label>Ngày Nhập</label> <br> <input  name="ngaynhaphang"
 							type="datetime-local" id="set-date" value="${ngaynhaphang}" />
 							<span class="form-message"></span>
 					</div>
->>>>>>> 64fbbc9789a864edc545a4242b5720b596f1ad19
+
 				</div>
-			</div>
+		
 
 			<div class="card-footer">
 				<button class="btn btn-primary" type="submit"
