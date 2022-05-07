@@ -16,7 +16,6 @@
 label {
 	font-weight: bold;
 }
-
 body {
 	background-color: #d7d7d7;
 }
@@ -107,7 +106,7 @@ body {
 					</div>
 
 				</div>
-			</div>
+		
 
 			<div class="card-footer">
 				<button class="btn btn-primary" type="submit"
