@@ -67,7 +67,7 @@
 						<th scope="row">Mật Khẩu</th>
 						<th scope="row">Chức Vụ</th>
 						<th scope="row">Email</th>
-						
+
 						<th scope="row"></th>
 					</tr>
 				</thead>
@@ -78,68 +78,52 @@
 							<td>${tk.passwd}</td>
 							<td>${tk.chucVu.tenChucVu}</td>
 							<td>${tk.email}</td>
-							
 
 
+							<td><a
+								href="/CNPM/admin-home/formTaiKhoan.htm?linkEdit&userName=${tk.userName}">
+									<button type="button" class="btn btn-primary">SỬA</button>
+							</a></td>
 							<td>
-								<div style="width: 95px;" class="row">
-									<div class="col-6">
-										<a href="/CNPM/admin-home/formTaiKhoan.htm?linkEdit&userName=${tk.userName}">
-											<button type="button" class="btn btn-warning">
-												<i class="ti-save"></i>
-											</button>
-										</a>
+								<div  class="row">
 
-									</div>
-									<div class="col-6">
-										<%-- <a
-															href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}">
-															<button id="#exampleModal2" type="button"
-																class="btn btn-warning">Xóa</button>
-															</a> --%>
 
-										<button name="btnxoa" type="button" class="btn btn-warning"
-											data-toggle="modal" data-target="#n-${tk.userName}">
-											<i class="ti-trash"></i>
-										</button>
+									<button name="btnxoa" type="button" class="btn btn-warning"
+										data-toggle="modal" data-target="#n-${tk.userName}">
+										<i class="ti-trash"></i>
+									</button>
 
-									</div>
-
-									<!-- Modal -->
-									<div class="modal fade" id="n-${tk.userName}" tabindex="-1"
-										role="dialog" aria-labelledby="exampleModalLabel"
-										aria-hidden="true">
-										<div class="modal-dialog" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">Bạn có chắc muốn xóa</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary"
-														data-dismiss="modal">Thoát</button>
-													<!-- nut xoa -->
-													<a
-														href="/CNPM/admin-home/admin-taikhoan.htm?linkDelete&userName=${tk.userName}"<%--
+								</div> <!-- Modal -->
+								<div class="modal fade" id="n-${tk.userName}" tabindex="-1"
+									role="dialog" aria-labelledby="exampleModalLabel"
+									aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">Bạn có chắc muốn xóa</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Thoát</button>
+												<!-- nut xoa -->
+												<a
+													href="/CNPM/admin-home/admin-taikhoan.htm?linkDelete&userName=${tk.userName}"<%--
 																		href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}"
 																		--%>>
-														<button name="btnXOA" id="#exampleModal2" type="button"
-															class="btn btn-warning">Xóa</button>
-													</a>
+													<button name="btnXOA" id="#exampleModal2" type="button"
+														class="btn btn-warning">Xóa</button>
+												</a>
 
 
-												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-
-
-
 							</td>
 						</tr>
 

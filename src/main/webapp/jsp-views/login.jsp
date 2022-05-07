@@ -10,6 +10,9 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
+<link rel="shortcut icon" type="image/png"
+	href="https://www.logo.wine/a/logo/Costa_Coffee/Costa_Coffee-Logo.wine.svg" />
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -19,8 +22,9 @@
 	rel="stylesheet" type="text/css" media="all" />
 
 <style type="text/css">
-	 .errors{
-     color:red; font-style: italic;
+.errors {
+	color: red;
+	font-style: italic;
 }
 </style>
 
@@ -42,44 +46,43 @@
 				<div class="card-header">
 					<img style="height: 50px; width: 50px;"
 						src="<c:url value='/common/images/logo_highland.png'/>"
-						alt="highland"> Login to HIGHLAND
+						alt="highland">			ĐĂNG NHẬP VÀO HIGHLAND COFFEE
 				</div>
 				<c:if test="${not empty message}">
 					<div class="alert alert-${alert}">${message}</div>
 				</c:if>
 				<div class="card-body">
 					<div class="form-group">
-						<label for="username">User name</label> <input type="text"
+						<label for="username">Tên Đăng Nhập</label> <input type="text"
 							class="form-control" name="userName" id="userName"
-							aria-describedby="helpId" placeholder="Username">
+							aria-describedby="helpId" placeholder="Tên Đăng Nhập">
 						<!-- <small
 							id="usernameHid" class="form-text text-muted">Username is
 							invalid</small> -->
 					</div>
 					<div class="form-group">
-						<label for="password">Password</label> <input type="password"
+						<label for="password">Mật Khẩu</label> <input type="password"
 							class="form-control" name="passwd" id="passwd"
-							aria-describedby="helpId" placeholder="Password">
+							aria-describedby="helpId" placeholder="Mật Khẩu">
 						<!-- <small
 							id="passwordHid" class="form-text text-muted">Password is
 							invalid</small> -->
 					</div>
 
 					<div class="form-group">
-						<div class="g-recaptcha" data-sitekey="6Ld1TpAfAAAAAOR_gKzy4BMOirgICntMGSp-XR5B"></div>
+						<div class="g-recaptcha"
+							data-sitekey="6Ld1TpAfAAAAAOR_gKzy4BMOirgICntMGSp-XR5B"></div>
 					</div>
 					<label class="mb-1">
 						<h6 class="mb-0 text-sm errors">${reCaptra}</h6>
-					</label>
-					
-					<input type="hidden" value="login" name="action" />
+					</label> <input type="hidden" value="login" name="action" />
 
 
 				</div>
 				<div class="card-footer text-muted">
-					<button type="submit" class="btn btn-primary">Login</button>
-					<button class="btn btn-secondary" type="reset">Reset</button>
-					<a href="mailer/form.htm" class="btn btn-primary">Forgotpassword</a>
+					<button type="submit" class="btn btn-primary">Đăng Nhập</button>
+					<button class="btn btn-secondary" type="reset">Làm Mới</button>
+					<a href="mailer/form.htm" class="btn btn-primary">Quên mật khẩu</a>
 				</div>
 			</div>
 		</form>

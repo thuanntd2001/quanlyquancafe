@@ -16,7 +16,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -28,9 +31,12 @@ public class DatBanEntity {
 	private Long id;
 	
 	@Column(name="HOTEN")
+	@NotNull
+	@NotBlank(message="Không để trống họ tên")
 	private String hoTen;
 	
 	@Column(name="SDT")
+	@Size(min = 10, max = 12, message="SDT không đúng")
 	private String sdt;
 	
 	@Column(name="TIENCOC")

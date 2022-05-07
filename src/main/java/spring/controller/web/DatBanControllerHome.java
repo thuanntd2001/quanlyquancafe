@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -88,7 +89,9 @@ public class DatBanControllerHome {
 		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(5);
 	
+
 		pagedListHolder.setPageSize(10);
+
 		model.addAttribute("pagedListHolder", pagedListHolder);
 
 		model.addAttribute("id", id);
@@ -98,7 +101,7 @@ public class DatBanControllerHome {
 	
 	@RequestMapping(value = "dat-ban/{id}.htm", params = "btndatban", method=RequestMethod.POST)
 	public <E> String datBan1(HttpServletRequest request, ModelMap model,
-			@PathVariable("id") Long id, @ModelAttribute("datban") DatBanEntity datban) {
+			@PathVariable("id") Long id, @ModelAttribute("datban") DatBanEntity datban, BindingResult er) {
 		//lay thong tin
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
 		Long idnv = user1.getID();
@@ -106,20 +109,39 @@ public class DatBanControllerHome {
 		datban.setDbnv(this.getNV(idnv));
 		datban.setNgayDat(new Date());
 		datban.setBan(getBan(id));
+		
 		try {
 			datban.setTgDuKien(Timestamp.valueOf(request.getParameter("tg").replace("T", " ") + ":00"));
 		} catch (Exception e) {
 			datban.setTgDuKien(null);
 		}
-		
-		//save dat ban
-		Integer temp = this.themDatBan(datban);
-		if(temp != 0) {
-			model.addAttribute("message","Thêm mới đặt bàn thành công");
-			
-		}else {
-			model.addAttribute("message","Thêm mới đặt bàn thất bại");
+		if(datban.getHoTen().equals("")) {
+			er.rejectValue("hoTen", "datban","Vui lòng nhập họ tên");
 		}
+		if(datban.getSdt().length()<10||datban.getSdt().length()>12||datban.getSdt().chars().allMatch( Character::isDigit )) {
+			er.rejectValue("sdt", "datban","Vui lòng nhập sdt đúng định dạng");
+		}
+		
+		if(datban.getTienCoc()==null||datban.getTienCoc() % 1000!=0) {
+			er.rejectValue("tienCoc", "datban","Vui lòng nhập tiền cọc chia hết cho 1000");
+		}
+		if(datban.getTgDuKien()==null) {
+			er.rejectValue("ngayDat", "datban","Vui lòng chọn ngày đến");
+		}
+		if (er.hasErrors()) {
+			model.addAttribute("message","Thêm mới đặt bàn thất bại, kiểm tra lai các trường");
+		}
+		else {
+			//save dat ban
+			Integer temp = this.themDatBan(datban);
+			if(temp != 0) {
+				model.addAttribute("message","Thêm mới đặt bàn thành công");
+				
+			}else {
+				model.addAttribute("message","Thêm mới đặt bàn thất bại");
+			}
+		}
+		
 		
 		
 		

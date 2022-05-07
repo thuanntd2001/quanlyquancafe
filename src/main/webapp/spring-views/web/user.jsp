@@ -140,7 +140,7 @@
 									<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 										<!-- Profile Edit Form -->
 										<form:form modelAttribute="nv" method="post" action="user.htm">
-													${message }
+													${message1 }
 													<div class="row mb-3">
 												<label class="col-md-4 col-lg-3 col-form-label"></label>
 												<div class="col-md-8 col-lg-9">
@@ -187,7 +187,7 @@
 											<div class="row mb-3">
 												<label class="col-md-4 col-lg-3 col-form-label">SDT</label>
 												<div class="col-md-8 col-lg-9">
-													<form:input cssClass="form-control" path="sdt" />
+													<form:input cssClass="form-control" path="sdt"  required="true"/>
 												</div>
 											</div>
 
@@ -202,7 +202,7 @@
 											<div class="row mb-3">
 												<label for="cmnd" class="col-md-4 col-lg-3 col-form-label">CMND</label>
 												<div class="col-md-8 col-lg-9">
-													<form:input cssClass="form-control" path="cmnd" />
+													<form:input cssClass="form-control" path="cmnd" required="true"/>
 												</div>
 											</div>
 
@@ -212,7 +212,7 @@
 												<label for="address"
 													class="col-md-4 col-lg-3 col-form-label">Địa Chỉ</label>
 												<div class="col-md-8 col-lg-9">
-													<form:input cssClass="form-control" path="diaChi" />
+													<form:input cssClass="form-control" path="diaChi" required="true"/>
 												</div>
 											</div>
 
@@ -230,7 +230,7 @@
 												<label class="col-md-4 col-lg-3 col-form-label">Email</label>
 												<div class="col-md-8 col-lg-9">
 													<input class="form-control" type="email" name="email"
-														value="${user.email }" />
+														value="${user.email }" required="true"/>
 												</div>
 											</div>
 
@@ -254,49 +254,55 @@
 
 									<div class="tab-pane fade pt-3" id="profile-change-password">
 										<!-- Change Password Form -->
-										<form action="user.htm" method="post">
-											${message}
-											<div class="row mb-3">
-												<label for="currentPassword"
-													class="col-md-4 col-lg-3 col-form-label">Mật Khẩu
-													Cũ</label>
-												<div class="col-md-8 col-lg-9">
-													<input name="password" type="password" class="form-control" />
+											<form:form modelAttribute="changePW" action="user.htm" method="post">
+												${message1}
+												<div class="row mb-3">
+													<label for="currentPassword"
+														class="col-md-4 col-lg-3 col-form-label">Mật Khẩu
+														Cũ</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input path="password" type="password"
+															class="form-control" minlength="3"/>
+													</div>
+													<form:errors  path="password"/>
 												</div>
-											</div>
-
-											<div class="row mb-3">
-												<label for="newPassword"
-													class="col-md-4 col-lg-3 col-form-label">Mật Khẩu
-													Mới</label>
-												<div class="col-md-8 col-lg-9">
-													<input name="newpassword" type="password"
-														class="form-control" />
+													
+												<div class="row mb-3">
+													<label for="newPassword"
+														class="col-md-4 col-lg-3 col-form-label">Mật Khẩu
+														Mới</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input path="newpassword" type="password"
+															class="form-control" minlength="3"/>
+													</div>
+													<form:errors  path="newpassword"/>
 												</div>
-											</div>
+													
 
-											<div class="row mb-3">
-												<label for="renewPassword"
-													class="col-md-4 col-lg-3 col-form-label">Nhập Lại
-													Mật Khẩu Mới</label>
-												<div class="col-md-8 col-lg-9">
-													<input name="renewpassword" type="password"
-														class="form-control" />
+												<div class="row mb-3">
+													<label for="renewPassword"
+														class="col-md-4 col-lg-3 col-form-label">Nhập Lại
+														Mật Khẩu Mới</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input path="renewpassword" type="password"
+															class="form-control" minlength="3"/>
+													</div>
+													<form:errors  path="renewpassword"/>
 												</div>
-											</div>
 
-											<div class="text-center">
-												<button type="submit" class="btn btn-primary"
-													name="btnChangePw">Đổi Mật Khẩu</button>
-												<button type="reset" class="btn btn-danger">Hủy</button>
-											</div>
-										</form>
-										<!-- End Change Password Form -->
+												<div class="text-center">
+													<button type="submit" class="btn btn-primary"
+														name="btnChangePw">Đổi Mật Khẩu</button>
+													<button type="reset" class="btn btn-danger">Hủy</button>
+												</div>
+											</form:form>
+											<!-- End Change Password Form -->
+
 
 									</div>
 									<!-- ICON Tabs -->
 									<div class="tab-pane fade pt-3" id="avata-edit">
-										<label> ${message} </label>
+										<label> ${message1} </label>
 										<form action="user-avt.htm" method="post"
 											enctype="multipart/form-data" class="row mb-3">
 											<label for="profileImage"

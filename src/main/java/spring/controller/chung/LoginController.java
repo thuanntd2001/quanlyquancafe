@@ -59,7 +59,6 @@ public class LoginController extends HttpServlet{
 		boolean verify = RecaptchaVerification.verify(gRecaptchaResponse);
 		if (action != null && action.equals("login")) {
 			if (/*!verify*/ 1==2) {
-				/*request.setAttribute("reCaptra", "Vui lòng nhập reCaptra");*/
 				response.sendRedirect(request.getContextPath()
 						+ "/dang-nhap.htm?action=login&message=fail-captcha&alert=danger");
 			} else {

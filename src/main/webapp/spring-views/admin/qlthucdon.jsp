@@ -58,22 +58,19 @@
                             <td>${th.loaiThucUong.tenLoai}</td>
                             <td>${th.ten}</td>
                             <td>${th.gia}</td>
-                            <td>
-                                <div style="width: 95px;" class="row">
-                                   <div class="col-6">
-										<a href="/CNPM/admin-home/formThucDon.htm?linkEdit&id=${th.id}">
-											<button style="font-size: 10px; width: 44px;" type="button"
-												class="btn" data-toggle="modal" 
+                            <td><a href="/CNPM/admin-home/formThucDon.htm?linkEdit&id=${th.id}">
+											<button type="button"
+												class="btn btn-primary" data-toggle="modal" 
 												data-whatever="@mdo">SỬA</button>
-										</a>
-
-									</div>
-                                    <div class="col-6">
+										</a></td>
+                            <td>
+                                <div  class="row">
+                                  
                                         <!-- <a href="">XÓA</a> -->
                                         <!-- Button trigger modal -->
-                                        <button style="font-size: 10px;" type="button" class="btn btn-primary"
+                                        <button  type="button" class="btn btn-warning"
                                             data-toggle="modal" data-target="#-n${th.id}">
-                                            XÓA
+                                          <i class="ti-trash"></i>
                                         </button>
 
                                         <!-- Modal -->
@@ -106,9 +103,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                </div>
-
                             </td>
 
                         </tr>

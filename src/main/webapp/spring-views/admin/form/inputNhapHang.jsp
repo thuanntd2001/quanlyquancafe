@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Thêm Đơn Nhập Hàng</title>
+<title>Thêm Chi Phí</title>
 <base href="${pageContext.servletContext.contextPath}/">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -16,9 +16,11 @@
 label {
 	font-weight: bold;
 }
-
 body {
 	background-color: #d7d7d7;
+}
+.form-message{
+	color:red;
 }
 </style>
 <body>
@@ -26,39 +28,53 @@ body {
 		<div class="card-header">
 			<h4>Nhập Thông Tin Chi Phí</h4>
 		</div>
-		<form:form action="admin-home/formNhapHang.htm" modelAttribute="nh"
+		<form:form id="form-1" action="admin-home/formNhapHang.htm" modelAttribute="nh"
 			method="post">
 			<div class="form-group">
-				<label>ID</label> <br>
-				<form:input readonly="true" path="id" type="number" />
+
+				<form:input type="hidden" readonly="true" path="id" />
 			</div>
 			<div class="form-row">
-				<div class="col-12">
+				<div class="col-8">
 					<label>Tên Nguyên Liệu</label> <br>
-					<form:input path="tenNL" type="text" class="form-control"
+					<form:input id="NL" path="tenNL" type="text" class="form-control"
 						placeholder="Sữa đặc, Sữa chua,...." />
+							<span class="form-message"></span>
 				</div>
 
 			</div>
 			<div class="form-group">
 				<label>Số Lượng</label> <br>
-				<form:input path="soLuong" type="number" placeholder="1234" />
+				<form:input id="SL" path="soLuong" type="number" placeholder="1234" />
+				<span class="form-message"></span>
 			</div>
 
 			<div class="form-row">
 				<div class="form-group col-md-4">
 					<label>Giá Mỗi Dịch Vụ</label> <br>
-					<form:input path="giaMoiDV" type="number" />
+					<form:input id="giaMoiDV" path="giaMoiDV" type="number" />
+						<span class="form-message"></span>
 				</div>
 				<div class="form-group col-md-4">
 
 					<label>Loại Dịch Vụ</label> <br>
-					<form:input path="loai" type="text" />
+
+					<form:select path="loai">
+						<form:option value="NL"> Nguyên Liệu</form:option>
+						<form:option value="VT"> Vật tư</form:option>
+						<form:option value="K"> Khác </form:option>
+					</form:select>
 				</div>
 				<div class="form-group col-md-4">
 					<div class="form-group col-md-6">
-						<label>Dịch Vụ</label> <br>
-						<form:input path="dv" type="text" />
+						<label>Đơn vị</label> <br>
+						<form:select path="dv">
+							<form:option value="CÁI"> CÁI</form:option>
+							<form:option value="NGƯỜI"> NGƯỜI</form:option>
+							<form:option value="KG"> KG</form:option>
+							<form:option value="KHÁC"> Khác </form:option>
+						</form:select>
+
 					</div>
 				</div>
 
@@ -66,25 +82,31 @@ body {
 			<div class="form-row">
 				<div class="form-group col-md-4">
 					<label>Nhà Cung Cấp</label> <br>
-					<form:input path="nhaCungCap" type="text" />
+					<form:input id="nhaCC" path="nhaCungCap" type="text" />
+					<span class="form-message"></span>
 				</div>
 
 				<div class="form-group col-md-4">
 					<div class="form-group col-md-4">
 						<label>Ghi Chú</label> <br>
-						<form:input path="ghiChu" type="text" />
+						<form:input id="ghichu" path="ghiChu" type="text" />
+						<span class="form-message"></span>
 					</div>
 				</div>
 
 
 			</div>
-			
+
 			<div class="form-row">
+
 					<div class="form-group col-md-6">
-						<label>Ngày Nhập</label> <br> <input name="ngaynhaphang"
+						<label>Ngày Nhập</label> <br> <input  name="ngaynhaphang"
 							type="datetime-local" id="set-date" value="${ngaynhaphang}" />
+							<span class="form-message"></span>
 					</div>
+
 				</div>
+		
 
 			<div class="card-footer">
 				<button class="btn btn-primary" type="submit"
@@ -94,6 +116,39 @@ body {
 			</div>
 		</form:form>
 	</div>
+	<script src="<c:url value='/template/admin/validation.js'/>"></script>
+	 <script>
+  
+        document.addEventListener('DOMContentLoaded', function () {
+          // Mong muốn của chúng ta
+          Validator({
+            form: '#form-1',
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+              Validator.isRequired('#NL', 'Vui lòng nhập tên Nguyên liệu'),
+              Validator.isRequired('#SL', 'Vui lòng nhập số lượng'),
+              Validator.isRequired('#giaMoiDV', 'Vui lòng nhập giá mỗi dịch vụ'),
+              Validator.isRequired('#set-date', 'Vui lòng nhập vào ngày nhập hàng'),
+              Validator.isRequired('#ghichu', 'Vui lòng nhập ghi chú'),
+              Validator.isRequired('#nhaCC', 'Vui lòng nhập thông tin nhà cung cấp'),
+              Validator.isRequired('#DV', 'Vui lòng nhập tên dịch vụ'),
+              Validator.isRequired('#loaiDV', 'Vui lòng loại dịch vụ'),
+           /*  Validator.isEmail('#email'),
+              Validator.minLength('#password', 6),
+              Validator.isRequired('#password_confirmation'),
+              Validator.isConfirmed('#password_confirmation',  function () {
+                return document.querySelector('#form-1 #password').value;
+              }, 'Mật khẩu nhập lại không chính xác') */
+              ],
+             /*  onSubmit: function (data) {
+                // Call API
+                console.log(data);
+              } */
+            });
+          });
+
+        </script>
 
 </body>
 </html>

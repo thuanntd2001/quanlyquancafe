@@ -83,15 +83,18 @@ public class IconController {
 			Session session = factory.openSession();
 			Transaction t = session.beginTransaction();
 			UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-
+			String path=avt.getOriginalFilename().trim();
+			if (path.length()>40) {
+				path=path.substring(0, 39);
+			}
 			String photoPath = context
-					.getRealPath("/files/" + user1.getUserName().trim() + avt.getOriginalFilename().trim());
+					.getRealPath("/files/" + user1.getUserName().trim() + path);
 
 			Long id = user1.getID();
 			UserTBEntity user = this.getUser(id);
 			avt.transferTo(new File(photoPath));
-			user.setIcon(user.getUserName().trim() + avt.getOriginalFilename().trim());
-			user1.setIcon(user.getUserName().trim() + avt.getOriginalFilename().trim());
+			user.setIcon(user.getUserName().trim() + path);
+			user1.setIcon(user.getUserName().trim() + path);
 
 			try {
 				/*
