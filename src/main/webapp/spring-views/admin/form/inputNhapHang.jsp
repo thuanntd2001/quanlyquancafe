@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Thêm Đơn Nhập Hàng</title>
+<title>Thêm Chi Phí</title>
 <base href="${pageContext.servletContext.contextPath}/">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -140,13 +140,15 @@ body {
               Validator.isConfirmed('#password_confirmation',  function () {
                 return document.querySelector('#form-1 #password').value;
               }, 'Mật khẩu nhập lại không chính xác') */
-            ],
-           
+              ],
+              onSubmit: function (data) {
+                // Call API
+                console.log(data);
+              }
+            });
           });
-  
-        }); 
-  
-      </script>
+
+        </script>
 
 </body>
 </html>

@@ -14,7 +14,7 @@
                     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false" style="color: azure; background-color: inherit">
                         <img src="/CNPM/files/${sessionScope.USERMODEL.icon}" alt="" class="rounded-circle" style="max-width: 46px;">
-                        Welcome ${sessionScope.USERMODEL.userName}
+                        Chào mừng ${sessionScope.USERMODEL.userName}
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="<c:url value='user.htm'/>">Thông tin tài khoản</a>

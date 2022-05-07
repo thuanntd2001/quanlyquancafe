@@ -46,24 +46,24 @@
 				<div class="card-header">
 					<img style="height: 50px; width: 50px;"
 						src="<c:url value='/common/images/logo_highland.png'/>"
-						alt="highland"> Login to HIGHLAND
+						alt="highland">			ĐĂNG NHẬP VÀO HIGHLAND COFFEE
 				</div>
 				<c:if test="${not empty message}">
 					<div class="alert alert-${alert}">${message}</div>
 				</c:if>
 				<div class="card-body">
 					<div class="form-group">
-						<label for="username">User name</label> <input type="text"
+						<label for="username">Tên Đăng Nhập</label> <input type="text"
 							class="form-control" name="userName" id="userName"
-							aria-describedby="helpId" placeholder="Username">
+							aria-describedby="helpId" placeholder="Tên Đăng Nhập">
 						<!-- <small
 							id="usernameHid" class="form-text text-muted">Username is
 							invalid</small> -->
 					</div>
 					<div class="form-group">
-						<label for="password">Password</label> <input type="password"
+						<label for="password">Mật Khẩu</label> <input type="password"
 							class="form-control" name="passwd" id="passwd"
-							aria-describedby="helpId" placeholder="Password">
+							aria-describedby="helpId" placeholder="Mật Khẩu">
 						<!-- <small
 							id="passwordHid" class="form-text text-muted">Password is
 							invalid</small> -->
@@ -80,9 +80,9 @@
 
 				</div>
 				<div class="card-footer text-muted">
-					<button type="submit" class="btn btn-primary">Login</button>
-					<button class="btn btn-secondary" type="reset">Reset</button>
-					<a href="mailer/form.htm" class="btn btn-primary">Forgotpassword</a>
+					<button type="submit" class="btn btn-primary">Đăng Nhập</button>
+					<button class="btn btn-secondary" type="reset">Làm Mới</button>
+					<a href="mailer/form.htm" class="btn btn-primary">Quên mật khẩu</a>
 				</div>
 			</div>
 		</form>
