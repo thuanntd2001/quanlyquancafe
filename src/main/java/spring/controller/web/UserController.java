@@ -58,7 +58,6 @@ public class UserController {
 		Date ngaySinh = null;
 		try {
 			ngaySinh = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("ngaySinhh"));
-			System.out.println(ngaySinh);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

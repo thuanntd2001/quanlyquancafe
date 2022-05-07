@@ -138,8 +138,7 @@
 							<tr>
 								<td>${d.hoTen}</td>
 								<td>${d.sdt}</td>
-								<td><f:formatNumber value="${d.tienCoc}"
-										type="currency" /></td>
+								<td>${d.tienCoc} đồng</td>
 								<td>${d.ngayDat}</td>
 								<td>${d.tgDuKien}</td>
 								<td>${d.ban.id}</td>

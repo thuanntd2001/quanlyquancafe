@@ -159,7 +159,7 @@
 								</h5>
 
 								<!-- Line Chart -->
-								<div id="reportsChart"></div> > </div>
+								<div id="reportsChart"></div> </div>
 
 								<script>
                                         document.addEventListener("DOMContentLoaded", () => {

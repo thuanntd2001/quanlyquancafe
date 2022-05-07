@@ -73,15 +73,15 @@
                             <td>${cthd.hoaDon.id }</td>
                             <td>${cthd.thucDon.id }</td>
                             <td>${cthd.thucDon.ten }</td>
-                            <td>${cthd.thucDon.gia }</td>
+                            <td>${cthd.thucDon.gia } đồng</td>
                             <td>${cthd.soLuong }</td>
-                            <td>${cthd.soLuong * cthd.thucDon.gia}</td>
+                            <td>${cthd.soLuong * cthd.thucDon.gia} đồng</td>
                         </tr>
                         </c:forEach>
 
                     </tbody>
                 </table>
-                <h3>Tổng Tiền:  ${tongTien} </h3>
+                <h3>Tổng Tiền:  ${tongTien} đồng</h3>
                 <tg:paging pagedLink="${pagedLink}"
 					pagedListHolder="${pagedListHolder}"></tg:paging>
             </div>
