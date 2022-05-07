@@ -34,8 +34,8 @@ body {
 
 				<form:input type="hidden" readonly="true" path="id" />
 			</div>
-			<div class="form-row">
-				<div class="col-8">
+			<div class="form-row ">
+				<div class="col-8 form-group">
 					<label>Tên Nguyên Liệu</label> <br>
 					<form:input id="NL" path="tenNL" type="text" class="form-control"
 						placeholder="Sữa đặc, Sữa chua,...." />
@@ -134,17 +134,7 @@ body {
               Validator.isRequired('#nhaCC', 'Vui lòng nhập thông tin nhà cung cấp'),
               Validator.isRequired('#DV', 'Vui lòng nhập tên dịch vụ'),
               Validator.isRequired('#loaiDV', 'Vui lòng loại dịch vụ'),
-           /*  Validator.isEmail('#email'),
-              Validator.minLength('#password', 6),
-              Validator.isRequired('#password_confirmation'),
-              Validator.isConfirmed('#password_confirmation',  function () {
-                return document.querySelector('#form-1 #password').value;
-              }, 'Mật khẩu nhập lại không chính xác') */
               ],
-             /*  onSubmit: function (data) {
-                // Call API
-                console.log(data);
-              } */
             });
           });
 
