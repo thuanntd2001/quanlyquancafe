@@ -141,10 +141,10 @@ body {
                 return document.querySelector('#form-1 #password').value;
               }, 'Mật khẩu nhập lại không chính xác') */
               ],
-              onSubmit: function (data) {
+             /*  onSubmit: function (data) {
                 // Call API
                 console.log(data);
-              }
+              } */
             });
           });
 
