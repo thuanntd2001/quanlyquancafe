@@ -100,68 +100,61 @@
 							<td>${nv.cmnd}</td>
 							<td>${nv.diaChi}</td>
 							<td>${nv.ngayVaoLam}</td>
-
+							<td ><a href="/CNPM/admin-home/form.htm?linkEdit&id=${nv.maNV}">
+										<button type="button" class="btn btn-secondary">SỬA</button>
+									</a></td>
 
 							<td>
-								<div style="width: 95px;" class="row">
-									<div class="col-6">
-										<a href="/CNPM/admin-home/form.htm?linkEdit&id=${nv.maNV}">
-											<button type="button" class="btn btn-warning">
-												<i class="ti-save"></i>
-											</button>
-										</a>
+								<div  class="row">
 
-									</div>
-									<div class="col-6">
-										<%-- <a
+									
+
+
+									<%-- <a
 															href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}">
 															<button id="#exampleModal2" type="button"
 																class="btn btn-warning">Xóa</button>
 															</a> --%>
 
-										<button name="btnxoa" type="button" class="btn btn-warning"
-											data-toggle="modal" data-target="#n-${nv.maNV}">
-											<i class="ti-trash"></i>
-										</button>
+									<button name="btnxoa" type="button" class="btn btn-warning"
+										data-toggle="modal" data-target="#n-${nv.maNV}">
+										<i class="ti-trash"></i>
+									</button>
 
-									</div>
-
-									<!-- Modal -->
-									<div class="modal fade" id="n-${nv.maNV}" tabindex="-1"
-										role="dialog" aria-labelledby="exampleModalLabel"
-										aria-hidden="true">
-										<div class="modal-dialog" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">Bạn có chắc muốn xóa</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary"
-														data-dismiss="modal">Thoát</button>
-													<!-- nut xoa -->
-													<a
-														href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}"<%--
+								</div> <!-- Modal -->
+								<div class="modal fade" id="n-${nv.maNV}" tabindex="-1"
+									role="dialog" aria-labelledby="exampleModalLabel"
+									aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">Bạn có chắc muốn xóa</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Thoát</button>
+												<!-- nut xoa -->
+												<a
+													href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}"<%--
 																		href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}"
 																		--%>>
-														<button name="btnXOA" id="#exampleModal2" type="button"
-															class="btn btn-warning">Xóa</button>
-													</a>
+													<button name="btnXOA" id="#exampleModal2" type="button"
+														class="btn btn-warning">Xóa</button>
+												</a>
 
 
-												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 
-
-
 							</td>
+							<td></td>
 						</tr>
 
 					</c:forEach>

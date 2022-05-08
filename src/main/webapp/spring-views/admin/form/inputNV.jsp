@@ -122,7 +122,7 @@ body {
 				<div class="form-group col-md-6">
 					<label>Số Điện Thoại</label> <br>
 					<form:input id="sdt" path="sdt" pattern="[0-9]{1-15}" 
-						title="Username should only contain lowercase letters. e.g. john" />
+						 />
 						<span class="form-message"></span>
 
 				</div>
@@ -159,7 +159,8 @@ body {
 
             <div class="card-footer">
             <button class="btn btn-primary" type="submit"
-				name="${btnupdate ? 'btnupdate' : 'Insert'}">${btnupdate ? 'Update' : 'Insert'}</button>
+				name="${btnupdate ? 'btnupdate' : 'Insert'}">${btnupdate ? 'Cập Nhật' : 'Thêm'}</button>
+				
 			<a style="font-size: 16px; padding: 10px;" class="btn btn-secondary"
 				href="admin-home/index.htm"> QUAY LẠI </a>
             </div>
@@ -189,6 +190,10 @@ body {
                 return document.querySelector('#form-1 #password').value;
               }, 'Mật khẩu nhập lại không chính xác') */
             ],
+          /*   onSubmit: function (data) {
+                // Call API
+                console.log(data);
+              }  */
            
           });
   

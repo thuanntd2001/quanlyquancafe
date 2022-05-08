@@ -78,7 +78,7 @@ public class QLNhapHang {
 		Integer temp = this.insert_NhapHang(nh);
 
 		if (temp != 0) {
-			model.addAttribute("message", "SUCCESS");
+			model.addAttribute("message", "Thêm thành công");
 
 			nh.setDv(null);
 			nh.setGhiChu(null);
@@ -89,7 +89,7 @@ public class QLNhapHang {
 			nh.setTenNL(null);
 
 		} else {
-			model.addAttribute("message", "INSERT FAILED");
+			model.addAttribute("message", "Thêm thất bại");
 		}
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getDonNhapHangs());

@@ -76,63 +76,53 @@
 							<td>${nh.dv}</td>
 
 							<td>${nh.cpnv.maNV}</td>
+							<td><a
+								href="/CNPM/admin-home/formNhapHang.htm?linkEdit&id=${nh.id}">
+									<button type="button" class="btn btn-secondary">SỬA</button>
+							</a></td>
+
 							<td>
-								<div style="width: 95px;" class="row">
-									<div class="col-6">
-										<!-- <button style="font-size: 10px; width: 44px;" type="button"
-											class="btn" data-toggle="modal" data-target="#exampleModal1"
-											data-whatever="@mdo">SỬA</button>
- -->
-
-										<a
-											href="/CNPM/admin-home/formNhapHang.htm?linkEdit&id=${nh.id}">
-											<button type="button" class="btn">
-												<i class="ti-save"></i>
-											</button>
-										</a>
+								<div style="width: 75px;" class="row">
 
 
-										<!-- Button trigger modal -->
-									</div>
-									<div class="col-6">
-										<!-- <a href="">XÓA</a> -->
-										<!-- Button trigger modal -->
-										<button style="font-size: 10px;" type="button"
-											class="btn btn-primary" data-toggle="modal"
-											data-target="#n-${nh.id}">XÓA</button>
+									<!-- <a href="">XÓA</a> -->
+									<!-- Button trigger modal -->
+									<button  type="button"
+										class="btn btn-warning" data-toggle="modal"
+										data-target="#n-${nh.id}"><i class="ti-trash"></i></button>
 
-										<!-- Modal -->
-										<div class="modal fade" id="n-${nh.id}" tabindex="-1"
-											role="dialog" aria-labelledby="exampleModalLabel"
-											aria-hidden="true">
-											<div class="modal-dialog" role="document">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">Bạn có chắc muốn xóa!!!</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Thoát</button>
-														<a
-															href="/CNPM/admin-home/admin-nhaphang.htm?linkDelete&id=${nh.id}"<%--
+									<!-- Modal -->
+									<div class="modal fade" id="n-${nh.id}" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">Bạn có chắc muốn xóa!!!</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary"
+														data-dismiss="modal">Thoát</button>
+													<a
+														href="/CNPM/admin-home/admin-nhaphang.htm?linkDelete&id=${nh.id}"<%--
 																		href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}"
 																		--%>>
-															<button name="btnXOA" id="#exampleModal2" type="button"
-																class="btn btn-warning">Xóa</button>
-														</a>
+														<button name="btnXOA" id="#exampleModal2" type="button"
+															class="btn btn-warning">Xóa</button>
+													</a>
 
-													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-
 								</div>
+
+
 
 							</td>
 

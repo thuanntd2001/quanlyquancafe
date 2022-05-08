@@ -66,7 +66,7 @@
 								<th scope="row">${td.id}</th>
 								<td>${td.loaiThucUong.tenLoai}</td>
 								<td>${td.ten}</td>
-								<td>${td.gia}</td>
+								<td>${td.gia} đồng</td>
 							</tr>
 						</c:forEach>
 

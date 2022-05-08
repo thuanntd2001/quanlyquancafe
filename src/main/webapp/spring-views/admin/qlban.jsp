@@ -60,28 +60,19 @@
 							<td>${b.soGhe}</td>
 							<td>${b.loaiBan.tenLoai}</td>
 							<td>${b.loaiBan.giaDat}</td>
-							<td>
-								<div style="width: 95px;" class="row">
-									<div class="col-6">
-										<a href="/CNPM/admin-home/formBan.htm?linkEdit&id=${b.id}">
-											<button style="font-size: 10px; width: 44px;" type="button"
-												class="btn" data-toggle="modal" 
+							<td><a href="/CNPM/admin-home/formBan.htm?linkEdit&id=${b.id}">
+											<button  type="button"
+												class="btn btn-primary" data-toggle="modal" 
 												data-whatever="@mdo">SỬA</button>
-										</a>
+										</a></td>
+							<td>
+								<div  class="row">
 
-
-
-
-
-
-										<!-- Button trigger modal -->
-									</div>
-									<div class="col-6">
 										<!-- <a href="">XÓA</a> -->
 										<!-- Button trigger modal -->
-										<button style="font-size: 10px;" type="button"
-											class="btn btn-primary" data-toggle="modal"
-											data-target="#-n${b.id}">XÓA</button>
+										<button  type="button"
+											class="btn btn-warning" data-toggle="modal"
+											data-target="#-n${b.id}"><i class="ti-trash"></i></button>
 
 										<!-- Modal -->
 										<div class="modal fade" id="-n${b.id}" tabindex="-1"
@@ -112,9 +103,6 @@
 											</div>
 										</div>
 									</div>
-
-								</div>
-
 							</td>
 
 						</tr>

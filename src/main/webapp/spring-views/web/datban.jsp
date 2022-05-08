@@ -74,7 +74,7 @@
 								<th scope="row">${b.id}</th>
 								<td>${b.soGhe}</td>
 								<td>${b.loaiBan.tenLoai}</td>
-								<td>${b.loaiBan.giaDat }</td>
+								<td>${b.loaiBan.giaDat } đồng</td>
 								<td>
 									<div class="">
 										<a style="font-size: 10px;" class="btn btn-primary"

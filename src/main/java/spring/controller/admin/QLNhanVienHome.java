@@ -95,7 +95,7 @@ public class QLNhanVienHome {
 		nv.setDaNghi(false);
 		Integer temp = this.insertUser(nv);
 		if(temp != 0) {
-		    model.addAttribute("message","them thanh cong");
+		    model.addAttribute("message","Thêm Thành Công");
 			nv.setHoTen(null);
 			nv.setGioiTinh(null);
 			nv.setLuong(null);
@@ -104,7 +104,7 @@ public class QLNhanVienHome {
 			nv.setDiaChi(null);
 		
 		}else {
-			model.addAttribute("message","them that bai");
+			model.addAttribute("message","Thêm Thất Bại");
 		}
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getNhanVien());

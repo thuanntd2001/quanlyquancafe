@@ -47,6 +47,7 @@
 					<img style="height: 50px; width: 50px;"
 						src="<c:url value='/common/images/logo_highland.png'/>"
 						alt="highland"> Đăng nhập vào HIGHLAND
+
 				</div>
 				<c:if test="${not empty message}">
 					<div class="alert alert-${alert}">${message}</div>
@@ -81,8 +82,13 @@
 				</div>
 				<div class="card-footer text-muted">
 					<button type="submit" class="btn btn-primary">Đăng Nhập</button>
+<<<<<<< HEAD
 					<button class="btn btn-secondary" type="reset">Nhập lại</button>
 					<a href="mailer/form.htm" class="btn btn-primary">Quên mật khẩu?</a>
+=======
+					<button class="btn btn-secondary" type="reset">Làm Mới</button>
+					<a href="mailer/form.htm" class="btn btn-primary">Quên mật khẩu</a>
+>>>>>>> d77a1223ff0cc1d43f533a64da31a51693722061
 				</div>
 			</div>
 		</form>
