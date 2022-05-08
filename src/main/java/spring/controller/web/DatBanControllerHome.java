@@ -129,7 +129,7 @@ public class DatBanControllerHome {
 			er.rejectValue("ngayDat", "datban","Vui lòng chọn ngày đến");
 		}
 		if (er.hasErrors()) {
-			model.addAttribute("message","Thêm mới đặt bàn thất bại, kiểm tra lai các trường");
+			model.addAttribute("message","Thêm mới đặt bàn thất bại, kiểm tra lại các trường");
 		}
 		else {
 			//save dat ban

@@ -1,6 +1,7 @@
 package spring.controller.chung;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.servlet.RequestDispatcher;
@@ -29,7 +30,8 @@ import spring.Recaptcha.RecaptchaVerification;
 @Controller
 public class LoginController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
-	ResourceBundle resourceBundle = ResourceBundle.getBundle("message");
+	Locale localeVi = new Locale("vi");
+	ResourceBundle resourceBundle = ResourceBundle.getBundle("message_vi",localeVi);
 	private INhanVienService nhanVienService = new NhanVienService();
 	private IUserService userService = new UserService();
 	@RequestMapping(value = "dang-nhap", method = RequestMethod.GET)
@@ -41,12 +43,14 @@ public class LoginController extends HttpServlet{
 			if (message != null && alert != null) {
 				request.setAttribute("message", resourceBundle.getString(message));
 				request.setAttribute("alert", alert);
+				System.out.print(resourceBundle.getString(message));
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp-views/login.jsp");
 			rd.forward(request, response);
 		} else if (action != null && action.equals("logout")) {
 			SessionUtil.getInstance().removeValue(request, "USERMODEL");
 			response.sendRedirect(request.getContextPath() + "/dang-nhap.htm?action=login");
+			
 		} else {
 			response.sendRedirect(request.getContextPath() + "/dang-nhap.htm?action=login");
 		}

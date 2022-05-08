@@ -158,10 +158,10 @@ public class QLNhapHang {
 			model.addAttribute("message", "Cập nhật không thành công");
 
 		}
-		/*
+	/*	
 		 * List<NhanVienEntity> nhanvien = this.getNhanVien();
 		 * model.addAttribute("nhanvien", nhanvien); return "admin/QLNV";
-		 */
+		 
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getDonNhapHangs());
 		int page = ServletRequestUtils.getIntParameter(requets, "p", 0);
@@ -169,9 +169,9 @@ public class QLNhapHang {
 		pagedListHolder.setMaxLinkedPages(10);
 
 		pagedListHolder.setPageSize(5);
-		model.addAttribute("pagedListHolder", pagedListHolder);
+		model.addAttribute("pagedListHolder", pagedListHolder);*/
 		// model.addAttribute("bans", list);
-		return "admin/qlnhaphang";
+		return "redirect:/admin-home/admin-nhaphang.htm";
 	}
 
 	public Integer updateNH(ChiPhiEntity nh) {

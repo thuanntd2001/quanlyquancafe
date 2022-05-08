@@ -19,7 +19,7 @@ public class BanHoaDonModel {
 	}
 	private long idBan=0;
 	private List<ChiTietHDEntity> cthds= new ArrayList<ChiTietHDEntity>();
-
+	private HoaDonEntity hoaDon;
 
 	public List<ChiTietHDEntity> getCthds() {
 		return cthds;
@@ -27,7 +27,7 @@ public class BanHoaDonModel {
 	public void setCthds(List<ChiTietHDEntity> cthds) {
 		this.cthds = cthds;
 	}
-	private HoaDonEntity hoaDon;
+	
 	public long getIdBan() {
 		return idBan;
 	}
