@@ -174,6 +174,12 @@ public class ThanhToanController {
 		BanHoaDonModel BHD=listBHD.get((int) findBanHD(idBHD, listBHD ));
 		System.out.println("Xoa"+BHD.getCthds().get((int) idMon).getThucDon().getTen());
 		BHD.getCthds().remove((int)idMon);
+		//neu ko con mon nao sau khi xoa, set ban ve ko co mon dc goi
+		if (BHD.getCthds().isEmpty()) {
+			List<BanEntity> listBan = (List<BanEntity>) application.getAttribute("listBan");
+			listBan.get((int) findBan(idBHD,listBan)).setTinhTrang(0);
+			BHD.setHoaDon(null);
+		}
 		return "redirect:thanh-toan.htm";
 		
 	}
