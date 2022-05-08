@@ -82,13 +82,10 @@
 				</div>
 				<div class="card-footer text-muted">
 					<button type="submit" class="btn btn-primary">Đăng Nhập</button>
-<<<<<<< HEAD
-					<button class="btn btn-secondary" type="reset">Nhập lại</button>
-					<a href="mailer/form.htm" class="btn btn-primary">Quên mật khẩu?</a>
-=======
+
 					<button class="btn btn-secondary" type="reset">Làm Mới</button>
-					<a href="mailer/form.htm" class="btn btn-primary">Quên mật khẩu</a>
->>>>>>> d77a1223ff0cc1d43f533a64da31a51693722061
+					<a href="mailer/form.htm" class="btn btn-primary">Quên mật khẩu?</a>
+
 				</div>
 			</div>
 		</form>
