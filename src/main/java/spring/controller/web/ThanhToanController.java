@@ -148,7 +148,7 @@ public class ThanhToanController {
 				flag= themCTHDs(banHD.getCthds());
 				if (flag==1) {
 					 banHD.setHoaDon(null);
-					 listBan.get((int) findBan(ban,listBan)).setTinhTrang(0);
+					 listBan.get((int) findBan(ban,listBan)).setTinhTrang(banHD.getTrangThaiCu());
 					 model.addAttribute("message", "Thanh toán thành công");
 				}
 				else model.addAttribute("message", "Thanh toán thất bại");
@@ -177,7 +177,8 @@ public class ThanhToanController {
 		//neu ko con mon nao sau khi xoa, set ban ve ko co mon dc goi
 		if (BHD.getCthds().isEmpty()) {
 			List<BanEntity> listBan = (List<BanEntity>) application.getAttribute("listBan");
-			listBan.get((int) findBan(idBHD,listBan)).setTinhTrang(0);
+			listBan.get((int) findBan(idBHD,listBan)).setTinhTrang(BHD.getTrangThaiCu());
+			BHD.setTrangThaiCu(0);
 			BHD.setHoaDon(null);
 		}
 		return "redirect:thanh-toan.htm";
