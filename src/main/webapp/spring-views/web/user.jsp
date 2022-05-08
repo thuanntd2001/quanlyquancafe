@@ -139,7 +139,7 @@
 
 									<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 										<!-- Profile Edit Form -->
-										<form:form modelAttribute="nv" method="post" action="user.htm">
+										<form:form modelAttribute="nv" method="post" action="user.htm" id="form1">
 													${message1 }
 													<div class="row mb-3">
 												<label class="col-md-4 col-lg-3 col-form-label"></label>
@@ -152,7 +152,7 @@
 												<label class="col-md-4 col-lg-3 col-form-label">Mã
 													Nhân Viên</label>
 												<div class="col-md-8 col-lg-9">
-													<form:input path="maNV" cssClass="form-control"
+													<form:input id="maNV" path="maNV" cssClass="form-control"
 														readonly="true" />
 												</div>
 											</div>
@@ -162,7 +162,7 @@
 												<label class="col-md-4 col-lg-3 col-form-label">Họ
 													Tên</label>
 												<div class="col-md-8 col-lg-9">
-													<form:input cssClass="form-control" path="hoTen"
+													<form:input id="hoTen" cssClass="form-control" path="hoTen"
 														readonly="true" />
 												</div>
 											</div>
@@ -180,21 +180,21 @@
 												<label class="col-md-4 col-lg-3 col-form-label">Ngày
 													Sinh</label>
 												<div class="col-md-8 col-lg-9">
-													<input name="ngaySinhh" type="date" value="${nv.ngaySinh }"/>
+													<input id="ngaySinh" name="ngaySinhh" type="date" value="${nv.ngaySinh }"/>
 												</div>
 											</div>
 
 											<div class="row mb-3">
 												<label class="col-md-4 col-lg-3 col-form-label">SDT</label>
 												<div class="col-md-8 col-lg-9">
-													<form:input cssClass="form-control" path="sdt"  required="true"/>
+													<form:input id="sdt" cssClass="form-control" path="sdt"  required="true"/>
 												</div>
 											</div>
 
 											<div class="row mb-3">
 												<label for="cmnd" class="col-md-4 col-lg-3 col-form-label">Lương</label>
 												<div class="col-md-8 col-lg-9">
-													<form:input cssClass="form-control" path="luong"
+													<form:input id="luong" cssClass="form-control" path="luong"
 														readonly="true" type="number" />
 												</div>
 											</div>
@@ -202,7 +202,7 @@
 											<div class="row mb-3">
 												<label for="cmnd" class="col-md-4 col-lg-3 col-form-label">CMND</label>
 												<div class="col-md-8 col-lg-9">
-													<form:input cssClass="form-control" path="cmnd" required="true"/>
+													<form:input id="cmnd" cssClass="form-control" path="cmnd" required="true"/>
 												</div>
 											</div>
 
@@ -212,7 +212,7 @@
 												<label for="address"
 													class="col-md-4 col-lg-3 col-form-label">Địa Chỉ</label>
 												<div class="col-md-8 col-lg-9">
-													<form:input cssClass="form-control" path="diaChi" required="true"/>
+													<form:input id="diaChi" cssClass="form-control" path="diaChi" required="true"/>
 												</div>
 											</div>
 
@@ -221,7 +221,7 @@
 													class="col-md-4 col-lg-3 col-form-label">Ngày Vào
 													Làm</label>
 												<div class="col-md-8 col-lg-9">
-													<form:input cssClass="form-control" path="ngayVaoLam"
+													<form:input id="ngayVaoLam" cssClass="form-control" path="ngayVaoLam"
 														readonly="true" />
 												</div>
 											</div>
@@ -229,7 +229,7 @@
 											<div class="row mb-3">
 												<label class="col-md-4 col-lg-3 col-form-label">Email</label>
 												<div class="col-md-8 col-lg-9">
-													<input class="form-control" type="email" name="email"
+													<input id="email" class="form-control" type="email" name="email"
 														value="${user.email }" required="true"/>
 												</div>
 											</div>
@@ -239,7 +239,7 @@
 													class="col-md-4 col-lg-3 col-form-label">Tên Tài
 													Khoản</label>
 												<div class="col-md-8 col-lg-9">
-													<input class="form-control" type="text"
+													<input id="userName" class="form-control" type="text"
 														value="${user.userName }" readonly="readonly" />
 												</div>
 											</div>
@@ -340,6 +340,30 @@
 	</div>
 	</div>
 	<jsp:include page="/common/web/footer.jsp" />
+	<script src="<c:url value='/template/web/validation.js'/>"></script>
+	 <script>
+  
+        document.addEventListener('DOMContentLoaded', function () {
+          // Mong muốn của chúng ta
+          Validator({
+            form: '#form1',
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+              Validator.isRequired('#hoTen', 'Vui lòng nhập tên đầy đủ của bạn'),
+              Validator.isRequired('#diaChi', 'Vui lòng địa chỉ của bạn'),
+              Validator.isRequired('#email', 'Vui lòng địa chỉ email của bạn'),
+              Validator.minLength('#cmnd', 9),
+              Validator.minLength('#sdt', 10),
+
+            ],
+
+           
+          });
+  
+        }); 
+  
+      </script> 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 	<script

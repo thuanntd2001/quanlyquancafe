@@ -13,8 +13,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -164,6 +166,39 @@ public class ThanhToanController {
 		return "web/thanhtoan";
 
 	}
+	
+	
+	@RequestMapping(value = "thanh-toan", method = RequestMethod.POST, params="print")
+	public String print(ModelMap model, HttpServletRequest request) {
+		List<BanEntity> listBan = (List<BanEntity>) application.getAttribute("listBan");
+		List<BanHoaDonModel> listBHD = (List<BanHoaDonModel>) application.getAttribute("banHoaDons");
+		List<ThucDonEntity> listTD = (List<ThucDonEntity>) application.getAttribute("thucDons");
+
+		// lay data tu form
+		long ban = Long.parseLong(request.getParameter("Ban"));
+		// tim ban có id hien tai trong ds banhd hien tai
+		BanHoaDonModel banHD= listBHD.get((int) findBanHD(ban,listBHD));
+		
+
+		// set view
+		model.addAttribute("bans", listBan);
+
+		List<ChiTietHDEntity>  cthds= banHD.getCthds();
+	
+
+		int tong=0;
+		for (ChiTietHDEntity cthd:cthds) {
+			tong+=cthd.getTongTien();
+		}
+		model.addAttribute("tongTien",tong);
+		model.addAttribute("cthds",cthds);
+		listBHD.get((int) findBanHD(ban, listBHD)).xuat();
+		return "web/inhoadon";
+
+	}
+	
+	
+	
 	@RequestMapping(value = "thanh-toan", method = RequestMethod.POST, params="xoa")
 	public String xoa(ModelMap model, HttpServletRequest request) {
 		long idMon= Long.parseLong(request.getParameter("id"));
@@ -303,6 +338,14 @@ public class ThanhToanController {
 		Query query = session.createQuery(hql);
 		query.setParameter("id", id);
 		NhanVienEntity list = (NhanVienEntity) query.list().get(0);
+		return list;
+	}
+	public List<ChiTietHDEntity> getChiTietHD(Long id){
+		Session session = factory.getCurrentSession();
+		String hql = "FROM ChiTietHDEntity where hoaDon.id = :id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);	
+		List<ChiTietHDEntity> list = query.list();
 		return list;
 	}
 }
