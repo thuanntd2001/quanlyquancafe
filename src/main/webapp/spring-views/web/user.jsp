@@ -348,7 +348,7 @@
 	</div>
 	<jsp:include page="/common/web/footer.jsp" />
 	<script src="<c:url value='/template/web/validation.js'/>"></script>
- 	 <script>
+<!--  	 <script>
   
         document.addEventListener('DOMContentLoaded', function () {
           // Mong muốn của chúng ta
@@ -370,7 +370,7 @@
   
         }); 
   
-      </script>  
+      </script>   -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 	<script
