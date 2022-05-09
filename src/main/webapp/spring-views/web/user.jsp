@@ -182,6 +182,7 @@
 												<div class="col-md-8 col-lg-9">
 													<input id="ngaySinh" name="ngaySinhh" type="date" value="${nv.ngaySinh }"/>
 												</div>
+												<span class="form-message"></span>
 											</div>
 
 											<div class="row mb-3">
@@ -189,6 +190,7 @@
 												<div class="col-md-8 col-lg-9">
 													<form:input id="sdt" cssClass="form-control" path="sdt"  required="true"/>
 												</div>
+												<span class="form-message"></span>
 											</div>
 
 											<div class="row mb-3">
@@ -196,6 +198,7 @@
 												<div class="col-md-8 col-lg-9">
 													<form:input id="luong" cssClass="form-control" path="luong"
 														readonly="true" type="number" />
+														<span class="form-message"></span>
 												</div>
 											</div>
 
@@ -204,6 +207,7 @@
 												<div class="col-md-8 col-lg-9">
 													<form:input id="cmnd" cssClass="form-control" path="cmnd" required="true"/>
 												</div>
+												<span class="form-message"></span>
 											</div>
 
 
@@ -224,6 +228,7 @@
 													<form:input id="ngayVaoLam" cssClass="form-control" path="ngayVaoLam"
 														readonly="true" />
 												</div>
+												<span class="form-message"></span>
 											</div>
 
 											<div class="row mb-3">
@@ -232,6 +237,7 @@
 													<input id="email" class="form-control" type="email" name="email"
 														value="${user.email }" required="true"/>
 												</div>
+												<span class="form-message"></span>
 											</div>
 
 											<div class="row mb-3">
@@ -242,6 +248,7 @@
 													<input id="userName" class="form-control" type="text"
 														value="${user.userName }" readonly="readonly" />
 												</div>
+												<span class="form-message"></span>
 											</div>
 											<div class="text-center">
 												<button type="submit" class="btn btn-primary"
@@ -341,7 +348,7 @@
 	</div>
 	<jsp:include page="/common/web/footer.jsp" />
 	<script src="<c:url value='/template/web/validation.js'/>"></script>
-<!-- 	 <script>
+ 	 <script>
   
         document.addEventListener('DOMContentLoaded', function () {
           // Mong muốn của chúng ta
@@ -363,7 +370,7 @@
   
         }); 
   
-      </script>  -->
+      </script>  
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 	<script
