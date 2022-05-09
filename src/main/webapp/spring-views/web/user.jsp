@@ -135,133 +135,135 @@
 													<div class="col-lg-9 col-md-8">${user.userName }</div>
 												</div>
 											</form:form>
-									</div>
+										</div>
 
-									<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-										<!-- Profile Edit Form -->
-										<form:form modelAttribute="nv" method="post" action="user.htm" id="form1">
+										<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+											<!-- Profile Edit Form -->
+											<form:form modelAttribute="nv" method="post"
+												action="user.htm" id="form1">
 													${message1 }
 													<div class="row mb-3">
-												<label class="col-md-4 col-lg-3 col-form-label"></label>
-												<div class="col-md-8 col-lg-9">
-													<form:hidden cssClass="form-control" path="daNghi" />
+													<label class="col-md-4 col-lg-3 col-form-label"></label>
+													<div class="col-md-8 col-lg-9">
+														<form:hidden cssClass="form-control" path="daNghi" />
+													</div>
 												</div>
-											</div>
 
-											<div class="row mb-3">
-												<label class="col-md-4 col-lg-3 col-form-label">Mã
-													Nhân Viên</label>
-												<div class="col-md-8 col-lg-9">
-													<form:input id="maNV" path="maNV" cssClass="form-control"
-														readonly="true" />
+												<div class="row mb-3">
+													<label class="col-md-4 col-lg-3 col-form-label">Mã
+														Nhân Viên</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input id="maNV" path="maNV" cssClass="form-control"
+															readonly="true" />
+													</div>
 												</div>
-											</div>
 
 
-											<div class="row mb-3">
-												<label class="col-md-4 col-lg-3 col-form-label">Họ
-													Tên</label>
-												<div class="col-md-8 col-lg-9">
-													<form:input id="hoTen" cssClass="form-control" path="hoTen"
-														readonly="true" />
+												<div class="row mb-3">
+													<label class="col-md-4 col-lg-3 col-form-label">Họ
+														Tên</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input id="hoTen" cssClass="form-control"
+															path="hoTen" readonly="true" />
+													</div>
 												</div>
-											</div>
 
-											<div class="row mb-3">
-												<label class="col-md-4 col-lg-3 col-form-label">Giới
-													Tính</label>
-												<div class="col-md-8 col-lg-9">
-													<form:radiobutton path="gioiTinh" value="True" label="Nam" />
-													<form:radiobutton path="gioiTinh" value="false" label="Nữ" />
+												<div class="row mb-3">
+													<label class="col-md-4 col-lg-3 col-form-label">Giới
+														Tính</label>
+													<div class="col-md-8 col-lg-9">
+														<form:radiobutton path="gioiTinh" value="True" label="Nam" />
+														<form:radiobutton path="gioiTinh" value="false" label="Nữ" />
+													</div>
 												</div>
-											</div>
 
-											<div class="row mb-3">
-												<label class="col-md-4 col-lg-3 col-form-label">Ngày
-													Sinh</label>
-												<div class="col-md-8 col-lg-9">
-													<input id="ngaySinh" name="ngaySinhh" type="date" value="${nv.ngaySinh }"/>
+												<div class="row mb-3">
+													<label class="col-md-4 col-lg-3 col-form-label">Ngày
+														Sinh</label>
+													<div class="col-md-8 col-lg-9">
+														<input id="ngaySinh" name="ngaySinhh" type="date"
+															value="${nv.ngaySinh }" />
+													</div>
 												</div>
-												<span class="form-message"></span>
-											</div>
 
-											<div class="row mb-3">
-												<label class="col-md-4 col-lg-3 col-form-label">SDT</label>
-												<div class="col-md-8 col-lg-9">
-													<form:input id="sdt" cssClass="form-control" path="sdt"  required="true"/>
+												<div class="row mb-3">
+													<label class="col-md-4 col-lg-3 col-form-label">SDT</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input id="sdt" cssClass="form-control" path="sdt"
+															minlength="10" pattern="^[0-9]{10,15}$" required="true" />
+													</div>
 												</div>
-												<span class="form-message"></span>
-											</div>
 
-											<div class="row mb-3">
-												<label for="cmnd" class="col-md-4 col-lg-3 col-form-label">Lương</label>
-												<div class="col-md-8 col-lg-9">
-													<form:input id="luong" cssClass="form-control" path="luong"
-														readonly="true" type="number" />
-														<span class="form-message"></span>
+												<div class="row mb-3">
+													<label for="cmnd" class="col-md-4 col-lg-3 col-form-label">Lương</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input id="luong" cssClass="form-control"
+															path="luong" readonly="true" type="number" />
+													</div>
 												</div>
-											</div>
 
-											<div class="row mb-3">
-												<label for="cmnd" class="col-md-4 col-lg-3 col-form-label">CMND</label>
-												<div class="col-md-8 col-lg-9">
-													<form:input id="cmnd" cssClass="form-control" path="cmnd" required="true"/>
+												<div class="row mb-3">
+													<label for="cmnd" class="col-md-4 col-lg-3 col-form-label">CMND</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input id="cmnd" cssClass="form-control" path="cmnd"
+															minlength="10" required="true" pattern="^[0-9]{1,15}$" />
+													</div>
 												</div>
-												<span class="form-message"></span>
-											</div>
 
 
 
-											<div class="row mb-3">
-												<label for="address"
-													class="col-md-4 col-lg-3 col-form-label">Địa Chỉ</label>
-												<div class="col-md-8 col-lg-9">
-													<form:input id="diaChi" cssClass="form-control" path="diaChi" required="true"/>
+												<div class="row mb-3">
+													<label for="address"
+														class="col-md-4 col-lg-3 col-form-label">Địa Chỉ</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input id="diaChi" cssClass="form-control"
+															path="diaChi" required="true"
+															pattern="^[0-9aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆ
+fFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTu
+UùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ\s]{1,50}$" />
+													</div>
 												</div>
-											</div>
 
-											<div class="row mb-3">
-												<label for="address"
-													class="col-md-4 col-lg-3 col-form-label">Ngày Vào
-													Làm</label>
-												<div class="col-md-8 col-lg-9">
-													<form:input id="ngayVaoLam" cssClass="form-control" path="ngayVaoLam"
-														readonly="true" />
+												<div class="row mb-3">
+													<label for="address"
+														class="col-md-4 col-lg-3 col-form-label">Ngày Vào
+														Làm</label>
+													<div class="col-md-8 col-lg-9">
+														<form:input id="ngayVaoLam" cssClass="form-control"
+															path="ngayVaoLam" readonly="true" />
+													</div>
 												</div>
-												<span class="form-message"></span>
-											</div>
 
-											<div class="row mb-3">
-												<label class="col-md-4 col-lg-3 col-form-label">Email</label>
-												<div class="col-md-8 col-lg-9">
-													<input id="email" class="form-control" type="email" name="email"
-														value="${user.email }" required="true"/>
+												<div class="row mb-3">
+													<label class="col-md-4 col-lg-3 col-form-label">Email</label>
+													<div class="col-md-8 col-lg-9">
+														<input id="email" class="form-control" type="email"
+															name="email" value="${user.email }" required />
+													</div>
 												</div>
-												<span class="form-message"></span>
-											</div>
 
-											<div class="row mb-3">
-												<label for="username"
-													class="col-md-4 col-lg-3 col-form-label">Tên Tài
-													Khoản</label>
-												<div class="col-md-8 col-lg-9">
-													<input id="userName" class="form-control" type="text"
-														value="${user.userName }" readonly="readonly" />
+												<div class="row mb-3">
+													<label for="username"
+														class="col-md-4 col-lg-3 col-form-label">Tên Tài
+														Khoản</label>
+													<div class="col-md-8 col-lg-9">
+														<input id="userName" class="form-control" type="text"
+															value="${user.userName }" readonly="readonly" />
+													</div>
 												</div>
-												<span class="form-message"></span>
-											</div>
-											<div class="text-center">
-												<button type="submit" class="btn btn-primary"
-													name="btnupdate-info">Lưu Thay Đổi</button>
-											</div>
-										</form:form>
-										<!-- End Profile Edit Form -->
+												<div class="text-center">
+													<button type="submit" class="btn btn-primary"
+														name="btnupdate-info">Lưu Thay Đổi</button>
+												</div>
+											</form:form>
+											<!-- End Profile Edit Form -->
 
-									</div>
+										</div>
 
-									<div class="tab-pane fade pt-3" id="profile-change-password">
-										<!-- Change Password Form -->
-											<form:form modelAttribute="changePW" action="user.htm" method="post">
+										<div class="tab-pane fade pt-3" id="profile-change-password">
+											<!-- Change Password Form -->
+											<form:form modelAttribute="changePW" action="user.htm"
+												method="post">
 												${message1}
 												<div class="row mb-3">
 													<label for="currentPassword"
@@ -269,22 +271,22 @@
 														Cũ</label>
 													<div class="col-md-8 col-lg-9">
 														<form:input path="password" type="password"
-															class="form-control" minlength="3"/>
+															class="form-control" minlength="3" required="true" />
 													</div>
-													<form:errors  path="password"/>
+													<form:errors path="password" />
 												</div>
-													
+
 												<div class="row mb-3">
 													<label for="newPassword"
 														class="col-md-4 col-lg-3 col-form-label">Mật Khẩu
 														Mới</label>
 													<div class="col-md-8 col-lg-9">
 														<form:input path="newpassword" type="password"
-															class="form-control" minlength="3"/>
+															class="form-control" minlength="3" required="true" />
 													</div>
-													<form:errors  path="newpassword"/>
+													<form:errors path="newpassword" />
 												</div>
-													
+
 
 												<div class="row mb-3">
 													<label for="renewPassword"
@@ -292,9 +294,9 @@
 														Mật Khẩu Mới</label>
 													<div class="col-md-8 col-lg-9">
 														<form:input path="renewpassword" type="password"
-															class="form-control" minlength="3"/>
+															class="form-control" minlength="3" required="true" />
 													</div>
-													<form:errors  path="renewpassword"/>
+													<form:errors path="renewpassword" />
 												</div>
 
 												<div class="text-center">
@@ -306,49 +308,50 @@
 											<!-- End Change Password Form -->
 
 
-									</div>
-									<!-- ICON Tabs -->
-									<div class="tab-pane fade pt-3" id="avata-edit">
-										<label> ${message1} </label>
-										<form action="user-avt.htm" method="post"
-											enctype="multipart/form-data" class="row mb-3">
-											<label for="profileImage"
-												class="col-md-4 col-lg-3 col-form-label">Ảnh Đại
-												Diện</label>
-											<div class="col-md-8 col-lg-9" style="width: 100px;">
-												<img src="files/${sessionScope.USERMODEL.icon}"
-													alt="Ảnh đại diện" class="avt-pic" />
-												<div class="pt-2">
-													<div class="btn btn-primary btn-sm"
-														style="position: relative;">
-														<input type="file" accept=".jpg, .png" class="file-upload"
-															name="avt" /> <i class="fas fa-upload"></i>
+										</div>
+										<!-- ICON Tabs -->
+										<div class="tab-pane fade pt-3" id="avata-edit">
+											<label> ${message1} </label>
+											<form action="user-avt.htm" method="post"
+												enctype="multipart/form-data" class="row mb-3">
+												<label for="profileImage"
+													class="col-md-4 col-lg-3 col-form-label">Ảnh Đại
+													Diện</label>
+												<div class="col-md-8 col-lg-9" style="width: 100px;">
+													<img src="files/${sessionScope.USERMODEL.icon}"
+														alt="Ảnh đại diện" class="avt-pic" />
+													<div class="pt-2">
+														<div class="btn btn-primary btn-sm"
+															style="position: relative;">
+															<input type="file" accept=".jpg, .png"
+																class="file-upload" name="avt" /> <i
+																class="fas fa-upload"></i>
+														</div>
+														<a href="#" class="btn btn-danger btn-sm"
+															title="Remove my profile image"> <i
+															class="fas fa-trash-alt"></i></a> <input type="submit"
+															value="Lưu" class="btn btn-info btn-sm">
 													</div>
-													<a href="#" class="btn btn-danger btn-sm"
-														title="Remove my profile image"> <i
-														class="fas fa-trash-alt"></i></a> <input type="submit"
-														value="Lưu" class="btn btn-info btn-sm">
 												</div>
-											</div>
-										</form>
+											</form>
+										</div>
 									</div>
+									<!-- End ICON Tabs -->
+
 								</div>
-								<!-- End ICON Tabs -->
-
 							</div>
-						</div>
 
+						</div>
 					</div>
+				</section>
+
 			</div>
-			</section>
 
 		</div>
-
-	</div>
 	</div>
 	<jsp:include page="/common/web/footer.jsp" />
-	<script src="<c:url value='/template/web/validation.js'/>"></script>
-<!--  	 <script>
+	<%-- 	<script src="<c:url value='/template/web/validation.js'/>"></script>
+ 	 <script>
   
         document.addEventListener('DOMContentLoaded', function () {
           // Mong muốn của chúng ta
@@ -370,7 +373,7 @@
   
         }); 
   
-      </script>   -->
+      </script>  --%>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 	<script
