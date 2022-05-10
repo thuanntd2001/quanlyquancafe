@@ -190,7 +190,7 @@
 							</div>
 							<form action="thanh-toan.htm" method="post">
 								<h5>
-									${message }<br> <label>Bàn số: </label> <select name="Ban">
+									${message }<br> <label>Bàn số: </label> <select name="Ban" id="ban">
 										<c:forEach items="${banids}" var="B">
 
 											<option value="${B}"

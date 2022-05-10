@@ -132,8 +132,8 @@ body {
               Validator.isRequired('#set-date', 'Vui lòng nhập vào ngày nhập hàng'),
               Validator.isRequired('#ghichu', 'Vui lòng nhập ghi chú'),
               Validator.isRequired('#nhaCC', 'Vui lòng nhập thông tin nhà cung cấp'),
-              Validator.isRequired('#DV', 'Vui lòng nhập tên dịch vụ'),
-              Validator.isRequired('#loaiDV', 'Vui lòng loại dịch vụ'),
+              /* Validator.isRequired('#DV', 'Vui lòng nhập tên dịch vụ'), */
+              /* Validator.isRequired('#loaiDV', 'Vui lòng loại dịch vụ'), */
               ],
             });
           });

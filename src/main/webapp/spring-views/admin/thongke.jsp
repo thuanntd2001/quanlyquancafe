@@ -81,8 +81,9 @@
 
 								<div class="d-flex align-items-center justify-content-center">
 									<div
-										class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="color: #e2b816; background-color: #f9f6cd;">
-										<i class="bi bi-receipt" ></i>
+										class="card-icon rounded-circle d-flex align-items-center justify-content-center"
+										style="color: #e2b816; background-color: #f9f6cd;">
+										<i class="bi bi-receipt"></i>
 									</div>
 									<h6>${soHoaDon} đơn</h6>
 								</div>
@@ -154,14 +155,13 @@
 					<div class="col-12" <c:if test="${timeradio =='day'}">hidden</c:if>>
 						<div class="card">
 							<div class="card-body">
-								<h5 class="card-title">
-									Thống kê
-								</h5>
+								<h5 class="card-title">Thống kê</h5>
 
 								<!-- Line Chart -->
-								<div id="reportsChart"></div> </div>
+								<div id="reportsChart"></div>
+							</div>
 
-								<script>
+							<script>
                                         document.addEventListener("DOMContentLoaded", () => {
                                             new ApexCharts(document.querySelector("#reportsChart"), {
                                                 series: [
@@ -217,102 +217,106 @@
                                             }).render();
                                         });
                                     </script>
-								<!-- End Line Chart -->
-
-							</div>
+							<!-- End Line Chart -->
 
 						</div>
+
 					</div>
-					<!-- End Reports -->
-
-
-
-					<!-- Recent Sales -->
-					<div class="col-12">
-						<div class="card recent-sales overflow-auto">
-							<div class="card-body">
-								<h5 class="card-title">
-									Doanh Thu <span>| Hóa đơn</span>
-								</h5>
-
-								<table class="table table-borderless">
-									<thead>
-										<tr>
-											<th scope="col">ID</th>
-											<th scope="col">Nhân Viên Thực Hiện</th>
-											<th scope="col">Bàn</th>
-											<th scope="col">Thời Gian</th>
-											<th scope="col">Tổng</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach var="hd" items="${hoaDon}" >
-											<tr>
-												<th scope="row">${hd.id}</th>
-												<td>${hd.hdnv.hoTen}</td>
-												<td>${hd.ban.id }</td>
-												<td>${hd.ngayThucHien }</td>
-												<td>${tongHD.get(hoaDon.indexOf(hd))}</td>
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
-
-							</div>
-
-						</div>
-					</div>
-					<!-- End Recent Sales -->
-
-					<!-- Top Selling -->
-					<div class="col-12">
-						<div class="card top-selling overflow-auto">
-							<div class="card-body pb-0">
-								<h5 class="card-title">Chi Phí</h5>
-
-								<table class="table table-borderless">
-									<thead>
-										<tr>
-											<th scope="row">Mã Đơn</th>
-											<th scope="col">Tên NL</th>
-											<th scope="col">Ngày Nhập</th>
-											<th scope="col">Số Lượng</th>
-											<th scope="col">Giá DV</th>
-											<th scope="col">Loại Hàng</th>
-											<th scope="col">Nhà Cung Cấp</th>
-											<th scope="col">Dịch Vụ</th>
-											<th scope="col">Ghi Chú</th>
-											<th scope="col">NV Tạo</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach var="bcp" items="${bangChiPhi}">
-											<tr>
-												<th scope="row">${bcp.id}</th>
-												<td>${bcp.tenNL}</td>
-												<td>${bcp.ngayNhap}</td>
-												<td>${bcp.soLuong}</td>
-												<td>${bcp.giaMoiDV}</td>
-												<td>${bcp.loai}</td>
-												<td>${bcp.nhaCungCap}</td>
-												<td>${bcp.dv}</td>
-												<td>${bcp.ghiChu}</td>
-												<td>${bcp.cpnv.maNV}</td>
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
-
-							</div>
-
-						</div>
-					</div>
-					<!-- End Top Selling -->
-
 				</div>
+				<!-- End Reports -->
 
-			</section>
+
+
+				<!-- Recent Sales -->
+				<div class="col-12">
+					<div class="card recent-sales overflow-auto">
+						<div class="card-body">
+							<h5 class="card-title">
+								Doanh Thu <span>| Hóa đơn</span>
+							</h5>
+
+							<table class="table table-borderless">
+								<thead>
+									<tr>
+										<th scope="col">ID</th>
+										<th scope="col">Nhân Viên Thực Hiện</th>
+										<th scope="col">Bàn</th>
+										<th scope="col">Thời Gian</th>
+										<th scope="col">Tổng</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach var="hd" items="${hoaDon}">
+										<tr>
+											<th scope="row">${hd.id}</th>
+											<td>${hd.hdnv.hoTen}</td>
+											<td>${hd.ban.id }</td>
+											<td>${hd.ngayThucHien }</td>
+											<td>${tongHD.get(hoaDon.indexOf(hd))} đồng</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+
+						</div>
+
+					</div>
+				</div>
+				<!-- End Recent Sales -->
+
+				<!-- Top Selling -->
+				<div class="col-12">
+					<div class="card top-selling overflow-auto">
+						<div class="card-body pb-0">
+							<h5 class="card-title">Chi Phí</h5>
+							<%-- <jsp:useBean id="pagedListHolder" scope="request"
+								type="org.springframework.beans.support.PagedListHolder" />
+							<c:url value="thong-ke.htm" var="pagedLink">
+								<c:param name="p" value="~" />
+							</c:url> --%>
+							<table class="table table-borderless">
+								<thead>
+									<tr>
+										<th scope="row">Mã Đơn</th>
+										<th scope="col">Tên NL</th>
+										<th scope="col">Ngày Nhập</th>
+										<th scope="col">Số Lượng</th>
+										<th scope="col">Giá DV</th>
+										<th scope="col">Loại Hàng</th>
+										<th scope="col">Nhà Cung Cấp</th>
+										<th scope="col">Dịch Vụ</th>
+										<th scope="col">Ghi Chú</th>
+										<th scope="col">NV Tạo</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach var="bcp" items="${bangChiPhi}">
+										<tr>
+											<th scope="row">${bcp.id}</th>
+											<td>${bcp.tenNL}</td>
+											<td>${bcp.ngayNhap}</td>
+											<td>${bcp.soLuong}</td>
+											<td>${bcp.giaMoiDV}</td>
+											<td>${bcp.loai}</td>
+											<td>${bcp.nhaCungCap}</td>
+											<td>${bcp.dv}</td>
+											<td>${bcp.ghiChu}</td>
+											<td>${bcp.cpnv.maNV}</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+							<%-- <tg:paging pagedLink="${pagedLink}"
+								pagedListHolder="${pagedListHolder}"></tg:paging> --%>
+						</div>
+
+					</div>
+				</div>
+				<!-- End Top Selling -->
 		</div>
+
+		</section>
+	</div>
 
 	</div>
 

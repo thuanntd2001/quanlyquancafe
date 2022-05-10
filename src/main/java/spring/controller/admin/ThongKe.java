@@ -12,8 +12,10 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -27,8 +29,10 @@ public class ThongKe {
 	@Autowired
 	SessionFactory factory;
 	
+	
+	
 	@RequestMapping(value = "thong-ke" , method = RequestMethod.GET)
-	public String thongKe(ModelMap model) {
+	public <E> String thongKe(ModelMap model,HttpServletRequest request) {
 		
 		Calendar calendar = Calendar.getInstance();
 		Integer ngay = calendar.get(Calendar.DAY_OF_MONTH);
@@ -47,6 +51,14 @@ public class ThongKe {
 		model.addAttribute("doanhThu", this.doanhThu(ngay,thang,nam));
 		model.addAttribute("chiPhi", this.chiPhi(ngay,thang,nam));
 		model.addAttribute("loiNhuan",this.doanhThu(ngay,thang,nam)- this.chiPhi(ngay,thang,nam));
+		
+		/*PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getChiPhi(ngay, thang, nam));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(5);
+		pagedListHolder.setPageSize(5);
+		model.addAttribute("pagedListHolder", pagedListHolder);*/
+		
 		model.addAttribute("hoaDon", b);
 		model.addAttribute("bangChiPhi", this.getChiPhi(ngay, thang, nam));	
 		model.addAttribute("tongHD", s);
@@ -54,7 +66,7 @@ public class ThongKe {
 	}
 	
 	@RequestMapping(value = "thong-ke",params="btn-search", method = RequestMethod.POST)
-	public String searchThongKe1(ModelMap model, HttpServletRequest request) {
+	public <E> String searchThongKe1(ModelMap model, HttpServletRequest request) {
 		Integer ngay,thang;
 		try {
 			ngay = Integer.parseInt(request.getParameter("day"));
@@ -83,6 +95,14 @@ public class ThongKe {
 		model.addAttribute("doanhThu", this.doanhThu(ngay, thang, nam));
 		model.addAttribute("chiPhi", this.chiPhi(ngay, thang, nam));
 		model.addAttribute("loiNhuan",this.doanhThu(ngay, thang, nam)- this.chiPhi(ngay, thang, nam));
+		
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getChiPhi(ngay, thang, nam));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(5);
+		pagedListHolder.setPageSize(5);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		
 		model.addAttribute("hoaDon", this.getHoaDon(ngay, thang, nam));
 		model.addAttribute("bangChiPhi", this.getChiPhi(ngay, thang, nam));
 		model.addAttribute("tongHD", s);
@@ -190,12 +210,12 @@ public class ThongKe {
 		if (ngay == null) {
 			if (thang == null)
 			{
-				hql = "FROM HoaDonEntity WHERE YEAR(ngayThucHien) = :nam";
+				hql = "FROM HoaDonEntity WHERE YEAR(ngayThucHien) = :nam ORDER BY id DESC, ngayThucHien DESC";
 			} else {
-				hql = "FROM HoaDonEntity WHERE MONTH(ngayThucHien) = :thang AND YEAR(ngayThucHien) = :nam";
+				hql = "FROM HoaDonEntity WHERE MONTH(ngayThucHien) = :thang AND YEAR(ngayThucHien) = :nam ORDER BY id DESC, ngayThucHien DESC";
 			}
 		} else {
-			hql = "FROM HoaDonEntity WHERE DAY(ngayThucHien) = :ngay AND MONTH(ngayThucHien) = :thang AND YEAR(ngayThucHien) = :nam";
+			hql = "FROM HoaDonEntity WHERE DAY(ngayThucHien) = :ngay AND MONTH(ngayThucHien) = :thang AND YEAR(ngayThucHien) = :nam ORDER BY id DESC, ngayThucHien DESC";
 		}	
 		Query query = session.createQuery(hql);
 		if (ngay != null) query.setParameter("ngay",ngay);
@@ -219,12 +239,12 @@ public class ThongKe {
 		if (ngay == null) {
 			if (thang == null)
 			{
-				hql = "FROM ChiPhiEntity WHERE YEAR(ngayNhap) = :nam";
+				hql = "FROM ChiPhiEntity WHERE YEAR(ngayNhap) = :nam ORDER BY id DESC, ngayNhap DESC";
 			} else {
-				hql = "FROM ChiPhiEntity WHERE MONTH(ngayNhap) = :thang AND YEAR(ngayNhap) = :nam";
+				hql = "FROM ChiPhiEntity WHERE MONTH(ngayNhap) = :thang AND YEAR(ngayNhap) = :nam ORDER BY id DESC, ngayNhap DESC";
 			}
 		} else {
-			hql = "FROM ChiPhiEntity WHERE DAY(ngayNhap) = :ngay AND MONTH(ngayNhap) = :thang AND YEAR(ngayNhap) = :nam";
+			hql = "FROM ChiPhiEntity WHERE DAY(ngayNhap) = :ngay AND MONTH(ngayNhap) = :thang AND YEAR(ngayNhap) = :nam ORDER BY id DESC, ngayNhap DESC";
 		}	
 		Query query = session.createQuery(hql);
 		if (ngay != null) query.setParameter("ngay",ngay);

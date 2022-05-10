@@ -81,9 +81,17 @@ var selector = '.table-icon .icon-coffee';
 $(selector).on('click', function () {
     $(selector).removeClass('active-icon');
     $(this).addClass('active-icon');
+   
+    let id = $(this).find("span").text()
+    let remove = $("#ban").find(`option[selected]`).removeAttr('selected')
+    let temp = $("#ban").find(`option[value="${id}"	]`)
+    temp.attr('selected',2)
 });
 
 // edit button
+
+
+
 
 function EditNumber(myid) {
     let name2 = 'inp-' + myid.substring(4);
