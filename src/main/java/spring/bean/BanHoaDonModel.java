@@ -17,9 +17,10 @@ public class BanHoaDonModel {
 		super();
 		this.idBan = idBan;
 	}
+	private int trangThaiCu=0;
 	private long idBan=0;
 	private List<ChiTietHDEntity> cthds= new ArrayList<ChiTietHDEntity>();
-
+	private HoaDonEntity hoaDon;
 
 	public List<ChiTietHDEntity> getCthds() {
 		return cthds;
@@ -27,7 +28,7 @@ public class BanHoaDonModel {
 	public void setCthds(List<ChiTietHDEntity> cthds) {
 		this.cthds = cthds;
 	}
-	private HoaDonEntity hoaDon;
+	
 	public long getIdBan() {
 		return idBan;
 	}
@@ -44,6 +45,12 @@ public class BanHoaDonModel {
 	public void xuat() {
 		for (ChiTietHDEntity i:cthds)
 			System.out.println(i.getThucDon());
+	}
+	public int getTrangThaiCu() {
+		return trangThaiCu;
+	}
+	public void setTrangThaiCu(int trangThaiCu) {
+		this.trangThaiCu = trangThaiCu;
 	}
 
 

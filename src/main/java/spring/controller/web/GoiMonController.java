@@ -1,6 +1,8 @@
 package spring.controller.web;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import spring.bean.BanHoaDonModel;
 import spring.entity.BanEntity;
 import spring.entity.ChiTietHDEntity;
+import spring.entity.DatBanEntity;
 import spring.entity.HoaDonEntity;
 import spring.entity.LoaiThucUongEntity;
 import spring.entity.ThucDonEntity;
@@ -43,9 +46,9 @@ public class GoiMonController {
 			Session session = factory.getCurrentSession();
 			String hql = "FROM BanEntity";
 			Query query = session.createQuery(hql);
-			List<BanEntity> list = query.list();
+			List<BanEntity> listBan = query.list();
 
-			application.setAttribute("listBan", list);
+			application.setAttribute("listBan", listBan);
 		}
 		// kt co list ban tong he thong ko co thi tao list nay tinh hoa don
 		if (application.getAttribute("banHoaDons") == null) {
@@ -62,8 +65,35 @@ public class GoiMonController {
 			application.setAttribute("banids", listIdsBan);
 			application.setAttribute("thucDons", getThucDons());
 		}
+		// kt co list datban trong he thong ko co thi tao list nay 
+		if (application.getAttribute("datBans") == null) {
+			Session session = factory.getCurrentSession();
+			String hql = "FROM DatBanEntity";
+			Query query = session.createQuery(hql);
+			List<DatBanEntity> listDatBan = query.list();
 
+			application.setAttribute("datBans", listDatBan);
+		}
+		// dieu kien de dat ban dc set ra view
+		List<DatBanEntity> listDatBan = (List<DatBanEntity>) application.getAttribute("datBans");
+		List<BanHoaDonModel> listBHD = (List<BanHoaDonModel>) application.getAttribute("banHoaDons");
 		List<BanEntity> listBan = (List<BanEntity>) application.getAttribute("listBan");
+		long tgCho=1800;
+		Timestamp now = new Timestamp(System.currentTimeMillis()+tgCho);
+		System.out.println(now.toString());
+		for (DatBanEntity datBan : listDatBan) {
+			
+			System.out.println(datBan.getTgDuKien().toString());
+			System.out.println(datBan.getTgDuKien().after(now));
+			if(datBan.getTgDuKien().after(now)) {
+				if (listBHD.get((int) findBanHD(datBan.getBan().getId(), listBHD)).getTrangThaiCu()==0)
+				listBHD.get((int) findBanHD(datBan.getBan().getId(), listBHD)).setTrangThaiCu(3);
+				listBan.get((int) findBan(datBan.getBan().getId(), listBan)).setTinhTrang(listBHD.get((int) findBanHD(datBan.getBan().getId(), listBHD)).getTrangThaiCu());
+			}
+			
+		}
+		
+
 
 		model.addAttribute("bans", listBan);
 		model.addAttribute("loaiTUs", getLoaiTUs());

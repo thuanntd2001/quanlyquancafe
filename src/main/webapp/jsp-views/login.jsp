@@ -46,7 +46,8 @@
 				<div class="card-header">
 					<img style="height: 50px; width: 50px;"
 						src="<c:url value='/common/images/logo_highland.png'/>"
-						alt="highland">			ĐĂNG NHẬP VÀO HIGHLAND COFFEE
+						alt="highland"> Đăng nhập vào HIGHLAND
+
 				</div>
 				<c:if test="${not empty message}">
 					<div class="alert alert-${alert}">${message}</div>
@@ -81,8 +82,10 @@
 				</div>
 				<div class="card-footer text-muted">
 					<button type="submit" class="btn btn-primary">Đăng Nhập</button>
+
 					<button class="btn btn-secondary" type="reset">Làm Mới</button>
-					<a href="mailer/form.htm" class="btn btn-primary">Quên mật khẩu</a>
+					<a href="mailer/form.htm" class="btn btn-primary">Quên mật khẩu?</a>
+
 				</div>
 			</div>
 		</form>

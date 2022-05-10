@@ -12,3 +12,4 @@ encoding//src/main/java/spring/controller/chung/LoginController.java=UTF-8
 encoding//src/main/java/spring/controller/chung/MailerController.java=UTF-8
 encoding//src/main/java/spring/controller/web/DatBanControllerHome.java=UTF-8
 encoding//src/main/java/spring/controller/web/UserController.java=UTF-8
+encoding//src/main/resources/message_vi.properties=ISO-8859-1
