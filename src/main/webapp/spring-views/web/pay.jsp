@@ -32,11 +32,9 @@
 	<div class="container-fluid main">
 		<div class="content">
 			<div class="header-content d-flex justify-content-center">
-<<<<<<< HEAD
-				GỌI MÓN</div>
-=======
-				Đặt món</div>
->>>>>>> 69e5666fb55c7df10702d2784a28573b99df17b0
+
+				ĐẶT MÓN</div>
+
 			<div class="row">
 				<div class="col-lg-4">
 					<div class="icon-header d-flex ">
