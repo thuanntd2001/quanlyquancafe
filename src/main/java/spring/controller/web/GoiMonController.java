@@ -68,7 +68,7 @@ public class GoiMonController {
 		// kt  list datban trong he thong 
 	
 			Session session = factory.getCurrentSession();
-			String hql = "FROM DatBanEntity";
+			String hql = "FROM DatBanEntity  where trangThai=0";
 			Query query = session.createQuery(hql);
 			List<DatBanEntity> listDatBan = query.list();
 
@@ -93,9 +93,9 @@ public class GoiMonController {
 				listBan.get((int) findBan(datBan.getBan().getId(), listBan)).setTinhTrang(3);
 			}
 			else {
-				//qua h thi cho ban trong ko bi mo nưa
+				//qua h thi cho ban trong ko bi mo nưa va loai bo trong CSDL (set 1)
 				listBHD.get((int) findBanHD(datBan.getBan().getId(), listBHD)).setTrangThaiCu(0);
-				
+				datBan.setTrangThai(1);
 			}
 		}
 		
