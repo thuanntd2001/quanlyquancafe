@@ -176,15 +176,15 @@
 							<div class="col-lg-6 d-flex flex-column shadow-box ">
 								<div class="d-flex justify-content-between">
 									<div>Tổng tiền:</div>
-									<label>${tongtien} </label>
+									<label id="tongTien">${tongtien} </label>
 								</div>
 								<div class="d-flex justify-content-between">
-									<label for="">Tiền nhận của khách:</label> <input type="text"
-										style="max-width: 90px; text-align: right;">
+									<label for="">Tiền nhận của khách:</label> <input onkeyup="autoTienThua(this.value)" type="number"
+										style="max-width: 100px; text-align: right;">
 								</div>
 								<div class="d-flex justify-content-between">
 									<div>Tiền thừa:</div>
-									<label>000000</label>
+									<label id="tienThua">000000</label>
 								</div>
 
 							</div>
