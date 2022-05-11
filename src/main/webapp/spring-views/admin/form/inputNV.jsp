@@ -158,7 +158,7 @@ body {
 			</div>
 
             <div class="card-footer">
-            <button class="btn btn-primary" type="submit"
+            <button id="nam" class="btn btn-primary" type="submit"
 				name="${btnupdate ? 'btnupdate' : 'Insert'}">${btnupdate ? 'Cập Nhật' : 'Thêm'}</button>
 				
 			<a style="font-size: 16px; padding: 10px;" class="btn btn-secondary"

@@ -186,8 +186,9 @@
 
 											<div class="row mb-3">
 												<label class="col-md-4 col-lg-3 col-form-label">SDT</label>
-												<div class="col-md-8 col-lg-9">
+												<div class="form-group col-md-8 col-lg-9">
 													<form:input id="sdt" cssClass="form-control" path="sdt"  required="true"/>
+														<span class="form-message"></span>
 												</div>
 											</div>
 
@@ -340,8 +341,8 @@
 	</div>
 	</div>
 	<jsp:include page="/common/web/footer.jsp" />
-	<script src="<c:url value='/template/web/validation.js'/>"></script>
-<!-- 	 <script>
+	<script src="<c:url value='/template/admin/validation.js'/>"></script>
+	 <script>
   
         document.addEventListener('DOMContentLoaded', function () {
           // Mong muốn của chúng ta
@@ -350,20 +351,27 @@
             formGroupSelector: '.form-group',
             errorSelector: '.form-message',
             rules: [
-              Validator.isRequired('#hoTen', 'Vui lòng nhập tên đầy đủ của bạn'),
-              Validator.isRequired('#diaChi', 'Vui lòng địa chỉ của bạn'),
-              Validator.isRequired('#email', 'Vui lòng địa chỉ email của bạn'),
+              Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ của bạn'),
+              Validator.isRequired('#diachi', 'Vui lòng địa chỉ của bạn'),
               Validator.minLength('#cmnd', 9),
               Validator.minLength('#sdt', 10),
-
+           /*  Validator.isEmail('#email'),
+              Validator.minLength('#password', 6),
+              Validator.isRequired('#password_confirmation'),
+              Validator.isConfirmed('#password_confirmation',  function () {
+                return document.querySelector('#form-1 #password').value;
+              }, 'Mật khẩu nhập lại không chính xác') */
             ],
-
+          /*   onSubmit: function (data) {
+                // Call API
+                console.log(data);
+              }  */
            
           });
   
         }); 
   
-      </script>  -->
+      </script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 	<script

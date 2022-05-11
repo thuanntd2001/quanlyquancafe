@@ -45,91 +45,107 @@ public class QLTaiKhoan {
 
 	// show form
 	@RequestMapping(value = "formTaiKhoan", method = RequestMethod.GET)
-	public String formInputTaikhoan(ModelMap model
-		) {
-		model.addAttribute("tk",new UserTBEntity());
+	public String formInputTaikhoan(ModelMap model) {
+		model.addAttribute("tk", new UserTBEntity());
 		model.addAttribute("chucvus", this.getChucVus());
 
 		return "admin/form/inputTaiKhoan";
 	}
 
-	 public List<ChucVuEntity> getChucVus(){
-			Session session = factory.getCurrentSession();
-			String hql = "FROM ChucVuEntity";
-			Query query = session.createQuery(hql);
-			List<ChucVuEntity> list = query.list();
+	public List<ChucVuEntity> getChucVus() {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM ChucVuEntity";
+		Query query = session.createQuery(hql);
+		List<ChucVuEntity> list = query.list();
+
+		return list;
+	}
+
+	public ChucVuEntity getChucVu(long id) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM ChucVuEntity where id =:id ";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		ChucVuEntity list = (ChucVuEntity) query.list().get(0);
+		return list;
+	}
+
+	public NhanVienEntity getNV(long id) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM NhanVienEntity where id =:id ";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		NhanVienEntity list = (NhanVienEntity) query.list().get(0);
+		return list;
+	}
+
+	// thêm
+	public boolean CheckUserName(String username) {
+		List<UserTBEntity> list = getTaiKhoans();
+		int n = list.size();
+		String user;
+		for (int i = 0; i < n; i++) {
+			user = list.get(i).getUserName();
+			if (user.equals(username)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@RequestMapping(value = "formTaiKhoan", params = "Insert", method = RequestMethod.POST)
+	public <E> String addTaiKhoan(HttpServletRequest request, ModelMap model, @ModelAttribute("tk") UserTBEntity tk) {
+		String error = "";
+		Integer temp = 0;
+
+		if (CheckUserName(tk.getUserName())) {
+			error = "vì tên tài khoản đã tồn tại!!!";
+		} else {
+			String maNVtmp = request.getParameter("manv");
 			
-			return list;
-		}
-	 
-	 public ChucVuEntity getChucVu (long id) {
-			Session session = factory.getCurrentSession();
-			String hql = "FROM ChucVuEntity where id =:id ";
-			Query query = session.createQuery(hql);
-			query.setParameter("id", id);
-			ChucVuEntity list = (ChucVuEntity) query.list().get(0);
-			return list;
-		}
-	 
-	 public NhanVienEntity getNV (long id) {
-			Session session = factory.getCurrentSession();
-			String hql = "FROM NhanVienEntity where id =:id ";
-			Query query = session.createQuery(hql);
-			query.setParameter("id", id);
-			NhanVienEntity list = (NhanVienEntity) query.list().get(0);
-			return list;
-		}
-	 
-	 //thêm
-	 @RequestMapping(value = "formTaiKhoan",params = "Insert", method = RequestMethod.POST )
-		public <E> String addTaiKhoan(HttpServletRequest request, ModelMap model,@ModelAttribute("tk") UserTBEntity tk) {
-		
-			String maNVtmp =request.getParameter("manv");
 			Integer maNV = Integer.parseInt(maNVtmp);
-			String tmp = request.getParameter("chucvu");
+			String tmp = request.getParameter("chucvu").trim();
 			Integer idChucVU = Integer.parseInt(tmp);
 			tk.setUsernv(getNV(maNV));
 			tk.setChucVu(getChucVu(idChucVU));
-			tk.setStatus(1);	
-		 	tk.setIcon("1");
-			Integer temp = this.insertTaiKhoan(tk);
-				
-			if(temp != 0) {
-			    model.addAttribute("message","them thanh cong");
-				
-			
-			}else {
-				model.addAttribute("message","them that bai");
-			}
-			@SuppressWarnings("unchecked")
-			PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getTaiKhoans());
-			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
-			pagedListHolder.setPage(page);
-			pagedListHolder.setMaxLinkedPages(10);
-			pagedListHolder.setPageSize(5);
-			model.addAttribute("pagedListHolder", pagedListHolder);
-			return "admin/qltaikhoan";
+			tk.setStatus(1);
+			tk.setIcon("1");
+			temp = this.insertTaiKhoan(tk);
 		}
-		
-		public Integer insertTaiKhoan(UserTBEntity tk) {
-			Session session = factory.openSession();
-			Transaction t = session.beginTransaction();
-			try {
 
-				session.save(tk);
-				t.commit();
-			}catch(Exception e) {
-				
-				t.rollback();
-				return 0;
-			}finally {
-				session.close();
-			}
-			return 1;
+		if (temp != 0) {
+			model.addAttribute("message", "Thêm mới thành công");
+
+		} else {
+			model.addAttribute("message", "Thêm thất bại " + error);
 		}
-		//end thêm
-	 
-	 
+		@SuppressWarnings("unchecked")
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getTaiKhoans());
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(10);
+		pagedListHolder.setPageSize(5);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		return "admin/qltaikhoan";
+	}
+
+	public Integer insertTaiKhoan(UserTBEntity tk) {
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		try {
+
+			session.save(tk);
+			t.commit();
+		} catch (Exception e) {
+
+			t.rollback();
+			return 0;
+		} finally {
+			session.close();
+		}
+		return 1;
+	}
+	// end thêm
 
 //	phần tìm kiếm
 	@SuppressWarnings("unchecked")
@@ -156,48 +172,51 @@ public class QLTaiKhoan {
 		List<UserTBEntity> list = query.list();
 		return list;
 	}
-	
-	
- //phần chỉnh sửa 
-	
-	@RequestMapping(value = "formTaiKhoan", params = "linkEdit" )
-	public String editTK_showform (HttpServletRequest request, ModelMap model,@ModelAttribute("tk") UserTBEntity tk) {
-		
-			
+
+	// phần chỉnh sửa
+
+	@RequestMapping(value = "formTaiKhoan", params = "linkEdit")
+	public String editTK_showform(HttpServletRequest request, ModelMap model, @ModelAttribute("tk") UserTBEntity tk) {
+
 		model.addAttribute("tk", this.getTaiKhoan(tk.getUserName()));
 		model.addAttribute("maNV", this.getTaiKhoan(tk.getUserName()).getUsernv().getMaNV());
-		model.addAttribute("chucvus", this.getChucVus()); 
-		model.addAttribute("idCV",this.getTaiKhoan(tk.getUserName()).getChucVu().getId());
-		/*System.out.println(tk.getUserName());*/
-		
-	
-		/*System.out.println(tk.getEmail());
-		System.out.println(tk.getIcon());
-		System.out.println(tk.getUsernv().getMaNV());
-		System.out.println(tk.getUserName());*/
-		
-		model.addAttribute("btnupdate","true");
-		return "admin/form/inputTaiKhoan";
-	}	
+		model.addAttribute("chucvus", this.getChucVus());
+		model.addAttribute("idCV", this.getTaiKhoan(tk.getUserName()).getChucVu().getId());
+		/* System.out.println(tk.getUserName()); */
 
-	@RequestMapping(value = "formTaiKhoan", params = "btnupdate" , method = RequestMethod.POST )
-	public <E> String editTK(HttpServletRequest requets, ModelMap model, 
-			@ModelAttribute("tk") UserTBEntity tk) {
-		
-		String maNVtmp =requets.getParameter("manv");
-		Integer maNV = Integer.parseInt(maNVtmp);
-		String tmp = requets.getParameter("chucvu");
-		Integer idChucVU = Integer.parseInt(tmp);
-		tk.setUsernv(getNV(maNV));
-		tk.setChucVu(getChucVu(idChucVU));
-		tk.setStatus(1);	
-	 	tk.setIcon("1");
-		Integer temp = this.updateTK(tk);
-		if( temp != 0) {
-			model.addAttribute("message", "Cập nhật thành công");	
+		/*
+		 * System.out.println(tk.getEmail()); System.out.println(tk.getIcon());
+		 * System.out.println(tk.getUsernv().getMaNV());
+		 * System.out.println(tk.getUserName());
+		 */
+
+		model.addAttribute("btnupdate", "true");
+		return "admin/form/inputTaiKhoan";
+	}
+
+	@RequestMapping(value = "formTaiKhoan", params = "btnupdate", method = RequestMethod.POST)
+	public <E> String editTK(HttpServletRequest requets, ModelMap model, @ModelAttribute("tk") UserTBEntity tk) {
+
+		String error = "";
+		Integer temp = 0;
+		System.out.println(CheckUserName(tk.getUserName()));
+		if (CheckUserName(tk.getUserName())) {
+			error = ", vì tên tài khoản đã tồn tại!!!";
+		} else {
+			String maNVtmp = requets.getParameter("manv");
+			Integer maNV = Integer.parseInt(maNVtmp);
+			String tmp = requets.getParameter("chucvu");
+			Integer idChucVU = Integer.parseInt(tmp);
+			tk.setUsernv(getNV(maNV));
+			tk.setChucVu(getChucVu(idChucVU));
+			tk.setStatus(1);
+			tk.setIcon("1");
+			temp = this.updateTK(tk);
 		}
-		else {
-			model.addAttribute("message", "Cập nhật không thành công");
+		if (temp != 0) {
+			model.addAttribute("message", "Cập nhật thành công");
+		} else {
+			model.addAttribute("message", "Cập nhật không thành công" + error);
 
 		}
 		@SuppressWarnings("unchecked")
@@ -205,58 +224,78 @@ public class QLTaiKhoan {
 		int page = ServletRequestUtils.getIntParameter(requets, "p", 0);
 		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(10);
-	
+
 		pagedListHolder.setPageSize(5);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		return "admin/qltaikhoan";
 	}
-	
-	
-	
+
 	public Integer updateTK(UserTBEntity tk) {
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		try {
 			session.update(tk);
 			t.commit();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			t.rollback();
 			return 0;
-		}
-		finally {
+		} finally {
 			session.close();
 		}
 		return 1;
 	}
-	// end phần chỉnh sửa 
+	// end phần chỉnh sửa
 
 //	phần xóa
-	@RequestMapping(value = "admin-taikhoan", params = "linkDelete",method = RequestMethod.GET)
-	public <E> String deleteNV (HttpServletRequest requests, ModelMap model,@ModelAttribute("tk") UserTBEntity tk) {
-		
-		String userName = tk.getUserName();
-		UserTBEntity tmp = this.getTaiKhoan(userName);
-		tmp.setStatus(0);
-		Integer temp = this.updateTK(tmp);
-		if(temp != 0) {
-			model.addAttribute("message","Delete thành công");
+	public Boolean checkAdmin(String username) {
+		List<UserTBEntity> list = getTaiKhoans();
+		int n = list.size();
+		UserTBEntity tmp;
+		for (int i = 0; i < n; i++) {
+			tmp = this.getTaiKhoan(list.get(i).getUserName());
+
+			if (tmp.getChucVu().getId() == 1 && tmp.getUserName().equals(username)) {
+				return true;
+
+			}
 		}
-		else {
-			model.addAttribute("message", "Delete k thành công");
+
+		return false;
+	}
+
+	@RequestMapping(value = "admin-taikhoan", params = "linkDelete", method = RequestMethod.GET)
+	public <E> String deleteNV(HttpServletRequest requests, ModelMap model, @ModelAttribute("tk") UserTBEntity tk) {
+
+		String error = "";
+		Integer temp = 0;
+
+		String userName = tk.getUserName();
+		
+		System.out.println(userName);
+		System.out.println(checkAdmin(userName));
+		if (checkAdmin(userName)) {
+			error = ", không thể xóa tài khoản admin";
+		} else {
+			UserTBEntity tmp = this.getTaiKhoan(userName);
+			tmp.setStatus(0);
+			temp = this.updateTK(tmp);
+		}
+		if (temp != 0) {
+			model.addAttribute("message", "Delete thành công");
+		} else {
+			model.addAttribute("message", "Delete k thành công" + error);
 		}
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getTaiKhoans());
 		int page = ServletRequestUtils.getIntParameter(requests, "p", 0);
 		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(10);
-	
-		
+
 		pagedListHolder.setPageSize(5);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		return "admin/qltaikhoan";
 
-}
+	}
 
 	public List<UserTBEntity> getTaiKhoans() {
 		Session session = factory.getCurrentSession();
@@ -274,11 +313,11 @@ public class QLTaiKhoan {
 		List<ChucVuEntity> list = query.list();
 		return list;
 	}
-	
-	public UserTBEntity getTaiKhoan (String username) {
+
+	public UserTBEntity getTaiKhoan(String username) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM UserTBEntity where userName =:username and status=:status";
-		
+
 		Query query = session.createQuery(hql);
 		query.setParameter("username", username);
 		query.setParameter("status", 1);

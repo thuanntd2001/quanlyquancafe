@@ -1,7 +1,6 @@
 package spring.controller.admin;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -22,17 +21,17 @@ import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.entity.NhanVienEntity;
 import spring.entity.UserTBEntity;
-import spring.controller.admin.QLTaiKhoan;
+
 @Transactional
 @Controller
 @RequestMapping(value = "/admin-home/" )
 public class QLNhanVienHome {
+	
 	@Autowired
 	SessionFactory factory;
 	// CONTROLLER
@@ -218,6 +217,19 @@ public class QLNhanVienHome {
 	}
 	/* end phần chỉnh sửa */
 	
+	//xóa tài khoản
+	
+	public UserTBEntity getTaiKhoan (String username) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM UserTBEntity where userName =:username and status=:status";
+		
+		Query query = session.createQuery(hql);
+		query.setParameter("username", username);
+		query.setParameter("status", 1);
+		UserTBEntity list = (UserTBEntity) query.list().get(0);
+		return list;
+	}
+	
 	public List<UserTBEntity> getTaiKhoans() {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM UserTBEntity where status =:status";
@@ -226,19 +238,7 @@ public class QLNhanVienHome {
 		List<UserTBEntity> list = query.list();
 		return list;
 	}
-	
-	public UserTBEntity getTaiKhoan (long Manv) {
-		Session session = factory.getCurrentSession();
-		String hql = "FROM UserTBEntity where usernv.maNV =:Manv and status=:status";
-		
-		Query query = session.createQuery(hql);
-		query.setParameter("Manv", Manv);
-		query.setParameter("status", 1);
-		UserTBEntity list = (UserTBEntity) query.list().get(0);
-		return list;
-	}
-	
-	public Integer updateTK(UserTBEntity tk) {
+	public void updateTK(UserTBEntity tk) {
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		try {
@@ -247,29 +247,48 @@ public class QLNhanVienHome {
 		}
 		catch (Exception e) {
 			t.rollback();
-			return 0;
+			
 		}
 		finally {
 			session.close();
 		}
-		return 1;
+		
 	}
-
 	
-	public void deleteTaiKhoan(long MaNV) {
-		List<UserTBEntity> list = (List<UserTBEntity>)getTaiKhoans();
+	public Boolean checkAdmin(long MaNV) {
+		List<UserTBEntity> list = getTaiKhoans();
 		int n = list.size();
-		System.out.println(n);
-		for(int i=0;i<n;i++)
-		{
-			if(list.get(i).getUsernv().getMaNV() == MaNV) {
-				UserTBEntity tmp = this.getTaiKhoan(MaNV);
+		UserTBEntity tmp;
+		for(int i=0;i<n;i++) {
+			tmp =  	this.getTaiKhoan(list.get(i).getUserName());
+		
+			if(tmp.getUsernv().getMaNV() == MaNV && tmp.getChucVu().getId()== 1) {
+				return true;
+				
+			}
+		}
+		
+		return false;
+	}
+	
+	public void delete_TK(long MaNV) {
+		List<UserTBEntity> list = getTaiKhoans();
+		int n = list.size();
+		UserTBEntity tmp;
+		for(int i=0;i<n;i++) {
+			tmp =  	this.getTaiKhoan(list.get(i).getUserName());
+		
+			if(tmp.getUsernv().getMaNV() == MaNV) {
 				tmp.setStatus(0);
-				updateTK(tmp);
-				System.out.println("daxoaoooooooooo");
+				System.out.println(tmp.getUserName());
+				this.updateTK(tmp);
+				
 			}
 		}
 	}
+	
+	
+	
 	
 //	phần xóa
 	@RequestMapping(value = "index", params = "linkDelete",method = RequestMethod.GET)
@@ -277,12 +296,20 @@ public class QLNhanVienHome {
 		String id1 =request.getParameter("id");
 		long maNV = Long.parseLong(id1);
 		NhanVienEntity tmp = this.getNV(maNV);
-		tmp.setDaNghi(true);
-		/*this.deleteTaiKhoan(maNV);*/
 		
-		Integer temp = this.updateNV(tmp);
+		Integer temp=1;
+		Boolean checkAdmin = checkAdmin(maNV);
+		String error ="!!!";
+		if(checkAdmin) {
+			error = ", không được xóa admin ";
+		}else {
+			this.delete_TK(maNV);
+			temp = this.updateNV(tmp);
+		}
+		System.out.println(checkAdmin);
+	
 		if(temp != 0) {
-			model.addAttribute("message","Delete k thành công");
+			model.addAttribute("message","Delete k thành công"+error);
 		}
 		else {
 			model.addAttribute("message", "Delete thành công");
