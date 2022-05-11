@@ -46,23 +46,6 @@ public class DatBanEntity {
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="dd-MM-yyyy")
 	private Date ngayDat;
-	
-	public BanEntity getBan() {
-		return ban;
-	}
-
-	public void setBan(BanEntity ban) {
-		this.ban = ban;
-	}
-
-	public int getTrangThai() {
-		return trangThai;
-	}
-
-	public void setTrangThai(int trangThai) {
-		this.trangThai = trangThai;
-	}
-
 	@Column(name="TGDUKIEN")
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private Timestamp tgDuKien;
@@ -80,6 +63,24 @@ public class DatBanEntity {
 	
 	@Column(name="TRANGTHAI")
 	private int trangThai;
+
+	public BanEntity getBan() {
+		return ban;
+	}
+
+	public void setBan(BanEntity ban) {
+		this.ban = ban;
+	}
+
+	public int getTrangThai() {
+		return trangThai;
+	}
+
+	public void setTrangThai(int trangThai) {
+		this.trangThai = trangThai;
+	}
+
+
 
 	public Long getId() {
 		return id;

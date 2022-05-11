@@ -150,6 +150,7 @@ public class ThanhToanController {
 				flag= themCTHDs(banHD.getCthds());
 				if (flag==1) {
 					 banHD.setHoaDon(null);
+					 banHD.setCthds(new ArrayList<ChiTietHDEntity>());
 					 listBan.get((int) findBan(ban,listBan)).setTinhTrang(banHD.getTrangThaiCu());
 					 model.addAttribute("message", "Thanh toán thành công");
 				}
@@ -159,10 +160,6 @@ public class ThanhToanController {
 			
 		}
 		
-
-		
-
-		listBHD.get((int) findBanHD(ban, listBHD)).xuat();
 		return "web/thanhtoan";
 
 	}

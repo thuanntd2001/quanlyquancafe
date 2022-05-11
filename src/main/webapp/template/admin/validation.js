@@ -4,6 +4,7 @@ function Validator(options) {
         while (element.parentElement) {
             if (element.parentElement.matches(selector)) {
                 return element.parentElement;
+                alert(element.parentElement);
             }
             element = element.parentElement;
         }

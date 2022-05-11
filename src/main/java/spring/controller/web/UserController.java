@@ -86,7 +86,7 @@ public class UserController {
 			System.out.print("Vui lòng nhập CMND");
 		}
 		if (er.hasErrors()) {
-			model.addAttribute("message", "sửa thất bại, kiểm tra lai các trường");
+			model.addAttribute("message1", "sửa thất bại, kiểm tra lai các trường");
 
 
 		} else {

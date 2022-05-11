@@ -32,7 +32,9 @@
 	<div class="container-fluid main">
 		<div class="content">
 			<div class="header-content d-flex justify-content-center">
-				Đặt món</div>
+
+				ĐẶT MÓN</div>
+
 			<div class="row">
 				<div class="col-lg-4">
 					<div class="icon-header d-flex ">
@@ -128,7 +130,7 @@
 					<form action="goi-mon.htm" method="post">
 						<h5>
 							Bàn số:
-							<select name="Ban">
+							<select name="Ban" id="ban">
 							<c:forEach items="${banids}" var="B">
 
 								<option value="${B}" <c:if test="${B == idBanHT }"> selected</c:if>>${B}</option>

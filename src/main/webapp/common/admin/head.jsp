@@ -27,7 +27,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-
+<link rel="stylesheet" href=<c:url value="/template/admin/alert.css"/>>
 
 <!-- Custom fonts for this template-->
 <script
