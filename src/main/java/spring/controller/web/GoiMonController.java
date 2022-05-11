@@ -65,20 +65,20 @@ public class GoiMonController {
 			application.setAttribute("banids", listIdsBan);
 			application.setAttribute("thucDons", getThucDons());
 		}
-		// kt co list datban trong he thong ko co thi tao list nay 
-		if (application.getAttribute("datBans") == null) {
+		// kt  list datban trong he thong 
+	
 			Session session = factory.getCurrentSession();
-			String hql = "FROM DatBanEntity";
+			String hql = "FROM DatBanEntity  where trangThai=0";
 			Query query = session.createQuery(hql);
 			List<DatBanEntity> listDatBan = query.list();
 
 			application.setAttribute("datBans", listDatBan);
-		}
+	
 		// dieu kien de dat ban dc set ra view
-		List<DatBanEntity> listDatBan = (List<DatBanEntity>) application.getAttribute("datBans");
+
 		List<BanHoaDonModel> listBHD = (List<BanHoaDonModel>) application.getAttribute("banHoaDons");
 		List<BanEntity> listBan = (List<BanEntity>) application.getAttribute("listBan");
-		long tgCho=1800;
+		long tgCho=1800000;
 		Timestamp now = new Timestamp(System.currentTimeMillis()+tgCho);
 		System.out.println(now.toString());
 		for (DatBanEntity datBan : listDatBan) {
@@ -86,11 +86,17 @@ public class GoiMonController {
 			System.out.println(datBan.getTgDuKien().toString());
 			System.out.println(datBan.getTgDuKien().after(now));
 			if(datBan.getTgDuKien().after(now)) {
-				if (listBHD.get((int) findBanHD(datBan.getBan().getId(), listBHD)).getTrangThaiCu()==0)
 				listBHD.get((int) findBanHD(datBan.getBan().getId(), listBHD)).setTrangThaiCu(3);
-				listBan.get((int) findBan(datBan.getBan().getId(), listBan)).setTinhTrang(listBHD.get((int) findBanHD(datBan.getBan().getId(), listBHD)).getTrangThaiCu());
+				//neu ban ko ai ngoi set la da dat
+				if (listBan.get((int) findBan(datBan.getBan().getId(), listBan)).getTinhTrang()==0)
+
+				listBan.get((int) findBan(datBan.getBan().getId(), listBan)).setTinhTrang(3);
 			}
-			
+			else {
+				//qua h thi cho ban trong ko bi mo nưa va loai bo trong CSDL (set 1)
+				listBHD.get((int) findBanHD(datBan.getBan().getId(), listBHD)).setTrangThaiCu(0);
+				datBan.setTrangThai(1);
+			}
 		}
 		
 
@@ -114,6 +120,8 @@ public class GoiMonController {
 		String loai = (String) request.getParameter("loaiTU");
 		String thucDon = (String) request.getParameter("thucDon");
 		int sl = Integer.parseInt(request.getParameter("sl"));
+		if (sl<=0) sl=1;
+		else if(sl>50) sl=50; 
 		// set view
 		model.addAttribute("bans", listBan);
 		model.addAttribute("loaiTUs", getLoaiTUs());
@@ -150,6 +158,7 @@ public class GoiMonController {
 			// nếu co thi cong sl vao
 			else {
 				int oldSL = BHD.getCthds().get((int) index).getSoLuong();
+				if (oldSL+sl<=50)
 				BHD.getCthds().get((int) index).setSoLuong(oldSL + sl);
 				System.out.println(oldSL);
 				System.out.println(oldSL + sl);
