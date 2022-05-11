@@ -106,3 +106,8 @@ function EditNumber(myid) {
     }
 };
 
+//auto tien thua
+function autoTienThua(tien_khach) {
+    let tong_tien = $('#tongTien').text();
+    $('#tienThua').text(tien_khach - tong_tien);
+}
