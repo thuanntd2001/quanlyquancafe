@@ -169,8 +169,8 @@ body {
 		</form:form>
 		
 	</div>
-	<script src="<c:url value='/template/admin/validation.js'/>"></script>
-	 <script>
+<%-- 	<script src="<c:url value='/template/admin/validation.js'/>"></script> --%>
+<!-- 	 <script>
   
         document.addEventListener('DOMContentLoaded', function () {
           // Mong muốn của chúng ta
@@ -183,6 +183,10 @@ body {
               Validator.isRequired('#diachi', 'Vui lòng địa chỉ của bạn'),
               Validator.minLength('#cmnd', 9),
               Validator.minLength('#sdt', 10),
+              
+              
+              
+              
            /*  Validator.isEmail('#email'),
               Validator.minLength('#password', 6),
               Validator.isRequired('#password_confirmation'),
@@ -199,6 +203,6 @@ body {
   
         }); 
   
-      </script>
+      </script> -->
 </body>
 </html>

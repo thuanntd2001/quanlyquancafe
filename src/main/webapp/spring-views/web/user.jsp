@@ -186,20 +186,14 @@
 													</div>
 												</div>
 
-<<<<<<< HEAD
-											<div class="row mb-3">
-												<label class="col-md-4 col-lg-3 col-form-label">SDT</label>
-												<div class="form-group col-md-8 col-lg-9">
-													<form:input id="sdt" cssClass="form-control" path="sdt"  required="true"/>
-														<span class="form-message"></span>
-=======
+
 												<div class="row mb-3">
 													<label class="col-md-4 col-lg-3 col-form-label">SDT</label>
 													<div class="col-md-8 col-lg-9">
 														<form:input id="sdt" cssClass="form-control" path="sdt"
 															minlength="10" pattern="^[0-9]{10,15}$" required="true" />
 													</div>
->>>>>>> f2fa1335f81bb5a155fd7fac0bb9cdb012fb46d1
+
 												</div>
 
 												<div class="row mb-3">
@@ -358,48 +352,10 @@ UùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶ�
 		</div>
 	</div>
 	<jsp:include page="/common/web/footer.jsp" />
-<<<<<<< HEAD
-	<script src="<c:url value='/template/admin/validation.js'/>"></script>
-	 <script>
-=======
-	<%-- 	<script src="<c:url value='/template/web/validation.js'/>"></script>
- 	 <script>
->>>>>>> f2fa1335f81bb5a155fd7fac0bb9cdb012fb46d1
-  
-        document.addEventListener('DOMContentLoaded', function () {
-          // Mong muốn của chúng ta
-          Validator({
-            form: '#form1',
-            formGroupSelector: '.form-group',
-            errorSelector: '.form-message',
-            rules: [
-              Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ của bạn'),
-              Validator.isRequired('#diachi', 'Vui lòng địa chỉ của bạn'),
-              Validator.minLength('#cmnd', 9),
-              Validator.minLength('#sdt', 10),
-           /*  Validator.isEmail('#email'),
-              Validator.minLength('#password', 6),
-              Validator.isRequired('#password_confirmation'),
-              Validator.isConfirmed('#password_confirmation',  function () {
-                return document.querySelector('#form-1 #password').value;
-              }, 'Mật khẩu nhập lại không chính xác') */
-            ],
-          /*   onSubmit: function (data) {
-                // Call API
-                console.log(data);
-              }  */
-           
-          });
-  
-        }); 
-  
-<<<<<<< HEAD
-      </script>
-=======
-      </script>  --%>
->>>>>>> f2fa1335f81bb5a155fd7fac0bb9cdb012fb46d1
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+
+	<script>
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js">
+	</script>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script
