@@ -42,14 +42,14 @@ public class GoiMonController {
 	@RequestMapping(value = "goi-mon", method = RequestMethod.GET)
 	public String createList(ModelMap model) {
 		// kt co list ban tong he thong ko co thi tao list nay2 set ra view
-		if (application.getAttribute("listBan") == null) {
+		{
 			Session session = factory.getCurrentSession();
 			String hql = "FROM BanEntity";
 			Query query = session.createQuery(hql);
 			List<BanEntity> listBan = query.list();
 
-			application.setAttribute("listBan", listBan);
-		}
+			application.setAttribute("listBan", listBan);}
+
 		// kt co list ban tong he thong ko co thi tao list nay tinh hoa don
 		if (application.getAttribute("banHoaDons") == null) {
 			List<BanHoaDonModel> listBHD = new ArrayList();
@@ -79,7 +79,10 @@ public class GoiMonController {
 		List<BanHoaDonModel> listBHD = (List<BanHoaDonModel>) application.getAttribute("banHoaDons");
 		List<BanEntity> listBan = (List<BanEntity>) application.getAttribute("listBan");
 		long tgCho=1800000;
+		long tgdukien=12*3600*1000;
+
 		Timestamp now = new Timestamp(System.currentTimeMillis()+tgCho);
+		Timestamp tgdk_ts = new Timestamp(System.currentTimeMillis()+tgdukien);
 		System.out.println(now.toString());
 		for (DatBanEntity datBan : listDatBan) {
 			
@@ -88,9 +91,9 @@ public class GoiMonController {
 			if(datBan.getTgDuKien().after(now)) {
 				listBHD.get((int) findBanHD(datBan.getBan().getId(), listBHD)).setTrangThaiCu(3);
 				//neu ban ko ai ngoi set la da dat
-				if (listBan.get((int) findBan(datBan.getBan().getId(), listBan)).getTinhTrang()==0)
-
-				listBan.get((int) findBan(datBan.getBan().getId(), listBan)).setTinhTrang(3);
+				if (listBan.get((int) findBan(datBan.getBan().getId(), listBan)).getTinhTrang()==0 )
+					if(datBan.getTgDuKien().before(tgdk_ts))
+						listBan.get((int) findBan(datBan.getBan().getId(), listBan)).setTinhTrang(3);
 			}
 			else {
 				//qua h thi cho ban trong ko bi mo nưa va loai bo trong CSDL (set 1)
