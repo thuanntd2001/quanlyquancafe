@@ -11,31 +11,33 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<style type="text/css">
+.errors {
+	color: red;
+	font-style: italic;
+}
+</style>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
 	<h3 style="text-align: center;">${message}</h3>
-	<form class="container"  action="mailer/send.htm" method="post">
+	<form class="container" action="mailer/send.htm" method="post">
 
-		<br>
-		<input value="nhonamstg@gmail.com" style ="display: none;" name="from" placeholder="From">
+		<br> <input value="nhonamstg@gmail.com" style="display: none;"
+			name="from" placeholder="From">
 		<div class="form-group">
-			<label for="exampleFormControlInput1">Nhập địa chỉ email của bạn</label> <input
-				name="to" type="email" class="form-control"
+			<label for="exampleFormControlInput1">Nhập địa chỉ email của
+				bạn</label> <input name="to" type="email" class="form-control"
 				id="exampleFormControlInput1" placeholder="name@example.com">
 		</div>
-		
-<!-- 		<div class="form-group">
-			<input name=subject class="form-control" type="text"
-				placeholder="subject">
-		</div>
+
 		<div class="form-group">
-			<label  for="exampleFormControlTextarea1">Body</label>
-			<textarea name="body" class="form-control" id="exampleFormControlTextarea1"
-				rows="3"></textarea>
+			<div class="g-recaptcha"
+				data-sitekey="6Ld1TpAfAAAAAOR_gKzy4BMOirgICntMGSp-XR5B"></div>
 		</div>
-
- -->
-
+		<div class="mb-1">
+			<h6 class="mb-0 text-sm errors">${reCaptra}</h6>
+		</div>
 
 
 		<button>Send</button>
