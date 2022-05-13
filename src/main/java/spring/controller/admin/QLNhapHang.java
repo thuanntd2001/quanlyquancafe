@@ -89,7 +89,7 @@ public class QLNhapHang {
 			nh.setTenNL(null);
 
 		} else {
-			model.addAttribute("message", "Thêm thất bại");
+			model.addAttribute("message", "Thêm thất bại, vui lòng nhập đúng định dạng");
 		}
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getDonNhapHangs());
@@ -158,9 +158,8 @@ public class QLNhapHang {
 			model.addAttribute("message", "Cập nhật không thành công");
 
 		}
-	/*	
-		 * List<NhanVienEntity> nhanvien = this.getNhanVien();
-		 * model.addAttribute("nhanvien", nhanvien); return "admin/QLNV";
+		
+		 
 		 
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getDonNhapHangs());
@@ -169,9 +168,9 @@ public class QLNhapHang {
 		pagedListHolder.setMaxLinkedPages(10);
 
 		pagedListHolder.setPageSize(5);
-		model.addAttribute("pagedListHolder", pagedListHolder);*/
+		model.addAttribute("pagedListHolder", pagedListHolder);
 		// model.addAttribute("bans", list);
-		return "redirect:/admin-home/admin-nhaphang.htm";
+		return "admin/qlnhaphang";
 	}
 
 	public Integer updateNH(ChiPhiEntity nh) {

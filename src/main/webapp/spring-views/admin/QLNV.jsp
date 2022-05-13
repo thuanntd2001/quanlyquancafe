@@ -46,16 +46,7 @@
 					</a>
 
 				</div>
-				<div class="col-6">
-					<button id="nam" onclick="showErrorToast()">Show Alert</button>
-					<div class="alert hide">
-						<span class="fas fa-exclamation-circle"></span> <span class="msg">Cảnh
-							Báo: ${message}</span>
-						<div class="close-btn">
-							<span class="fas fa-times"></span>
-						</div>
-					</div>
-				</div>
+				
 
 
 
@@ -176,31 +167,7 @@
 		</div>
 	</div>
 	<jsp:include page="/common/admin/footer.jsp" />
-	<script>
-		$('#nam').click(function() {
-			$('.alert').addClass("show");
-			$('.alert').removeClass("hide");
-			$('.alert').addClass("showAlert");
-			setTimeout(function() {
-				$('.alert').removeClass("show");
-				$('.alert').addClass("hide");
-			}, 1500);
-		});
-		$('.close-btn').click(function() {
-			$('.alert').removeClass("show");
-			$('.alert').addClass("hide");
-		});
-	</script>
-	<script>
-		function showErrorToast() {
-			toast({
-				title : "Thất bại!",
-				message : "Có lỗi xảy ra, vui lòng liên hệ quản trị viên.",
-				type : "error",
-				duration : 5000
-			});
-		}
-	</script>
+
 </body>
 
 </html>
