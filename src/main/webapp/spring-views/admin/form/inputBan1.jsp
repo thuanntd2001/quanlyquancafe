@@ -33,7 +33,7 @@ body {
 			<div class="form-group">
 				
 					<label>Số Ghế</label> <input id="soghe" value="${soGhe1}" name="soGhe"
-					min="1" max="20" type="number" placeholder="2,4,10...." />
+					min="1" max="20" required="true" maxlength="3" type="number" placeholder="2,4,10...." />
 						<span class="form-message"></span>
 				
 			</div>

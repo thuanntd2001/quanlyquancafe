@@ -1,5 +1,6 @@
 package spring.controller.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.entity.ChucVuEntity;
 import spring.entity.NhanVienEntity;
+import spring.entity.ThucDonEntity;
 import spring.entity.UserTBEntity;
 
 @Transactional
@@ -48,7 +50,7 @@ public class QLTaiKhoan {
 	public String formInputTaikhoan(ModelMap model) {
 		model.addAttribute("tk", new UserTBEntity());
 		model.addAttribute("chucvus", this.getChucVus());
-
+		model.addAttribute("fixmanv", "false");
 		return "admin/form/inputTaiKhoan";
 	}
 
@@ -80,44 +82,62 @@ public class QLTaiKhoan {
 	}
 
 	// thêm
-	public boolean CheckUserName(String username) {
+	public int CheckUserName_Email(String username, String email) {
 		List<UserTBEntity> list = getTaiKhoans();
 		int n = list.size();
 		String user;
+		String emailtmp;
 		for (int i = 0; i < n; i++) {
 			user = list.get(i).getUserName();
 			if (user.equals(username)) {
-				return true;
+				return 1;
+			}
+
+			emailtmp = list.get(i).getEmail();
+			if (emailtmp.equals(email)) {
+				return 2;
 			}
 		}
-		return false;
+		return 0;
 	}
+
 
 	@RequestMapping(value = "formTaiKhoan", params = "Insert", method = RequestMethod.POST)
 	public <E> String addTaiKhoan(HttpServletRequest request, ModelMap model, @ModelAttribute("tk") UserTBEntity tk) {
 		String error = "";
 		Integer temp = 0;
-
-		if (CheckUserName(tk.getUserName())) {
+		int check = CheckUserName_Email(tk.getUserName(), tk.getEmail());
+		List<String> listError = new ArrayList<>();
+		if (tk.getUserName().trim().equals("")) {
+			error = "Tên tài khoản không được để trống!";
+		} else if (check == 1) {
 			error = "vì tên tài khoản đã tồn tại!!!";
+		} else if (check == 2) {
+			error = "email không được trùng!!!";
 		} else {
 			String maNVtmp = request.getParameter("manv");
-			
+
 			Integer maNV = Integer.parseInt(maNVtmp);
 			String tmp = request.getParameter("chucvu").trim();
 			Integer idChucVU = Integer.parseInt(tmp);
+			/*
+			 * if(CheckMaNhanVien(maNV)) { error ="Mã Nhân Viên không tồn tại!"; }else {
+			 */
 			tk.setUsernv(getNV(maNV));
 			tk.setChucVu(getChucVu(idChucVU));
 			tk.setStatus(1);
 			tk.setIcon("1");
+			/*listError = checkInfo(tk);*/
+
 			temp = this.insertTaiKhoan(tk);
+			// }
 		}
 
 		if (temp != 0) {
 			model.addAttribute("message", "Thêm mới thành công");
 
 		} else {
-			model.addAttribute("message", "Thêm thất bại " + error);
+			model.addAttribute("message", "Thêm thất bại " + error + " " + listError);
 		}
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getTaiKhoans());
@@ -189,34 +209,53 @@ public class QLTaiKhoan {
 		 * System.out.println(tk.getUsernv().getMaNV());
 		 * System.out.println(tk.getUserName());
 		 */
-
+		model.addAttribute("fixmanv", "true");// không đc sủa mã nhân viên
+		model.addAttribute("doc", "true");// không được sửa usernam
 		model.addAttribute("btnupdate", "true");
 		return "admin/form/inputTaiKhoan";
+	}
+
+	public List<NhanVienEntity> getNhanVien() {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM NhanVienEntity where daNghi = false";
+		Query query = session.createQuery(hql);
+		List<NhanVienEntity> list = query.list();
+		return list;
+	}
+
+	public boolean CheckMaNhanVien(long manv) {
+		List<NhanVienEntity> list = getNhanVien();
+		int n = list.size();
+		long MANV;
+		for (int i = 0; i < n; i++) {
+			MANV = list.get(i).getMaNV();
+			if (MANV == manv) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@RequestMapping(value = "formTaiKhoan", params = "btnupdate", method = RequestMethod.POST)
 	public <E> String editTK(HttpServletRequest requets, ModelMap model, @ModelAttribute("tk") UserTBEntity tk) {
 
-		String error = "";
 		Integer temp = 0;
-		System.out.println(CheckUserName(tk.getUserName()));
-		if (CheckUserName(tk.getUserName())) {
-			error = ", vì tên tài khoản đã tồn tại!!!";
-		} else {
-			String maNVtmp = requets.getParameter("manv");
-			Integer maNV = Integer.parseInt(maNVtmp);
-			String tmp = requets.getParameter("chucvu");
-			Integer idChucVU = Integer.parseInt(tmp);
-			tk.setUsernv(getNV(maNV));
-			tk.setChucVu(getChucVu(idChucVU));
-			tk.setStatus(1);
-			tk.setIcon("1");
-			temp = this.updateTK(tk);
-		}
+
+		String maNVtmp = requets.getParameter("manv");
+		Integer maNV = Integer.parseInt(maNVtmp);
+		String tmp = requets.getParameter("chucvu");
+		Integer idChucVU = Integer.parseInt(tmp);
+		tk.setUsernv(getNV(maNV));
+		tk.setChucVu(getChucVu(idChucVU));
+		tk.setStatus(1);
+		tk.setIcon("1");
+
+		temp = this.updateTK(tk);
+
 		if (temp != 0) {
 			model.addAttribute("message", "Cập nhật thành công");
 		} else {
-			model.addAttribute("message", "Cập nhật không thành công" + error);
+			model.addAttribute("message", "Cập nhật không thành công");
 
 		}
 		@SuppressWarnings("unchecked")
@@ -270,7 +309,7 @@ public class QLTaiKhoan {
 		Integer temp = 0;
 
 		String userName = tk.getUserName();
-		
+
 		System.out.println(userName);
 		System.out.println(checkAdmin(userName));
 		if (checkAdmin(userName)) {

@@ -51,7 +51,7 @@ body {
 							</span>
 						</div>
 						<form:input id="fullname" type="text" class="form-control"
-							placeholder="Nguyễn Văn A" path="hoTen" aria-label="Username"
+							placeholder="Nguyễn Văn A" path="hoTen" aria-label="Username" maxlength="50"
 							aria-describedby="basic-addon1" />
 						<span class="form-message"></span>
 					</div>
@@ -73,7 +73,7 @@ body {
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label>CMND/CCCD</label> <br>
-					<form:input id="cmnd" type="text" path="cmnd" minlength="9"
+					<form:input id="cmnd" type="text" path="cmnd" minlength="9" maxlength="13"
 						 required="true" pattern="^[0-9]{1,15}$" />
 					<span class="form-message"></span>
 				</div>
@@ -87,7 +87,7 @@ body {
 						<div class="input-group-prepend">
 							<span class="input-group-text" id="basic-addon1"> </span>
 						</div>
-						<form:input min="50000" max="100000000" type="number"
+						<form:input min="50000" max="100000000" type="number" minlength="5" maxlength="15"
 							class="form-control" path="luong" aria-label="luong"
 							aria-describedby="basic-addon1" />
 						<div class="input-group-append">
@@ -123,7 +123,7 @@ body {
 			<div class="form-row row">
 				<div class="form-group col-md-6">
 					<label>Số Điện Thoại</label> <br>
-					<form:input id="sdt" path="sdt" type="text" minlength="10"
+					<form:input id="sdt" path="sdt" type="text" minlength="10" maxlength="10"
 						pattern="^[0-9]{10,15}$" required="true" />
 					<span class="form-message"></span>
 
