@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 import javax.servlet.ServletContext;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,28 +65,29 @@ public class UserController {
 		System.out.print(nv.getSdt().trim() + " " + nv.getCmnd().trim() + "\n" + nv.getSdt().trim().length() + "\n"
 				+ nv.getCmnd().trim().length());
 		nv.setNgaySinh(ngaySinh);
-		if (request.getParameter("email")!=null && !request.getParameter("email").equals(""))
+		if (request.getParameter("email") != null && !request.getParameter("email").equals(""))
 			user.setEmail(request.getParameter("email"));
 		else {
 			er.rejectValue("email", "Vui lòng nhập địa chỉ email");
 			System.out.print("Vui lòng nhập địa chỉ email");
 		}
-		if (nv.getDiaChi()!=null && nv.getDiaChi().trim().equals("")) {
+		if (nv.getDiaChi() != null && nv.getDiaChi().trim().equals("")) {
 			er.rejectValue("diaChi", "nv", "Vui lòng nhập địa chỉ");
 			System.out.print("Vui lòng nhập địa chỉ");
 		}
-		if (nv.getSdt()!=null&&(nv.getSdt().trim().length() < 1 || nv.getSdt().trim().length() > 12||!checknum(nv.getSdt().trim()))) {
+		if (nv.getSdt() != null && (nv.getSdt().trim().length() < 1 || nv.getSdt().trim().length() > 12
+				|| !checknum(nv.getSdt().trim()))) {
 			er.rejectValue("sdt", "nv", "Vui lòng nhập sdt đúng định dạng");
 			System.out.print("Vui lòng nhập sdt");
 		}
 
-		if (nv.getCmnd()!=null&&(nv.getCmnd().trim().length() < 1 || nv.getCmnd().trim().length() > 15||!checknum(nv.getCmnd().trim()))) {
+		if (nv.getCmnd() != null && (nv.getCmnd().trim().length() < 1 || nv.getCmnd().trim().length() > 15
+				|| !checknum(nv.getCmnd().trim()))) {
 			er.rejectValue("cmnd", "nv", "Vui lòng nhập CMND đúng");
 			System.out.print("Vui lòng nhập CMND");
 		}
 		if (er.hasErrors()) {
 			model.addAttribute("message1", "sửa thất bại, kiểm tra lai các trường");
-
 
 		} else {
 			Integer temp = this.updateInfo(request, nv, user);
@@ -97,13 +97,13 @@ public class UserController {
 				session.setAttribute("message1", "Cập nhật không thành công");
 			}
 		}
-	
 
-		/*UserTBEntity user2 = this.getUser(id);
-		model.addAttribute("user", user2);
-		model.addAttribute("nv", this.getNV(id));
-		model.addAttribute("changePW", new Password());*/
-		
+		/*
+		 * UserTBEntity user2 = this.getUser(id); model.addAttribute("user", user2);
+		 * model.addAttribute("nv", this.getNV(id)); model.addAttribute("changePW", new
+		 * Password());
+		 */
+
 		return "redirect:user.htm";
 	}
 
@@ -198,14 +198,12 @@ public class UserController {
 		return list;
 	}
 
-	public boolean checknum(String str) 
-	{
-	  
-	    for(int i=0; i<str.length();i++)
-	    {
-	        if(str.charAt(i) < '0' || str.charAt(i) > '9')
-	            return false;
-	    }
-	    return true;
-	} 
+	public boolean checknum(String str) {
+
+		for (int i = 0; i < str.length(); i++) {
+			if (str.charAt(i) < '0' || str.charAt(i) > '9')
+				return false;
+		}
+		return true;
+	}
 }

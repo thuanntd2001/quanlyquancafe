@@ -43,7 +43,7 @@ public class LoginController extends HttpServlet{
 			if (message != null && alert != null) {
 				request.setAttribute("message", resourceBundle.getString(message));
 				request.setAttribute("alert", alert);
-				System.out.print(resourceBundle.getString(message));
+				System.out.print(message);
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp-views/login.jsp");
 			rd.forward(request, response);
