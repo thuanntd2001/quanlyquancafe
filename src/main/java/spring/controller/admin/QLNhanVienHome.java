@@ -1,6 +1,7 @@
 package spring.controller.admin;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -62,9 +63,41 @@ public class QLNhanVienHome {
 		List<NhanVienEntity> list = query.list();
 		return list;
 	}
+	
+	public List<String> checkInfo(NhanVienEntity nv,String dateInString,String dateInString1) {
+		List<String> listError = new ArrayList<>();
+		
+		
+		if(nv.getHoTen().trim().equals("")) {
+			listError.add("chưa nhập họ tên");
+		}
+		if( nv.getCmnd().trim().equals("")){
+			listError.add("chưa nhập chứng minh");
+		}
+		if( nv.getDiaChi().trim().equals("")){
+			listError.add("chưa nhập địa chỉ");
+		}
+		
+		if ( nv.getLuong() == null) {
+			listError.add("chưa nhập lương");
+		}
+		if(nv.getSdt().trim().equals("")) {
+			listError.add("chưa số điện thoại");
+		}
+		if(dateInString.equals("")) {
+			listError.add("chưa ngày sinh");
+		}
+		if( dateInString1.equals("")){
+			listError.add("chưa nhập ngày vào làm");
+		}
+		return listError;
+		
+	}
 	/*thêm nhân viên*/
 	@RequestMapping(value = "form",params = "Insert", method = RequestMethod.POST )
 	public <E> String addUser(HttpServletRequest request, ModelMap model,@ModelAttribute("nv") NhanVienEntity nv) {
+		
+		
 		
 		String dateInString = request.getParameter("ngaysinh");
 		Date ngaysinh;
@@ -88,7 +121,15 @@ public class QLNhanVienHome {
 			e.printStackTrace();
 		}
 		
+		List<String> listError = checkInfo(nv, dateInString,dateInString1);
+		nv.getLuong();
+		nv.getHoTen().trim();
+		nv.getCmnd().trim();
+		nv.getDiaChi().trim();
+		nv.getSdt().trim();
+		
 		nv.setDaNghi(false);
+		
 		Integer temp = this.insertUser(nv);
 		if(temp != 0) {
 			
@@ -101,7 +142,7 @@ public class QLNhanVienHome {
 			nv.setDiaChi(null);
 			
 		}else {
-			model.addAttribute("message","Thêm thất bại vui lòng nhập đúng định dạng");
+			model.addAttribute("message","Thêm thất bại! "+listError);
 			
 		}
 		@SuppressWarnings("unchecked")
@@ -177,13 +218,19 @@ public class QLNhanVienHome {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		List<String> listError = checkInfo(nv, dateInString,dateInString1);
+		nv.getLuong();
+		nv.getHoTen().trim();
+		nv.getCmnd().trim();
+		nv.getDiaChi().trim();
+		nv.getSdt().trim();
 		
 		Integer temp = this.updateNV(nv);
 		if( temp != 0) {
 			model.addAttribute("message", "Cập nhật thành công");	
 		}
 		else {
-			model.addAttribute("message", "Cập nhật không thành công nhân vien số "+nv.getMaNV());
+			model.addAttribute("message", "Cập nhật không thành công! "+ listError);
 
 		}
 		@SuppressWarnings("unchecked")

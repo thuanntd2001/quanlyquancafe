@@ -45,14 +45,14 @@ body {
 			</div>
 			<div class="form-group">
 				<label>Số Lượng</label> <br>
-				<form:input id="SL" min="1" path="soLuong" type="number" placeholder="1234" />
+				<form:input id="SL" min="1" max="100000" path="soLuong" type="number" placeholder="1234" />
 				<span class="form-message"></span>
 			</div>
 
 			<div class="form-row">
 				<div class="form-group col-md-4">
 					<label>Giá Mỗi Dịch Vụ</label> <br>
-					<form:input min="1000" id="giaMoiDV" path="giaMoiDV" type="number" />
+					<form:input min="1000" max="1000000" id="giaMoiDV" path="giaMoiDV" type="number" />
 						<span class="form-message"></span>
 				</div>
 				<div class="form-group col-md-4">
@@ -89,7 +89,7 @@ body {
 				<div class="form-group col-md-4">
 					<div class="form-group col-md-4">
 						<label>Ghi Chú</label> <br>
-						<form:input id="ghichu" path="ghiChu" type="text" />
+						<form:input  path="ghiChu" type="text" />
 						<span class="form-message"></span>
 					</div>
 				</div>
@@ -130,8 +130,8 @@ body {
               Validator.isRequired('#SL', 'Vui lòng nhập số lượng'),
               Validator.isRequired('#giaMoiDV', 'Vui lòng nhập giá mỗi dịch vụ'),
               Validator.isRequired('#set-date', 'Vui lòng nhập vào ngày nhập hàng'),
-              Validator.isRequired('#ghichu', 'Vui lòng nhập ghi chú'),
-              Validator.isRequired('#nhaCC', 'Vui lòng nhập thông tin nhà cung cấp'),
+            
+            
               /* Validator.isRequired('#DV', 'Vui lòng nhập tên dịch vụ'), */
               /* Validator.isRequired('#loaiDV', 'Vui lòng loại dịch vụ'), */
               ],

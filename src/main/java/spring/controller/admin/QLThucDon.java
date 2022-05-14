@@ -1,6 +1,7 @@
 package spring.controller.admin;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +29,7 @@ import spring.entity.LoaiBanEntity;
 import spring.entity.LoaiThucUongEntity;
 import spring.entity.NhanVienEntity;
 import spring.entity.ThucDonEntity;
+import spring.entity.UserTBEntity;
 @Controller
 @Transactional
 @RequestMapping(value = "/admin-home/")
@@ -78,11 +80,42 @@ public class QLThucDon {
 		}
 	 
 		
-	
+	 public List<String> checkInfo(ThucDonEntity td) {
+			List<String> listError = new ArrayList<>();
+			
+			
+			if(td.getGia()==null) {
+				listError.add("chưa nhập giá thành");
+			}
+			if( td.getId().trim().equals("")){
+				listError.add("chưa nhập ID");
+			}
+			
+			return listError;
+			
+		}
+	 
+	 public boolean CheckIDThucDon(String IDthucDon) {
+			List<ThucDonEntity> list = getThucDons();
+			int n = list.size();
+			String user;
+			for (int i = 0; i < n; i++) {
+				user = list.get(i).getId();
+				if (user.equals(IDthucDon)) {
+					return true;
+				}
+			}
+			return false;
+		}
 	//thêm 
 	@RequestMapping(value = "formThucDon",params = "Insert", method = RequestMethod.POST )
 	public <E> String addThucDon(HttpServletRequest request, ModelMap model,@ModelAttribute("td") ThucDonEntity td) {
-		
+		String error = "";
+		Integer temp = 0;
+		if(CheckIDThucDon(td.getId())) {
+			error="ID thực đơn đã tồn tại!!!";
+		}
+		else {
 		String idLoaiTU =request.getParameter("loaithucuong");	
 		String tmp =request.getParameter("gia");
 		Integer giaTD = Integer.parseInt(tmp);
@@ -92,13 +125,14 @@ public class QLThucDon {
 		td.setLoaiThucUong(this.getLoaiThucUong(idLoaiTU));
 		td.setGia(giaTD);
 		td.setTen(tenTD);
-		Integer temp = this.insertThucDon(td);
+		temp = this.insertThucDon(td);
+		}
 		if(temp != 0) {
-		    model.addAttribute("message","them thanh cong");
+		    model.addAttribute("message","Thêm thành công");
 			
 		
 		}else {
-			model.addAttribute("message","them that bai");
+			model.addAttribute("message","Thêm thất bại " + error);
 		}
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getThucDons());
@@ -240,6 +274,7 @@ public class QLThucDon {
 
 		/*model.addAttribute("td",td);*/
 		model.addAttribute("btnupdate","true");
+		model.addAttribute("read","true");
 		return "admin/form/inputThucDon";
 	}
 

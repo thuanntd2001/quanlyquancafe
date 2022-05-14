@@ -41,12 +41,12 @@ body {
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label>UserName</label> <br>
-					<form:input pattern="^[a-zA-Z0-9]{3,50}$" id="username" path="userName" type="text" />
+					<form:input readonly="${doc}" pattern="^[a-zA-Z0-9]{3,50}$"  id="username" path="userName" type="text" />
 					<span class="form-message"></span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label>Mã Nhân Viên</label><br> <input id="manv"
+				<label>Mã Nhân Viên</label><br> <input id="manv" 
 					value="${maNV}" name="manv" min="1" pattern="^[0-9]{1,5}$" required="true" type="number"
 					class="form-control" /> <span class="form-message"></span>
 			</div>
