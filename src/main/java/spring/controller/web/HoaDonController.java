@@ -48,7 +48,27 @@ public class HoaDonController {
 	
 		return "web/bill";
 	}
-
+	
+	@RequestMapping(value = "hoa-don", params="btnsearch")
+	public <E> String showMen2u(ModelMap model,HttpServletRequest request) {
+		UserModel user = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
+		Long id = user.getID();
+		
+		@SuppressWarnings("unchecked")
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getSearchHoaDon(id,request.getParameter("searchInput")));
+		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(5);
+	
+		pagedListHolder.setPageSize(5);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		
+		List<HoaDonEntity> hoaDon = this.getHoaDon(id);
+		model.addAttribute("hoaDon", hoaDon);
+	
+		return "web/bill";
+	}
+	
 	@RequestMapping(value = "hoa-don/{id}.htm", params = "linkView")
 	public <E> String xemChiTietHD(HttpServletRequest request, ModelMap model,
 			@PathVariable("id") Long id) {
@@ -79,6 +99,16 @@ public class HoaDonController {
 		String hql = "FROM HoaDonEntity where hdnv.maNV = :id";
 		Query query = session.createQuery(hql);
 		query.setParameter("id", id);	
+		List<HoaDonEntity> list = query.list();
+		return list;
+	}
+	
+	public List<HoaDonEntity> getSearchHoaDon(Long id, String name){
+		Session session = factory.getCurrentSession();
+		String hql = "FROM HoaDonEntity where hdnv.maNV = :id AND (convert(varchar,id) like :name OR ngayThucHien like :name OR hdnv.hoTen like :name)";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		query.setParameter("name","%" + name + "%");
 		List<HoaDonEntity> list = query.list();
 		return list;
 	}
