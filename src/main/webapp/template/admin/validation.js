@@ -97,6 +97,8 @@ Validator.isRequired = function (selector, message) {
     };
 }
 
+
+
 Validator.isEmail = function (selector, message) {
     return {
         selector: selector,
@@ -106,7 +108,7 @@ Validator.isEmail = function (selector, message) {
         }
     };
 }
-
+	
 Validator.minLength = function (selector, min, message) {
     return {
         selector: selector,
@@ -115,6 +117,22 @@ Validator.minLength = function (selector, min, message) {
         }
     };
 }
+
+Validator.isDate = function (selector, message) {
+    return {
+        selector: selector,
+        test: function (value) {
+            console.log(value)
+            const a = new Date (value)
+            const b = new Date()
+            if (b.getFullYear()-a.getFullYear()<18){
+                return 'Tuổi phải lớn hơn 18 tuổi '
+            }
+        }
+    };
+}
+
+
 
 Validator.isConfirmed = function (selector, getConfirmValue, message) {
     return {

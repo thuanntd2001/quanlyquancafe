@@ -35,19 +35,20 @@ body {
 		<div class="card-header">
 			<h4>Nhập Thông Tài Khoản</h4>
 		</div>
-		<form:form id="form-1" class="card-body" action="admin-home/formTaiKhoan.htm"
-			modelAttribute="tk" method="post">
+		<form:form id="form-1" class="card-body"
+			action="admin-home/formTaiKhoan.htm" modelAttribute="tk"
+			method="post">
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label>UserName</label> <br>
-					<form:input id="username" path="userName" type="text" />
+					<form:input pattern="^[a-zA-Z0-9]{3,50}$" id="username" path="userName" type="text" />
 					<span class="form-message"></span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label>Mã Nhân Viên</label><br> <input id="manv"
-					value="${maNV}" name="manv" type="number" class="form-control" />
-				<span class="form-message"></span>
+					value="${maNV}" name="manv" min="1" pattern="^[0-9]{1,5}$" required="true" type="number"
+					class="form-control" /> <span class="form-message"></span>
 			</div>
 			<div class="form-row">
 
@@ -66,46 +67,26 @@ body {
 						class="form-message"></span>
 				</div>
 
-
-				<%-- <div class="form-group col-md-6">
-					<label>Mật Khẩu</label><br>
-					<form:input id="pw" path="passwd" type="text" />
-					<span class="form-message"></span>
-				</div>
-				<div class="form-group col-md-4">
-
-
-					<label>Nhập Lại Mật Khẩu</label> <br>
-					<input id="repw" name="comfirm" type="number" /> <span
-						class="form-message"></span>
-				</div> --%>
-
-
-
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-4">
 					<div class="select-menu">
 
-		<h5>
-		<select name="chucvu">
-							<c:forEach items="${chucvus}" var="cv">
+						<h5>
+							<select name="chucvu">
+								<c:forEach items="${chucvus}" var="cv">
 
-								<option value="${cv.id}"
-									<c:if test="${cv.id == idCV}" >selected</c:if>>
-									${cv.tenChucVu}</option>
-							</c:forEach>
-						</select>
-		</h5>
-						
-
-
-
+									<option value="${cv.id}"
+										<c:if test="${cv.id == idCV}" >selected</c:if>>
+										${cv.tenChucVu}</option>
+								</c:forEach>
+							</select>
+						</h5>
 					</div>
 				</div>
 				<div class="form-group col-md-4">
 					<label>Email</label> <br>
-					<form:input  id="email" path="email" type="email" />
+					<form:input id="email" path="email" type="email" />
 					<span class="form-message"></span>
 				</div>
 			</div>
@@ -119,30 +100,39 @@ body {
 	</div>
 	<script src="<c:url value='/template/admin/validation.js'/>"></script>
 	<script>
-  
-        document.addEventListener('DOMContentLoaded', function () {
-          // Mong muốn của chúng ta
-          Validator({
-            form: '#form-1',
-            formGroupSelector: '.form-group',
-            errorSelector: '.form-message',
-            rules: [
-              Validator.isRequired('#username', 'Vui lòng nhập tên đầy đủ của bạn'),
-              Validator.isRequired('#manv', 'Vui lòng địa chỉ của bạn'),
-              Validator.isRequired('#email', 'Vui lòng địa chỉ email của bạn'),
-              Validator.minLength('#cmnd', 9),
-              Validator.minLength('#sdt', 10),
-              Validator.minLength('#password', 6),
-              Validator.isRequired('#password_confirmation'),
-              Validator.isConfirmed('#password_confirmation',  function () {
-                return document.querySelector('#form-1 #password').value;
-              }, 'Mật khẩu nhập lại không chính xác') 
-            ],
-           
-          });
-  
-        }); 
-  
-      </script>
+		document
+				.addEventListener(
+						'DOMContentLoaded',
+						function() {
+							// Mong muốn của chúng ta
+							Validator({
+								form : '#form-1',
+								formGroupSelector : '.form-group',
+								errorSelector : '.form-message',
+								rules : [
+										Validator.isRequired('#username',
+												'Vui lòng nhập tên đăng nhập'),
+										Validator.isRequired('#manv',
+												'Vui lòng nhập mã nhân viên'),
+										Validator.isRequired('#email',
+												'Vui lòng địa chỉ email'),
+										Validator.minLength('#cmnd', 9),
+										Validator.minLength('#sdt', 10),
+										Validator.minLength('#password', 6),
+										Validator
+												.isRequired('#password_confirmation'),
+										Validator
+												.isConfirmed(
+														'#password_confirmation',
+														function() {
+															return document
+																	.querySelector('#form-1 #password').value;
+														},
+														'Mật khẩu nhập lại không chính xác') ],
+
+							});
+
+						});
+	</script>
 </body>
 </html>

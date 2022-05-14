@@ -45,14 +45,14 @@ body {
 			</div>
 			<div class="form-group">
 				<label>Số Lượng</label> <br>
-				<form:input id="SL" path="soLuong" type="number" placeholder="1234" />
+				<form:input id="SL" min="1" path="soLuong" type="number" placeholder="1234" />
 				<span class="form-message"></span>
 			</div>
 
 			<div class="form-row">
 				<div class="form-group col-md-4">
 					<label>Giá Mỗi Dịch Vụ</label> <br>
-					<form:input id="giaMoiDV" path="giaMoiDV" type="number" />
+					<form:input min="1000" id="giaMoiDV" path="giaMoiDV" type="number" />
 						<span class="form-message"></span>
 				</div>
 				<div class="form-group col-md-4">

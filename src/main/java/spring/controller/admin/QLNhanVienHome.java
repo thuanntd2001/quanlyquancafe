@@ -88,9 +88,6 @@ public class QLNhanVienHome {
 			e.printStackTrace();
 		}
 		
-		
-		
-		
 		nv.setDaNghi(false);
 		Integer temp = this.insertUser(nv);
 		if(temp != 0) {
@@ -104,8 +101,8 @@ public class QLNhanVienHome {
 			nv.setDiaChi(null);
 			
 		}else {
-			model.addAttribute("message","Thêm Thất Bại");
-			model.addAttribute("alert","true");
+			model.addAttribute("message","Thêm thất bại vui lòng nhập đúng định dạng");
+			
 		}
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getNhanVien());
@@ -306,15 +303,18 @@ public class QLNhanVienHome {
 			error = ", không được xóa admin ";
 		}else {
 			this.delete_TK(maNV);
+			tmp.setDaNghi(true);
+
 			temp = this.updateNV(tmp);
+			
 		}
 		System.out.println(checkAdmin);
 	
 		if(temp != 0) {
-			model.addAttribute("message","Delete k thành công"+error);
+			model.addAttribute("message","Xóa không thành công"+error);
 		}
 		else {
-			model.addAttribute("message", "Delete thành công");
+			model.addAttribute("message", "Xóa thành công");
 		}
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getNhanVien());
@@ -327,31 +327,7 @@ public class QLNhanVienHome {
 		return "admin/QLNV";
 
 }
-	/*@RequestMapping(value = "index", params = "linkDelete",method = RequestMethod.GET)*/
 
-	/*@RequestMapping(value = "{id}.htm", params = "linkDelete",method = RequestMethod.GET)
-	public <E> String deleteNV (HttpServletRequest request, ModelMap model,
-			@PathVariable("id") Long id) {
-		this.getNV(id).setDaNghi(true);
-		Integer temp = this.updateNV(this.getNV(id));
-		if(temp != 0) {
-			model.addAttribute("message","Delete k thành công");
-		}
-		else {
-			model.addAttribute("message", "Delete thành công");
-		}
-		@SuppressWarnings("unchecked")
-		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getNhanVien());
-		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
-		pagedListHolder.setPage(page);
-		pagedListHolder.setMaxLinkedPages(10);
-	
-		pagedListHolder.setPageSize(5);
-		model.addAttribute("pagedListHolder", pagedListHolder);
-		//model.addAttribute("bans", list);
-		return "admin/QLNV";
-	}*/
-//	kết thúc xóa
 	
 //	phần tìm kiếm
 	@SuppressWarnings("unchecked")

@@ -25,20 +25,21 @@ label {
 }
 
 body {
-	background-color:#d7d7d7;
+	background-color: #d7d7d7;
 }
 
-.form-message{
-	color:red;
+.form-message {
+	color: red;
 }
 </style>
-<body >
-	<div style="margin-top: 2%; border-style: groove;" class="container card">
-	<div class="card-header">
-	<h4>Nhập Thông Tin Nhân Viên</h4>
-	</div>
-		<form:form class ="card-body" id="form-1" action="admin-home/form.htm" modelAttribute="nv"
-			method="post">
+<body>
+	<div style="margin-top: 2%; border-style: groove;"
+		class="container card">
+		<div class="card-header">
+			<h4>Nhập Thông Tin Nhân Viên</h4>
+		</div>
+		<form:form class="card-body" id="form-1" action="admin-home/form.htm"
+			modelAttribute="nv" method="post">
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label>Họ Tên</label>
@@ -49,13 +50,11 @@ body {
 								class="ti-user" aria-hidden="true"></i>
 							</span>
 						</div>
-						<form:input  id="fullname" type="text" class="form-control"
+						<form:input id="fullname" type="text" class="form-control"
 							placeholder="Nguyễn Văn A" path="hoTen" aria-label="Username"
 							aria-describedby="basic-addon1" />
-							<span class="form-message"></span>
-
+						<span class="form-message"></span>
 					</div>
-
 
 
 				</div>
@@ -67,31 +66,32 @@ body {
 			</div>
 			<div class="form-group">
 				<label>Địa chỉ</label>
-				<form:input id="diachi" path="diaChi" type="text" class="form-control"
-					placeholder="1234 Main St" />
-					<span class="form-message"></span>
+				<form:input id="diachi" path="diaChi" type="text"
+					class="form-control" placeholder="97 Man Thiện, tp Thủ Đức" />
+				<span class="form-message"></span>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label>CMND/CCCD</label> <br>
-					<form:input id="cmnd"
-						path="cmnd" type="number" />
-						<span class="form-message"></span>
+					<form:input id="cmnd" type="text" path="cmnd" minlength="9"
+						 required="true" pattern="^[0-9]{1,15}$" />
+					<span class="form-message"></span>
 				</div>
 				<div class="form-group col-md-4">
 
 
 					<label>Tiền lương</label>
-					<%-- <form:input path="luong" type="number" /> --%>
+
 
 					<div class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text" id="basic-addon1"> </span>
 						</div>
-						<form:input type="text" class="form-control" path="luong"
-							aria-label="luong" aria-describedby="basic-addon1" />
+						<form:input min="50000" max="100000000" type="number"
+							class="form-control" path="luong" aria-label="luong"
+							aria-describedby="basic-addon1" />
 						<div class="input-group-append">
-							<span class="input-group-text">vnđ</span>
+							<span class="input-group-text">VNĐ</span>
 						</div>
 					</div>
 				</div>
@@ -104,14 +104,16 @@ body {
 				<div class="form-group col-md-6">
 					<div class="form-group">
 						<label>Ngày Sinh</label> <br> <input type="date"
-							name="ngaysinh" value="${ngaysinh}" />
+							id="ngaysinh" name="ngaysinh"
+							value="${ngaysinh}" />
+							<span class="form-message"></span>
 					</div>
 				</div>
 
 				<div class="form-group col-md-6">
 					<div class="form-group">
 						<label>Ngày vào làm</label> <br> <input type="date"
-							name="ngayvaolam" value="${ngayvaolam}" />
+						max="2023-01-01" name="ngayvaolam" value="${ngayvaolam}" />
 					</div>
 				</div>
 
@@ -121,9 +123,9 @@ body {
 			<div class="form-row row">
 				<div class="form-group col-md-6">
 					<label>Số Điện Thoại</label> <br>
-					<form:input id="sdt" path="sdt" pattern="[0-9]{1-15}" 
-						 />
-						<span class="form-message"></span>
+					<form:input id="sdt" path="sdt" type="text" maxlength="10"
+						pattern="^[0-9]{10,15}$" required="true" />
+					<span class="form-message"></span>
 
 				</div>
 			</div>
@@ -157,52 +159,47 @@ body {
 				</div>
 			</div>
 
-            <div class="card-footer">
-            <button id="nam" class="btn btn-primary" type="submit"
-				name="${btnupdate ? 'btnupdate' : 'Insert'}">${btnupdate ? 'Cập Nhật' : 'Thêm'}</button>
-				
-			<a style="font-size: 16px; padding: 10px;" class="btn btn-secondary"
-				href="admin-home/index.htm"> QUAY LẠI </a>
-            </div>
+			<div class="card-footer">
+				<button class="btn btn-primary" type="submit"
+					name="${btnupdate ? 'btnupdate' : 'Insert'}">${btnupdate ? 'Cập Nhật' : 'Thêm'}</button>
 
-			
+				<a style="font-size: 16px; padding: 10px;" class="btn btn-secondary"
+					href="admin-home/index.htm"> QUAY LẠI </a>
+			</div>
+
+
 		</form:form>
-		
+
 	</div>
-<%-- 	<script src="<c:url value='/template/admin/validation.js'/>"></script> --%>
-<!-- 	 <script>
-  
-        document.addEventListener('DOMContentLoaded', function () {
-          // Mong muốn của chúng ta
-          Validator({
-            form: '#form-1',
-            formGroupSelector: '.form-group',
-            errorSelector: '.form-message',
-            rules: [
-              Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ của bạn'),
-              Validator.isRequired('#diachi', 'Vui lòng địa chỉ của bạn'),
-              Validator.minLength('#cmnd', 9),
-              Validator.minLength('#sdt', 10),
-              
-              
-              
-              
-           /*  Validator.isEmail('#email'),
-              Validator.minLength('#password', 6),
-              Validator.isRequired('#password_confirmation'),
-              Validator.isConfirmed('#password_confirmation',  function () {
-                return document.querySelector('#form-1 #password').value;
-              }, 'Mật khẩu nhập lại không chính xác') */
-            ],
-          /*   onSubmit: function (data) {
-                // Call API
-                console.log(data);
-              }  */
-           
-          });
-  
-        }); 
-  
-      </script> -->
+
+	<script src="<c:url value='/template/admin/validation.js'/>"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			// Mong muốn của chúng ta
+			Validator({
+				form : '#form-1',
+				formGroupSelector : '.form-group',
+				errorSelector : '.form-message',
+				rules : [
+						Validator.isRequired('#fullname',
+								'Vui lòng nhập tên đầy đủ của bạn'),
+						Validator.isRequired('#diachi',
+								'Vui lòng địa chỉ của bạn'),
+						Validator.minLength('#cmnd', 9),
+						Validator.minLength('#sdt', 10),
+						Validator.isDate('#ngaysinh'),
+				
+				],
+			/*   onSubmit: function (data) {
+			      // Call API
+			      console.log(data);
+			    }  */
+
+			});
+
+		});
+	</script>
+
+
 </body>
 </html>
