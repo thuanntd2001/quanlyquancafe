@@ -229,7 +229,7 @@ public class QLTaiKhoan {
 		NhanVienEntity nv;
 		for (int i = 0; i < n; i++) {
 			nv = list.get(i);
-			if (manv == nv.getMaNV() || nv.getDaNghi()  == true) {
+			if (manv == nv.getMaNV() && nv.getDaNghi()  == true) {
 				return true;
 			}
 		}

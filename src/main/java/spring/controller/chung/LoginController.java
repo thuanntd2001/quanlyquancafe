@@ -62,7 +62,7 @@ public class LoginController extends HttpServlet{
 		String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
 		boolean verify = RecaptchaVerification.verify(gRecaptchaResponse);
 		if (action != null && action.equals("login")) {
-			if (/*!verify*/ 1==2) {
+			if (!verify) {
 				response.sendRedirect(request.getContextPath()
 						+ "/dang-nhap.htm?action=login&message=fail-captcha&alert=danger");
 			} else {

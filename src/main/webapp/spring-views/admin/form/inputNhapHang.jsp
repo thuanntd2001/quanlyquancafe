@@ -52,7 +52,7 @@ body {
 			<div class="form-row">
 				<div class="form-group col-md-4">
 					<label>Giá Mỗi Dịch Vụ</label> <br>
-					<form:input min="1000" max="1000000" id="giaMoiDV" path="giaMoiDV" type="number" />
+					<form:input min="1000" max="100000000" id="giaMoiDV" path="giaMoiDV" type="number" />
 						<span class="form-message"></span>
 				</div>
 				<div class="form-group col-md-4">
