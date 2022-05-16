@@ -82,7 +82,7 @@ public class QLTaiKhoan {
 	}
 
 	// thêm
-	public int CheckUserName_Email(String username, String email) {
+	public int CheckUserName_Email(String username, String email) { // check xem email và username đã có hay chưa
 		List<UserTBEntity> list = getTaiKhoans();
 		int n = list.size();
 		String user;
@@ -107,7 +107,7 @@ public class QLTaiKhoan {
 		String error = "";
 		Integer temp = 0;
 		int check = CheckUserName_Email(tk.getUserName(), tk.getEmail());
-		List<String> listError = new ArrayList<>();
+		
 		if (tk.getUserName().trim().equals("")) {
 			error = "Tên tài khoản không được để trống!";
 		} else if (check == 1) {
@@ -120,9 +120,9 @@ public class QLTaiKhoan {
 			Integer maNV = Integer.parseInt(maNVtmp);
 			String tmp = request.getParameter("chucvu").trim();
 			Integer idChucVU = Integer.parseInt(tmp);
-			/*
-			 * if(CheckMaNhanVien(maNV)) { error ="Mã Nhân Viên không tồn tại!"; }else {
-			 */
+			if(CheckMaNhanVien(maNV)) {
+				error = "không tồn tại nhân viên";
+			}else {
 			tk.setUsernv(getNV(maNV));
 			tk.setChucVu(getChucVu(idChucVU));
 			tk.setStatus(1);
@@ -130,14 +130,14 @@ public class QLTaiKhoan {
 			/*listError = checkInfo(tk);*/
 
 			temp = this.insertTaiKhoan(tk);
-			// }
+			 }
 		}
 
 		if (temp != 0) {
 			model.addAttribute("message", "Thêm mới thành công");
 
 		} else {
-			model.addAttribute("message", "Thêm thất bại " + error + " " + listError);
+			model.addAttribute("message", "Thêm thất bại " + error + " ");
 		}
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getTaiKhoans());
@@ -185,7 +185,7 @@ public class QLTaiKhoan {
 
 	public List<UserTBEntity> searchTaiKhoan(String name) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM UserTBEntity where chucVu.tenChucVu = :name OR email like :name";
+		String hql = "FROM UserTBEntity where chucVu.tenChucVu like :name OR email like :name OR userName like :name ";
 		Query query = session.createQuery(hql);
 
 		query.setParameter("name", "%" + name + "%");
@@ -226,10 +226,10 @@ public class QLTaiKhoan {
 	public boolean CheckMaNhanVien(long manv) {
 		List<NhanVienEntity> list = getNhanVien();
 		int n = list.size();
-		long MANV;
+		NhanVienEntity nv;
 		for (int i = 0; i < n; i++) {
-			MANV = list.get(i).getMaNV();
-			if (MANV == manv) {
+			nv = list.get(i);
+			if (manv == nv.getMaNV() || nv.getDaNghi()  == true) {
 				return true;
 			}
 		}

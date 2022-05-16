@@ -392,7 +392,7 @@ public class QLNhanVienHome {
 	}
 	public List<NhanVienEntity> searchNhanVien(String name) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM NhanVienEntity where maNV = :id OR hoTen like :name and daNghi = false";
+		String hql = "FROM NhanVienEntity where maNV = :id OR hoTen like :name and daNghi = false OR ngaySinh like :name OR convert(varchar,gioiTinh) like :name OR diaChi like :name";
 		Query query = session.createQuery(hql);
 		Long id = null;
 	

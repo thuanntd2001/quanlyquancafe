@@ -182,19 +182,11 @@ public class QLThucDon {
 	}
 	public List<ThucDonEntity> searchThucDon(String name) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM ThucDonEntity where gia = :gia OR ten like :name "
+		String hql = "FROM ThucDonEntity where convert(varchar,gia) like :name OR ten like :name "
 				+"OR loaiThucUong.tenLoai like :name OR id like :name";
 			
 		Query query = session.createQuery(hql);
-		Long gia = null;
-	
-		try {
-			gia = Long.parseLong(name);
-		}
-		catch (Exception e) {
-		}
-		
-		query.setParameter("gia", gia);			
+			
 		query.setParameter("name", "%" +  name + "%");
 		List<ThucDonEntity> list = query.list();
 		return list;

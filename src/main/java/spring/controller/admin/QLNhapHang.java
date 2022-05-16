@@ -237,7 +237,7 @@ public class QLNhapHang {
 
 	public List<ChiPhiEntity> searchDonNhapHang(String name) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM ChiPhiEntity where tenNL like :ngay OR ngayNhap like :ngay";
+		String hql = "FROM ChiPhiEntity where tenNL like :ngay OR ngayNhap like :ngay OR loai like :ngay OR convert(varchar,giaMoiDV) like :ngay OR convert(varchar,cpnv.maNV) like :ngay";
 		Query query = session.createQuery(hql);
 		query.setParameter("ngay", "%" + name + "%");
 		List<ChiPhiEntity> list = query.list();
@@ -254,9 +254,9 @@ public class QLNhapHang {
 		Integer temp = this.deleteDonNhapHang(this.getDonNhapHang(id));
 
 		if (temp != 0) {
-			model.addAttribute("message", "Delete thành công");
+			model.addAttribute("message", "Xóa thành công");
 		} else {
-			model.addAttribute("message", "Delete không thành công");
+			model.addAttribute("message", "Xóa không thành công");
 		}
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getDonNhapHangs());

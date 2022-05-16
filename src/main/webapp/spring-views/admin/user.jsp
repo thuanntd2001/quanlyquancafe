@@ -62,7 +62,7 @@
 									<div class="tab-content pt-2">
 										<div class="tab-pane fade show active profile-overview"
 											id="profile-overview">
-											<form:form modelAttribute="nv,user">
+											<form:form modelAttribute="nv,user" method="post">
 												<h5 class="card-title">Thông Tin Cá Nhân</h5>
 												<div class="row">
 													<div class="col-lg-3 col-md-4 label ">Mã Nhân Viên</div>
@@ -124,8 +124,8 @@
 										<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 											<!-- Profile Edit Form -->
 											<form:form modelAttribute="nv" method="post"
-												action="admin-user.htm">
-													${message }
+												action="admin-user.htm" id="form1">
+													${message1 }
 													<div class="row mb-3">
 													<label class="col-md-4 col-lg-3 col-form-label"></label>
 													<div class="col-md-8 col-lg-9">
@@ -137,7 +137,7 @@
 													<label class="col-md-4 col-lg-3 col-form-label">Mã
 														Nhân Viên</label>
 													<div class="col-md-8 col-lg-9">
-														<form:input path="maNV" cssClass="form-control"
+														<form:input id="maNV" path="maNV" cssClass="form-control"
 															readonly="true" />
 													</div>
 												</div>
@@ -147,8 +147,8 @@
 													<label class="col-md-4 col-lg-3 col-form-label">Họ
 														Tên</label>
 													<div class="col-md-8 col-lg-9">
-														<form:input cssClass="form-control" path="hoTen"
-															readonly="true" />
+														<form:input id="hoTen" cssClass="form-control"
+															path="hoTen" readonly="true" />
 													</div>
 												</div>
 
@@ -165,29 +165,34 @@
 													<label class="col-md-4 col-lg-3 col-form-label">Ngày
 														Sinh</label>
 													<div class="col-md-8 col-lg-9">
-														<form:input path="ngaySinh" type="date" />
+														<input id="ngaySinh" name="ngaySinhh" type="date"
+															value="${nv.ngaySinh }" />
 													</div>
 												</div>
+
 
 												<div class="row mb-3">
 													<label class="col-md-4 col-lg-3 col-form-label">SDT</label>
 													<div class="col-md-8 col-lg-9">
-														<form:input cssClass="form-control" path="sdt" />
+														<form:input id="sdt" cssClass="form-control" path="sdt"
+															minlength="10" pattern="^[0-9]{10,15}$" required="true" />
 													</div>
+
 												</div>
 
 												<div class="row mb-3">
 													<label for="cmnd" class="col-md-4 col-lg-3 col-form-label">Lương</label>
 													<div class="col-md-8 col-lg-9">
-														<form:input cssClass="form-control" path="luong"
-															readonly="true" type="number" />
+														<form:input id="luong" cssClass="form-control"
+															path="luong" readonly="true" type="number" />
 													</div>
 												</div>
 
 												<div class="row mb-3">
 													<label for="cmnd" class="col-md-4 col-lg-3 col-form-label">CMND</label>
 													<div class="col-md-8 col-lg-9">
-														<form:input cssClass="form-control" path="cmnd" />
+														<form:input id="cmnd" cssClass="form-control" path="cmnd"
+															minlength="10" required="true" pattern="^[0-9]{1,15}$" />
 													</div>
 												</div>
 
@@ -197,7 +202,11 @@
 													<label for="address"
 														class="col-md-4 col-lg-3 col-form-label">Địa Chỉ</label>
 													<div class="col-md-8 col-lg-9">
-														<form:input cssClass="form-control" path="diaChi" />
+														<form:input id="diaChi" cssClass="form-control"
+															path="diaChi" required="true"
+															pattern="^[0-9aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆ
+fFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTu
+UùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ\s]{1,50}$" />
 													</div>
 												</div>
 
@@ -206,16 +215,16 @@
 														class="col-md-4 col-lg-3 col-form-label">Ngày Vào
 														Làm</label>
 													<div class="col-md-8 col-lg-9">
-														<form:input cssClass="form-control" path="ngayVaoLam"
-															readonly="true" />
+														<form:input id="ngayVaoLam" cssClass="form-control"
+															path="ngayVaoLam" readonly="true" />
 													</div>
 												</div>
 
 												<div class="row mb-3">
 													<label class="col-md-4 col-lg-3 col-form-label">Email</label>
 													<div class="col-md-8 col-lg-9">
-														<input class="form-control" type="email" name="email"
-															value="${user.email }" />
+														<input id="email" class="form-control" type="email"
+															name="email" value="${user.email }" required />
 													</div>
 												</div>
 
@@ -224,7 +233,7 @@
 														class="col-md-4 col-lg-3 col-form-label">Tên Tài
 														Khoản</label>
 													<div class="col-md-8 col-lg-9">
-														<input class="form-control" type="text"
+														<input id="userName" class="form-control" type="text"
 															value="${user.userName }" readonly="readonly" />
 													</div>
 												</div>
@@ -239,16 +248,18 @@
 
 										<div class="tab-pane fade pt-3" id="profile-change-password">
 											<!-- Change Password Form -->
-											<form action="/CNPM/admin-home/admin-user.htm" method="post">
-												${message}
+											<form:form modelAttribute="changePW" action="user.htm"
+												method="post">
+												${message1}
 												<div class="row mb-3">
 													<label for="currentPassword"
 														class="col-md-4 col-lg-3 col-form-label">Mật Khẩu
 														Cũ</label>
 													<div class="col-md-8 col-lg-9">
-														<input name="password" type="password"
-															class="form-control" />
+														<form:input path="password" type="password"
+															class="form-control" minlength="3" required="true" />
 													</div>
+													<form:errors path="password" />
 												</div>
 
 												<div class="row mb-3">
@@ -256,19 +267,22 @@
 														class="col-md-4 col-lg-3 col-form-label">Mật Khẩu
 														Mới</label>
 													<div class="col-md-8 col-lg-9">
-														<input name="newpassword" type="password"
-															class="form-control" />
+														<form:input path="newpassword" type="password"
+															class="form-control" minlength="3" required="true" />
 													</div>
+													<form:errors path="newpassword" />
 												</div>
+
 
 												<div class="row mb-3">
 													<label for="renewPassword"
 														class="col-md-4 col-lg-3 col-form-label">Nhập Lại
 														Mật Khẩu Mới</label>
 													<div class="col-md-8 col-lg-9">
-														<input name="renewpassword" type="password"
-															class="form-control" />
+														<form:input path="renewpassword" type="password"
+															class="form-control" minlength="3" required="true" />
 													</div>
+													<form:errors path="renewpassword" />
 												</div>
 
 												<div class="text-center">
@@ -276,13 +290,14 @@
 														name="btnChangePw">Đổi Mật Khẩu</button>
 													<button type="reset" class="btn btn-danger">Hủy</button>
 												</div>
-											</form>
+											</form:form>
 											<!-- End Change Password Form -->
+
 
 										</div>
 										<!-- ICON Tabs -->
 										<div class="tab-pane fade pt-3" id="avata-edit">
-											<label> ${message} </label>
+											<label> ${message1} </label>
 											<form action="/CNPM/admin-home/admin-user-avt.htm" method="post"
 												enctype="multipart/form-data" class="row mb-3">
 												<label for="profileImage"
