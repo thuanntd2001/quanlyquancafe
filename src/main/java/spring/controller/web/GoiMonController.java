@@ -42,6 +42,7 @@ public class GoiMonController {
 	@RequestMapping(value = "goi-mon", method = RequestMethod.GET)
 	public String createList(ModelMap model) {
 		// kt co list ban tong he thong ko co thi tao list nay2 set ra view
+		if (application.getAttribute("listBan")==null)
 		{
 			Session session = factory.getCurrentSession();
 			String hql = "FROM BanEntity";
@@ -52,7 +53,7 @@ public class GoiMonController {
 		}
 
 		// kt co list ban tong he thong ko co thi tao list nay tinh hoa don
-
+		if (application.getAttribute("banHoaDons")==null)
 		{
 			List<BanHoaDonModel> listBHD = new ArrayList();
 			List<Long> listIdsBan = new ArrayList();
@@ -62,8 +63,9 @@ public class GoiMonController {
 			for (BanEntity ban : list) {
 				listBHD.add(new BanHoaDonModel(ban.getId()));
 				listIdsBan.add(new Long(ban.getId()));
-/*				System.out.println("ban so" + (ban.getId()));
-*/			}
+				/*
+				 * System.out.println("ban so" + (ban.getId()));
+				 */ }
 			application.setAttribute("banHoaDons", listBHD);
 			application.setAttribute("banids", listIdsBan);
 
@@ -94,30 +96,38 @@ public class GoiMonController {
 
 		Timestamp now = new Timestamp(System.currentTimeMillis() + tgCho);
 		Timestamp tgdk_ts = new Timestamp(System.currentTimeMillis() + tgdukien);
-		System.out.println(now.toString());
+	
 		for (DatBanEntity datBan : listDatBan) {
+			int ck = listBan.get((int) this.findBan(datBan.getBan().getId(), listBan)).getTinhTrang();
 
 			System.out.println(datBan.getTgDuKien().toString());
 			System.out.println(datBan.getTgDuKien().after(now));
-			 if (datBan.getTgDuKien().before(now)) {
+
+			if (ck != 1) {
+				System.out.println(datBan.getBan().getId()+"da dat nhung dc goi");
+				if (datBan.getTgDuKien().before(now)) {
 					// qua h thi cho ban trong ko bi mo nưa va loai bo trong CSDL (set 1)
 					listBHD.get((int) findBanHD(datBan.getBan().getId(), listBHD)).setTrangThaiCu(0);
 					datBan.setTrangThai(1);
-					listBan.get((int)this.findBan(datBan.getBan().getId(), listBan)).setTinhTrang(0);
+					listBan.get((int) this.findBan(datBan.getBan().getId(), listBan)).setTinhTrang(0);
 					System.out.print("set lai qua han" + datBan.getBan().getId());
 				}
-			if (datBan.getTgDuKien().after(now)) {
-				System.out.print("tim ban" + datBan.getBan().getId());
-				listBHD.get((int) findBanHD(datBan.getBan().getId(), listBHD)).setTrangThaiCu(3);
+				if (datBan.getTgDuKien().after(now)) {
+					System.out.print("tim ban" + datBan.getBan().getId());
+					listBHD.get((int) findBanHD(datBan.getBan().getId(), listBHD)).setTrangThaiCu(3);
 
-				// neu ban ko ai ngoi set la da dat
-				if (listBan.get((int) findBan(datBan.getBan().getId(), listBan)).getTinhTrang() == 0)
-					if (datBan.getTgDuKien().before(tgdk_ts)) {
-						/*listBan.get((int) findBan(datBan.getBan().getId(), listBan)).setTinhTrang(3);*/
-						System.out.println("da dat"+ datBan.getId());
-					}
+					// neu ban ko ai ngoi set la da dat
+					if (listBan.get((int) findBan(datBan.getBan().getId(), listBan)).getTinhTrang() == 0)
+						if (datBan.getTgDuKien().before(tgdk_ts)) {
+							/*
+							 * listBan.get((int) findBan(datBan.getBan().getId(), listBan)).setTinhTrang(3);
+							 */
+							System.out.println("da dat" + datBan.getId());
+						}
 
-			}  
+				}
+			}
+
 		}
 
 		model.addAttribute("bans", listBan);
