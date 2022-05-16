@@ -239,7 +239,7 @@ public class QLBan {
 	}
 	public List<BanEntity> searchBan(String name) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM BanEntity where id = :id OR soGhe = :soGhe OR loaiBan.tenLoai LIKE :name OR loaiBan.giaDat = :soGhe";
+		String hql = "FROM BanEntity where id = :id OR soGhe = :soGhe OR loaiBan.tenLoai LIKE :name OR convert(varchar,loaiBan.giaDat) like :name";
 		Query query = session.createQuery(hql);
 		Long id = null;
 		Integer soGhe = null;

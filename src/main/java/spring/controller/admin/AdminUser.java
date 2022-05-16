@@ -1,4 +1,9 @@
 package spring.controller.admin;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
@@ -9,6 +14,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.quancafehighland.model.UserModel;
 import com.quancafehighland.utils.SessionUtil;
 
+import spring.bean.Password;
 import spring.entity.NhanVienEntity;
 import spring.entity.UserTBEntity;
 @Controller
@@ -25,6 +32,8 @@ public class AdminUser {
 
 	@Autowired
 	SessionFactory factory;
+	@Autowired
+	ServletContext session;
 
 	@RequestMapping(value = "admin-user", method = RequestMethod.GET)
 	public String index(ModelMap model, HttpServletRequest request) {
@@ -34,10 +43,11 @@ public class AdminUser {
 		UserTBEntity user = this.getUser(id);
 		model.addAttribute("user", user);
 		model.addAttribute("nv", this.getNV(id));
+		model.addAttribute("changePW", new Password());
 		return "admin/user";
 	}
 
-	@RequestMapping(value = "admin-user", method = RequestMethod.POST)
+	/*@RequestMapping(value = "admin-user", method = RequestMethod.POST)
 	public String index2(ModelMap model, HttpServletRequest request, @ModelAttribute("nv") NhanVienEntity nv) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
 		Long id = user1.getID();
@@ -46,22 +56,64 @@ public class AdminUser {
 		model.addAttribute("user", user);
 		model.addAttribute("nv", this.getNV(id));
 		return "admin/user";
-	}
+	}*/
 
-	@RequestMapping(value = "admin-user", params = "btnupdate-info")
+	@RequestMapping(value = "admin-user", params = "btnupdate-info", method = RequestMethod.POST)
 	public String editInfo(HttpServletRequest request, ModelMap model, @ModelAttribute("nv") NhanVienEntity nv,
-			@ModelAttribute("user") UserTBEntity user) {
-		Integer temp = this.updateInfo(request, nv, user);
-		if (temp != 0) {
-			model.addAttribute("message", "Cập nhật thành công");
-		} else {
-			model.addAttribute("message", "Cập nhật không thành công");
-		}
+			BindingResult er) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
 		Long id = user1.getID();
-		UserTBEntity user2 = this.getUser(id);
-		model.addAttribute("user", user2);
-		model.addAttribute("nv", this.getNV(id));
+		UserTBEntity user = this.getUser(id);
+		Date ngaySinh;
+		try {
+			ngaySinh = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("ngaySinhh"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			ngaySinh = new Date();
+		}
+		System.out.print(nv.getSdt().trim() + " " + nv.getCmnd().trim() + "\n" + nv.getSdt().trim().length() + "\n"
+				+ nv.getCmnd().trim().length());
+		nv.setNgaySinh(ngaySinh);
+		if (request.getParameter("email") != null && !request.getParameter("email").equals(""))
+			user.setEmail(request.getParameter("email"));
+		else {
+			er.rejectValue("email", "Vui lòng nhập địa chỉ email");
+			System.out.print("Vui lòng nhập địa chỉ email");
+		}
+		if (nv.getDiaChi() != null && nv.getDiaChi().trim().equals("")) {
+			er.rejectValue("diaChi", "nv", "Vui lòng nhập địa chỉ");
+			System.out.print("Vui lòng nhập địa chỉ");
+		}
+		if (nv.getSdt() != null && (nv.getSdt().trim().length() < 1 || nv.getSdt().trim().length() > 12
+				|| !checknum(nv.getSdt().trim()))) {
+			er.rejectValue("sdt", "nv", "Vui lòng nhập sdt đúng định dạng");
+			System.out.print("Vui lòng nhập sdt");
+		}
+
+		if (nv.getCmnd() != null && (nv.getCmnd().trim().length() < 1 || nv.getCmnd().trim().length() > 15
+				|| !checknum(nv.getCmnd().trim()))) {
+			er.rejectValue("cmnd", "nv", "Vui lòng nhập CMND đúng");
+			System.out.print("Vui lòng nhập CMND");
+		}
+		if (er.hasErrors()) {
+			model.addAttribute("message1", "sửa thất bại, kiểm tra lai các trường");
+
+		} else {
+			Integer temp = this.updateInfo(request, nv, user);
+			if (temp != 0) {
+				session.setAttribute("message1", "Cập nhật thành công");
+			} else {
+				session.setAttribute("message1", "Cập nhật không thành công");
+			}
+		}
+
+		
+		  UserTBEntity user2 = this.getUser(id); model.addAttribute("user", user2);
+		  model.addAttribute("nv", this.getNV(id)); model.addAttribute("changePW", new
+		  Password());
+		 
+
 		return "admin/user";
 	}
 
@@ -98,22 +150,43 @@ public class AdminUser {
 		return "admin/user";
 	}
 	
-	@RequestMapping(value = "admin-user", params = "btnChangePw", method=RequestMethod.POST)
+	@RequestMapping(value = "user", params = "btnChangePw", method = RequestMethod.POST)
 	public String changePassword(HttpServletRequest request, ModelMap model,
-			@ModelAttribute("password") String password, @ModelAttribute("newpassword") String newpassword,
-			@ModelAttribute("renewpassword") String renewpassword) {
-		Integer temp = changePW(request, password, newpassword, renewpassword);
-		if (temp != 0) {
-			model.addAttribute("message", "Cập nhật thành công");		
-		}else {
-			model.addAttribute("message", "Cập nhật không thành công");			
-		}
+			@ModelAttribute("password") Password password, BindingResult er) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
 		Long id = user1.getID();
-		UserTBEntity user2 = this.getUser(id);
-		model.addAttribute("user", user2);
-		model.addAttribute("nv", this.getNV(id));
-		return "admin/user";
+		// validation
+		if (password.getPassword().equals("")) {
+			er.rejectValue("password", "changePW", "Vui lòng nhập password");
+		}
+		if (!password.getPassword().equals(user1.getPasswd())) {
+			er.rejectValue("password", "changePW", "Vui lòng nhập lại password");
+		}
+		if (password.getNewpassword().equals("")) {
+			er.rejectValue("newpassword", "changePW", "Vui lòng nhập password mới");
+		}
+		if (password.getRenewpassword().equals("")) {
+			er.rejectValue("renewpassword", "changePW", "Vui lòng nhập lại password mới");
+		}
+		if (!password.getNewpassword().equals(password.getRenewpassword())) {
+			er.rejectValue("renewpassword", "changePW", "Vui lòng nhập password đúng");
+		}
+
+		// end validation
+		if (er.hasErrors()) {
+			session.setAttribute("message1", "Cập nhật password không thành công, kiểm tra lại các trường");
+
+		} else {
+			Integer temp = changePW(request, password.getPassword(), password.getNewpassword(),
+					password.getRenewpassword());
+			if (temp != 0) {
+				session.setAttribute("message1", "Cập nhật password thành công");
+			} else {
+				session.setAttribute("message1", "Cập nhật password không thành công");
+			}
+		}
+
+		return "redirect:admin-user.htm";
 	}
 
 	public Integer changePW(HttpServletRequest request, @ModelAttribute("password") String password,
@@ -146,6 +219,15 @@ public class AdminUser {
 		query.setParameter("id", id);
 		NhanVienEntity list = (NhanVienEntity) query.list().get(0);
 		return list;
+	}
+	
+	public boolean checknum(String str) {
+
+		for (int i = 0; i < str.length(); i++) {
+			if (str.charAt(i) < '0' || str.charAt(i) > '9')
+				return false;
+		}
+		return true;
 	}
 	
 }

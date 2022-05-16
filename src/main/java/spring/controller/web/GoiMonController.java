@@ -42,7 +42,7 @@ public class GoiMonController {
 	@RequestMapping(value = "goi-mon", method = RequestMethod.GET)
 	public String createList(ModelMap model) {
 		// kt co list ban tong he thong ko co thi tao list nay2 set ra view
-		if (application.getAttribute("listBan") == null) {
+		{
 			Session session = factory.getCurrentSession();
 			String hql = "FROM BanEntity";
 			Query query = session.createQuery(hql);
@@ -50,56 +50,75 @@ public class GoiMonController {
 
 			application.setAttribute("listBan", listBan);
 		}
+
 		// kt co list ban tong he thong ko co thi tao list nay tinh hoa don
-		if (application.getAttribute("banHoaDons") == null) {
+
+		{
 			List<BanHoaDonModel> listBHD = new ArrayList();
 			List<Long> listIdsBan = new ArrayList();
 
 			List<BanEntity> list = (List<BanEntity>) application.getAttribute("listBan");
-			int n = list.size();
-			for (int i = 0; i < n; i++) {
-				listBHD.add(new BanHoaDonModel(i + 1));
-				listIdsBan.add(new Long(list.get(i).getId()));
-			}
+
+			for (BanEntity ban : list) {
+				listBHD.add(new BanHoaDonModel(ban.getId()));
+				listIdsBan.add(new Long(ban.getId()));
+/*				System.out.println("ban so" + (ban.getId()));
+*/			}
 			application.setAttribute("banHoaDons", listBHD);
 			application.setAttribute("banids", listIdsBan);
+
 			application.setAttribute("thucDons", getThucDons());
 		}
-		// kt  list datban trong he thong 
-	
+
+		// kt list datban trong he thong
+
+		{
 			Session session = factory.getCurrentSession();
 			String hql = "FROM DatBanEntity  where trangThai=0";
 			Query query = session.createQuery(hql);
 			List<DatBanEntity> listDatBan = query.list();
 
 			application.setAttribute("datBans", listDatBan);
-	
-		// dieu kien de dat ban dc set ra view
+		}
 
+		// dieu kien de dat ban dc set ra view
+		@SuppressWarnings("unchecked")
+		List<DatBanEntity> listDatBan = (List<DatBanEntity>) application.getAttribute("datBans");
+		@SuppressWarnings("unchecked")
 		List<BanHoaDonModel> listBHD = (List<BanHoaDonModel>) application.getAttribute("banHoaDons");
+		@SuppressWarnings("unchecked")
 		List<BanEntity> listBan = (List<BanEntity>) application.getAttribute("listBan");
-		long tgCho=1800000;
-		Timestamp now = new Timestamp(System.currentTimeMillis()+tgCho);
+
+		long tgCho = 1800000;
+		long tgdukien = 12 * 3600 * 1000;
+
+		Timestamp now = new Timestamp(System.currentTimeMillis() + tgCho);
+		Timestamp tgdk_ts = new Timestamp(System.currentTimeMillis() + tgdukien);
 		System.out.println(now.toString());
 		for (DatBanEntity datBan : listDatBan) {
-			
+
 			System.out.println(datBan.getTgDuKien().toString());
 			System.out.println(datBan.getTgDuKien().after(now));
-			if(datBan.getTgDuKien().after(now)) {
+			 if (datBan.getTgDuKien().before(now)) {
+					// qua h thi cho ban trong ko bi mo nưa va loai bo trong CSDL (set 1)
+					listBHD.get((int) findBanHD(datBan.getBan().getId(), listBHD)).setTrangThaiCu(0);
+					datBan.setTrangThai(1);
+					listBan.get((int)this.findBan(datBan.getBan().getId(), listBan)).setTinhTrang(0);
+					System.out.print("set lai qua han" + datBan.getBan().getId());
+				}
+			if (datBan.getTgDuKien().after(now)) {
+				System.out.print("tim ban" + datBan.getBan().getId());
 				listBHD.get((int) findBanHD(datBan.getBan().getId(), listBHD)).setTrangThaiCu(3);
-				//neu ban ko ai ngoi set la da dat
-				if (listBan.get((int) findBan(datBan.getBan().getId(), listBan)).getTinhTrang()==0)
 
-				listBan.get((int) findBan(datBan.getBan().getId(), listBan)).setTinhTrang(3);
-			}
-			else {
-				//qua h thi cho ban trong ko bi mo nưa va loai bo trong CSDL (set 1)
-				listBHD.get((int) findBanHD(datBan.getBan().getId(), listBHD)).setTrangThaiCu(0);
-				datBan.setTrangThai(1);
-			}
+				// neu ban ko ai ngoi set la da dat
+				if (listBan.get((int) findBan(datBan.getBan().getId(), listBan)).getTinhTrang() == 0)
+					if (datBan.getTgDuKien().before(tgdk_ts)) {
+						/*listBan.get((int) findBan(datBan.getBan().getId(), listBan)).setTinhTrang(3);*/
+						System.out.println("da dat"+ datBan.getId());
+					}
+
+			}  
 		}
-		
-
 
 		model.addAttribute("bans", listBan);
 		model.addAttribute("loaiTUs", getLoaiTUs());
@@ -120,8 +139,10 @@ public class GoiMonController {
 		String loai = (String) request.getParameter("loaiTU");
 		String thucDon = (String) request.getParameter("thucDon");
 		int sl = Integer.parseInt(request.getParameter("sl"));
-		if (sl<=0) sl=1;
-		else if(sl>50) sl=50; 
+		if (sl <= 0)
+			sl = 1;
+		else if (sl > 50)
+			sl = 50;
 		// set view
 		model.addAttribute("bans", listBan);
 		model.addAttribute("loaiTUs", getLoaiTUs());
@@ -158,8 +179,8 @@ public class GoiMonController {
 			// nếu co thi cong sl vao
 			else {
 				int oldSL = BHD.getCthds().get((int) index).getSoLuong();
-				if (oldSL+sl<=50)
-				BHD.getCthds().get((int) index).setSoLuong(oldSL + sl);
+				if (oldSL + sl <= 50)
+					BHD.getCthds().get((int) index).setSoLuong(oldSL + sl);
 				System.out.println(oldSL);
 				System.out.println(oldSL + sl);
 			}

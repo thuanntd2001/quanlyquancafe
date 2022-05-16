@@ -123,7 +123,9 @@ body {
 			<div class="form-row row">
 				<div class="form-group col-md-6">
 					<label>Số Điện Thoại</label> <br>
+
 					<form:input id="sdt" path="sdt" type="text" minlength="10" maxlength="10"
+
 						pattern="^[0-9]{10,15}$" required="true" />
 					<span class="form-message"></span>
 
@@ -171,6 +173,7 @@ body {
 		</form:form>
 
 	</div>
+
 	<script src="<c:url value='/template/admin/validation.js'/>"></script>
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
@@ -199,6 +202,6 @@ body {
 		});
 	</script>
 
-	
+
 </body>
 </html>

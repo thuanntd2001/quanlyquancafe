@@ -50,7 +50,15 @@
 				<c:url value="hoa-don.htm" var="pagedLink">
 					<c:param name="p" value="~" />
 				</c:url>
-                
+                <form class="input-group" style="margin: 20px 0" method="post">
+					<div>
+						<input id="search-input" type="search" name="searchInput"
+							class="form-control" placeholder="Tìm kiếm"/>
+					</div>
+					<button id="search-button" type="submit" class="btn btn-primary" name="btnsearch">
+						<i class="fas fa-search"></i>
+					</button>
+				</form>
                 <table class="table table-striped datatable shadow-box bg-white">
                     <thead>
                         <tr>

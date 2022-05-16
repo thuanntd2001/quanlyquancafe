@@ -186,6 +186,7 @@
 													</div>
 												</div>
 
+
 												<div class="row mb-3">
 													<label class="col-md-4 col-lg-3 col-form-label">SDT</label>
 													<div class="col-md-8 col-lg-9">
@@ -352,10 +353,9 @@ UùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶ�
 	</div>
 	<jsp:include page="/common/web/footer.jsp" />
 
-	<script src="<c:url value='/template/admin/validation.js'/>"></script>
-	 <script>
-
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+	<script
+		src = "https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js">
+	</script>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script

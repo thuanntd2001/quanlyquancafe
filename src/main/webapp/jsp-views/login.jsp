@@ -78,7 +78,7 @@
 						<h6 class="mb-0 text-sm errors">${reCaptra}</h6>
 					</label> <input type="hidden" value="login" name="action" />
 
-
+					
 				</div>
 				<div class="card-footer text-muted">
 					<button type="submit" class="btn btn-primary">Đăng Nhập</button>
