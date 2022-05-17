@@ -81,17 +81,145 @@
 							<td>${tk.email}</td>
 
 
-							<td><a
+							<%-- <td><a
 								href="/CNPM/admin-home/formTaiKhoan.htm?linkEdit&userName=${tk.userName}">
 									<button type="button" class="btn btn-primary">SỬA</button>
-							</a></td>
+							</a></td> --%>
 							
+							<!--  -->
 							
+								<td>
+								<!--  --> <c:choose>
+									<c:when test="${ tk.chucVu.id == 1}">
+										<button name="btnxoa1" type="button" class="btn btn-primary"
+											data-toggle="modal" data-target="#nadmin">
+											Đặt lại mật khẩu
+										</button>
+
+										<!-- Modal -->
+										<div class="modal fade" id="nadmin" tabindex="-1"
+											role="dialog" aria-labelledby="exampleModalLabel"
+											aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">Không thể sửa tài khoản của
+														admin</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">OK</button>
+														<!-- nut xoa -->
+
+
+
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</c:when>
+									<c:when test="${ tk.chucVu.id != 1}">
+
+										<button name="btnxoa" type="button" class="btn btn-primary"
+										data-toggle="modal" data-target="#n1-${tk.userName}">
+										Đặt lại mật khẩu
+									</button>
+
+								</div> <!-- Modal -->
+								<div class="modal fade" id="n1-${tk.userName}" tabindex="-1"
+									role="dialog" aria-labelledby="exampleModalLabel"
+									aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">Bạn có chắc muốn đặt lại mật khẩu</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Thoát</button>
+												<!-- nut xoa -->
+												<a
+													href="/CNPM/admin-home/admin-taikhoan.htm?linkReset&userName=${tk.userName}"<%--
+																		href="/CNPM/admin-home/index.htm?linkDelete&id=${nv.maNV}"
+																		--%>>
+													<button name="btnXOA" id="#exampleModal2" type="button"
+														class="btn btn-warning">Lưu</button>
+												</a>
+
+
+											</div>
+										</div>
+									</div>
+								</div>
+									</c:when>
+								</c:choose>
+							</td>
+							<!--  -->
+
+							<td>
+								<!--  --> <c:choose>
+									<c:when test="${ tk.chucVu.id == 1}">
+										<button name="btnxoa1" type="button" class="btn btn-primary"
+											data-toggle="modal" data-target="#nadmin">
+											SỬA
+										</button>
+
+										<!-- Modal -->
+										<div class="modal fade" id="nadmin" tabindex="-1"
+											role="dialog" aria-labelledby="exampleModalLabel"
+											aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">!!!</h5>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">Không thể sửa tài khoản của
+														admin</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">OK</button>
+														<!-- nut xoa -->
+
+
+
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</c:when>
+									<c:when test="${ tk.chucVu.id != 1}">
+
+										<a
+											href="/CNPM/admin-home/formTaiKhoan.htm?linkEdit&userName=${tk.userName}">
+											<button type="button" class="btn btn-primary">SỬA</button>
+										</a>
+									</c:when>
+								</c:choose>
+							</td>
+							<!--  -->
+
+
 							<!-- xóa -->
 							<td>
-						
-						
-								<div  class="row">
+
+
+								<div class="row">
 
 
 									<button name="btnxoa" type="button" class="btn btn-warning"
@@ -130,9 +258,9 @@
 										</div>
 									</div>
 								</div>
-								
+
 							</td>
-							
+
 							<!-- end xóa -->
 						</tr>
 
