@@ -119,9 +119,9 @@ public class GoiMonController {
 					// neu ban ko ai ngoi set la da dat
 					if (listBan.get((int) findBan(datBan.getBan().getId(), listBan)).getTinhTrang() == 0)
 						if (datBan.getTgDuKien().before(tgdk_ts)) {
-							/*
-							 * listBan.get((int) findBan(datBan.getBan().getId(), listBan)).setTinhTrang(3);
-							 */
+							
+							  listBan.get((int) findBan(datBan.getBan().getId(), listBan)).setTinhTrang(3);
+							 
 							System.out.println("da dat" + datBan.getId());
 						}
 

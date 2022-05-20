@@ -191,7 +191,7 @@
 													<label class="col-md-4 col-lg-3 col-form-label">SDT</label>
 													<div class="col-md-8 col-lg-9">
 														<form:input id="sdt" cssClass="form-control" path="sdt"
-															minlength="10" pattern="^[0-9]{10,15}$" required="true" />
+															minlength="10" maxlength="10" pattern="^[0-9]{10,15}$" required="true" />
 													</div>
 
 												</div>
@@ -329,9 +329,7 @@ UùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶ�
 																class="file-upload" name="avt" /> <i
 																class="fas fa-upload"></i>
 														</div>
-														<a href="#" class="btn btn-danger btn-sm"
-															title="Remove my profile image"> <i
-															class="fas fa-trash-alt"></i></a> <input type="submit"
+														<input type="submit"
 															value="Lưu" class="btn btn-info btn-sm">
 													</div>
 												</div>

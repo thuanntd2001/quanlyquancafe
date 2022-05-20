@@ -114,7 +114,7 @@ public class AdminUser {
 		  Password());
 		 
 
-		return "admin/user";
+		return "redirect:/admin-home/admin-user.htm";
 	}
 
 	public Integer updateInfo(HttpServletRequest request, NhanVienEntity nv,
@@ -157,32 +157,32 @@ public class AdminUser {
 		Long id = user1.getID();
 		// validation
 		if (password.getPassword().equals("")) {
-			er.rejectValue("password", "changePW", "Vui lòng nhập password");
+			er.rejectValue("password", "changePW", "Vui lòng nhập mật khẩu");
 		}
 		if (!password.getPassword().equals(user1.getPasswd())) {
-			er.rejectValue("password", "changePW", "Vui lòng nhập lại password");
+			er.rejectValue("password", "changePW", "Vui lòng nhập lại mật khẩu");
 		}
 		if (password.getNewpassword().equals("")) {
-			er.rejectValue("newpassword", "changePW", "Vui lòng nhập password mới");
+			er.rejectValue("newpassword", "changePW", "Vui lòng nhập mật khẩu mới");
 		}
 		if (password.getRenewpassword().equals("")) {
-			er.rejectValue("renewpassword", "changePW", "Vui lòng nhập lại password mới");
+			er.rejectValue("renewpassword", "changePW", "Vui lòng nhập lại mật khẩu mới");
 		}
 		if (!password.getNewpassword().equals(password.getRenewpassword())) {
-			er.rejectValue("renewpassword", "changePW", "Vui lòng nhập password đúng");
+			er.rejectValue("renewpassword", "changePW", "Vui lòng nhập mật khẩu đúng");
 		}
 
 		// end validation
 		if (er.hasErrors()) {
-			session.setAttribute("message1", "Cập nhật password không thành công, kiểm tra lại các trường");
+			session.setAttribute("message1", "Cập nhật mật khẩu không thành công, kiểm tra lại các trường");
 
 		} else {
 			Integer temp = changePW(request, password.getPassword(), password.getNewpassword(),
 					password.getRenewpassword());
 			if (temp != 0) {
-				session.setAttribute("message1", "Cập nhật password thành công");
+				session.setAttribute("message1", "Cập nhật mật khẩu thành công");
 			} else {
-				session.setAttribute("message1", "Cập nhật password không thành công");
+				session.setAttribute("message1", "Cập nhật mật khẩu không thành công");
 			}
 		}
 
