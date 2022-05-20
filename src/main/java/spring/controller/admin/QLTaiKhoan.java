@@ -310,8 +310,8 @@ public class QLTaiKhoan {
 
 		
 			UserTBEntity tmp = this.getTaiKhoan(userName);
-			String generatedString = RandomStringUtils.randomNumeric(6);//tạo chuỗi kí tự số độ dài là 6
-			tmp.setPasswd(generatedString);
+		//	String generatedString = RandomStringUtils.randomNumeric(6);//tạo chuỗi kí tự số độ dài là 6
+			tmp.setPasswd("123456");
 			Integer temp = this.updateTK(tmp);
 		
 		if (temp != 0) {

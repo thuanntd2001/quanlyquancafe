@@ -65,7 +65,7 @@
 				<thead>
 					<tr>
 						<th scope="row">Tên Tài Khoản</th>
-						<th scope="row">Mật Khẩu</th>
+						<!-- <th scope="row">Mật Khẩu</th> -->
 						<th scope="row">Chức Vụ</th>
 						<th scope="row">Email</th>
 
@@ -76,7 +76,7 @@
 					<c:forEach var="tk" items="${pagedListHolder.pageList}">
 						<tr>
 							<td>${tk.userName}</td>
-							<td>${tk.passwd}</td>
+							<%-- <td>${tk.passwd}</td> --%>
 							<td>${tk.chucVu.tenChucVu}</td>
 							<td>${tk.email}</td>
 
