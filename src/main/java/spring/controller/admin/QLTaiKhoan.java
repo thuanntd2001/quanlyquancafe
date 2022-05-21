@@ -1,5 +1,6 @@
 package spring.controller.admin;
-
+import org.apache.commons.lang3.RandomStringUtils;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.entity.ChucVuEntity;
 import spring.entity.NhanVienEntity;
+import spring.entity.ThucDonEntity;
 import spring.entity.UserTBEntity;
 
 @Transactional
@@ -43,14 +45,7 @@ public class QLTaiKhoan {
 		return "admin/qltaikhoan";
 	}
 
-	// show form
-	@RequestMapping(value = "formTaiKhoan", method = RequestMethod.GET)
-	public String formInputTaikhoan(ModelMap model) {
-		model.addAttribute("tk", new UserTBEntity());
-		model.addAttribute("chucvus", this.getChucVus());
-
-		return "admin/form/inputTaiKhoan";
-	}
+	
 
 	public List<ChucVuEntity> getChucVus() {
 		Session session = factory.getCurrentSession();
@@ -80,44 +75,74 @@ public class QLTaiKhoan {
 	}
 
 	// thêm
-	public boolean CheckUserName(String username) {
+	public int CheckUserName_Email(String username, String email) { // check xem email và username đã có hay chưa
 		List<UserTBEntity> list = getTaiKhoans();
 		int n = list.size();
 		String user;
+		String emailtmp;
 		for (int i = 0; i < n; i++) {
 			user = list.get(i).getUserName();
 			if (user.equals(username)) {
-				return true;
+				return 1;
+			}
+
+			emailtmp = list.get(i).getEmail();
+			if (emailtmp.equals(email)) {
+				return 2;
 			}
 		}
-		return false;
+		return 0;
 	}
 
+	// show form
+		@RequestMapping(value = "formTaiKhoan", method = RequestMethod.GET)
+		public String formInputTaikhoan(ModelMap model) {
+			model.addAttribute("tk", new UserTBEntity());
+			model.addAttribute("chucvus", this.getChucVus());
+			/*model.addAttribute("fixmanv", "false");*/
+			model.addAttribute("doc", "false");
+			return "admin/form/inputTaiKhoan";
+		}
 	@RequestMapping(value = "formTaiKhoan", params = "Insert", method = RequestMethod.POST)
 	public <E> String addTaiKhoan(HttpServletRequest request, ModelMap model, @ModelAttribute("tk") UserTBEntity tk) {
 		String error = "";
 		Integer temp = 0;
-
-		if (CheckUserName(tk.getUserName())) {
+		int check = CheckUserName_Email(tk.getUserName(), tk.getEmail());
+		
+		if (tk.getUserName().trim().equals("")) {
+			error = "Tên tài khoản không được để trống!";
+		} else if (check == 1) {
 			error = "vì tên tài khoản đã tồn tại!!!";
+		} else if (check == 2) {
+			error = "email không được trùng!!!";
 		} else {
 			String maNVtmp = request.getParameter("manv");
-			
+
 			Integer maNV = Integer.parseInt(maNVtmp);
 			String tmp = request.getParameter("chucvu").trim();
 			Integer idChucVU = Integer.parseInt(tmp);
+			if(CheckMaNhanVien(maNV)==false) {
+				System.out.println(maNV);
+				error = "không tồn tại nhân viên";
+			}else {
+				
 			tk.setUsernv(getNV(maNV));
 			tk.setChucVu(getChucVu(idChucVU));
 			tk.setStatus(1);
 			tk.setIcon("1");
+			String generatedString = RandomStringUtils.randomNumeric(6);//tạo chuỗi kí tự số độ dài là 6
+			tk.setPasswd(generatedString);
+			/*listError = checkInfo(tk);*/
+
 			temp = this.insertTaiKhoan(tk);
+			 }
 		}
 
 		if (temp != 0) {
 			model.addAttribute("message", "Thêm mới thành công");
 
 		} else {
-			model.addAttribute("message", "Thêm thất bại " + error);
+			model.addAttribute("message", "Thêm thất bại " + error + " ");
 		}
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getTaiKhoans());
@@ -165,7 +190,7 @@ public class QLTaiKhoan {
 
 	public List<UserTBEntity> searchTaiKhoan(String name) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM UserTBEntity where chucVu.tenChucVu = :name OR email like :name";
+		String hql = "FROM UserTBEntity where chucVu.tenChucVu like :name OR email like :name OR userName like :name ";
 		Query query = session.createQuery(hql);
 
 		query.setParameter("name", "%" + name + "%");
@@ -180,43 +205,58 @@ public class QLTaiKhoan {
 
 		model.addAttribute("tk", this.getTaiKhoan(tk.getUserName()));
 		model.addAttribute("maNV", this.getTaiKhoan(tk.getUserName()).getUsernv().getMaNV());
-		model.addAttribute("chucvus", this.getChucVus());
+		model.addAttribute("chucvus", this.getChucVus_kAdmin());
 		model.addAttribute("idCV", this.getTaiKhoan(tk.getUserName()).getChucVu().getId());
-		/* System.out.println(tk.getUserName()); */
-
-		/*
-		 * System.out.println(tk.getEmail()); System.out.println(tk.getIcon());
-		 * System.out.println(tk.getUsernv().getMaNV());
-		 * System.out.println(tk.getUserName());
-		 */
-
+		
+		model.addAttribute("fixmanv", "true");// không đc sủa mã username
+		model.addAttribute("doc", "readonly");// không được sửa mã nhân viên
 		model.addAttribute("btnupdate", "true");
 		return "admin/form/inputTaiKhoan";
+	}
+
+	public List<NhanVienEntity> getNhanVien() {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM NhanVienEntity where daNghi = false";
+		Query query = session.createQuery(hql);
+		List<NhanVienEntity> list = query.list();
+		return list;
+	}
+
+	public boolean CheckMaNhanVien(long manv) { // nếu có nhân viên đang làm việc trả về true
+		List<NhanVienEntity> list = getNhanVien();
+		int n = list.size();
+		NhanVienEntity nv;
+		for (int i = 0; i < n; i++) {
+			nv = list.get(i);
+			if (manv == nv.getMaNV() && nv.getDaNghi()  == false) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@RequestMapping(value = "formTaiKhoan", params = "btnupdate", method = RequestMethod.POST)
 	public <E> String editTK(HttpServletRequest requets, ModelMap model, @ModelAttribute("tk") UserTBEntity tk) {
 
-		String error = "";
 		Integer temp = 0;
-		System.out.println(CheckUserName(tk.getUserName()));
-		if (CheckUserName(tk.getUserName())) {
-			error = ", vì tên tài khoản đã tồn tại!!!";
-		} else {
-			String maNVtmp = requets.getParameter("manv");
-			Integer maNV = Integer.parseInt(maNVtmp);
-			String tmp = requets.getParameter("chucvu");
-			Integer idChucVU = Integer.parseInt(tmp);
-			tk.setUsernv(getNV(maNV));
-			tk.setChucVu(getChucVu(idChucVU));
-			tk.setStatus(1);
-			tk.setIcon("1");
-			temp = this.updateTK(tk);
-		}
+
+		String maNVtmp = requets.getParameter("manv");
+		Integer maNV = Integer.parseInt(maNVtmp);
+		String tmp = requets.getParameter("chucvu");
+		Integer idChucVU = Integer.parseInt(tmp);
+		
+		tk.setPasswd(getTaiKhoan(tk.getUserName()).getPasswd());
+		tk.setUsernv(getNV(maNV));
+		tk.setChucVu(getChucVu(idChucVU));
+		tk.setStatus(1);
+		tk.setIcon("1");
+		
+		temp = this.updateTK(tk);
+
 		if (temp != 0) {
 			model.addAttribute("message", "Cập nhật thành công");
 		} else {
-			model.addAttribute("message", "Cập nhật không thành công" + error);
+			model.addAttribute("message", "Cập nhật không thành công");
 
 		}
 		@SuppressWarnings("unchecked")
@@ -262,6 +302,34 @@ public class QLTaiKhoan {
 
 		return false;
 	}
+	
+	@RequestMapping(value = "admin-taikhoan", params = "linkReset", method = RequestMethod.GET)
+	public <E> String ResetMatKhau(HttpServletRequest requests, ModelMap model, @ModelAttribute("tk") UserTBEntity tk) {
+
+		String userName = tk.getUserName();
+
+		
+			UserTBEntity tmp = this.getTaiKhoan(userName);
+		//	String generatedString = RandomStringUtils.randomNumeric(6);//tạo chuỗi kí tự số độ dài là 6
+			tmp.setPasswd("123456");
+			Integer temp = this.updateTK(tmp);
+		
+		if (temp != 0) {
+			model.addAttribute("message", "Đặt lại mật khẩu thành công");
+		} else {
+			model.addAttribute("message", "Đặt lại mật khẩu thất bại");
+		}
+		@SuppressWarnings("unchecked")
+		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getTaiKhoans());
+		int page = ServletRequestUtils.getIntParameter(requests, "p", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setMaxLinkedPages(10);
+
+		pagedListHolder.setPageSize(5);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		return "admin/qltaikhoan";
+
+	}
 
 	@RequestMapping(value = "admin-taikhoan", params = "linkDelete", method = RequestMethod.GET)
 	public <E> String deleteNV(HttpServletRequest requests, ModelMap model, @ModelAttribute("tk") UserTBEntity tk) {
@@ -270,7 +338,7 @@ public class QLTaiKhoan {
 		Integer temp = 0;
 
 		String userName = tk.getUserName();
-		
+
 		System.out.println(userName);
 		System.out.println(checkAdmin(userName));
 		if (checkAdmin(userName)) {
@@ -281,9 +349,9 @@ public class QLTaiKhoan {
 			temp = this.updateTK(tmp);
 		}
 		if (temp != 0) {
-			model.addAttribute("message", "Delete thành công");
+			model.addAttribute("message", "Xóa thành công");
 		} else {
-			model.addAttribute("message", "Delete k thành công" + error);
+			model.addAttribute("message", "Xóa k thành công" + error);
 		}
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getTaiKhoans());
@@ -309,6 +377,13 @@ public class QLTaiKhoan {
 	public List<ChucVuEntity> getchucvus() {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM ChucVuEntity";
+		Query query = session.createQuery(hql);
+		List<ChucVuEntity> list = query.list();
+		return list;
+	}
+	public List<ChucVuEntity> getChucVus_kAdmin() {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM ChucVuEntity C where C.id != 1 ";
 		Query query = session.createQuery(hql);
 		List<ChucVuEntity> list = query.list();
 		return list;

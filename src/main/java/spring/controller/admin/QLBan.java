@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.entity.BanEntity;
+import spring.entity.ChiPhiEntity;
 import spring.entity.DatBanEntity;
 import spring.entity.LoaiBanEntity;
 
@@ -52,111 +53,7 @@ public class QLBan {
 		return "admin/qlban";
 	}
 	
-	//HIỂN THỊ FORM NHẬP LIỆU
-	/*@RequestMapping(value="formBan", method = RequestMethod.GET) 
-    public String formBan(ModelMap model) {
-		
-		application.setAttribute("tenLoaiaban", getLoaiBans());
-		Map<String, Integer> listLoaiBan_giathanh = new HashMap<>();
-		List<LoaiBanEntity> list=(List<LoaiBanEntity>) application.getAttribute("tenLoaiaban");
-		int n= list.size();
-		for (int i =0 ; i<n ;i++) {
-			
-			listLoaiBan_giathanh.put(list.get(i).getTenLoai(), list.get(i).getGiaDat());
-		}
-		application.setAttribute("tenloai_giathanh", listLoaiBan_giathanh);
-		
-		model.addAttribute("lb",new LoaiBanEntity());
-          return "admin/form/inputBan";
-    }*/
 	
-	/*thêm ban thêm loại bàn
-	@RequestMapping(value = "formBan",params = "Insert", method = RequestMethod.POST )
-	public <E> String add_BAN(HttpServletRequest request, ModelMap model,@ModelAttribute("lb") LoaiBanEntity lb) {
-		
-		
-		
-		BanEntity b = new BanEntity();
-		Integer soghe =  null;
-		try {
-			soghe = (int) Long.parseLong(request.getParameter("soghe"));
-		}catch (Exception e) {
-		}
-		b.setSoGhe(soghe);
-		b.setLoaiBan(lb);
-		Integer temp1 =  this.insert_Ban2(b, lb, model);
-		if(temp1 != 0) {
-		    model.addAttribute("message","them thanh cong");
-		    
-			
-		}else {
-			model.addAttribute("message","them that bai");
-		}
-		@SuppressWarnings("unchecked")
-		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getBans());
-		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
-		pagedListHolder.setPage(page);
-		pagedListHolder.setMaxLinkedPages(10);
-	
-		pagedListHolder.setPageSize(3);
-		model.addAttribute("pagedListHolder", pagedListHolder);
-		//model.addAttribute("bans", list);
-		return "admin/qlban";
-	}
-	
-	public Integer insert_Ban2(BanEntity b, LoaiBanEntity lb, ModelMap model) {
-		Session session = factory.openSession();
-		Transaction t = session.beginTransaction();
-		try {
-			Integer tmp = this.insert_LoaiBan(lb);
-			if(tmp != 0) {
-			    model.addAttribute("message","them loai ban thanh cong");
-			    session.save(b);
-				
-			}else {
-				model.addAttribute("message","them loai ban that bai");
-				
-				
-			}
-			t.commit();
-		}catch(Exception e) {
-			t.rollback();
-			return 0;
-		}finally {
-			session.close();
-		}
-		return 1;
-	} 
-	
-	public Integer insert_Ban(BanEntity b) {
-		Session session = factory.openSession();
-		Transaction t = session.beginTransaction();
-		try {
-			session.save(b);
-			t.commit();
-		}catch(Exception e) {
-			t.rollback();
-			return 0;
-		}finally {
-			session.close();
-		}
-		return 1;
-	} 
-	
-	public Integer insert_LoaiBan(LoaiBanEntity lb) {
-		Session session = factory.openSession();
-		Transaction t = session.beginTransaction();
-		try {
-			session.save(lb);
-			t.commit();
-		}catch(Exception e) {
-			t.rollback();
-			return 0;
-		}finally {
-			session.close();
-		}
-		return 1;
-	} */
 	
  //hiển thị form
 	@RequestMapping(value="formBan", method = RequestMethod.GET) 
@@ -165,25 +62,43 @@ public class QLBan {
           return "admin/form/inputBan1";
     }
 	
+	public List<String> checkInfo(BanEntity b ) {
+
+		List<String> listError = new ArrayList<>();
+
+		if (b.getSoGhe()==null) {
+			listError.add("chưa nhập số ghế");
+		}
+		
+		
+		return listError;
+		
+
+	}
+	
 	//thêm bàn xổ combobox
 	@RequestMapping(value = "formBan",params = "Insert", method = RequestMethod.POST )
 	public <E> String add_BAN(HttpServletRequest request, ModelMap model /*,@ModelAttribute("lb") LoaiBanEntity lb*/ ) {
-			
-		String id = request.getParameter("loaiBan"); 
-		int id1 = Integer.parseInt(id);
-		String a = request.getParameter("soGhe");
-		int soghe = Integer.parseInt(a);
 		BanEntity ban = new BanEntity();
+		String id = request.getParameter("loaiBan"); 
+		int id1=1;//mặc định là bàn thường
+		id1 = Integer.parseInt(id);
+		
+		String a = request.getParameter("soGhe");
+		
+		int soghe = Integer.parseInt(a);
+		
 		ban.setSoGhe(soghe);
 		ban.setTinhTrang(0);
 		ban.setLoaiBan(getLoaiBan(id1));
+		List<String> listError = checkInfo(ban);
 		Integer temp1 = this.InsertBan(ban);
 		if(temp1 != 0) {
-		    model.addAttribute("message","them thanh cong");
+		    model.addAttribute("message","Thêm thành công");
 		    
 			
 		}else {
-			model.addAttribute("message","them that bai");
+			model.addAttribute("message","Thêm thất bại! "+listError);
 		}
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getBans());
@@ -324,7 +239,7 @@ public class QLBan {
 	}
 	public List<BanEntity> searchBan(String name) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM BanEntity where id = :id OR soGhe = :soGhe OR loaiBan.tenLoai LIKE :name OR loaiBan.giaDat = :soGhe";
+		String hql = "FROM BanEntity where id = :id OR soGhe = :soGhe OR loaiBan.tenLoai LIKE :name OR convert(varchar,loaiBan.giaDat) like :name";
 		Query query = session.createQuery(hql);
 		Long id = null;
 		Integer soGhe = null;
@@ -357,10 +272,10 @@ public class QLBan {
 		//System.out.println(getBan(id).ge);
 		
 		if(temp != 0) {
-			model.addAttribute("message","Delete thành công");
+			model.addAttribute("message","Xóa thành công");
 		}
 		else {
-			model.addAttribute("message", "Delete không thành công");
+			model.addAttribute("message", "Xóa không thành công! Bàn đã có người đặt");
 		}
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getBans());

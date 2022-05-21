@@ -2,6 +2,7 @@ package spring.controller.admin;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -58,6 +59,34 @@ public class QLNhapHang {
 		return "admin/form/inputNhapHang";
 	}
 
+	public List<String> checkInfo(ChiPhiEntity cp ) {
+
+		List<String> listError = new ArrayList<>();
+
+		if (cp.getDv().trim().equals("")) {
+			listError.add("chưa nhập dịch vụ");
+		}
+		if (cp.getLoai().trim().equals("")) {
+			listError.add("chưa nhập chưa nhập loại DV");
+		}
+		if (cp.getTenNL().trim().equals("")) {
+			listError.add("chưa nhập nguyên liệu");
+		}
+		if (cp.getSoLuong()==null) {
+			listError.add("chưa nhập số lượng");
+		}
+		if (cp.getGiaMoiDV()==null) {
+			listError.add("chưa chọn giá mỗi dịch vụ");
+		}
+		if (cp.getDv().trim().equals("")) {
+			listError.add("chưa chọn đơn vị");
+		}
+		
+		return listError;
+		
+
+	}
+
 	/* thêm đơn nhập hàng */
 	@RequestMapping(value = "formNhapHang", params = "Insert", method = RequestMethod.POST)
 	public <E> String add_DonNhapHang(HttpServletRequest request, ModelMap model,
@@ -75,6 +104,7 @@ public class QLNhapHang {
 		} catch (Exception e) {
 			nh.setNgayNhap(new Date());
 		}
+		List<String> listError = checkInfo(nh);
 		Integer temp = this.insert_NhapHang(nh);
 
 		if (temp != 0) {
@@ -89,7 +119,7 @@ public class QLNhapHang {
 			nh.setTenNL(null);
 
 		} else {
-			model.addAttribute("message", "Thêm thất bại, vui lòng nhập đúng định dạng");
+			model.addAttribute("message", "Thêm thất bại! "+listError);
 		}
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getDonNhapHangs());
@@ -149,18 +179,16 @@ public class QLNhapHang {
 		nh.setCpnv(this.getNV(idnv));
 
 		nh.setNgayNhap(new Date());
-
+		List<String> listError = checkInfo(nh);
 		Integer temp = this.updateNH(nh);
 		if (temp != 0) {
 			model.addAttribute("message", "Cập nhật thành công");
 
 		} else {
-			model.addAttribute("message", "Cập nhật không thành công");
+			model.addAttribute("message", "Cập nhật không thành công! "+listError);
 
 		}
-		
-		 
-		 
+
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getDonNhapHangs());
 		int page = ServletRequestUtils.getIntParameter(requets, "p", 0);
@@ -209,7 +237,7 @@ public class QLNhapHang {
 
 	public List<ChiPhiEntity> searchDonNhapHang(String name) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM ChiPhiEntity where tenNL like :ngay OR ngayNhap like :ngay";
+		String hql = "FROM ChiPhiEntity where tenNL like :ngay OR ngayNhap like :ngay OR loai like :ngay OR convert(varchar,giaMoiDV) like :ngay OR convert(varchar,cpnv.maNV) like :ngay";
 		Query query = session.createQuery(hql);
 		query.setParameter("ngay", "%" + name + "%");
 		List<ChiPhiEntity> list = query.list();
@@ -226,9 +254,9 @@ public class QLNhapHang {
 		Integer temp = this.deleteDonNhapHang(this.getDonNhapHang(id));
 
 		if (temp != 0) {
-			model.addAttribute("message", "Delete thành công");
+			model.addAttribute("message", "Xóa thành công");
 		} else {
-			model.addAttribute("message", "Delete không thành công");
+			model.addAttribute("message", "Xóa không thành công");
 		}
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getDonNhapHangs());

@@ -1,7 +1,9 @@
 package spring.entity;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,6 +38,7 @@ public class HoaDonEntity {
 
 	@OneToMany(mappedBy = "hoaDon", fetch = FetchType.EAGER)
 	private Collection<ChiTietHDEntity> chiTietHD;
+
 
 	@ManyToOne
 	@JoinColumn(name = "NVTHUCHIEN")

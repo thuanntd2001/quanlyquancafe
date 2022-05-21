@@ -36,7 +36,7 @@ body {
 				<div class="form-group col-md-6">
 					<label>ID</label>
 					<br>
-					<form:input id="id" path="id" type="text" placeholder="" />
+					<form:input required="true" minlenth="1" readonly="${read}" id="id" path="id" type="text" placeholder="" />
 						<span class="form-message"></span>
 				</div>
 
@@ -65,7 +65,7 @@ body {
 				<div class="form-group col-md-6">
 					<label>Tên Thức Uống</label>
 					<br>
-					 <input id="tenTU" value="${ten}" name="ten"
+					 <input id="tenTU" required="true" minlength="1" value="${ten}" name="ten"
 						type="text" />
 							<span class="form-message"></span>
 				</div>
@@ -74,8 +74,8 @@ body {
 					<label>Giá Thành</label>
 					
 					<br>
-					 <input id="giathanh" value="${gia}" name="gia"
-						type="number" />
+					 <input id="giathanh" min="1" max="1000000" value="${gia}" name="gia"
+						type="number" required="true" />
 						<span class="form-message"></span>
 				</div>
 			</div>

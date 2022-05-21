@@ -41,18 +41,23 @@ body {
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label>UserName</label> <br>
-					<form:input pattern="^[a-zA-Z0-9]{3,50}$" id="username" path="userName" type="text" />
+					<form:input  maxlength="20" minlength="3" readonly="${fixmanv}"
+						pattern="^[a-zA-Z].{3,20}$" required="true" id="username"
+						path="userName" type="text" />
 					<span class="form-message"></span>
 				</div>
 			</div>
-			<div class="form-group">
-				<label>Mã Nhân Viên</label><br> <input id="manv"
-					value="${maNV}" name="manv" min="1" pattern="^[0-9]{1,5}$" required="true" type="number"
-					class="form-control" /> <span class="form-message"></span>
+			<div class="form-group"> 
+				<label>Mã Nhân Viên</label><br> <input id="manv" ${doc}
+					value="${maNV}" name="manv" min="1" pattern="^[0-9]{1,10}$"
+					required="true" type="number" class="form-control" /> <span
+					class="form-message"></span>
 			</div>
 			<div class="form-row">
+		
+				
 
-				<div class="form-group col-md-4">
+				<%-- <div class="form-group col-md-4">
 					<label for="password" class="form-label">Mật khẩu</label>
 					<form:input id="password" path="passwd" type="password"
 						placeholder="Nhập mật khẩu" class="form-control" />
@@ -65,7 +70,7 @@ body {
 						name="password_confirmation" placeholder="Nhập lại mật khẩu"
 						type="password" class="form-control"> <span
 						class="form-message"></span>
-				</div>
+				</div> --%>
 
 			</div>
 			<div class="form-row">
@@ -79,6 +84,7 @@ body {
 									<option value="${cv.id}"
 										<c:if test="${cv.id == idCV}" >selected</c:if>>
 										${cv.tenChucVu}</option>
+
 								</c:forEach>
 							</select>
 						</h5>
@@ -110,20 +116,20 @@ body {
 								formGroupSelector : '.form-group',
 								errorSelector : '.form-message',
 								rules : [
-										Validator.isRequired('#username',
-												'Vui lòng nhập tên đăng nhập'),
+										/* Validator.isRequired('#username',
+												'Vui lòng nhập tên đăng nhập'), */
 										Validator.isRequired('#manv',
 												'Vui lòng nhập mã nhân viên'),
 										Validator.isRequired('#email',
 												'Vui lòng địa chỉ email'),
 										Validator.minLength('#cmnd', 9),
 										Validator.minLength('#sdt', 10),
-										Validator.minLength('#password', 6),
+										/* Validator.minLength('#password', 6),
 										Validator
 												.isRequired('#password_confirmation'),
 										Validator
 												.isConfirmed(
-														'#password_confirmation',
+														'#password_confirmation', */
 														function() {
 															return document
 																	.querySelector('#form-1 #password').value;
