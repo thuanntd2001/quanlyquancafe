@@ -104,6 +104,7 @@ a {
 .main {
     padding-top: 76px;
     background-color: #f6f9ff;
+    min-height: 650px;
 }
 @media (min-width: 1200px) {
     .main {

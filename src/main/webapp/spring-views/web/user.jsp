@@ -328,9 +328,7 @@ UùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶ�
 																class="file-upload" name="avt" /> <i
 																class="fas fa-upload"></i>
 														</div>
-														<a href="#" class="btn btn-danger btn-sm"
-															title="Remove my profile image"> <i
-															class="fas fa-trash-alt"></i></a> <input type="submit"
+														<input type="submit"
 															value="Lưu" class="btn btn-info btn-sm">
 													</div>
 												</div>
@@ -353,7 +351,7 @@ UùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶ�
 	<jsp:include page="/common/web/footer.jsp" />
 
 	<script src="<c:url value='/template/admin/validation.js'/>"></script>
-	 <script>
+	 <script
 
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 	<script
