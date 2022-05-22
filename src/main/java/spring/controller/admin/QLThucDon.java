@@ -207,10 +207,10 @@ public class QLThucDon {
 		
 		Integer temp = this.deleteThucDon(td);
 		if(temp != 0) {
-			model.addAttribute("message","Delete thành công");
+			model.addAttribute("message","Xóa thành công");
 		}
 		else {
-			model.addAttribute("message", "Delete không thành công ! Thực đơn đã có trong hóa đơn");
+			model.addAttribute("message", "Xóa không thành công ! Thực đơn đã có trong hóa đơn");
 		}
 		@SuppressWarnings("unchecked")
 		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getThucDons());

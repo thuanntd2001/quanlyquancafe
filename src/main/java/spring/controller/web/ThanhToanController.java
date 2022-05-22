@@ -129,7 +129,7 @@ public class ThanhToanController {
 		// set view
 		model.addAttribute("bans", listBan);
 
-		// tim ban có id hien tai trong ds banhd hien tai
+		// tim ban cĂ³ id hien tai trong ds banhd hien tai
 		BanHoaDonModel banHD= listBHD.get((int) findBanHD(ban,listBHD));
 		HoaDonEntity HD=banHD.getHoaDon();
 		if(HD!=null)
@@ -152,9 +152,9 @@ public class ThanhToanController {
 					 banHD.setHoaDon(null);
 					 banHD.setCthds(new ArrayList<ChiTietHDEntity>());
 					 listBan.get((int) findBan(ban,listBan)).setTinhTrang(banHD.getTrangThaiCu());
-					 model.addAttribute("message", "Thanh toán thành công");
+					 model.addAttribute("message", "Thanh toán thành công!");
 				}
-				else model.addAttribute("message", "Thanh toán thất bại");
+				else model.addAttribute("message", "Thanh toán thất bại!");
 				
 			}
 			
@@ -173,7 +173,7 @@ public class ThanhToanController {
 
 		// lay data tu form
 		long ban = Long.parseLong(request.getParameter("Ban"));
-		// tim ban có id hien tai trong ds banhd hien tai
+		// tim ban cĂ³ id hien tai trong ds banhd hien tai
 		BanHoaDonModel banHD= listBHD.get((int) findBanHD(ban,listBHD));
 		
 
