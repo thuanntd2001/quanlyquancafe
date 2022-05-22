@@ -24,16 +24,9 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">
 	
 </script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href=<c:url value="/template/admin/alert.css"/>>
 
-<!-- Custom fonts for this template-->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">
-	
-</script>
 
 <!-- normal -->
 <link rel="stylesheet" type="text/css"

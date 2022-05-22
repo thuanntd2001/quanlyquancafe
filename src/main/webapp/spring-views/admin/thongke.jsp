@@ -8,6 +8,8 @@
 <jsp:include page="/common/admin/head.jsp" />
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+<link rel="stylesheet" type="text/css"
+	href=<c:url value="/template/web/simple-datatables/style.css"/>>
 </head>
 <body>
 
@@ -220,100 +222,90 @@
 							<!-- End Line Chart -->
 
 						</div>
-
-					</div>
 				</div>
 				<!-- End Reports -->
 
 
-
-				<!-- Recent Sales -->
-				<div class="col-12">
-					<div class="card recent-sales overflow-auto">
-						<div class="card-body">
-							<h5 class="card-title">
-								Doanh Thu <span>| Hóa đơn</span>
-							</h5>
-
-							<table class="table table-borderless">
-								<thead>
-									<tr>
-										<th scope="col">ID</th>
-										<th scope="col">Nhân Viên Thực Hiện</th>
-										<th scope="col">Bàn</th>
-										<th scope="col">Thời Gian</th>
-										<th scope="col">Tổng</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="hd" items="${hoaDon}">
+					<!-- Recent Sales -->
+					<div class="col-12">
+						<div class="card recent-sales overflow-auto">
+							<div class="card-body">
+								<h5 class="card-title">
+									Doanh Thu <span>| Hóa đơn</span>
+								</h5>
+	
+								<table class="table table-borderless datatable">
+									<thead>
 										<tr>
-											<th scope="row">${hd.id}</th>
-											<td>${hd.hdnv.hoTen}</td>
-											<td>${hd.ban.id }</td>
-											<td>${hd.ngayThucHien }</td>
-											<td>${tongHD.get(hoaDon.indexOf(hd))} đồng</td>
+											<th scope="col">ID</th>
+											<th scope="col">Nhân Viên Thực Hiện</th>
+											<th scope="col">Bàn</th>
+											<th scope="col">Thời Gian</th>
+											<th scope="col">Tổng</th>
 										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-
+									</thead>
+									<tbody>
+										<c:forEach var="hd" items="${hoaDon}">
+											<tr>
+												<th scope="row">${hd.id}</th>
+												<td>${hd.hdnv.hoTen}</td>
+												<td>${hd.ban.id }</td>
+												<td>${hd.ngayThucHien }</td>
+												<td>${tongHD.get(hoaDon.indexOf(hd))} đồng</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+	
+							</div>
+	
 						</div>
-
 					</div>
-				</div>
-				<!-- End Recent Sales -->
-
-				<!-- Top Selling -->
-				<div class="col-12">
-					<div class="card top-selling overflow-auto">
-						<div class="card-body pb-0">
-							<h5 class="card-title">Chi Phí</h5>
-							<%-- <jsp:useBean id="pagedListHolder" scope="request"
-								type="org.springframework.beans.support.PagedListHolder" />
-							<c:url value="thong-ke.htm" var="pagedLink">
-								<c:param name="p" value="~" />
-							</c:url> --%>
-							<table class="table table-borderless">
-								<thead>
-									<tr>
-										<th scope="row">Mã Đơn</th>
-										<th scope="col">Tên NL</th>
-										<th scope="col">Ngày Nhập</th>
-										<th scope="col">Số Lượng</th>
-										<th scope="col">Giá DV</th>
-										<th scope="col">Loại Hàng</th>
-										<th scope="col">Nhà Cung Cấp</th>
-										<th scope="col">Dịch Vụ</th>
-										<th scope="col">Ghi Chú</th>
-										<th scope="col">NV Tạo</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="bcp" items="${bangChiPhi}">
+					<!-- End Recent Sales -->
+	
+					<!-- Top Selling -->
+					<div class="col-12">
+						<div class="card top-selling overflow-auto">
+							<div class="card-body pb-0">
+								<h5 class="card-title">Chi Phí</h5>
+								<table class="table table-borderless datatable">
+									<thead>
 										<tr>
-											<th scope="row">${bcp.id}</th>
-											<td>${bcp.tenNL}</td>
-											<td>${bcp.ngayNhap}</td>
-											<td>${bcp.soLuong}</td>
-											<td>${bcp.giaMoiDV}</td>
-											<td>${bcp.loai}</td>
-											<td>${bcp.nhaCungCap}</td>
-											<td>${bcp.dv}</td>
-											<td>${bcp.ghiChu}</td>
-											<td>${bcp.cpnv.maNV}</td>
+											<th scope="row">Mã Đơn</th>
+											<th scope="col">Tên NL</th>
+											<th scope="col">Ngày Nhập</th>
+											<th scope="col">Số Lượng</th>
+											<th scope="col">Giá DV</th>
+											<th scope="col">Loại Hàng</th>
+											<th scope="col">Nhà Cung Cấp</th>
+											<th scope="col">Dịch Vụ</th>
+											<th scope="col">Ghi Chú</th>
+											<th scope="col">NV Tạo</th>
 										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-							<%-- <tg:paging pagedLink="${pagedLink}"
-								pagedListHolder="${pagedListHolder}"></tg:paging> --%>
+									</thead>
+									<tbody>
+										<c:forEach var="bcp" items="${bangChiPhi}">
+											<tr>
+												<th scope="row">${bcp.id}</th>
+												<td>${bcp.tenNL}</td>
+												<td>${bcp.ngayNhap}</td>
+												<td>${bcp.soLuong}</td>
+												<td>${bcp.giaMoiDV}</td>
+												<td>${bcp.loai}</td>
+												<td>${bcp.nhaCungCap}</td>
+												<td>${bcp.dv}</td>
+												<td>${bcp.ghiChu}</td>
+												<td>${bcp.cpnv.maNV}</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+	
 						</div>
-
 					</div>
+					<!-- End Top Selling -->
 				</div>
-				<!-- End Top Selling -->
-		</div>
 
 		</section>
 	</div>
@@ -325,6 +317,45 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+	<script src="<c:url value='/template/web/simple-datatables/simple-datatables.js'/>"></script>
+	<script src="<c:url value='/template/web/simple-datatables/tinymce.min.js'/>"></script>
+	<script>
+        (function () {
+            /**
+   * Easy selector helper function
+   */
+            const select = (el, all = false) => {
+                el = el.trim()
+                if (all) {
+                    return [...document.querySelectorAll(el)]
+                } else {
+                    return document.querySelector(el)
+                }
+            }
+
+            /**
+             * Easy event listener function
+             */
+            const on = (type, el, listener, all = false) => {
+                if (all) {
+                    select(el, all).forEach(e => e.addEventListener(type, listener))
+                } else {
+                    select(el, all).addEventListener(type, listener)
+                }
+            }
+
+            /**
+             * Easy on scroll event listener 
+             */
+            const onscroll = (el, listener) => {
+                el.addEventListener('scroll', listener)
+            }
+            const datatables = select('.datatable', true)
+            datatables.forEach(datatable => {
+                new simpleDatatables.DataTable(datatable);
+            })
+        })();
+    </script>
 	<script src="<c:url value='/template/web/scipts.js'/>"></script>
 </body>
 </html>
