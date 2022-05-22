@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -34,7 +35,12 @@ public class AdminUser {
 	SessionFactory factory;
 	@Autowired
 	ServletContext session;
-
+	
+	public String hashPass(String matKhau) {
+		String hashpw = DigestUtils.md5Hex(matKhau);
+		return hashpw;
+	}
+	
 	@RequestMapping(value = "admin-user", method = RequestMethod.GET)
 	public String index(ModelMap model, HttpServletRequest request) {
 		
@@ -158,12 +164,11 @@ public class AdminUser {
 	public String changePassword(HttpServletRequest request, ModelMap model,
 			@ModelAttribute("password") Password password, BindingResult er) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-		Long id = user1.getID();
 		// validation
 		if (password.getPassword().equals("")) {
 			er.rejectValue("password", "changePW", "Vui lòng nhập mật khẩu");
 		}
-		if (!password.getPassword().equals(user1.getPasswd())) {
+		if (!hashPass(password.getPassword()).equals(user1.getPasswd())) {
 			er.rejectValue("password", "changePW", "Vui lòng nhập lại mật khẩu");
 		}
 		if (password.getNewpassword().equals("")) {
@@ -193,14 +198,14 @@ public class AdminUser {
 		return "redirect:admin-user.htm";
 	}
 
-	public Integer changePW(HttpServletRequest request, @ModelAttribute("password") String password,
-			@ModelAttribute("newpassword") String newpassword, @ModelAttribute("renewpassword") String renewpassword) {
+	public Integer changePW(HttpServletRequest request,String password,
+			String newpassword,String renewpassword) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
 		String id = user1.getUserName();
 		UserTBEntity user2 = this.getUser(id);
-		if (password.equals(user2.getPasswd()) && !newpassword.isEmpty() && !renewpassword.isEmpty()
+		if (hashPass(password).equals(user2.getPasswd()) && !newpassword.isEmpty() && !renewpassword.isEmpty()
 				&& newpassword.equals(renewpassword)) {
-			user2.setPasswd(newpassword);
+			user2.setPasswd(hashPass(newpassword));
 			return 1;
 		}
 		return 0;

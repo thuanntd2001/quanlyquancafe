@@ -7,6 +7,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -33,6 +34,11 @@ public class MailerController {
 	
 	@Autowired
 	SessionFactory factory;
+	
+	public String hashPass(String matKhau) {
+		String hashpw = DigestUtils.md5Hex(matKhau);
+		return hashpw;
+	}
 	
 	@RequestMapping("form")
 	public String index(ModelMap model) {
@@ -76,7 +82,7 @@ public class MailerController {
 							UserModel user = usv.findByEmail(request.getParameter("to"));
 							String id = user.getUserName();
 							UserTBEntity user2 = this.getUser(id);
-							user2.setPasswd(newPassWord);
+							user2.setPasswd(hashPass(newPassWord));
 							code = -1;
 							model.addAttribute("message", "Đổi mật khẩu thành công!");
 						} else {

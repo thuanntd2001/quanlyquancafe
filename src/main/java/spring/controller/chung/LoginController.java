@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,12 @@ public class LoginController extends HttpServlet{
 	ResourceBundle resourceBundle = ResourceBundle.getBundle("message_vi",localeVi);
 	private INhanVienService nhanVienService = new NhanVienService();
 	private IUserService userService = new UserService();
+	
+	public String hashPass(String matKhau) {
+		String hashpw = DigestUtils.md5Hex(matKhau);
+		return hashpw;
+	}
+	
 	@RequestMapping(value = "dang-nhap", method = RequestMethod.GET)
 	protected void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
@@ -43,7 +50,6 @@ public class LoginController extends HttpServlet{
 			if (message != null && alert != null) {
 				request.setAttribute("message", resourceBundle.getString(message));
 				request.setAttribute("alert", alert);
-				System.out.print(message);
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp-views/login.jsp");
 			rd.forward(request, response);
@@ -67,7 +73,7 @@ public class LoginController extends HttpServlet{
 						+ "/dang-nhap.htm?action=login&message=fail-captcha&alert=danger");
 			} else {
 				UserModel model = FormUtil.toModel(UserModel.class, request);
-				model = userService.findByUserNameAndPasswordAndStatus(model.getUserName(), model.getPasswd(), 1);
+				model = userService.findByUserNameAndPasswordAndStatus(model.getUserName(), hashPass(model.getPasswd()) , 1);
 
 				if (model != null) {
 					

@@ -9,6 +9,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -35,7 +36,12 @@ public class UserController {
 	SessionFactory factory;
 	@Autowired
 	ServletContext session;
-
+	
+	public String hashPass(String matKhau) {
+		String hashpw = DigestUtils.md5Hex(matKhau);
+		return hashpw;
+	}
+	
 	@RequestMapping(value = "user", method = RequestMethod.GET)
 	public String index(ModelMap model, HttpServletRequest request) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
@@ -131,12 +137,16 @@ public class UserController {
 	public String changePassword(HttpServletRequest request, ModelMap model,
 			@ModelAttribute("password") Password password, BindingResult er) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-		Long id = user1.getID();
 		// validation
+		System.out.println(password.getPassword().equals(""));
+		System.out.println(!hashPass(password.getPassword()).equals(user1.getPasswd()));
+		System.out.println(password.getNewpassword().equals(""));
+		System.out.println(password.getRenewpassword().equals(""));
+		System.out.println(!password.getNewpassword().equals(password.getRenewpassword()));
 		if (password.getPassword().equals("")) {
 			er.rejectValue("password", "changePW", "Vui lòng nhập password");
 		}
-		if (!password.getPassword().equals(user1.getPasswd())) {
+		if (!hashPass(password.getPassword()).equals(user1.getPasswd())) {
 			er.rejectValue("password", "changePW", "Vui lòng nhập lại password");
 		}
 		if (password.getNewpassword().equals("")) {
@@ -154,7 +164,7 @@ public class UserController {
 			session.setAttribute("message1", "Cập nhật password không thành công, kiểm tra lại các trường");
 
 		} else {
-			Integer temp = changePW(request, password.getPassword(), password.getNewpassword(),
+			Integer temp = changePW(request, hashPass(password.getPassword()), password.getNewpassword(),
 					password.getRenewpassword());
 			if (temp != 0) {
 				session.setAttribute("message1", "Cập nhật password thành công");
@@ -166,14 +176,14 @@ public class UserController {
 		return "redirect:user.htm";
 	}
 
-	public Integer changePW(HttpServletRequest request, @ModelAttribute("password") String password,
-			@ModelAttribute("newpassword") String newpassword, @ModelAttribute("renewpassword") String renewpassword) {
+	public Integer changePW(HttpServletRequest request,String password,
+			String newpassword, String renewpassword) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
 		String id = user1.getUserName();
 		UserTBEntity user2 = this.getUser(id);
 		if (password.equals(user2.getPasswd()) && !newpassword.isEmpty() && !renewpassword.isEmpty()
 				&& newpassword.equals(renewpassword)) {
-			user2.setPasswd(newpassword);
+			user2.setPasswd(hashPass(newpassword));
 			return 1;
 		}
 		return 0;

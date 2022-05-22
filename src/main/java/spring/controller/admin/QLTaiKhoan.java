@@ -1,4 +1,5 @@
 package spring.controller.admin;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,11 @@ public class QLTaiKhoan {
 	@Autowired
 	SessionFactory factory;
 
+	public String hashPass(String matKhau) {
+		String hashpw = DigestUtils.md5Hex(matKhau);
+		return hashpw;
+	}
+	
 	// CONTROLLER
 	@RequestMapping(value = "admin-taikhoan", method = RequestMethod.GET)
 	public <E> String index_TaiKhoan(HttpServletRequest request, ModelMap model) {
@@ -311,11 +317,11 @@ public class QLTaiKhoan {
 		
 			UserTBEntity tmp = this.getTaiKhoan(userName);
 		//	String generatedString = RandomStringUtils.randomNumeric(6);//tạo chuỗi kí tự số độ dài là 6
-			tmp.setPasswd("123456");
+			tmp.setPasswd(hashPass("123456"));
 			Integer temp = this.updateTK(tmp);
 		
 		if (temp != 0) {
-			model.addAttribute("message", "Đặt lại mật khẩu thành công");
+			model.addAttribute("message", "Đặt lại mật khẩu thành công, mặc định 123456");
 		} else {
 			model.addAttribute("message", "Đặt lại mật khẩu thất bại");
 		}
