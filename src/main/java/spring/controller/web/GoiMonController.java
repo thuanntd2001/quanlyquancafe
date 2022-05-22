@@ -135,7 +135,7 @@ public class GoiMonController {
 		model.addAttribute("thucDons", getThucDons());
 
 		return "web/pay";
-	}
+	}//day la comment
 
 	@RequestMapping(value = "goi-mon", method = RequestMethod.POST)
 	public String order(ModelMap model, HttpServletRequest request) {
