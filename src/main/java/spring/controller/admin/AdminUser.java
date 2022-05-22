@@ -37,12 +37,13 @@ public class AdminUser {
 
 	@RequestMapping(value = "admin-user", method = RequestMethod.GET)
 	public String index(ModelMap model, HttpServletRequest request) {
+		
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-		Long id = user1.getID();
-
+		String id = user1.getUserName();
+		
 		UserTBEntity user = this.getUser(id);
 		model.addAttribute("user", user);
-		model.addAttribute("nv", this.getNV(id));
+		model.addAttribute("nv", user.getUsernv());
 		model.addAttribute("changePW", new Password());
 		return "admin/user";
 	}
@@ -62,7 +63,8 @@ public class AdminUser {
 	public String editInfo(HttpServletRequest request, ModelMap model, @ModelAttribute("nv") NhanVienEntity nv,
 			BindingResult er) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-		Long id = user1.getID();
+	String id = user1.getUserName();
+		
 		UserTBEntity user = this.getUser(id);
 		Date ngaySinh;
 		try {
@@ -110,7 +112,7 @@ public class AdminUser {
 
 		
 		  UserTBEntity user2 = this.getUser(id); model.addAttribute("user", user2);
-		  model.addAttribute("nv", this.getNV(id)); model.addAttribute("changePW", new
+		  model.addAttribute("nv", user2.getUserName()); model.addAttribute("changePW", new
 		  Password());
 		 
 
@@ -124,7 +126,8 @@ public class AdminUser {
 		try {
 			session.update(nv);
 			UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-			Long id = user1.getID();
+			String id = user1.getUserName();
+			
 			UserTBEntity user2 = this.getUser(id);
 			user2.setEmail(user.getEmail());
 			t.commit();
@@ -143,10 +146,11 @@ public class AdminUser {
 			@ModelAttribute("password") String password, @ModelAttribute("newpassword") String newpassword,
 			@ModelAttribute("renewpassword") String renewpassword) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-		Long id = user1.getID();
+		
+		String id = user1.getUserName();
 		UserTBEntity user2 = this.getUser(id);
 		model.addAttribute("user", user2);
-		model.addAttribute("nv", this.getNV(id));
+		model.addAttribute("nv", user2.getUsernv());
 		return "admin/user";
 	}
 	
@@ -192,7 +196,7 @@ public class AdminUser {
 	public Integer changePW(HttpServletRequest request, @ModelAttribute("password") String password,
 			@ModelAttribute("newpassword") String newpassword, @ModelAttribute("renewpassword") String renewpassword) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-		Long id = user1.getID();
+		String id = user1.getUserName();
 		UserTBEntity user2 = this.getUser(id);
 		if (password.equals(user2.getPasswd()) && !newpassword.isEmpty() && !renewpassword.isEmpty()
 				&& newpassword.equals(renewpassword)) {
@@ -203,9 +207,10 @@ public class AdminUser {
 	};
 	
 
-	public UserTBEntity getUser(Long id) {
+
+	public UserTBEntity getUser(String id) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM UserTBEntity where usernv.maNV =:id";
+		String hql = "FROM UserTBEntity where userName = :id ";
 		Query query = session.createQuery(hql);
 		query.setParameter("id", id);
 		UserTBEntity list = (UserTBEntity) query.list().get(0);

@@ -70,6 +70,7 @@ public class LoginController extends HttpServlet{
 				model = userService.findByUserNameAndPasswordAndStatus(model.getUserName(), model.getPasswd(), 1);
 
 				if (model != null) {
+					
 					SessionUtil.getInstance().putValue(request, "USERMODEL", model);
 					NhanVienModel nv = nhanVienService.findOne(model.getID());
 					SessionUtil.getInstance().putValue(request, "NHANVIEN", nv);

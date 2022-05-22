@@ -74,7 +74,7 @@ public class MailerController {
 						if (newPassWord.equals(renewPassWord)) {
 							UserService usv = new UserService();
 							UserModel user = usv.findByEmail(request.getParameter("to"));
-							Long id = user.getID();
+							String id = user.getUserName();
 							UserTBEntity user2 = this.getUser(id);
 							user2.setPasswd(newPassWord);
 							code = -1;
@@ -124,9 +124,9 @@ public class MailerController {
 		return "mailer/form";
 	}
 	
-	public UserTBEntity getUser(Long id) {
+	public UserTBEntity getUser(String id) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM UserTBEntity where usernv.maNV =:id";
+		String hql = "FROM UserTBEntity where userName = :id ";
 		Query query = session.createQuery(hql);
 		query.setParameter("id", id);
 		UserTBEntity list = (UserTBEntity) query.list().get(0);

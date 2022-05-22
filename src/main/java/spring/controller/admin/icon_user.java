@@ -46,14 +46,16 @@ public class icon_user {
 	 * entity.getUsernv().setMaNV(model.getID()); return entity; }
 	 */
 
-	public UserTBEntity getUser(Long id) {
+	public UserTBEntity getUser(String id) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM UserTBEntity where usernv.maNV =:id";
+		String hql = "FROM UserTBEntity where userName = :id ";
 		Query query = session.createQuery(hql);
 		query.setParameter("id", id);
 		UserTBEntity list = (UserTBEntity) query.list().get(0);
 		return list;
 	}
+	
+
 
 /*	@RequestMapping(value = "user-avt", params = "btnremoveavatar", method = RequestMethod.POST)
 	public String removeAvatarr(HttpServletRequest request, ModelMap model) {
@@ -78,23 +80,29 @@ public class icon_user {
 	};
 */
 	@RequestMapping(value = "admin-user-avt", method = RequestMethod.POST)
-	public String Avt_admin(ModelMap model, @RequestParam("avt") MultipartFile avt, HttpServletRequest request,
+	public String Avt(ModelMap model, @RequestParam("avt") MultipartFile avt, HttpServletRequest request,
 			HttpServletResponse response) {
-		
+
 		try {
-			
 			Session session = factory.openSession();
 			Transaction t = session.beginTransaction();
 			UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-
+			String path=avt.getOriginalFilename().trim();
+			
+			if (path.length()>40) {
+				path=path.substring(0, 39);
+			}
+			
 			String photoPath = context
-					.getRealPath("/files/" + user1.getUserName().trim() + avt.getOriginalFilename().trim());
+					.getRealPath("/files/" + user1.getUserName().trim() + path);
+			
 
-			Long id = user1.getID();
+			String id = user1.getUserName();
 			UserTBEntity user = this.getUser(id);
+			
 			avt.transferTo(new File(photoPath));
-			user.setIcon(user.getUserName().trim() + avt.getOriginalFilename().trim());
-			user1.setIcon(user.getUserName().trim() + avt.getOriginalFilename().trim());
+			user.setIcon(user.getUserName().trim() + path);
+			user1.setIcon(user.getUserName().trim() + path);
 
 			try {
 				/*
@@ -124,5 +132,7 @@ public class icon_user {
 		return "redirect:/admin-home/admin-user.htm";
 
 	}
+
+
 
 }

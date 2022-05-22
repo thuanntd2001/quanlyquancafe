@@ -39,11 +39,10 @@ public class UserController {
 	@RequestMapping(value = "user", method = RequestMethod.GET)
 	public String index(ModelMap model, HttpServletRequest request) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-		Long id = user1.getID();
-
+		String id = user1.getUserName();
 		UserTBEntity user = this.getUser(id);
 		model.addAttribute("user", user);
-		model.addAttribute("nv", this.getNV(id));
+		model.addAttribute("nv", user.getUsernv());
 		model.addAttribute("changePW", new Password());
 		return "web/user";
 	}
@@ -52,8 +51,8 @@ public class UserController {
 	public String editInfo(HttpServletRequest request, ModelMap model, @ModelAttribute("nv") NhanVienEntity nv,
 			BindingResult er) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-		Long id = user1.getID();
-		UserTBEntity user = this.getUser(id);
+		String id = user1.getUserName();
+		UserTBEntity user2 = this.getUser(id);
 		Date ngaySinh;
 		try {
 			ngaySinh = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("ngaySinhh"));
@@ -66,7 +65,7 @@ public class UserController {
 				+ nv.getCmnd().trim().length());
 		nv.setNgaySinh(ngaySinh);
 		if (request.getParameter("email") != null && !request.getParameter("email").equals(""))
-			user.setEmail(request.getParameter("email"));
+			user2.setEmail(request.getParameter("email"));
 		else {
 			er.rejectValue("email", "Vui lòng nhập địa chỉ email");
 			System.out.print("Vui lòng nhập địa chỉ email");
@@ -90,7 +89,7 @@ public class UserController {
 			model.addAttribute("message1", "sửa thất bại, kiểm tra lai các trường");
 
 		} else {
-			Integer temp = this.updateInfo(request, nv, user);
+			Integer temp = this.updateInfo(request, nv, user2);
 			if (temp != 0) {
 				session.setAttribute("message1", "Cập nhật thành công");
 			} else {
@@ -114,7 +113,7 @@ public class UserController {
 		try {
 			session.update(nv);
 			UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-			Long id = user1.getID();
+			String id = user1.getUserName();
 			UserTBEntity user2 = this.getUser(id);
 			user2.setEmail(user.getEmail());
 			t.commit();
@@ -170,7 +169,7 @@ public class UserController {
 	public Integer changePW(HttpServletRequest request, @ModelAttribute("password") String password,
 			@ModelAttribute("newpassword") String newpassword, @ModelAttribute("renewpassword") String renewpassword) {
 		UserModel user1 = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-		Long id = user1.getID();
+		String id = user1.getUserName();
 		UserTBEntity user2 = this.getUser(id);
 		if (password.equals(user2.getPasswd()) && !newpassword.isEmpty() && !renewpassword.isEmpty()
 				&& newpassword.equals(renewpassword)) {
@@ -180,9 +179,9 @@ public class UserController {
 		return 0;
 	};
 
-	public UserTBEntity getUser(Long id) {
+	public UserTBEntity getUser(String id) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM UserTBEntity where usernv.maNV =:id";
+		String hql = "FROM UserTBEntity where userName = :id ";
 		Query query = session.createQuery(hql);
 		query.setParameter("id", id);
 		UserTBEntity list = (UserTBEntity) query.list().get(0);
