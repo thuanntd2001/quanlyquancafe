@@ -326,7 +326,7 @@ public class QLNhanVienHome {
 		
 			if(tmp.getUsernv().getMaNV() == MaNV) {
 				tmp.setStatus(0);
-				System.out.println(tmp.getUserName());
+				
 				this.updateTK(tmp);
 				
 			}

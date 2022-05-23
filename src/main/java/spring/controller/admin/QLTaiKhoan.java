@@ -136,8 +136,8 @@ public class QLTaiKhoan {
 			tk.setChucVu(getChucVu(idChucVU));
 			tk.setStatus(1);
 			tk.setIcon("1");
-			String generatedString = RandomStringUtils.randomNumeric(6);//tạo chuỗi kí tự số độ dài là 6
-			tk.setPasswd(generatedString);
+		//	sqString generatedString = RandomStringUtils.randomNumeric(6);//tạo chuỗi kí tự số độ dài là 6
+			tk.setPasswd("202cb962ac59075b964b07152d234b70");
 			/*listError = checkInfo(tk);*/
 
 			temp = this.insertTaiKhoan(tk);
