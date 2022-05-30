@@ -47,7 +47,6 @@ public class DatBanControllerHome {
 
 		pagedListHolder.setPageSize(10);
 		model.addAttribute("pagedListHolder", pagedListHolder);
-		// model.addAttribute("bans", list);
 		return "web/datban";
 	}
 
@@ -205,7 +204,7 @@ public class DatBanControllerHome {
 
 	public List<DatBanEntity> getDatBan(Long id) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM DatBanEntity where ban.id =:id AND tgDuKien > GETDATE()";
+		String hql = "FROM DatBanEntity where ban.id =:id order by tgDuKien desc";
 		Query query = session.createQuery(hql);
 		query.setParameter("id", id);
 		List<DatBanEntity> list = query.list();

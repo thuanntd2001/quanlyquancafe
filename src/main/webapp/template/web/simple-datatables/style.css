@@ -119,12 +119,12 @@
 
 .dataTable-table th {
 	vertical-align: bottom;
-	text-align: left;
 }
 
 .dataTable-table th a {
 	text-decoration: none;
 	color: inherit;
+	text-align: center;
 }
 
 .dataTable-sorter {

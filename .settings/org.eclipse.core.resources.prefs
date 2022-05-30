@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
 encoding//src/main/java/spring/controller/admin/AdminUser.java=UTF-8
 encoding//src/main/java/spring/controller/admin/QLBan.java=UTF-8
 encoding//src/main/java/spring/controller/admin/QLHoaDon.java=UTF-8
@@ -11,6 +12,7 @@ encoding//src/main/java/spring/controller/chung/IconController.java=UTF-8
 encoding//src/main/java/spring/controller/chung/LoginController.java=UTF-8
 encoding//src/main/java/spring/controller/chung/MailerController.java=UTF-8
 encoding//src/main/java/spring/controller/web/DatBanControllerHome.java=UTF-8
+encoding//src/main/java/spring/controller/web/JobController.java=UTF-8
 encoding//src/main/java/spring/controller/web/ThanhToanController.java=UTF-8
 encoding//src/main/java/spring/controller/web/UserController.java=UTF-8
 encoding//src/main/resources/message_vi.properties=ISO-8859-1

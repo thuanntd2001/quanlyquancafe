@@ -126,7 +126,6 @@
 										Bàn số:
 										<select name="Ban" id="ban">
 											<c:forEach items="${banids}" var="B">
-
 												<option value="${B}" <c:if test="${B == idBanHT }"> selected</c:if>>${B}
 												</option>
 											</c:forEach>
@@ -138,10 +137,12 @@
 										<select id="sel1" onchange="giveSelection(this.value)" class="select-menu-small"
 											name="loaiTU">
 											<c:forEach items="${loaiTUs}" var="loai">
-
-												<option value="${loai.id}">${loai.tenLoai}</option>
+												<c:if test="${loai.id != 'K' }">
+													<option value="${loai.id}">${loai.tenLoai}</option>
+												</c:if>
+												
 											</c:forEach>
-
+											<option value="K">Khác</option>
 										</select> <label>Tên:</label> <select id="sel2" class="select-menu-small"
 											name="thucDon">
 											<c:forEach items="${ thucDons}" var="TD">

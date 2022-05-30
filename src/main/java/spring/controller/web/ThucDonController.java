@@ -34,7 +34,7 @@ public class ThucDonController {
 		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(5);
 	
-		pagedListHolder.setPageSize(5);
+		pagedListHolder.setPageSize(10);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		
 		
@@ -51,7 +51,7 @@ public class ThucDonController {
 		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(5);
 	
-		pagedListHolder.setPageSize(5);
+		pagedListHolder.setPageSize(10);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		
 		

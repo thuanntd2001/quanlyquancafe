@@ -89,7 +89,6 @@
 				<tg:paging pagedLink="${pagedLink}"
 					pagedListHolder="${pagedListHolder}"></tg:paging>
 			</div>
-
 		</div>
 	</div>
 	<jsp:include page="/common/web/footer.jsp" />

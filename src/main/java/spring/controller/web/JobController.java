@@ -29,7 +29,7 @@ public class JobController {
 			@RequestParam("cv") MultipartFile cv,
 			@RequestParam("photo") MultipartFile photo) {
 		if(photo.isEmpty()||cv.isEmpty()) {
-			model.addAttribute("message", "Vui lòng nhập lại!");
+			model.addAttribute("message", "Vui lòng thêm lại!");
 		}
 		else {
 			try {

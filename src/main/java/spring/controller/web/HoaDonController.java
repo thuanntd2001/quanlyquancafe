@@ -40,7 +40,7 @@ public class HoaDonController {
 		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(5);
 	
-		pagedListHolder.setPageSize(5);
+		pagedListHolder.setPageSize(10);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		
 		List<HoaDonEntity> hoaDon = this.getHoaDon(id);
@@ -60,7 +60,7 @@ public class HoaDonController {
 		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(5);
 	
-		pagedListHolder.setPageSize(5);
+		pagedListHolder.setPageSize(10);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		
 		List<HoaDonEntity> hoaDon = this.getHoaDon(id);
@@ -78,7 +78,7 @@ public class HoaDonController {
 		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(5);
 	
-		pagedListHolder.setPageSize(5);
+		pagedListHolder.setPageSize(10);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		
 		/*List<ChiTietHDEntity> chiTietHD = this.getChiTietHD(id);
