@@ -136,8 +136,8 @@ public class QLTaiKhoan {
 			tk.setChucVu(getChucVu(idChucVU));
 			tk.setStatus(1);
 			tk.setIcon("1");
-		//	sqString generatedString = RandomStringUtils.randomNumeric(6);//tạo chuỗi kí tự số độ dài là 6
-			tk.setPasswd("202cb962ac59075b964b07152d234b70");
+			String generatedString = RandomStringUtils.randomNumeric(6);//tạo chuỗi kí tự số độ dài là 6
+			tk.setPasswd(hashPass(generatedString));
 			/*listError = checkInfo(tk);*/
 
 			temp = this.insertTaiKhoan(tk);
@@ -309,33 +309,7 @@ public class QLTaiKhoan {
 		return false;
 	}
 	
-	@RequestMapping(value = "admin-taikhoan", params = "linkReset", method = RequestMethod.GET)
-	public <E> String ResetMatKhau(HttpServletRequest requests, ModelMap model, @ModelAttribute("tk") UserTBEntity tk) {
-
-		String userName = tk.getUserName();
-
-		
-			UserTBEntity tmp = this.getTaiKhoan(userName);
-		//	String generatedString = RandomStringUtils.randomNumeric(6);//tạo chuỗi kí tự số độ dài là 6
-			tmp.setPasswd(hashPass("123456"));
-			Integer temp = this.updateTK(tmp);
-		
-		if (temp != 0) {
-			model.addAttribute("message", "Đặt lại mật khẩu thành công, mặc định 123456");
-		} else {
-			model.addAttribute("message", "Đặt lại mật khẩu thất bại");
-		}
-		@SuppressWarnings("unchecked")
-		PagedListHolder<E> pagedListHolder = new PagedListHolder<E>((List<E>) this.getTaiKhoans());
-		int page = ServletRequestUtils.getIntParameter(requests, "p", 0);
-		pagedListHolder.setPage(page);
-		pagedListHolder.setMaxLinkedPages(10);
-
-		pagedListHolder.setPageSize(5);
-		model.addAttribute("pagedListHolder", pagedListHolder);
-		return "admin/qltaikhoan";
-
-	}
+	
 
 	@RequestMapping(value = "admin-taikhoan", params = "linkDelete", method = RequestMethod.GET)
 	public <E> String deleteNV(HttpServletRequest requests, ModelMap model, @ModelAttribute("tk") UserTBEntity tk) {

@@ -73,9 +73,9 @@
                             <td>${cthd.hoaDon.id }</td>
                             <td>${cthd.thucDon.id }</td>
                             <td>${cthd.thucDon.ten }</td>
-                            <td>${cthd.thucDon.gia } đồng</td>
+                            <td>${(cthd.tongTien / cthd.soLuong) } đồng</td>
                             <td>${cthd.soLuong }</td>
-                            <td>${cthd.soLuong * cthd.thucDon.gia} đồng</td>
+                            <td>${cthd.tongTien} đồng</td>
                         </tr>
                         </c:forEach>
 
